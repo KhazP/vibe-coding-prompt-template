@@ -48,7 +48,7 @@ Transform any app idea into working code through 4 AI-powered stages using the l
 <summary><b>🤖 AI Platform (Required - Choose One)</b></summary>
 
 ### Best Free Options
-- **[AI Studio](https://aistudio.google.com)** ⭐ - Gemini 2.5 Pro free (2M tokens/month)
+- **[AI Studio](https://aistudio.google.com)** ⭐ - Gemini 2.5 Pro free (1M token context window)
 - **[Claude.ai](https://claude.ai)** - Claude 4 Sonnet
 - **[ChatGPT](https://chat.openai.com)** - GPT-5
 
@@ -277,9 +277,9 @@ your-app/
 <summary><b>Latest AI Models & Capabilities</b></summary>
 
 ### Model Updates
-- **Claude 4 Opus 4.1** - 50% faster, better at large codebases
+- **Claude 4.1 Opus ** - better at large codebases
 - **Claude 4 Sonnet** - Best coding model (72.7% on SWE-bench)
-- **Gemini 2.5 Pro** - 2M token context window
+- **Gemini 2.5 Pro** - 1M token context window
 - **GPT-5** - Improved speed and cost efficiency
 
 ### New Tools
