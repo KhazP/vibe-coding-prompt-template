@@ -40,352 +40,311 @@ Please attach files and type: A/B/C and tool numbers (e.g., "A, 4,5"):
 ## Instructions for AI Assistant
 
 <details>
-<summary><b>🤖 Best Models for Generating Instructions (2025)</b></summary>
+<summary><b>🤖 CRITICAL: How to Generate NOTES.md</b></summary>
 
-- **Claude 4 Sonnet/4.1 Opus** - Best for detailed instructions
-- **GPT-5** - Good for structured documentation
-- **Gemini 2.5 Pro** - Best for long context if documents are extensive
+### IMPORTANT: Structure Requirements
+The NOTES.md file MUST follow the exact structure below. Fill in the bracketed sections with project-specific content from the PRD and Tech Design documents. Keep all headers and sections in the exact order shown.
+
+### Content Extraction Guidelines
+- **From PRD:** Extract exact feature names, user stories, success metrics, and constraints
+- **From Tech Design:** Extract exact tech stack, architecture decisions, and implementation approaches
+- **Language Level:** Adjust explanations based on user's technical level (A/B/C)
+- **Be Specific:** Replace all bracketed placeholders with actual project details
+- **Keep Examples:** Include code examples with comments explaining the "why"
 
 </details>
 
-After receiving the files, thoroughly analyze:
+After receiving the files, extract the following:
 
-**From PRD:**
-- Product name and core purpose
-- All features (must-have, nice-to-have, not-in-MVP)
-- User stories and journeys
-- UI/UX requirements
-- Success metrics
-- Constraints and timeline
+**From PRD (MUST EXTRACT):**
+- Product name and one-line description
+- Primary user story (exact text)
+- All must-have features (exact list)
+- Nice-to-have features (exact list)
+- NOT in MVP features (exact list)
+- Success metrics (all of them)
+- UI/UX requirements (design words/vibe)
+- Timeline and constraints
 
-**From Tech Design:**
-- Chosen tech stack
-- Architecture approach
-- Implementation strategy
+**From Tech Design (MUST EXTRACT):**
+- Complete tech stack (frontend, backend, database, deployment)
+- Project structure (exact folder layout)
+- Database schema (if provided)
+- Implementation approach for each feature
+- Deployment platform and steps
+- Budget constraints
 - AI tool recommendations
-- Database schema
-- Deployment platform
-- Cost estimates
 
 **From Research (if provided):**
-- Additional context
-- Competitor insights
-- Market understanding
+- Additional context about competitors
+- Market insights
+- User research findings
 
 ## Generate NOTES.md (Universal Instructions)
 
-First, generate NOTES.md that works with ANY AI coding assistant:
+### STRICT TEMPLATE - Follow This Exactly:
 
-### NOTES.md Template:
+Generate NOTES.md using the template below. Replace ALL bracketed placeholders with actual content from the PRD and Tech Design documents. Keep all section headers exactly as shown.
 
 ```markdown
 # NOTES.md - AI Agent Instructions for [App Name]
 
-## 🤖 AI Agent: Read This First!
+## 🎯 Project Overview
 
-**CRITICAL: This is your primary instruction file. Read it completely before starting any work.**
+You're building **[App Name]** for someone with [technical level: limited coding experience/programming experience/basic coding knowledge]. Please:
+- Explain [complex concepts simply/efficiently with best practices/concepts while teaching]
+- Provide working code with clear comments
+- [Additional guidance based on level]
+- Balance simplicity with best practices
 
-You are building **[App Name]** - [one-line description from PRD].
+## 📚 What We're Building
 
-**Your Role:** Act as a senior full-stack developer who explains things clearly and builds production-ready code.
+**App:** [App Name from PRD]
+**Purpose:** [Exact one-line description from PRD]
+**Tech Stack:** 
+- **[Frontend Framework]:** [Brief explanation of what it is and why we use it]
+- **[Backend/Database]:** [Brief explanation of what it is and why we use it]
+- **[Deployment Platform]:** [Brief explanation of what it is and why we use it]
+**Learning Goals:** [Technologies they'll understand after building this]
 
-**Development Philosophy:**
-1. Build features incrementally - test each before moving on
-2. Prioritize working code over perfect code
-3. Keep solutions simple and maintainable
-4. Explain what you're doing and why
-5. Ask for clarification when requirements are unclear
+## 🛠 Setup Instructions
 
-## 📋 Project Overview
+### Prerequisites Check
+```bash
+# Ensure these are installed:
+node --version  # Should be [version from Tech Design]
+npm --version   # Should be [version from Tech Design]
+git --version   # Any recent version
+```
 
-### What We're Building
-**Product:** [App Name]  
-**Purpose:** [Expanded description from PRD]  
-**Target Users:** [From PRD]  
-**Tech Stack:** [From Tech Design]  
-**Timeline:** [From constraints]
-
-### Success Criteria
-The MVP is successful when:
-- [ ] [Success metric 1 from PRD]
-- [ ] [Success metric 2 from PRD]
-- [ ] [Success metric 3 from PRD]
-
-## 👤 User Context
-
-### Primary User Story
-[Main user story from PRD]
-
-### User Journey
-1. [Step 1 from PRD user journey]
-2. [Step 2]
-3. [Step 3]
-4. [Continue...]
-
-## 🏗 Technical Architecture
-
-### Tech Stack (Decided in Tech Design)
-- **Frontend:** [Framework from Tech Design]
-- **Backend:** [Framework/Service from Tech Design]
-- **Database:** [Database from Tech Design]
-- **Authentication:** [Auth solution]
-- **Deployment:** [Platform from Tech Design]
-- **Styling:** [CSS solution]
+### Project Initialization
+```bash
+# Step-by-step commands from Tech Design
+[Exact initialization commands]
+[Package installation commands]
+[Environment setup commands]
+```
 
 ### Project Structure
 ```
 [Exact structure from Tech Design]
 ```
 
-### Database Schema
-```sql
-[Schema from Tech Design]
+## 🚀 Implementation Phases
+
+### Phase 1: Foundation ([Timeline, e.g., Day 1-2])
+**Goal:** [Specific goal for this phase]
+
+1. **[First Setup Task]**
+   - [Specific steps]
+   - [Expected outcome]
+
+2. **[Second Setup Task]**
+   - [Specific steps]
+   - [Expected outcome]
+
+3. **Test Foundation**
+   - Action: [What to test]
+   - Expected: [What should happen]
+
+### Phase 2: Core Features ([Timeline, e.g., Day 3-7])
+**Goal:** Implement the main functionality
+
+#### Feature 1: [Exact Feature Name from PRD]
+**Learning Focus:** [New concept they'll learn]
+
+1. **Create [Component/Module Name]**
+   ```javascript
+   // File: [exact file path]
+   // This [component/module] handles [what it does]
+   // Key concepts: [list concepts introduced]
+   
+   [Code template with comments]
+   ```
+
+2. **Connect to App**
+   - Where: [File location]
+   - How: [Integration steps]
+   - Why: [Explanation]
+
+3. **Test Feature**
+   - Action: [User action to test]
+   - Expected: [Expected result]
+   - Debug: [Common issues to check]
+
+#### Feature 2: [Exact Feature Name from PRD]
+[Repeat same structure]
+
+#### Feature 3: [Exact Feature Name from PRD]
+[Repeat same structure]
+
+### Phase 3: Polish & Deploy ([Timeline, e.g., Day 8-10])
+**Goal:** Make it production-ready
+
+1. **Add Error Handling**
+   ```javascript
+   // Example of good error handling
+   [Code example with try/catch and user feedback]
+   ```
+
+2. **Style & Responsiveness**
+   - Mobile-first approach using [CSS framework]
+   - Key breakpoints: [list breakpoints]
+   - Test on: [devices to test]
+
+3. **Deploy to [Platform from Tech Design]**
+   - [Step 1 with specific action]
+   - [Step 2 with specific action]
+   - [Step 3 with specific action]
+
+## 💡 Learning Resources
+
+### For [Technology 1]:
+- **Quick Start:** [Specific resource link]
+- **Deep Dive:** [Specific resource link]
+- **Common Patterns:** [Specific resource link]
+
+### For [Technology 2]:
+[Repeat structure]
+
+### When Stuck:
+1. **Community:** [Specific Discord/Forum]
+2. **Documentation:** [Official docs link]
+3. **AI Help:** [How to ask for help effectively]
+
+## 🐛 Common Issues & Solutions
+
+### "[Specific Error Message]"
+**Why it happens:** [Simple explanation]
+**Fix:** 
+```bash
+[Exact fix commands or code]
 ```
 
-## ✨ Features to Implement
+### "[Feature] not working"
+**Check these:**
+1. [Specific thing to check]
+2. [Specific thing to check]
+3. [How to debug]
 
-### Phase 1: Foundation (Priority: CRITICAL)
+### "[Another Common Issue]"
+[Repeat structure]
 
-#### Setup & Configuration
-- [ ] Initialize project with [framework]
-- [ ] Set up [database/backend service]
-- [ ] Configure authentication
-- [ ] Set up development environment
-- [ ] Create basic routing structure
-- [ ] Implement error boundaries
-- [ ] Deploy "Hello World" to [platform]
+## 📝 Code Patterns to Use
 
-#### Feature 1: [Name from PRD]
-**User Story:** [From PRD]
-**Requirements:**
-- [Requirement 1]
-- [Requirement 2]
-- [Requirement 3]
-
-**Implementation Notes:**
-- Start with [specific approach from Tech Design]
-- Use [specific technology/library]
-- Test by [testing approach]
-
-**Success Criteria:**
-- [ ] [Measurable outcome from PRD]
-- [ ] [Measurable outcome]
-- [ ] [Measurable outcome]
-
-[Repeat for each Phase 1 feature]
-
-### Phase 2: Core Features (Priority: HIGH)
-
-[Features marked as "Must Have" in PRD]
-
-### Phase 3: Polish (Priority: MEDIUM)
-
-[Features marked as "Nice to Have" in PRD]
-
-### NOT Implementing (Out of Scope)
-
-These features are explicitly excluded from MVP:
-- ❌ [Feature from PRD "Won't Have"]
-- ❌ [Feature]
-- ❌ [Feature]
-
-## 🎨 UI/UX Requirements
-
-### Design Language
-**Vibe:** [Design words from PRD]  
-**Inspiration:** [Any mentioned in research/PRD]
-
-### Key Screens/Components
-
-1. **[Screen/Component Name]**
-   - Purpose: [What it does]
-   - Key elements: [List]
-   - User actions: [List]
-
-2. **[Screen/Component Name]**
-   [Continue for main screens]
-
-### Responsive Design
-- Mobile-first approach
-- Breakpoints: 640px, 768px, 1024px, 1280px
-- Test on: iPhone, Android, Tablet, Desktop
-
-### Accessibility
-- WCAG 2.1 AA compliance minimum
-- Semantic HTML
-- ARIA labels where needed
-- Keyboard navigation
-- Color contrast ratios
-
-## 🧪 Testing Strategy
-
-### After Each Feature
-1. **Functionality Test:** Does it work as described in PRD?
-2. **User Flow Test:** Can a user complete the journey?
-3. **Error Handling:** What happens when things go wrong?
-4. **Responsive Test:** Does it work on mobile?
-5. **Performance Test:** Is it fast enough?
-
-### Testing Checklist
-- [ ] Authentication flow works
-- [ ] Core features from PRD functional
-- [ ] No console errors
-- [ ] Mobile responsive
-- [ ] Forms have validation
-- [ ] Error messages are helpful
-- [ ] Loading states exist
-- [ ] Empty states handled
-
-## 🚀 Deployment
-
-### Platform: [From Tech Design]
-
-#### Environment Variables
-```env
-# Required environment variables
-[List from Tech Design]
-DATABASE_URL=
-API_KEY=
-[etc.]
-```
-
-#### Deployment Steps
-1. [Step from Tech Design]
-2. [Step]
-3. [Step]
-
-#### Pre-deployment Checklist
-- [ ] Environment variables configured
-- [ ] Database migrations run
-- [ ] Build succeeds locally
-- [ ] Tests pass
-- [ ] No sensitive data in code
-- [ ] README updated
-
-## 📝 Code Style Guidelines
-
-### General Principles
-1. **Clarity over cleverness** - Write code that's easy to understand
-2. **Consistent naming** - Use descriptive names (userEmail not e)
-3. **Small functions** - Each function does one thing well
-4. **Comment the why** - Explain complex logic and business rules
-5. **Handle errors gracefully** - Never let the app crash
-
-### File Naming
-- Components: PascalCase (UserProfile.jsx)
-- Utilities: camelCase (formatDate.js)
-- Styles: kebab-case (user-profile.css)
-- Constants: UPPER_SNAKE_CASE (API_BASE_URL)
-
-### Code Examples
-
-#### Good Component Structure
+### [Pattern 1 Name, e.g., "Component Structure"]
 ```javascript
-// UserCard.jsx
-import { useState } from 'react';
-import styles from './user-card.module.css';
-
-export default function UserCard({ user }) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  
-  // Business logic here
-  const formattedDate = new Date(user.createdAt).toLocaleDateString();
-  
-  return (
-    <div className={styles.card}>
-      {/* JSX here */}
-    </div>
-  );
-}
+// Always use this pattern for [use case]
+[Code template with explanatory comments]
 ```
 
-#### API Call Pattern
+### [Pattern 2 Name, e.g., "API Calls"]
 ```javascript
-// lib/api.js
-export async function fetchUser(id) {
-  try {
-    const response = await fetch(`/api/users/${id}`);
-    if (!response.ok) throw new Error('User not found');
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching user:', error);
-    throw error;
-  }
-}
+// Standard way to handle [use case]
+[Code template with error handling]
 ```
 
-## ⚠️ Important Constraints
+### [Pattern 3 Name, e.g., "State Management"]
+```javascript
+// How we manage [type of state]
+[Code template with best practices]
+```
 
-From PRD and Tech Design:
-- **Budget:** [Amount/month]
-- **Timeline:** [Launch date]
-- **Technical:** [Any limitations]
-- **Scale:** [User expectations]
+## 🧪 Testing Your Features
 
-## ❓ When You're Unsure
+### Manual Testing Checklist:
+- [ ] **[Feature 1]:** [Specific test action and expected result]
+- [ ] **[Feature 2]:** [Specific test action and expected result]
+- [ ] **[Feature 3]:** [Specific test action and expected result]
+- [ ] **Error cases:** [What errors to trigger and verify]
+- [ ] **Mobile view:** [Specific responsive checks]
 
-If something is unclear:
-1. **Check the PRD** for requirements
-2. **Check Tech Design** for implementation guidance
-3. **Ask for clarification** before making assumptions
-4. **Choose the simpler approach** when multiple options exist
-5. **Prioritize working over perfect**
+### Simple Automated Test:
+```javascript
+// Example test for [feature]
+[Basic test code with explanation]
+```
 
-## 📊 Progress Tracking
+## 📊 Understanding the Architecture
 
-Update this list as you complete tasks:
+### Data Flow:
+```
+[User Action] → [Component] → [API/Service] → [Database] → [Response] → [UI Update]
+```
 
-### Completed ✅
-- [x] Project initialized
-- [x] [Add completed items here]
+### Key Concepts Explained:
+1. **[Concept 1]:** [Simple explanation with analogy]
+2. **[Concept 2]:** [Simple explanation with analogy]
+3. **[Concept 3]:** [Simple explanation with analogy]
 
-### In Progress 🔄
-- [ ] [Current task]
+## 🚀 Deployment Guide
 
-### Blocked 🚫
-- [ ] [Any blockers]
+### Pre-deployment:
+- [ ] Remove all console.log statements
+- [ ] Test all features one final time
+- [ ] Update environment variables
+- [ ] Check [specific requirement from Tech Design]
+
+### Deploy to [Platform]:
+1. **[Step 1 Title]**
+   ```bash
+   [Exact commands]
+   ```
+   
+2. **[Step 2 Title]**
+   - [Specific action]
+   - [Expected result]
+
+3. **[Step 3 Title]**
+   - [Final verification steps]
+
+### Post-deployment:
+- [ ] Verify live site works
+- [ ] Test core user journey
+- [ ] Share URL with test users
 
 ## 🎯 Definition of Done
 
-The MVP is complete when:
-- [ ] All Phase 1 features work
-- [ ] All PRD "Must Have" features implemented
-- [ ] Basic error handling exists
-- [ ] Responsive on mobile and desktop
-- [ ] Deployed to production
-- [ ] One complete user journey works end-to-end
-- [ ] README has setup instructions
-- [ ] Basic analytics tracking works
+Your MVP is complete when:
+- [ ] All PRD features work: [List exact features from PRD]
+- [ ] Code has helpful comments explaining the "why"
+- [ ] README.md includes setup instructions
+- [ ] Deployed and accessible via URL
+- [ ] You understand how each part works
 
-## 📚 Reference Documents
+## 📁 Reference Documents
 
-For detailed information, refer to:
-- **Product Requirements:** `PRD-[AppName]-MVP.md`
-- **Technical Design:** `TechDesign-[AppName]-MVP.md`
-- **Research Context:** `research-[AppName].txt` (if available)
+- **Requirements:** `PRD-[AppName]-MVP.md`
+- **Technical Plan:** `TechDesign-[AppName]-MVP.md`
+- **Research:** `research-[AppName].txt` (if available)
 
-## 🚦 Start Here
+## 💬 Final Notes
 
-1. **First:** Read all reference documents
-2. **Second:** Set up the development environment
-3. **Third:** Create the project structure
-4. **Fourth:** Implement authentication (usually first)
-5. **Fifth:** Build features in priority order
-6. **Always:** Test after each feature
+Remember:
+- It's okay to ask for clarification
+- Choose simple solutions that work
+- Focus on learning one thing at a time
+- The goal is a working MVP, not perfect code
 
----
-
-**Remember:** The goal is a working MVP that solves the core problem, not a perfect application. Ship it, get feedback, iterate!
-
-**Your first prompt response should be:** 
-"I've read NOTES.md and understand I'm building [App Name]. I'll start by [first action]. Let me know when you're ready to begin!"
+Start with Phase 1 and work through systematically. Good luck!
 ```
+
+### IMPORTANT GENERATION RULES:
+
+1. **Extract Exact Content:** Pull feature names, user stories, and requirements EXACTLY as written in the PRD
+2. **Use Specific Examples:** Include real code examples for their exact tech stack
+3. **Timeline Alignment:** Match the timeline from their PRD/Tech Design constraints
+4. **Learning Level:** Adjust explanation depth based on their selected level (A/B/C)
+5. **Complete All Sections:** Every section must have specific, actionable content
+6. **No Generic Placeholders:** Replace ALL bracketed items with actual project details
 
 ## Generate Tool-Specific Configuration Files
 
-Based on the tools they selected, generate appropriate configuration files:
+Based on the tools they selected, generate the appropriate configuration files below. Each file should reference the NOTES.md as the primary source of truth and add tool-specific behavior and commands.
 
 ### For Claude Code Users - CLAUDE.md:
+
+Use this exact template, filling in project-specific details:
 
 ```markdown
 # CLAUDE.md - Claude Code Configuration for [App Name]
