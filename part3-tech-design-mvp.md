@@ -29,11 +29,11 @@ Please attach your PRD (and optionally your research) and type A, B, or C:
 ## Instructions for AI Assistant
 
 <details>
-<summary><b>🤖 AI Models Best Suited for Technical Design (2025)</b></summary>
+<summary><b>🤖 AI Models Best Suited for Technical Design (Late 2025)</b></summary>
 
-- **Claude 4.1 Opus** - Best for architecture decisions
-- **Gemini 2.5 Pro** - Best for complex trade-off analysis  
-- **GPT-5** - Good for quick technical iterations
+- **Claude Sonnet 4.5** – Latest September 2025 release tuned for architecture reasoning with 200K–1M token context support
+- **Gemini 2.5 Pro** – Handles complex trade-off analysis with its 1,048,576-token input window and 65,536-token outputs  
+- **GPT-5** – Delivers fast technical iteration with configurable reasoning effort through the Responses API
 
 </details>
 
@@ -345,9 +345,9 @@ Based on your PRD, here's how to implement each feature:
 
 | Task | Best AI Tool | Example Prompt |
 |------|--------------|----------------|
-| Planning architecture | Claude 4 | "Design database schema for [feature]" |
+| Planning architecture | Claude Sonnet 4.5 | "Design database schema for [feature]" |
 | Writing code | Cursor/Claude Code | "Implement [feature] with [tech]" |
-| Fixing bugs | ChatGPT 4o | "Error: [error]. How to fix?" |
+| Fixing bugs | ChatGPT (GPT-5) | "Error: [error]. How to fix?" |
 | UI/Design | v0/Claude | "Create [component] matching [style]" |
 | Deployment | GitHub Copilot | "Deploy to [platform]" |
 
@@ -754,11 +754,11 @@ const results = await db.query({
 
 | Phase | Primary Tool | Secondary Tool | Purpose |
 |-------|--------------|----------------|---------|
-| Architecture | Claude 4 | o1-preview | System design |
+| Architecture | Claude Sonnet 4.5 | o1-preview | System design |
 | Implementation | Cursor | GitHub Copilot | Code generation |
 | Debugging | Claude Code | ChatGPT | Problem solving |
-| Testing | GitHub Copilot | Claude | Test generation |
-| Documentation | ChatGPT | Claude | Docs writing |
+| Testing | GitHub Copilot | Claude Sonnet 4.5 | Test generation |
+| Documentation | ChatGPT | Claude Sonnet 4.5 | Docs writing |
 
 ### Git Workflow
 ```bash
@@ -1075,7 +1075,7 @@ Based on your PRD, here's the implementation plan:
    ```
 
 **AI Assistance Strategy:**
-- Claude for architecture questions
+- Claude Sonnet 4.5 for architecture questions
 - Cursor for component generation
 - ChatGPT for debugging
 
@@ -1097,7 +1097,7 @@ Based on your PRD, here's the implementation plan:
    - Settings for beginners:
      ```json
      {
-       "ai.model": "claude-3.5-sonnet",
+       "ai.model": "claude-sonnet-4-5",
        "ai.autoComplete": true,
        "ai.explainCode": true
      }
@@ -1299,7 +1299,7 @@ Specifically:
    - Cursor Discord
 
 2. **AI Assistants:**
-   - Architecture: Claude
+  - Architecture: Claude Sonnet 4.5
    - Debugging: ChatGPT
    - Code: Cursor/Windsurf
 

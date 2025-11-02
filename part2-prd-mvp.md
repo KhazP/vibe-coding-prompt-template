@@ -27,11 +27,11 @@ Please attach your research file (or type "no file") and type A, B, or C:
 ## Instructions for AI Assistant
 
 <details>
-<summary><b>🤖 Best AI Models for PRD Creation (2025)</b></summary>
+<summary><b>🤖 Best AI Models for PRD Creation (Late 2025)</b></summary>
 
-- **Claude 4 Opus 4.1** - Best for structured documents
-- **GPT-5** - Good for user story generation
-- **Gemini 2.5 Pro** - Best for long context if research is extensive
+- **Claude Sonnet 4.5** – September 2025 snapshot excels at structured document planning with 200K–1M token context support
+- **GPT-5** – Latest OpenAI model offers controllable reasoning depth for rapid user story generation via the Responses API
+- **Gemini 2.5 Pro** – Handles large research attachments with its 1,048,576-token input window and 65,536-token outputs
 
 </details>
 

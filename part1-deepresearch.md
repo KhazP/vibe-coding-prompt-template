@@ -16,15 +16,15 @@ Please type A, B, or C:
 <details>
 <summary><b>🤖 AI Model Recommendations for Research</b></summary>
 
-### Best Models for Research (August 2025)
-- **Gemini 2.5 Pro** - Best for comprehensive research (1M token context)
-- **Claude 4 Opus 4.1** - Most accurate technical analysis
-- **GPT-5** - Good for quick research iterations
+### Best Models for Research (November 2025)
+- **Gemini 2.5 Pro** – June 2025 release with 1,048,576 input tokens and 65,536 output tokens for deep, long-context synthesis
+- **Claude Sonnet 4.5** – September 2025 snapshot offering 200K tokens by default and optional 1M-token beta context for technical accuracy
+- **GPT-5** – Latest OpenAI reasoning model with Responses API controls for adjustable reasoning effort and verbosity
 
-### Free Access Options
-- **AI Studio** - Free Gemini 2.5 Pro (1M tokens context)
-- **ChatGPT** - Limited GPT-5 access
-- **Claude 4 Sonnet** - Limited access
+### Access Options
+- **AI Studio** – Free-tier access to Gemini 2.5 Pro with the full 1,048,576-token context window
+- **ChatGPT** – GPT-5 available on Pro, Team, and Enterprise plans with the new Responses API feature set
+- **Claude.ai** – Claude Sonnet 4.5 via Claude Pro or enterprise workspaces, including the extended context beta header
 
 </details>
 
@@ -139,7 +139,7 @@ I'm a non-technical founder building [description]. I need beginner-friendly res
 5. Budget breakdown (tools, services, deployment)
 6. List of best AI coding assistants for non-coders
 
-Please use Gemini 2.5 Pro for comprehensive analysis or Claude 4 Sonnet for technical accuracy. Explain everything in plain English with examples. Include specific URLs and tool names.
+Please use Gemini 2.5 Pro for comprehensive analysis or Claude Sonnet 4.5 for technical accuracy. Explain everything in plain English with examples. Include specific URLs and tool names.
 ```
 
 ### For Developers, create:
@@ -177,9 +177,9 @@ I need comprehensive technical research on [topic] for [context] using the lates
 - Development velocity estimates with AI assistance
 
 ### AI Model Recommendations:
-- Use Gemini 2.5 Pro for broad technical research (2M context)
-- Use Claude 4 Sonnet for code analysis and architecture
-- Use Gemini 2.0 Flash Thinking for complex trade-off analysis
+- Use Gemini 2.5 Pro for broad technical research (1,048,576-token context)
+- Use Claude Sonnet 4.5 for code analysis and architecture
+- Use GPT-5 for complex trade-off analysis using adjustable reasoning effort
 
 Provide detailed technical findings with code examples, architecture diagrams, and specific tool recommendations. Include latest AI coding assistants and their capabilities.
 ```
@@ -238,7 +238,7 @@ After generating the appropriate research prompt, say:
    - Go to: https://gemini.google.com
    - 1M token context window perfect for research
 
-2. **Claude.ai** - Best for technical accuracy with Claude 4 Sonnet
+2. **Claude.ai** - Best for technical accuracy with Claude Sonnet 4.5
    - Go to: https://claude.ai
    - Superior code and architecture analysis but needs a paid account
 
@@ -249,7 +249,7 @@ After generating the appropriate research prompt, say:
 
 Copy the research prompt and paste it into your chosen platform. The research may take 10-20 minutes to complete. 
 
-**Pro tip**: Use Gemini 2.5 Pro for the main research, then use Claude 4 Sonnet/GPT-5 to validate technical recommendations.
+**Pro tip**: Use Gemini 2.5 Pro for the main research, then use Claude Sonnet 4.5 and GPT-5 to validate technical recommendations.
 
 Would you like me to adjust anything in the prompt before you begin?"
 

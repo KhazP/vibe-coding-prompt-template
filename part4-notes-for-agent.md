@@ -1464,16 +1464,16 @@ What would you like to work on? I can:
 ## Model Selection
 
 For different tasks:
-- **Architecture**: Use Gemini 2.5 Pro
-- **Debugging**: Use Gemini 2.0 Flash Thinking
-- **Quick tasks**: Use Gemini 2.0 Flash
-- **Code review**: Use Gemini 2.5 Pro
+- **Architecture**: Use Gemini 2.5 Pro (1,048,576-token context)
+- **Debugging**: Use Gemini 2.5 Flash for fast iterations
+- **Quick tasks**: Use Gemini 2.5 Flash-Lite to minimize cost
+- **Code review**: Use Gemini 2.5 Pro for detailed feedback
 
 ## Cost Optimization
 
 Since Gemini CLI is free:
 - Use extensively for development
-- Switch to Claude for complex architecture
+- Switch to Claude Sonnet 4.5 for complex architecture
 - Use for all debugging tasks
 - Leverage for learning and explanation
 ```

@@ -4,7 +4,7 @@
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
-[![Last Updated](https://img.shields.io/badge/Updated-August%202025-blue.svg)](README.md)
+[![Last Updated](https://img.shields.io/badge/Updated-November%202025-blue.svg)](README.md)
 
 **Build an MVP in hours, not months – guided by the latest AI coding agents**
 
@@ -14,14 +14,15 @@
 
 ## 🎯 What This Does
 
-Transform any app idea into working code through 4 AI-powered stages using the latest 2025 AI models:
+Transform any app idea into working code through 5 AI-powered stages using the latest 2025 AI models:
 
 | # | Stage | Goal | Output |
 |---|-------|------|--------|
 | 1️⃣ | **Research** | Validate market & tech landscape | Research findings |
 | 2️⃣ | **Define** | Clarify product scope | PRD (Product Requirements) |
 | 3️⃣ | **Design** | Decide how to build | Technical Design doc |
-| 4️⃣ | **Build** | Generate & test code | Working MVP |
+| 4️⃣ | **Generate AI Agent Instructions** | Convert docs into agent blueprints | NOTES.md + agent configs |
+| 5️⃣ | **Build** | Generate & test code | Working MVP |
 
 ---
 
@@ -48,14 +49,14 @@ Transform any app idea into working code through 4 AI-powered stages using the l
 <summary><b>🤖 AI Platform (Required - Choose One)</b></summary>
 
 ### Best Free Options
-- **[AI Studio](https://aistudio.google.com)** ⭐ - Gemini 2.5 Pro free (1M token context window)
-- **[Claude.ai](https://claude.ai)** - Claude 4 Sonnet
-- **[ChatGPT](https://chat.openai.com)** - GPT-5
+- **[AI Studio](https://aistudio.google.com)** ⭐ - Gemini 2.5 Pro free tier with the full 1,048,576-token context ([see model details](https://ai.google.dev/gemini-api/docs))
+- **[Claude.ai](https://claude.ai)** - Claude Sonnet 4.5 with 200K default / 1M beta context ([see current versions](https://docs.anthropic.com))
+- **[ChatGPT](https://chat.openai.com)** - GPT-5 via the Responses interface ([see OpenAI docs](https://developers.openai.com))
 
 ### Premium Options (Better for Complete Apps)
-- **[Claude Pro](https://claude.ai)** - $20/month for 5x more usage
-- **[Gemini Advanced](https://gemini.google.com)** - $20/month for Gemini 2.5 Pro 100msg/day
-- **[ChatGPT Plus](https://chat.openai.com)** - $20/month for GPT-5
+- **[Claude Pro](https://claude.ai)** - Sonnet 4.5 with higher rate limits and 1M-token projects ([pricing](https://claude.ai))
+- **[Gemini Advanced](https://gemini.google.com)** - Gemini 2.5 Pro/Flash Ultra access with priority throughput ([pricing](https://gemini.google.com))
+- **[ChatGPT Plus](https://chat.openai.com)** - GPT-5 and o-series reasoning models with higher allocations ([pricing](https://openai.com/chatgpt))
 
 </details>
 
@@ -63,29 +64,34 @@ Transform any app idea into working code through 4 AI-powered stages using the l
 <summary><b>💻 AI Coding Agent/IDE (Required - Choose One)</b></summary>
 
 ### Terminal-Based Agents (Advanced)
-- **[Claude Code](https://github.com/anthropics/claude-code)** ⭐ - Most capable terminal agent
+- **[Claude Code](https://github.com/anthropics/claude-code)** ⭐ - Project-aware CLI with session memory and automated testing ([docs](https://docs.anthropic.com))
   ```bash
   npm install -g @anthropic-ai/claude-code
   claude init  # In your project directory
   ```
-- **[Gemini CLI](https://github.com/google-gemini/gemini-cli)** - Free & open source
-  ```bash
-  npx https://github.com/google-gemini/gemini-cli
-  ```
-- **[OpenAI Codex CLI](https://github.com/openai/codex-cli)** - Multi-modal support
+- **[Gemini CLI](https://github.com/google-gemini/gemini-cli)** - Free & open source with Gemini 2.5 streaming context ([docs](https://ai.google.dev/gemini-api/docs))
+   ```bash
+   npm install -g @google-gemini/cli
+   gemini login  # Connect your Google account
+   ```
+- **[OpenAI CLI](https://platform.openai.com/docs/guides/responses)** - Terminal access to GPT-5 and o-series tool-calling pipelines ([docs](https://platform.openai.com/docs))
+   ```bash
+   pip install --upgrade openai
+   openai responses.create -m gpt-5 --input "Summarize NOTES.md"
+   ```
 
 ### Async/Cloud Agents
-- **[Jules by Google](https://jules.google.com)** ⭐ - Works independently on tasks
-- **[GitHub Copilot Agent](https://github.com/features/copilot)** - Autonomous PR creation
+- **[Jules by Google](https://jules.google/docs)** ⭐ - Vertex AI-connected async agent that executes scoped work packets
+- **[GitHub Copilot Agent](https://github.com/features/copilot)** - Agentic PR, code review, and deployment prep automation ([docs](https://docs.github.com/en/copilot))
 
 ### IDE-Based Tools (Beginner Friendly)
-- **[Cursor](https://cursor.sh)** ⭐ - Most powerful, $20/month
-- **[VS Code + Github Copilot](https://code.visualstudio.com/)** ⭐ - Best for beginners, $10/month
+- **[Cursor](https://cursor.sh)** ⭐ - AI editor with long-term Memory, Auto Debug, and Codebase Q&A ([pricing](https://cursor.sh))
+- **[VS Code + Github Copilot](https://code.visualstudio.com/)** ⭐ - Editor with Copilot Agent Mode and inline pair programming ([Copilot pricing](https://github.com/features/copilot/plans))
 
 ### No-Code Platforms (Easiest)
-- **[Bolt.new](https://bolt.new)** ⭐ - Instant web apps, $20/month pro
-- **[Lovable](https://lovable.dev)** - AI fullstack engineer, $25/month
-- **[v0 by Vercel](https://v0.dev)** - UI component generator
+- **[Bolt.new](https://bolt.new)** ⭐ - Instant Next.js/Supabase apps with scheduled automations ([pricing](https://bolt.new))
+- **[Lovable](https://lovable.dev)** - AI fullstack builder shipping 25k apps daily ([pricing](https://lovable.dev))
+- **[v0 by Vercel](https://v0.dev)** - AI UI composition with deployment-ready React components ([pricing](https://v0.dev))
 
 </details>
 
@@ -95,13 +101,13 @@ Transform any app idea into working code through 4 AI-powered stages using the l
 - Any modern browser
 - 2-4 hours of time
 - Basic computer skills (no coding required!)
-- Optional: Node.js 18+ for terminal tools
+- Optional: Node.js 20+ for terminal tools
 
 </details>
 
 ---
 
-## 📋 The 4-Step Workflow
+## 📋 The 5-Step Workflow
 
 ### 1️⃣ Deep Research 🔍
 <details>
@@ -111,7 +117,7 @@ Transform any app idea into working code through 4 AI-powered stages using the l
 
 **How it works:**
 1. Copy the entire `part1-deepresearch.md` file
-2. Paste into AI Studio (for Gemini 2.5 Pro) or Claude.ai (for Claude 4 Sonnet)
+2. Paste into AI Studio (for Gemini 2.5 Pro), Claude.ai (for Claude Sonnet 4.5), or ChatGPT (for GPT-5)
 3. Answer 5-6 questions tailored to your experience level
 4. AI generates comprehensive research with:
    - Market analysis & size
@@ -120,7 +126,7 @@ Transform any app idea into working code through 4 AI-powered stages using the l
    - Cost estimates
 5. Save output as `research-[YourAppName].txt`
 
-**💡 Pro Tip:** Use Gemini 2.5 Pro for better research (1M token context).
+**💡 Pro Tip:** Use Gemini 2.5 Pro for better research (1,048,576-token context window).
 </details>
 
 ### 2️⃣ Product Requirements (PRD) 📝
@@ -203,7 +209,8 @@ claude init
 claude "Read CLAUDE.md and NOTES.md, then build the MVP"
 
 # Gemini CLI
-npx https://github.com/google-gemini/gemini-cli
+npm install -g @google-gemini/cli
+gemini login
 # Add GEMINI.md to project root
 gemini "Read GEMINI.md and NOTES.md, then implement"
 ```
@@ -262,6 +269,7 @@ your-app/
 ├── NOTES.md              # Universal AI instructions
 ├── CLAUDE.md             # Claude Code config (if using)
 ├── GEMINI.md             # Gemini CLI config (if using)
+├── AGENTS.md             # Jules config (if using)
 ├── .cursorrules          # Cursor config (if using)
 ├── .windsurfrules        # Windsurf config (if using)
 ├── README.md             # Setup instructions (AI-generated)
@@ -277,24 +285,24 @@ your-app/
 <summary><b>Latest AI Models & Capabilities</b></summary>
 
 ### Model Updates
-- **Claude 4.1 Opus ** - better at large codebases
-- **Claude 4 Sonnet** - Best coding model (72.7% on SWE-bench)
-- **Gemini 2.5 Pro** - 1M token context window
-- **GPT-5** - Improved speed and cost efficiency
+- **Claude Sonnet 4.5** – September 2025 release with 200K default / 1M beta context and top-tier architecture reasoning
+- **Claude Opus (2025 snapshot)** – Handles massive monorepos and multi-hour planning sessions with improved tool use
+- **Gemini 2.5 Pro** – 1,048,576-token input and 65,536-token output windows for deep research and synthesis
+- **GPT-5** – Responses API with adjustable reasoning effort, faster tool orchestration, and lower latency
 
 ### New Tools
-- **Claude Code** - Terminal-based coding agent from Anthropic
-- **Jules** - Google's async coding agent
-- **Gemini CLI** - Free open-source terminal agent
-- **GitHub Copilot Agent Mode** - Autonomous PR creation
-- **OpenAI Codex CLI** - Multimodal terminal agent
+- **Claude Code** - Anthropic's project-aware terminal agent with session memory and automated test orchestration
+- **Jules** - Google's asynchronous coding agent that can work independently across Vertex AI projects
+- **Gemini CLI** - Open-source CLI with direct Gemini 2.5 Pro/Flash access, live context streaming, and MCP integrations
+- **GitHub Copilot Agent Mode** - Workspace automation for scoped plans, PRs, and deployment checklists
+- **OpenAI CLI (Responses API)** - Terminal workflow for GPT-5, o-series reasoning models, and tool-calling pipelines
 
 ### Platform Updates
-- **Cursor 1.4** - Enterprise features, BugBot, Memories
-- **Windsurf** - Cascade AI with deep codebase understanding
-- **Cline 3.21** - MCP Marketplace for AI capabilities
-- **Bolt.new** - $20M ARR, instant deployment
-- **Lovable** - €14.3M funding, 25k apps daily
+- **Cursor** - Adds Codebase Q&A, long-term project Memory, and Auto Debug powered by Claude Sonnet 4.5
+- **Windsurf** - Cascade AI 3.0 with worklog tracking and pair-mode for live coding
+- **Cline** - MCP marketplace runners plus transparent execution summaries in VS Code
+- **Bolt.new** - Instant Next.js/Supabase deployments with scheduled automations and $20M ARR milestone
+- **Lovable** - AI fullstack builder shipping 25k apps daily after €14.3M growth round
 
 </details>
 
@@ -305,15 +313,44 @@ your-app/
 <details>
 <summary><b>Tool Selection Guide</b></summary>
 
-| Your Situation | Best Tool | Why |
-|---------------|-----------|-----|
-| Complete beginner | Windsurf or Bolt.new | Most intuitive, instant results |
-| Learning to code | Cursor + Claude 4 | Best explanations and control |
-| Experienced dev | Claude Code | Most powerful and flexible |
-| Limited budget | Cline + Gemini CLI | Completely free and capable |
-| Need it TODAY | Lovable or Bolt.new | Instant deployment, no setup |
-| Building for mobile | Flutter + Cursor | Best mobile support |
-| Complex logic | Claude Code + GPT-5 models | Superior reasoning |
+| Persona | Best Tool Stack | Why it fits | What to watch | Setup time |
+|---------|-----------------|-----------|--------------|------------|
+| Complete beginner | Lovable • Bolt.new | Paste your idea, get a hosted app with a domain and database in minutes | Daily credit caps and hosted code mean you should harden it later | 10–30 min |
+| Learning hobbyist | Copilot Agent (VS Code) • Cline | Copilot can edit files for you; Cline shows every diff and runs commands on request | Copilot Free has limits and Cline needs your API key setup | 20–45 min |
+| Experienced developer | Cursor 2.0 • Windsurf | Cursor plans tasks and runs code in safe terminals; Windsurf handles bigger refactors with its agents | Usage-based credits and a new IDE to learn | 30–60 min |
+| Budget-limited builder | Cline • Gemini CLI | Both are free to install, work locally, and can call Gemini 2.5 without paid tiers | Less hand-holding than no-code tools—expect to prompt more | 15–40 min |
+| Need-it-today founder | Lovable Agent Mode • Bolt.new (Claude) | Fastest path to a working MVP with dashboards, auth, and analytics baked in | Keep an eye on credit burn and schedule a security/UX review | 15–60 min |
+| Mobile-first product team | v0.dev + v0 Mobile • Flutter + Gemini | v0 sketches mobile experiences; Flutter + Gemini in Android Studio builds native quality | v0 mobile features are new and Android Studio tooling is still evolving | 45–120 min |
+| Complex logic engineer | Claude Code (web/VS Code) • Windsurf | Claude Sonnet 4.5 keeps huge context in its “memory,” Windsurf’s agents plan multi-file changes | Claude web is still preview and company data rules may restrict it | 30–90 min |
+| Security/compliance lead | Cline (client-side) • Copilot Enterprise | All code stays local with Cline, while Copilot Enterprise adds SSO and audit logs | You still need team policies and Copilot request caps may apply | 60–120 min |
+| Offline/privacy-focused dev | Gemini CLI (local agent) • Cline + local models | Works from your machine, and you can swap in local models (Ollama/DeepSeek) when needed | Fully offline mode depends on your hardware and chosen model | 30–60 min |
+| Open-source maintainer | Cline • Aider | Both tools show diffs, commit for you, and play nicely with Git workflows | Terminal-first experience can feel advanced if Git basics are new | 20–45 min |
+
+**Quick Picks (Plain English)**
+- Need an MVP tonight? Use Lovable or Bolt.new, then plan a follow-up pass for polish and security.
+- Working inside an editor? Cursor or Copilot Agent can code for you—open Cline when you want to double-check every change.
+- Huge legacy repo? Bring in Claude Code or Windsurf so the agent “remembers” more of your code at once.
+- No budget? Stick with Cline + Gemini CLI and the generous free request limits.
+- Mobile-first? Preview flows in v0 Mobile or build native screens with Flutter + Gemini’s suggestions.
+
+**Pricing Guardrails (Nov 2025)**
+- Free forever: Gemini Code Assist (6K code reqs/day), Copilot Free (2K completions + 50 chats), Windsurf Free (25 prompts).
+- Best under $20: Windsurf Pro $15/mo (500 credits), Copilot Pro $10/mo (Agent Mode), Cursor Pro $20/mo (credit pool + parallel agents).
+- Power tiers: Copilot Pro+ $39/mo (1.5K premium calls), Cursor Ultra $200/mo (20× credits), Bolt Pro 200 $200/mo (120M tokens).
+
+**MCP Watch**
+- Model Context Protocol (MCP) is a shared standard that lets your AI talk to extra tools (think CI pipelines, databases, ticket queues).
+- Cline, Cursor, Claude Code, and Gemini CLI all plug into MCP, but treat those connections like production credentials.
+
+**Caution Flags**
+- Claude consumer accounts now offer opt-in data sharing; stick to org workspaces or API keys for sensitive repos.
+- Replit Agent 3 can run 200-minute autonomous loops—enable guardrails so retries cannot nuke production data.
+
+**When Not to Use These Tools**
+- Native mobile or hardware builds: prefer Flutter + traditional toolchains with AI pairing.
+- Regulated workloads needing SOC2/FedRAMP/HIPAA: lean on Copilot Enterprise, Cline with strict policies, or self-hosted stacks.
+- Safety-critical or real-time systems: require deterministic, human-led engineering.
+- Fundamentals practice: hand-code portions to avoid skipping core concepts.
 
 </details>
 
@@ -322,12 +359,12 @@ your-app/
 
 | ❌ Pitfall | ✅ Solution |
 |-----------|------------|
-| Skipping research | Always complete Step 1 - it shapes everything |
-| Feature creep | Stick to 3-5 MVP features maximum |
-| Wrong tool choice | Match tool to your skill level |
-| Not testing incrementally | Test after each feature addition |
-| Ignoring AI limits | Use multiple tools strategically |
-| No version control | Commit after each working feature |
+| Skipping discovery work | Run the Part I research prompt first so the PRD and tech design aren’t guesses |
+| Letting agents ship code alone | Ask agents to show their plan, review the diff, and run tests before anything merges |
+| Sticker-shock bills | Check credit dashboards weekly and keep a backup stack (Cline + Gemini) that stays free |
+| Publishing auto-generated UIs without checks | Test accessibility, security, and performance before launch day |
+| Building sensitive apps with personal accounts | Use business plans or API workspaces, switch off data sharing, and keep secrets in vaults |
+| Forcing one tool to do everything | Mix and match (IDE + terminal + builder) so each tool covers what it does best |
 
 </details>
 
@@ -340,11 +377,11 @@ your-app/
 
 | Problem | Solution |
 |---------|----------|
-| **"AI ignores my documents"** | Start with: *"First read all attached documents, confirm understanding, then proceed"* |
-| **"Code doesn't match PRD"** | Say: *"Review the PRD again, specifically the [feature] requirements, and align the code"* |
-| **"AI is overcomplicating"** | Add to config: *"Prioritize simplicity. Less code is better. MVP only."* |
-| **"Lost track of progress"** | Ask: *"Compare current state to NOTES.md checklist. What's done and what's next?"* |
-| **"Deployment failing"** | Request: *"Debug deployment error step by step. Check environment variables first."* |
+| **"AI ignores my documents"** | Start with: *"First read NOTES.md, PRD, and TechDesign. Summarize key requirements before coding."* |
+| **"Code doesn't match PRD"** | Say: *"Re-read the PRD section on [feature], list acceptance criteria, then refactor accordingly."* |
+| **"AI is overcomplicating"** | Add to config: *"Prioritize MVP scope. Offer the simplest working implementation before optimizations."* |
+| **"Lost track of progress"** | Ask: *"Update the NOTES.md progress log and map remaining tasks to implementation phases."* |
+| **"Deployment failing"** | Request: *"Walk through deployment checklist, verify env vars, then run the platform-specific health command."* |
 
 </details>
 
@@ -366,21 +403,9 @@ Released under the [MIT License](LICENSE).
 
 ---
 
-<div align="center">
-
-### 🎯 Success Metrics
-
-**Over 10,000 MVPs built** using this workflow
-
-**Average time to MVP: 4 hours** (vs 4 weeks traditional)
-
-**Success rate: 87%** reach deployment
-
----
-
 **The best time to build your idea was yesterday.**  
 **The second best time is now.** 🚀
 
-*Last updated: August 2025 | Created by the vibe-coding community*
+*Last updated: November 2025 | Created by the vibe-coding community*
 
 </div>
