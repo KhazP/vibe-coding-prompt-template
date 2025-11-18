@@ -1464,10 +1464,10 @@ What would you like to work on? I can:
 ## Model Selection
 
 For different tasks:
-- **Architecture**: Use Gemini 2.5 Pro (1,048,576-token context)
-- **Debugging**: Use Gemini 2.5 Flash for fast iterations
-- **Quick tasks**: Use Gemini 2.5 Flash-Lite to minimize cost
-- **Code review**: Use Gemini 2.5 Pro for detailed feedback
+- **Architecture**: Use Gemini 3 Pro (1,048,576-token context)
+- **Debugging**: Use Gemini 3 Flash for fast iterations
+- **Quick tasks**: Use Gemini 3 Flash-Lite to minimize cost
+- **Code review**: Use Gemini 3 Pro for detailed feedback
 
 ## Cost Optimization
 

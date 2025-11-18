@@ -49,14 +49,14 @@ Transform any app idea into working code through 5 AI-powered stages using the l
 <summary><b>🤖 AI Platform (Required - Choose One)</b></summary>
 
 ### Best Free Options
-- **[AI Studio](https://aistudio.google.com)** ⭐ - Gemini 2.5 Pro free tier with the full 1,048,576-token context ([see model details](https://ai.google.dev/gemini-api/docs))
+- **[AI Studio](https://aistudio.google.com)** ⭐ - Gemini 3 Pro free tier with the full 1,048,576-token context ([see model details](https://ai.google.dev/gemini-api/docs))
 - **[Claude.ai](https://claude.ai)** - Claude Sonnet 4.5 with 200K default / 1M beta context ([see current versions](https://docs.anthropic.com))
-- **[ChatGPT](https://chat.openai.com)** - GPT-5 via the Responses interface ([see OpenAI docs](https://developers.openai.com))
+- **[ChatGPT](https://chat.openai.com)** - ChatGPT 5.1 via the Responses interface ([see OpenAI docs](https://developers.openai.com))
 
 ### Premium Options (Better for Complete Apps)
 - **[Claude Pro](https://claude.ai)** - Sonnet 4.5 with higher rate limits and 1M-token projects ([pricing](https://claude.ai))
-- **[Gemini Advanced](https://gemini.google.com)** - Gemini 2.5 Pro/Flash Ultra access with priority throughput ([pricing](https://gemini.google.com))
-- **[ChatGPT Plus](https://chat.openai.com)** - GPT-5 and o-series reasoning models with higher allocations ([pricing](https://openai.com/chatgpt))
+- **[Gemini Advanced](https://gemini.google.com)** - Gemini 3 Pro/Flash Ultra access with priority throughput ([pricing](https://gemini.google.com))
+- **[ChatGPT Plus](https://chat.openai.com)** - ChatGPT 5.1 with higher allocations ([pricing](https://openai.com/chatgpt))
 
 </details>
 
@@ -69,15 +69,15 @@ Transform any app idea into working code through 5 AI-powered stages using the l
   npm install -g @anthropic-ai/claude-code
   claude init  # In your project directory
   ```
-- **[Gemini CLI](https://github.com/google-gemini/gemini-cli)** - Free & open source with Gemini 2.5 streaming context ([docs](https://ai.google.dev/gemini-api/docs))
+- **[Gemini CLI](https://github.com/google-gemini/gemini-cli)** - Free & open source with Gemini 3 Pro streaming context ([docs](https://ai.google.dev/gemini-api/docs))
    ```bash
    npm install -g @google-gemini/cli
    gemini login  # Connect your Google account
    ```
-- **[OpenAI CLI](https://platform.openai.com/docs/guides/responses)** - Terminal access to GPT-5 and o-series tool-calling pipelines ([docs](https://platform.openai.com/docs))
+- **[OpenAI CLI](https://platform.openai.com/docs/guides/responses)** - Terminal access to ChatGPT 5.1 tool-calling pipelines ([docs](https://platform.openai.com/docs))
    ```bash
    pip install --upgrade openai
-   openai responses.create -m gpt-5 --input "Summarize NOTES.md"
+   openai responses.create -m gpt-5.1 --input "Summarize NOTES.md"
    ```
 
 ### Async/Cloud Agents
@@ -101,7 +101,7 @@ Transform any app idea into working code through 5 AI-powered stages using the l
 - Any modern browser
 - 2-4 hours of time
 - Basic computer skills (no coding required!)
-- Optional: Node.js 20+ for terminal tools
+- Optional: Node.js 22+ for terminal tools
 
 </details>
 
@@ -117,7 +117,7 @@ Transform any app idea into working code through 5 AI-powered stages using the l
 
 **How it works:**
 1. Copy the entire `part1-deepresearch.md` file
-2. Paste into AI Studio (for Gemini 2.5 Pro), Claude.ai (for Claude Sonnet 4.5), or ChatGPT (for GPT-5)
+2. Paste into AI Studio (for Gemini 3 Pro), Claude.ai (for Claude Sonnet 4.5), or ChatGPT (for ChatGPT 5.1)
 3. Answer 5-6 questions tailored to your experience level
 4. AI generates comprehensive research with:
    - Market analysis & size
@@ -126,7 +126,7 @@ Transform any app idea into working code through 5 AI-powered stages using the l
    - Cost estimates
 5. Save output as `research-[YourAppName].txt`
 
-**💡 Pro Tip:** Use Gemini 2.5 Pro for better research (1,048,576-token context window).
+**💡 Pro Tip:** Use Gemini 3 Pro for better research (1,048,576-token context window).
 </details>
 
 ### 2️⃣ Product Requirements (PRD) 📝
@@ -287,15 +287,15 @@ your-app/
 ### Model Updates
 - **Claude Sonnet 4.5** – September 2025 release with 200K default / 1M beta context and top-tier architecture reasoning
 - **Claude Opus (2025 snapshot)** – Handles massive monorepos and multi-hour planning sessions with improved tool use
-- **Gemini 2.5 Pro** – 1,048,576-token input and 65,536-token output windows for deep research and synthesis
-- **GPT-5** – Responses API with adjustable reasoning effort, faster tool orchestration, and lower latency
+- **Gemini 3 Pro** – 1,048,576-token input and 65,536-token output windows for deep research and synthesis
+- **ChatGPT 5.1** – Responses API with adjustable reasoning effort, faster tool orchestration, and lower latency
 
 ### New Tools
 - **Claude Code** - Anthropic's project-aware terminal agent with session memory and automated test orchestration
 - **Jules** - Google's asynchronous coding agent that can work independently across Vertex AI projects
-- **Gemini CLI** - Open-source CLI with direct Gemini 2.5 Pro/Flash access, live context streaming, and MCP integrations
+- **Gemini CLI** - Open-source CLI with direct Gemini 3 Pro/Flash access, live context streaming, and MCP integrations
 - **GitHub Copilot Agent Mode** - Workspace automation for scoped plans, PRs, and deployment checklists
-- **OpenAI CLI (Responses API)** - Terminal workflow for GPT-5, o-series reasoning models, and tool-calling pipelines
+- **OpenAI CLI (Responses API)** - Terminal workflow for ChatGPT 5.1 tool-calling pipelines
 
 ### Platform Updates
 - **Cursor** - Adds Codebase Q&A, long-term project Memory, and Auto Debug powered by Claude Sonnet 4.5
@@ -318,7 +318,7 @@ your-app/
 | Complete beginner | Lovable • Bolt.new | Paste your idea, get a hosted app with a domain and database in minutes | Daily credit caps and hosted code mean you should harden it later | 10–30 min |
 | Learning hobbyist | Copilot Agent (VS Code) • Cline | Copilot can edit files for you; Cline shows every diff and runs commands on request | Copilot Free has limits and Cline needs your API key setup | 20–45 min |
 | Experienced developer | Cursor 2.0 • Windsurf | Cursor plans tasks and runs code in safe terminals; Windsurf handles bigger refactors with its agents | Usage-based credits and a new IDE to learn | 30–60 min |
-| Budget-limited builder | Cline • Gemini CLI | Both are free to install, work locally, and can call Gemini 2.5 without paid tiers | Less hand-holding than no-code tools—expect to prompt more | 15–40 min |
+| Budget-limited builder | Cline • Gemini CLI | Both are free to install, work locally, and can call Gemini 3 Pro without paid tiers | Less hand-holding than no-code tools—expect to prompt more | 15–40 min |
 | Need-it-today founder | Lovable Agent Mode • Bolt.new (Claude) | Fastest path to a working MVP with dashboards, auth, and analytics baked in | Keep an eye on credit burn and schedule a security/UX review | 15–60 min |
 | Mobile-first product team | v0.dev + v0 Mobile • Flutter + Gemini | v0 sketches mobile experiences; Flutter + Gemini in Android Studio builds native quality | v0 mobile features are new and Android Studio tooling is still evolving | 45–120 min |
 | Complex logic engineer | Claude Code (web/VS Code) • Windsurf | Claude Sonnet 4.5 keeps huge context in its “memory,” Windsurf’s agents plan multi-file changes | Claude web is still preview and company data rules may restrict it | 30–90 min |

@@ -30,8 +30,8 @@ Please attach your research file (or type "no file") and type A, B, or C:
 <summary><b>🤖 Best AI Models for PRD Creation (Late 2025)</b></summary>
 
 - **Claude Sonnet 4.5** – September 2025 snapshot excels at structured document planning with 200K–1M token context support
-- **GPT-5** – Latest OpenAI model offers controllable reasoning depth for rapid user story generation via the Responses API
-- **Gemini 2.5 Pro** – Handles large research attachments with its 1,048,576-token input window and 65,536-token outputs
+- **ChatGPT 5.1** – Latest OpenAI model offers controllable reasoning depth for rapid user story generation via the Responses API
+- **Gemini 3 Pro** – Handles large research attachments with its 1,048,576-token input window and 65,536-token outputs
 
 </details>
 

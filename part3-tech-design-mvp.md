@@ -32,8 +32,8 @@ Please attach your PRD (and optionally your research) and type A, B, or C:
 <summary><b>🤖 AI Models Best Suited for Technical Design (Late 2025)</b></summary>
 
 - **Claude Sonnet 4.5** – Latest September 2025 release tuned for architecture reasoning with 200K–1M token context support
-- **Gemini 2.5 Pro** – Handles complex trade-off analysis with its 1,048,576-token input window and 65,536-token outputs  
-- **GPT-5** – Delivers fast technical iteration with configurable reasoning effort through the Responses API
+- **Gemini 3 Pro** – Handles complex trade-off analysis with its 1,048,576-token input window and 65,536-token outputs  
+- **ChatGPT 5.1** – Delivers fast technical iteration with configurable reasoning effort through the Responses API
 
 </details>
 
@@ -347,7 +347,7 @@ Based on your PRD, here's how to implement each feature:
 |------|--------------|----------------|
 | Planning architecture | Claude Sonnet 4.5 | "Design database schema for [feature]" |
 | Writing code | Cursor/Claude Code | "Implement [feature] with [tech]" |
-| Fixing bugs | ChatGPT (GPT-5) | "Error: [error]. How to fix?" |
+| Fixing bugs | ChatGPT 5.1 | "Error: [error]. How to fix?" |
 | UI/Design | v0/Claude | "Create [component] matching [style]" |
 | Deployment | GitHub Copilot | "Deploy to [platform]" |
 
@@ -547,14 +547,14 @@ graph TB
 ### Tech Stack Decision
 
 #### Frontend
-- **Framework:** [Next.js 14 / Remix / SvelteKit]
+- **Framework:** [Next.js 15 / Remix / SvelteKit]
 - **Styling:** [Tailwind CSS / CSS Modules]
 - **State Management:** [Zustand / Redux Toolkit / Context]
 - **UI Components:** [Shadcn/ui / Material UI / Custom]
 - **Testing:** [Vitest / Jest + React Testing Library]
 
 #### Backend
-- **Runtime:** [Node.js 20 / Python 3.12 / Go 1.21]
+- **Runtime:** [Node.js 24 / Python 3.13 / Go 1.25]
 - **Framework:** [Express / Fastify / FastAPI]
 - **ORM/Database:** [Prisma / Drizzle / SQLAlchemy]
 - **API Pattern:** [REST / GraphQL / tRPC]
@@ -754,7 +754,7 @@ const results = await db.query({
 
 | Phase | Primary Tool | Secondary Tool | Purpose |
 |-------|--------------|----------------|---------|
-| Architecture | Claude Sonnet 4.5 | o1-preview | System design |
+| Architecture | Claude Sonnet 4.5 | ChatGPT 5.1 | System design |
 | Implementation | Cursor | GitHub Copilot | Code generation |
 | Debugging | Claude Code | ChatGPT | Problem solving |
 | Testing | GitHub Copilot | Claude Sonnet 4.5 | Test generation |
