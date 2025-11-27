@@ -75,40 +75,47 @@ We now have an interactive web app that automates the entire process for you.
 <summary><b>💻 AI Coding Agent/IDE (Required - Choose One)</b></summary>
 
 ### Terminal-Based Agents (Advanced)
-- **[Claude Code](https://github.com/anthropics/claude-code)** ⭐ - Project-aware CLI with session memory and automated testing ([docs](https://docs.anthropic.com))
+- **[Claude Code](https://claude.ai/docs/claude-code)** ⭐ - Project-aware CLI with session memory.
   ```bash
-  npm install -g @anthropic-ai/claude-code
-  claude init  # In your project directory
+  curl -fsSL https://claude.ai/install.sh | bash
+  claude init # Generates CLAUDE.md; import AGENTS.md via @AGENTS.md
   ```
-- **[Gemini CLI](https://github.com/google-gemini/gemini-cli)** - Free & open source with Gemini 3 Pro streaming context ([docs](https://ai.google.dev/gemini-api/docs))
+- **[Gemini CLI](https://github.com/google/gemini-cli)** - Free & open source with Gemini 3 Pro.
    ```bash
-   npm install -g @google-gemini/cli
-   gemini login  # Connect your Google account
+   npm install -g @google/gemini-cli
+   gemini login
+   # Uses GEMINI.md; import AGENTS.md via @AGENTS.md
    ```
-- **[OpenAI CLI](https://platform.openai.com/docs/guides/responses)** - Terminal access to ChatGPT 5.1 tool-calling pipelines ([docs](https://platform.openai.com/docs))
+- **[Aider](https://aider.chat)** - CLI tool, requires explicit context loading.
    ```bash
-   pip install --upgrade openai
-   openai responses.create -m gpt-5.1 --input "Summarize AGENTS.md"
+   python -m pip install aider-install
+   aider --read AGENTS.md
    ```
-- **[Aider](https://aider.chat)** - CLI tool that reads AGENTS.md context by default ([docs](https://aider.chat/docs))
+- **[GitHub Copilot CLI](https://docs.github.com/en/copilot)** - Terminal interface for Copilot.
    ```bash
-   pip install aider-chat
-   aider --config .aider.conf.yml
+   npm install -g @github/copilot
+   copilot --context AGENTS.md
+   ```
+- **[OpenAI Codex CLI](https://developers.openai.com/codex/cli/)** - An open-source, terminal-based coding agent (TUI) that can read, edit, and run code in your repo. ([docs](https://platform.openai.com/docs))
+   ```bash
+   npm i -g @openai/codex
+   codex exec "Summarize AGENTS.md"
    ```
 
 ### Async/Cloud Agents
-- **[Jules by Google](https://jules.google/docs)** ⭐ - Vertex AI-connected async agent that executes scoped work packets
-- **[GitHub Copilot Agent](https://github.com/features/copilot)** - Agentic PR, code review, and deployment prep automation ([docs](https://docs.github.com/en/copilot))
+- **[Jules by Google](https://jules.google/docs)** ⭐ - Vertex AI-connected async agent.
+- **[GitHub Copilot Agent](https://github.com/features/copilot)** - VS Code extension; enable `chat.useAgentsMdFile` to read AGENTS.md.
 
 ### IDE-Based Tools (Beginner Friendly)
-- **[Google Antigravity](https://antigravity.google)** ⭐ - Google’s agent-first coding IDE (async autonomous agent on Vertex AI)
-- **[Cursor](https://cursor.sh)** ⭐ - AI editor with long-term Memory, Auto Debug, and Codebase Q&A ([pricing](https://cursor.sh))
-- **[VS Code + Github Copilot](https://code.visualstudio.com/)** ⭐ - Editor with Copilot Agent Mode and inline pair programming ([Copilot pricing](https://github.com/features/copilot/plans))
+- **[Cursor](https://cursor.com)** ⭐ - AI editor that automatically reads `AGENTS.md`.
+- **[Windsurf](https://codeium.com/windsurf)** ⭐ - IDE by Codeium; reads `AGENTS.md` and `.windsurf/rules`.
+- **[Cline](https://docs.cline.dev)** - VS Code extension; reads `AGENTS.md` and `.clinerules`.
+- **[Google Antigravity](https://antigravity.google)** - Agent-first IDE; manually add `AGENTS.md` content to Knowledge Base.
 
 ### No-Code Platforms (Easiest)
-- **[Bolt.new](https://bolt.new)** ⭐ - Instant Next.js/Supabase apps with scheduled automations ([pricing](https://bolt.new))
-- **[Lovable](https://lovable.dev)** - AI fullstack builder shipping 25k apps daily ([pricing](https://lovable.dev))
-- **[v0 by Vercel](https://v0.dev)** - AI UI composition with deployment-ready React components ([pricing](https://v0.dev))
+- **[Bolt.new](https://bolt.new)** ⭐ - Instant Next.js/Supabase apps.
+- **[Lovable](https://lovable.dev)** - Fullstack builder; add `AGENTS.md` to "Custom Knowledge".
+- **[v0 by Vercel](https://v0.dev)** - UI composition; add `AGENTS.md` to "Project Instructions".
 
 </details>
 
@@ -318,11 +325,12 @@ your-app/
 - **OpenAI CLI (Responses API)** - Terminal workflow for ChatGPT 5.1 tool-calling pipelines
 
 ### Platform Updates
-- **Cursor** - Adds Codebase Q&A, long-term project Memory, and Auto Debug powered by Claude Sonnet 4.5
-- **Windsurf** - Cascade AI 3.0 with worklog tracking and pair-mode for live coding
-- **Cline** - MCP marketplace runners plus transparent execution summaries in VS Code
-- **Bolt.new** - Instant Next.js/Supabase deployments with scheduled automations and $20M ARR milestone
-- **Lovable** - AI fullstack builder shipping 25k apps daily after €14.3M growth round
+- **Cursor** - Version 2.1 adds improved plan mode, AI code reviews, and instant grep.
+- **Windsurf** - Now supports `AGENTS.md` automatically for project context.
+- **Cline** - Manages context in three layers (immediate, project, persistent) with auto-truncation.
+- **GitHub Copilot CLI** - Version 0.0.365 adds `--silent` option for cleaner output.
+- **Bolt.new** - Instant Next.js/Supabase deployments with scheduled automations.
+- **Lovable** - "Custom Knowledge" tab for project-wide context.
 
 </details>
 
@@ -335,16 +343,16 @@ your-app/
 
 | Persona | Best Tool Stack | Why it fits | What to watch | Setup time |
 |---------|-----------------|-----------|--------------|------------|
-| Complete beginner | Lovable • Bolt.new | Paste your idea, get a hosted app with a domain and database in minutes | Daily credit caps and hosted code mean you should harden it later | 10–30 min |
-| Learning hobbyist | Copilot Agent (VS Code) • Cline | Copilot can edit files for you; Cline shows every diff and runs commands on request | Copilot Free has limits and Cline needs your API key setup | 20–45 min |
-| Experienced developer | Cursor 2.0 • Windsurf | Cursor plans tasks and runs code in safe terminals; Windsurf handles bigger refactors with its agents | Usage-based credits and a new IDE to learn | 30–60 min |
-| Budget-limited builder | Cline • Gemini CLI | Both are free to install, work locally, and can call Gemini 3 Pro without paid tiers | Less hand-holding than no-code tools—expect to prompt more | 15–40 min |
-| Need-it-today founder | Lovable Agent Mode • Bolt.new (Claude) | Fastest path to a working MVP with dashboards, auth, and analytics baked in | Keep an eye on credit burn and schedule a security/UX review | 15–60 min |
-| Mobile-first product team | v0.dev + v0 Mobile • Flutter + Gemini | v0 sketches mobile experiences; Flutter + Gemini in Android Studio builds native quality | v0 mobile features are new and Android Studio tooling is still evolving | 45–120 min |
-| Complex logic engineer | Claude Code (web/VS Code) • Windsurf | Claude Sonnet 4.5 keeps huge context in its “memory,” Windsurf’s agents plan multi-file changes | Claude web is still preview and company data rules may restrict it | 30–90 min |
-| Security/compliance lead | Cline (client-side) • Copilot Enterprise | All code stays local with Cline, while Copilot Enterprise adds SSO and audit logs | You still need team policies and Copilot request caps may apply | 60–120 min |
-| Offline/privacy-focused dev | Gemini CLI (local agent) • Cline + local models | Works from your machine, and you can swap in local models (Ollama/DeepSeek) when needed | Fully offline mode depends on your hardware and chosen model | 30–60 min |
-| Open-source maintainer | Cline • Aider | Both tools show diffs, commit for you, and play nicely with Git workflows | Terminal-first experience can feel advanced if Git basics are new | 20–45 min |
+| Complete beginner | Lovable • Bolt.new | Paste your idea, get a hosted app. Use "Custom Knowledge" for guidelines. | Daily credit caps; hosted code. | 2–5 min |
+| Learning hobbyist | Copilot Agent • Cline | Copilot edits files; Cline manages context layers for you. | Copilot requires subscription; Cline needs API key. | 5–10 min |
+| Experienced developer | Cursor • Windsurf | Cursor 2.1 has instant grep; Windsurf reads AGENTS.md automatically. | Usage-based credits; new IDE workflows. | 5–10 min |
+| Budget-limited builder | Cline • Gemini CLI | Free to install; Gemini CLI uses free tier API. | Less hand-holding; requires more prompting. | 5–10 min |
+| Need-it-today founder | Lovable • v0 | Fastest path to MVP. Use "Project Instructions" for v0 context. | Watch credit burn; plan for security review. | 2–5 min |
+| Mobile-first product team | v0 • Flutter + Gemini | v0 sketches mobile UI; Gemini CLI helps with native code. | Mobile features are evolving. | 45–60 min |
+| Complex logic engineer | Claude Code • Windsurf | Claude Code has session memory; Windsurf handles deep context. | Claude Code is CLI-based. | 10–15 min |
+| Security/compliance lead | Cline (client-side) | All code stays local; persistent context is managed locally. | You define the policy. | 10–20 min |
+| Offline/privacy-focused dev | Gemini CLI • Cline | Works with local models (Ollama) or private keys. | Offline mode depends on hardware. | 10–30 min |
+| Open-source maintainer | Cline • Aider | Aider explicitly reads AGENTS.md; Cline merges rule files. | Terminal-first or VS Code extension. | 5–10 min |
 
 **Quick Picks (Plain English)**
 - Need an MVP tonight? Use Lovable or Bolt.new, then plan a follow-up pass for polish and security.

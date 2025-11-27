@@ -122,12 +122,14 @@ Then ask these questions ONE AT A TIME based on their technical level:
 - Analytics: [Posthog/Mixpanel/Amplitude/Custom]"
 
 **Q5:** "AI coding assistance strategy?
-- Claude Code for architecture
-- Cursor/Windsurf for implementation
-- Antigravity for an all-in-one agent IDE
-- GitHub Copilot for completion
-- Cline for diffs
-- Aider CLI for local pair-programming
+- Claude Code (CLI with session memory)
+- Cursor (reads AGENTS.md automatically)
+- Windsurf (deep context & AGENTS.md support)
+- Antigravity (Agent-first IDE with Knowledge Base)
+- GitHub Copilot (Agent mode & CLI)
+- Cline (VS Code extension with persistent context)
+- Aider (CLI with explicit context loading)
+- OpenAI CLI (Terminal access to ChatGPT)
 - Mix of tools"
 
 **Q6:** "Development workflow preferences?
