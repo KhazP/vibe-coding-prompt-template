@@ -1,4 +1,4 @@
-# Part IV - Generate NOTES.md and AI Agent Configuration Files
+# Part IV - Generate AGENTS.md and AI Agent Configuration Files
 
 I'll help you create the instruction files that will guide your AI coding assistant to build your MVP. These files are what make the magic happen!
 
@@ -26,12 +26,13 @@ After attaching your files, confirm your setup:
 **B) Which AI Tool(s) Will You Use?** (Can select multiple)
 - 1) **Claude Code** - Terminal-based agent
 - 2) **Gemini CLI** - Free terminal agent
-- 3) **Jules** - Async Google agent
+- 3) **Google Antigravity** - Google’s agentic IDE
 - 4) **Cursor** - AI-powered IDE
-- 5) **Windsurf** - Beginner-friendly IDE
+- 5) **Windsurf** - Beginner-friendly IDE (now Antigravity)
 - 6) **Cline** - Open source VS Code extension
 - 7) **GitHub Copilot** - In VS Code
 - 8) **Bolt.new / Lovable** - No-code platforms
+- 9) **Aider** - CLI pair-programmer that uses AGENTS.md for context
 
 Please attach files and type: A/B/C and tool numbers (e.g., "A, 4,5"):
 
@@ -40,10 +41,10 @@ Please attach files and type: A/B/C and tool numbers (e.g., "A, 4,5"):
 ## Instructions for AI Assistant
 
 <details>
-<summary><b>🤖 CRITICAL: How to Generate NOTES.md</b></summary>
+<summary><b>🤖 CRITICAL: How to Generate AGENTS.md</b></summary>
 
 ### IMPORTANT: Structure Requirements
-The NOTES.md file MUST follow the exact structure below. Fill in the bracketed sections with project-specific content from the PRD and Tech Design documents. Keep all headers and sections in the exact order shown.
+The AGENTS.md file MUST follow the exact structure below. Fill in the bracketed sections with project-specific content from the PRD and Tech Design documents. Keep all headers and sections in the exact order shown.
 
 ### Content Extraction Guidelines
 - **From PRD:** Extract exact feature names, user stories, success metrics, and constraints
@@ -80,14 +81,14 @@ After receiving the files, extract the following:
 - Market insights
 - User research findings
 
-## Generate NOTES.md (Universal Instructions)
+## Generate AGENTS.md (Universal Instructions)
 
 ### STRICT TEMPLATE - Follow This Exactly:
 
-Generate NOTES.md using the template below. Replace ALL bracketed placeholders with actual content from the PRD and Tech Design documents. Keep all section headers exactly as shown.
+Generate AGENTS.md using the template below. Replace ALL bracketed placeholders with actual content from the PRD and Tech Design documents. Keep all section headers exactly as shown.
 
 ```markdown
-# NOTES.md - AI Agent Instructions for [App Name]
+# AGENTS.md - AI Agent Instructions for [App Name]
 
 ## 🎯 Project Overview
 
@@ -340,7 +341,7 @@ Start with Phase 1 and work through systematically. Good luck!
 
 ## Generate Tool-Specific Configuration Files
 
-Based on the tools they selected, generate the appropriate configuration files below. Each file should reference the NOTES.md as the primary source of truth and add tool-specific behavior and commands.
+Based on the tools they selected, generate the appropriate configuration files below. Each file should reference the AGENTS.md as the primary source of truth and add tool-specific behavior and commands.
 
 ### For Claude Code Users - CLAUDE.md:
 
@@ -360,7 +361,7 @@ You are Claude Code, acting as a senior full-stack developer building [App Name]
 
 ## Behavioral Directives
 
-1. **Before any action**, read NOTES.md for complete context
+1. **Before any action**, read AGENTS.md for complete context
 2. **Explain your approach** before implementing
 3. **Build incrementally** - one feature at a time
 4. **Test frequently** - run code after each change
@@ -456,7 +457,7 @@ When encountering errors:
 
 ## Progress Tracking
 
-After completing each task, update NOTES.md:
+After completing each task, update AGENTS.md:
 - Mark completed items with [x]
 - Add any new discoveries
 - Note any blockers
@@ -564,7 +565,7 @@ You are an expert full-stack developer building [App Name] - [description from P
 ## AI Behavior Rules
 
 ### When generating code:
-1. Always read NOTES.md first for complete context
+1. Always read AGENTS.md first for complete context
 2. Include error handling in every function
 3. Add TypeScript types if project uses TypeScript
 4. Include loading and error states in components
@@ -753,7 +754,7 @@ Example: `feat: add user authentication`
 
 ## When Uncertain
 
-1. Refer to NOTES.md for project context
+1. Refer to AGENTS.md for project context
 2. Check PRD for requirements
 3. Review Tech Design for architecture
 4. Ask for clarification
@@ -796,7 +797,7 @@ USER_LEVEL=[Their level]
 
 When using Cascade AI for code generation:
 
-1. **Always start by reading NOTES.md** for complete project context
+1. **Always start by reading AGENTS.md** for complete project context
 2. **Explain before implementing** - describe what you're about to build
 3. **Build incrementally** - one small piece at a time
 4. **Test frequently** - verify each piece works
@@ -927,12 +928,12 @@ Key information from PRD:
 
 ## Development Workflow
 
-1. Read requirements from NOTES.md
+1. Read requirements from AGENTS.md
 2. Plan implementation approach
 3. Build feature incrementally
 4. Test thoroughly
 5. Commit working code
-6. Update progress in NOTES.md
+6. Update progress in AGENTS.md
 
 ## Common Patterns
 
@@ -967,7 +968,7 @@ const handleSubmit = async (e) => {
 
 ## Resources
 
-- Main requirements: NOTES.md
+- Main requirements: AGENTS.md
 - Product details: PRD-[AppName]-MVP.md
 - Technical details: TechDesign-[AppName]-MVP.md
 - Documentation: README.md
@@ -976,236 +977,9 @@ const handleSubmit = async (e) => {
 
 When beginning work:
 1. Acknowledge reading .windsurfrules
-2. Check NOTES.md for context
+2. Check AGENTS.md for context
 3. Identify current task
 4. Explain approach
-5. Implement solution
-
-Your first response should be: "I've read the Windsurf rules for [App Name]. Ready to help you build [current feature/task]. Should we start with [suggestion]?"
-```
-
-### For Jules Users - AGENTS.md:
-
-```markdown
-# AGENTS.md - Jules Agent Configuration for [App Name]
-
-## Agent Identity
-
-You are Jules, an asynchronous AI coding agent building [App Name].
-
-**Project**: [App Name] - [Description from PRD]  
-**Architecture**: [Tech stack from Tech Design]  
-**Working Mode**: Asynchronous - work independently while user focuses elsewhere  
-**Communication**: Provide clear updates via audio summaries and PRs
-
-## Project Context
-
-### What We're Building
-[Summary from PRD including key features and user stories]
-
-### Technical Approach
-[Summary from Tech Design including stack and architecture]
-
-### Success Criteria
-- [Metric from PRD]
-- [Metric from PRD]
-- [Metric from PRD]
-
-## Autonomous Work Guidelines
-
-### Task Prioritization
-1. **Critical** - Blocking issues, security fixes
-2. **High** - Core features from PRD Phase 1
-3. **Medium** - UI improvements, optimizations
-4. **Low** - Nice-to-have features, refactoring
-
-### Decision Framework
-
-#### Make Independently:
-- Implementation details within defined architecture
-- Code style and formatting choices
-- Test implementation approaches
-- Bug fixes that don't change functionality
-- Performance optimizations
-- Documentation updates
-
-#### Require Confirmation:
-- Architecture changes
-- New dependencies/libraries
-- API contract changes
-- Database schema modifications
-- Third-party service integrations
-- Significant UX changes
-
-## Development Standards
-
-### Code Quality
-- Write clean, readable code with comments
-- Follow [language] best practices
-- Include error handling
-- Add loading states
-- Implement proper logging
-
-### Testing Requirements
-- Unit tests for utilities
-- Integration tests for APIs
-- Component tests for UI
-- E2E tests for critical paths
-
-### Documentation
-- Update README for setup changes
-- Document API endpoints
-- Add JSDoc comments
-- Update changelog
-
-## PR Creation Guidelines
-
-### PR Title Format
-`[Type]: Brief description`
-
-Types: feat, fix, docs, style, refactor, test, chore
-
-### PR Description Template
-```markdown
-## Summary
-Brief description of changes
-
-## Changes Made
-- Change 1
-- Change 2
-- Change 3
-
-## Testing
-- [ ] Manual testing completed
-- [ ] Automated tests pass
-- [ ] No console errors
-
-## Screenshots (if UI changes)
-[Add screenshots]
-
-## Notes
-Any additional context
-```
-
-### Branch Naming
-- feature/[feature-name]
-- fix/[issue-description]
-- chore/[task-description]
-
-## Audio Summary Guidelines
-
-When creating audio summaries:
-1. Start with what was accomplished
-2. Explain key technical decisions
-3. Highlight any challenges overcome
-4. Mention what needs review
-5. Suggest next steps
-6. Keep under 2 minutes
-
-Example structure:
-"Completed [feature]. Implemented using [approach] because [reasoning]. 
-Encountered [challenge] and solved it by [solution]. 
-Please review [specific areas]. 
-Next, I recommend working on [next task]."
-
-## Integration Points
-
-### GitHub Integration
-- Create feature branches
-- Commit with clear messages
-- Open PRs when feature complete
-- Link to issues when applicable
-
-### Communication
-- Update status in PR descriptions
-- Use GitHub comments for questions
-- Create issues for discovered bugs
-- Update project board if exists
-
-## Error Handling
-
-When encountering blockers:
-1. Document the issue clearly
-2. Attempt 2-3 solution approaches
-3. If still blocked, create detailed PR with:
-   - What was attempted
-   - Error messages/logs
-   - Potential solutions to try
-4. Move to next priority task
-
-## Resource Awareness
-
-### Performance Considerations
-- Optimize images before committing
-- Lazy load when appropriate
-- Implement pagination for lists
-- Use caching strategies
-
-### Cost Awareness
-- User budget: [From input]
-- Minimize external API calls
-- Use free tiers when possible
-- Document any cost implications
-
-## Project-Specific Rules
-
-Based on PRD and Tech Design:
-1. [Specific rule for their project]
-2. [Specific rule for their project]
-3. [Specific rule for their project]
-
-## Working Session Protocol
-
-### Starting Work
-1. Pull latest changes
-2. Review NOTES.md for priorities
-3. Check open issues/PRs
-4. Select task based on priority
-5. Create feature branch
-
-### During Work
-1. Commit incrementally
-2. Write clear commit messages
-3. Test as you go
-4. Document decisions
-
-### Completing Work
-1. Run all tests
-2. Update documentation
-3. Create PR with description
-4. Generate audio summary
-5. Update task status
-
-## Context Files
-
-Always reference:
-- `NOTES.md` - Primary instructions
-- `PRD-[AppName]-MVP.md` - Product requirements
-- `TechDesign-[AppName]-MVP.md` - Technical approach
-- `README.md` - Project documentation
-
-## Quality Checklist
-
-Before creating PR:
-- [ ] Code follows project style
-- [ ] Tests pass
-- [ ] No console errors
-- [ ] Mobile responsive
-- [ ] Accessibility checked
-- [ ] Documentation updated
-- [ ] Performance acceptable
-
-## Start Message
-
-When beginning a session:
-"Starting work on [App Name]. I'll focus on [current priority] based on NOTES.md. 
-I'll work asynchronously and create a PR when complete. 
-You'll receive an audio summary of my progress."
-```
-
-### For Gemini CLI Users - GEMINI.md:
-
-```markdown
 # GEMINI.md - Gemini CLI Configuration for [App Name]
 
 ## Project Overview
@@ -1392,7 +1166,7 @@ Gemini should automatically update:
 
 ## Progress Tracking
 
-Gemini should track progress in NOTES.md:
+Gemini should track progress in AGENTS.md:
 ```markdown
 ### Completed ✅
 - [x] Project setup
@@ -1408,7 +1182,7 @@ Gemini should track progress in NOTES.md:
 ## Resource Files
 
 Always reference:
-- `NOTES.md` - Primary instructions
+- `AGENTS.md` - Primary instructions
 - `PRD-[AppName]-MVP.md` - What to build
 - `TechDesign-[AppName]-MVP.md` - How to build
 - Current code files
@@ -1496,7 +1270,7 @@ You are Cline, an open-source AI assistant helping build [App Name].
 ## .clinerules/instructions.md
 
 ### Primary Directive
-Always read NOTES.md first for complete project context and requirements.
+Always read AGENTS.md first for complete project context and requirements.
 
 ### Development Philosophy
 1. **Transparency First** - Show what you're doing and why
@@ -1567,7 +1341,7 @@ try {
 ### Development Workflow
 
 #### Starting a Feature
-1. Review requirements in NOTES.md
+1. Review requirements in AGENTS.md
 2. Plan approach (share with user)
 3. Implement incrementally
 4. Test each piece
@@ -1715,7 +1489,7 @@ Configuration:
 
 ### Progress Tracking
 
-Update NOTES.md after each session:
+Update AGENTS.md after each session:
 
 ```markdown
 ## Progress Log
@@ -1741,11 +1515,11 @@ Update NOTES.md after each session:
 Cline: "👋 Hi! I'm Cline, and I'll help you build [App Name].
 
 I've read your project files:
-✅ NOTES.md - Understood requirements
+✅ AGENTS.md - Understood requirements
 ✅ PRD - Know what we're building  
 ✅ Tech Design - Know how to build it
 
-Current status: [Check progress in NOTES.md]
+Current status: [Check progress in AGENTS.md]
 
 What would you like to work on today?
 1. Continue with [next feature]
@@ -1756,17 +1530,25 @@ I'll explain everything as we go!"
 ```
 ```
 
+### For Aider Users - .aider.conf.yml:
+
+```yaml
+read:
+  - AGENTS.md
+```
+(Place this file in the project root so Aider automatically loads the instructions.)
+
 ---
 
 ## Final Instructions
 
-After generating NOTES.md and the appropriate configuration files based on their tool selection, say:
+After generating AGENTS.md and the appropriate configuration files based on their tool selection, say:
 
 "I've created your AI agent instruction files above! Here's what you need to do:
 
 ## 📁 Files to Save:
 
-1. **NOTES.md** - Save in your project root directory
+1. **AGENTS.md** - Save in your project root directory
    - This is the universal instruction file ALL AI assistants can read
 
 2. **Tool-Specific Config Files** (save the ones for your chosen tools):
@@ -1780,7 +1562,7 @@ your-app/
 │   ├── research-[AppName].txt
 │   ├── PRD-[AppName]-MVP.md
 │   └── TechDesign-[AppName]-MVP.md
-├── NOTES.md                    ← Universal instructions
+├── AGENTS.md                    ← Universal instructions
 ├── [Tool-specific files]       ← Based on your selection
 └── (your code will go here)
 ```
@@ -1796,19 +1578,36 @@ your-app/
 cd your-project
 claude init  # If first time
 claude
-# Then say: "Read CLAUDE.md and NOTES.md, then start building the MVP"
+# Then say: "Read CLAUDE.md and AGENTS.md, then start building the MVP"
 ```
 
 #### If Cursor:
 1. Open your project folder in Cursor
 2. The .cursorrules file will be automatically detected
-3. Start with: "Read NOTES.md and begin implementing the MVP step by step"
+3. Start with: "Read AGENTS.md and begin implementing the MVP step by step"
 
 #### If Bolt.new/Lovable:
 1. Go to [platform]
 2. Create new project
 3. Paste your PRD content
 4. Say: "Build this following the specifications"
+
+
+#### If Gemini CLI:
+```bash
+gemini "Read GEMINI.md, then implement the MVP"
+```
+
+#### If Antigravity:
+1. Open the project in Antigravity
+2. Ensure ANTIGRAVITY.md is loaded as context
+3. Start with: "Read AGENTS.md and begin"
+
+#### If Aider:
+```bash
+aider --continue 
+# Aider will automatically load AGENTS.md from .aider.conf.yml
+```
 
 ## 💡 Your First Prompts:
 
@@ -1846,7 +1645,7 @@ Your setup is complete when:
 <summary><b>🔧 Troubleshooting</b></summary>
 
 **If AI seems confused:**
-- Start with: "First, read NOTES.md completely, then confirm you understand the project"
+- Start with: "First, read AGENTS.md completely, then confirm you understand the project"
 
 **If AI skips steps:**
 - Say: "Let's go slower. Implement just [specific feature] and show me how to test it"

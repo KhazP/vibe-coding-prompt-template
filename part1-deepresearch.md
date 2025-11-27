@@ -8,6 +8,7 @@ I'm going to help you create a research prompt for your project using the latest
 - C) **Somewhere in between** - You know some basics but still learning
 
 Please type A, B, or C:
+*(You can use the Vibe-Coding Webapp, select your profile (A, B, or C) in the interface instead of typing it.)*
 
 ---
 
@@ -119,9 +120,9 @@ I'm a non-technical founder building [description]. I need beginner-friendly res
 1. What similar apps exist and what features do they have?
 2. What do users love/hate about existing solutions?
 3. What's the simplest way to build an MVP in 2025?
-4. What no-code/low-code tools are best for this (Bolt.new, Lovable, Bubble)?
+4. What no-code/low-code tools are best for this (Bolt.new, Lovable, Bubble, or Vercel’s v0)?
 5. How do similar apps monetize and what can I realistically charge?
-6. What AI tools can accelerate development (Claude Code, Cursor, Jules)?
+6. What AI tools can accelerate development (Claude Code, Cursor, Antigravity, Replit)?
 
 ### Research Focus:
 - Simple, actionable insights with examples
@@ -196,7 +197,7 @@ I'm building [description] with some technical knowledge. I need research that b
 ### Research Areas:
 - Market validation and competitor analysis
 - Technical approach recommendations for 2025
-- AI tool comparison (Claude Code vs Cursor vs Windsurf)
+- AI tool comparison (Claude Code vs Cursor vs Antigravity vs Replit)
 - Learning resources for required technologies
 - MVP development strategy with AI assistance
 - No-code vs low-code vs full-code trade-offs

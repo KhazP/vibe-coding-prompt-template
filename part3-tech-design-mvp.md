@@ -124,8 +124,10 @@ Then ask these questions ONE AT A TIME based on their technical level:
 **Q5:** "AI coding assistance strategy?
 - Claude Code for architecture
 - Cursor/Windsurf for implementation
+- Antigravity for an all-in-one agent IDE
 - GitHub Copilot for completion
-- Cline for transparency
+- Cline for diffs
+- Aider CLI for local pair-programming
 - Mix of tools"
 
 **Q6:** "Development workflow preferences?
@@ -161,7 +163,7 @@ Then ask these questions ONE AT A TIME based on their technical level:
 - Want to learn: [Specific technologies]"
 
 **Q3:** "For building your MVP, which approach appeals to you?
-- No-code platform (Bolt.new, Lovable) - Fastest
+- No-code platform (Bolt.new, Lovable, or v0.dev) - Fastest
 - Low-code with AI (Cursor + templates) - Balance
 - Learn by doing (AI guides you) - Educational
 - Hire it out (you manage) - Hands-off"
@@ -257,7 +259,7 @@ Based on your PRD, here's how to implement each feature:
 
 **How to build with [Chosen Tool]:**
 
-#### If Using No-Code (Bolt.new/Lovable):
+#### If Using No-Code (Bolt.new/Lovable/v0.dev):
 1. **Describe to AI:** "Create a [feature description]"
 2. **Key Components Needed:**
    - [Component 1]
@@ -972,7 +974,7 @@ Based on your skills and goals, here's the optimal strategy:
   - *Learning time:* 1 hour
 
 #### AI Assistance
-- **Primary:** [Cursor or Windsurf]
+- **Primary:** [Cursor, Windsurf, or Antigravity]
   - *Why:* Best balance of power and ease
   - *Cost:* $20/month
 
@@ -1261,7 +1263,7 @@ Specifically:
 ### Development Phase
 | Service | Free Tier | Paid | You Need |
 |---------|-----------|------|----------|
-| Cursor/Windsurf | Trial | $20/mo | Paid (worth it) |
+| Cursor/Windsurf/Antigravity | Trial | $20/mo | Paid (worth it) |
 | Supabase | 500MB | $25/mo | Free sufficient |
 | Vercel | Generous | $20/mo | Free sufficient |
 | **Total** | **$0** | **$65** | **$20/mo** |
@@ -1301,7 +1303,7 @@ Specifically:
 2. **AI Assistants:**
   - Architecture: Claude Sonnet 4.5
    - Debugging: ChatGPT
-   - Code: Cursor/Windsurf
+   - Code: Cursor/Windsurf/Antigravity
 
 ## Growing Beyond MVP
 

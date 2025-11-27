@@ -21,23 +21,34 @@ Transform any app idea into working code through 5 AI-powered stages using the l
 | 1️⃣ | **Research** | Validate market & tech landscape | Research findings |
 | 2️⃣ | **Define** | Clarify product scope | PRD (Product Requirements) |
 | 3️⃣ | **Design** | Decide how to build | Technical Design doc |
-| 4️⃣ | **Generate AI Agent Instructions** | Convert docs into agent blueprints | NOTES.md + agent configs |
+| 4️⃣ | **Generate AI Agent Instructions** | Convert docs into agent blueprints | AGENTS.md + tool-specific config files |
 | 5️⃣ | **Build** | Generate & test code | Working MVP |
 
 ---
 
 ## 🏃 Quick Start
 
+<div align="center">
+
+### ✨ **New: Automated Web App Workflow** ✨
+
+**Skip the manual copy-pasting!**  
+We now have an interactive web app that automates the entire process for you.
+
+[![Launch Web App](https://img.shields.io/badge/🚀_Launch-Vibe_Coding_Web_App-blue?style=for-the-badge&logo=vercel)](https://vibe-coding-template-webapp.vercel.app/#/)
+
+</div>
+
 <details>
-<summary><b>⚡ The Entire Workflow in 60 Seconds</b></summary>
+<summary><b>⚡ Manual Workflow Guide (The Classic Way)</b></summary>
 
 | Step | What You Do | Time | Result |
 |:---:|-------------|:----:|--------|
 | 📚 | Copy prompts → Answer questions | 20 min | Research doc |
 | 📝 | Define your app idea | 15 min | PRD doc |
 | 🏗️ | Choose technical approach | 15 min | Tech Design doc |
-| 🤖 | Generate AI instructions | 10 min | NOTES.md + agent config |
-| 💻 | Tell AI: *"Read NOTES.md and build"* | 1-3 hrs | **Working MVP!** |
+| 🤖 | Generate AI instructions | 10 min | AGENTS.md + agent config |
+| 💻 | Tell the AI agent: *"Read AGENTS.md and build the MVP"* | 1-3 hrs | **Working MVP!** |
 
 </details>
 
@@ -77,7 +88,12 @@ Transform any app idea into working code through 5 AI-powered stages using the l
 - **[OpenAI CLI](https://platform.openai.com/docs/guides/responses)** - Terminal access to ChatGPT 5.1 tool-calling pipelines ([docs](https://platform.openai.com/docs))
    ```bash
    pip install --upgrade openai
-   openai responses.create -m gpt-5.1 --input "Summarize NOTES.md"
+   openai responses.create -m gpt-5.1 --input "Summarize AGENTS.md"
+   ```
+- **[Aider](https://aider.chat)** - CLI tool that reads AGENTS.md context by default ([docs](https://aider.chat/docs))
+   ```bash
+   pip install aider-chat
+   aider --config .aider.conf.yml
    ```
 
 ### Async/Cloud Agents
@@ -85,6 +101,7 @@ Transform any app idea into working code through 5 AI-powered stages using the l
 - **[GitHub Copilot Agent](https://github.com/features/copilot)** - Agentic PR, code review, and deployment prep automation ([docs](https://docs.github.com/en/copilot))
 
 ### IDE-Based Tools (Beginner Friendly)
+- **[Google Antigravity](https://antigravity.google)** ⭐ - Google’s agent-first coding IDE (async autonomous agent on Vertex AI)
 - **[Cursor](https://cursor.sh)** ⭐ - AI editor with long-term Memory, Auto Debug, and Codebase Q&A ([pricing](https://cursor.sh))
 - **[VS Code + Github Copilot](https://code.visualstudio.com/)** ⭐ - Editor with Copilot Agent Mode and inline pair programming ([Copilot pricing](https://github.com/features/copilot/plans))
 
@@ -172,7 +189,7 @@ Transform any app idea into working code through 5 AI-powered stages using the l
 
 ### 4️⃣ Generate AI Agent Instructions 🤖
 <details>
-<summary><b>Create blueprints for your AI coding assistant</b> • 5-10 min • Creates <code>NOTES.md</code> + agent configs</summary>
+<summary><b>Create blueprints for your AI coding assistant</b> • 5-10 min • Creates <code>AGENTS.md</code> + agent configs</summary>
 
 **What this does:** Converts all docs into step-by-step coding instructions for AI agents.
 
@@ -180,11 +197,12 @@ Transform any app idea into working code through 5 AI-powered stages using the l
 1. Copy `part4-notes-for-agent.md` into a new AI chat
 2. Attach PRD and Technical Design documents
 3. AI generates:
-   - `NOTES.md` - Universal instructions
+   - `AGENTS.md` - Universal instructions
    - Tool-specific configs (based on your choice):
      - `CLAUDE.md` for Claude Code
-     - `GEMINI.md` for Gemini CLI
-     - `AGENTS.md` for Jules
+     - `GEMINI.md` for Gemini CLI & Antigravity
+     - `.aider.conf.yml` for Aider
+     - `.clinerules` for Cline
      - `.cursorrules` for Cursor
      - `.windsurfrules` for Windsurf
 4. Save all files in your project root
@@ -206,13 +224,13 @@ npm install -g @anthropic-ai/claude-code
 cd your-project
 claude init
 # Add CLAUDE.md to project root
-claude "Read CLAUDE.md and NOTES.md, then build the MVP"
+claude "Read CLAUDE.md and AGENTS.md, then build the MVP"
 
 # Gemini CLI
 npm install -g @google-gemini/cli
 gemini login
 # Add GEMINI.md to project root
-gemini "Read GEMINI.md and NOTES.md, then implement"
+gemini "Read GEMINI.md and AGENTS.md, then implement"
 ```
 
 </details>
@@ -224,7 +242,7 @@ gemini "Read GEMINI.md and NOTES.md, then implement"
 2. Add configuration file:
    - Cursor: `.cursorrules` or `.cursor/rules.mdc`
    - Windsurf: `.windsurfrules`
-3. Start with: *"Read NOTES.md and build the MVP step by step"*
+3. Start with: *"Read AGENTS.md and build the MVP step by step"*
 
 </details>
 
@@ -243,9 +261,9 @@ gemini "Read GEMINI.md and NOTES.md, then implement"
 **Starting prompts by experience level:**
 | Level | First Prompt |
 |-------|--------------|
-| **Beginner** | *"I'm new to coding. Read NOTES.md and guide me step-by-step to build this MVP. Explain what you're doing."* |
-| **Intermediate** | *"Read NOTES.md and the docs folder. Build the core features first, test, then add polish."* |
-| **Developer** | *"Review NOTES.md and architecture. Implement Phase 1 with proper patterns and test coverage."* |
+| **Beginner** | *"I'm new to coding. Read AGENTS.md and guide me step-by-step to build this MVP. Explain what you're doing."* |
+| **Intermediate** | *"Read AGENTS.md and the docs folder. Build the core features first, test, then add polish."* |
+| **Developer** | *"Review AGENTS.md and architecture. Implement Phase 1 with proper patterns and test coverage."* |
 
 **Follow-up prompts for all levels:**
 - *"Show me the current progress vs requirements"*
@@ -266,10 +284,12 @@ your-app/
 │   ├── research-YourApp.txt
 │   ├── PRD-YourApp-MVP.md
 │   └── TechDesign-YourApp-MVP.md
-├── NOTES.md              # Universal AI instructions
+├── AGENTS.md             # Universal AI instructions
 ├── CLAUDE.md             # Claude Code config (if using)
 ├── GEMINI.md             # Gemini CLI config (if using)
-├── AGENTS.md             # Jules config (if using)
+├── GEMINI.md             # Antigravity config (if using)
+├── .aider.conf.yml       # Aider config (if using)
+├── .clinerules           # Cline config (if using)
 ├── .cursorrules          # Cursor config (if using)
 ├── .windsurfrules        # Windsurf config (if using)
 ├── README.md             # Setup instructions (AI-generated)
@@ -377,10 +397,10 @@ your-app/
 
 | Problem | Solution |
 |---------|----------|
-| **"AI ignores my documents"** | Start with: *"First read NOTES.md, PRD, and TechDesign. Summarize key requirements before coding."* |
+| **"AI ignores my documents"** | Start with: *"First read AGENTS.md, PRD, and TechDesign. Summarize key requirements before coding."* |
 | **"Code doesn't match PRD"** | Say: *"Re-read the PRD section on [feature], list acceptance criteria, then refactor accordingly."* |
 | **"AI is overcomplicating"** | Add to config: *"Prioritize MVP scope. Offer the simplest working implementation before optimizations."* |
-| **"Lost track of progress"** | Ask: *"Update the NOTES.md progress log and map remaining tasks to implementation phases."* |
+| **"Lost track of progress"** | Ask: *"Update the AGENTS.md progress log and map remaining tasks to implementation phases."* |
 | **"Deployment failing"** | Request: *"Walk through deployment checklist, verify env vars, then run the platform-specific health command."* |
 
 </details>
