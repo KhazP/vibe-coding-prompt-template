@@ -35,7 +35,7 @@ Transform any app idea into working code through 5 AI-powered stages using the l
 **Skip the manual copy-pasting!**  
 We now have an interactive web app that automates the entire process for you.
 
-[![Launch Web App](https://img.shields.io/badge/🚀_Launch-Vibe_Coding_Web_App-blue?style=for-the-badge&logo=vercel)](https://vibe-coding-template-webapp.vercel.app/#/)
+[![Launch Web App](https://img.shields.io/badge/🚀_Launch-Vibe_Coding_Web_App-blue?style=for-the-badge&logo=vercel)](https://vibeworkflow.app/)
 
 </div>
 
