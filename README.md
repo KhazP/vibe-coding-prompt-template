@@ -4,7 +4,7 @@
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
-[![Last Updated](https://img.shields.io/badge/Updated-November%202025-blue.svg)](README.md)
+[![Last Updated](https://img.shields.io/badge/Updated-December%202025-blue.svg)](README.md)
 
 **Build an MVP in hours, not months – guided by the latest AI coding agents**
 
