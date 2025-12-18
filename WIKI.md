@@ -10,7 +10,7 @@ The Vibe-Coding Workflow is a systematic 4-part process for transforming app ide
 | **Part I: Deep Research** | Validate market opportunity and technical feasibility | 20-30 minutes | Research findings document |
 | **Part II: PRD Creation** | Define product requirements and scope | 15-20 minutes | Product Requirements Document |
 | **Part III: Technical Design** | Plan architecture and tech stack | 15-20 minutes | Technical Design Document |
-| **Part IV: AI Agent Instructions** | Generate coding instructions for AI agents | 5-10 minutes | NOTES.md (AGENTS.md in this repo) + tool configs |
+| **Part IV: AI Agent Instructions** | Generate coding instructions for AI agents | 5-10 minutes | AGENTS.md (formerly NOTES.md) + tool configs |
 | **Build Phase** | AI agent builds the MVP | 1-3 hours | Working application |
 
 ## User Levels Supported
@@ -38,7 +38,7 @@ The workflow adapts to three user experience levels:
 - AI coding agent or IDE (Cursor, Claude Code, Windsurf, etc.)
 
 ### Optional
-- Node.js 18+ (for terminal-based agents)
+- Node.js 22+ (for terminal-based agents)
 - GitHub account (for version control)
 - Basic understanding of web development concepts
 
@@ -62,7 +62,7 @@ Based on documented usage:
 - **Part I: Deep Research** - Market validation and technical analysis
 - **Part II: PRD Creation** - Product requirements definition
 - **Part III: Technical Design** - Architecture planning
-- **Part IV: AI Agent Instructions** - Coding instruction generation (NOTES.md / AGENTS.md + tool configs)
+- **Part IV: AI Agent Instructions** - Coding instruction generation (AGENTS.md + tool configs)
 - **AI Tools Guide** - Comprehensive tool comparison
 - **Quick Start Guide** - Step-by-step implementation
 - **Troubleshooting** - Common issues and solutions
