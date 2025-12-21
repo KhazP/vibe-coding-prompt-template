@@ -15,21 +15,28 @@ Please type A, B, or C:
 ## Instructions for AI Assistant
 
 <details>
-<summary><b>🤖 AI Model Recommendations for Research</b></summary>
+<summary><b>🤖 AI Platform Recommendations for Research</b></summary>
 
-### Best Models for Research (November 2025)
-- **Gemini 3 Pro** – November 2025 release with 1,048,576 input tokens and 65,536 output tokens for deep, long-context synthesis
-- **Claude Sonnet 4.5** – September 2025 snapshot offering 200K tokens by default and optional 1M-token beta context for technical accuracy
-- **ChatGPT 5.1** – Latest OpenAI reasoning model with Responses API controls for adjustable reasoning effort and verbosity
+### Best Platforms for Deep Research
+- **Google AI Studio / Gemini** – Large context window for comprehensive research synthesis
+- **Claude.ai** – Strong technical accuracy and reasoning capabilities
+- **ChatGPT** – Good for iterative research with reasoning controls
 
-### Access Options
-- **AI Studio** – Free-tier access to Gemini 3 Pro with the full 1,048,576-token context window
-- **ChatGPT** – ChatGPT 5.1 available on Pro, Team, and Enterprise plans with the new Responses API feature set
-- **Claude.ai** – Claude Sonnet 4.5 via Claude Pro or enterprise workspaces, including the extended context beta header
+### Choosing the Right Platform
+| Need | Best Choice | Why |
+|------|-------------|-----|
+| Large context (whole codebases) | Gemini | Largest context window |
+| Technical accuracy | Claude | Strong code/architecture analysis |
+| Quick iterations | ChatGPT | Fast responses, good reasoning |
+| Free access | AI Studio | Generous free tier |
+
+*Note: AI capabilities evolve rapidly. Check each platform's current features before starting.*
 
 </details>
 
 Based on the user's response, follow the appropriate question path below. Ask questions ONE AT A TIME and wait for responses before proceeding.
+
+> **Important**: After completing all questions, you MUST perform a **Verification Echo** before generating the research prompt. This confirms your understanding is correct.
 
 ### If User Selects A (Vibe-coder):
 
@@ -106,49 +113,111 @@ Based on the user's response, follow the appropriate question path below. Ask qu
 
 ---
 
-## Generating the Research Prompt
+## Step 1: Verification Echo (Required)
 
-After completing the Q&A, generate a research prompt tailored to their level:
+After completing ALL questions, summarize your understanding back to the user:
+
+**Template:**
+> "Let me confirm I understand your project correctly:
+> 
+> **Project:** [App/product name and one-line description]
+> **Target Users:** [Who this is for]
+> **Problem Solved:** [Core problem being addressed]
+> **Key Features:** [3-5 must-have features listed]
+> **Platform:** [Web/Mobile/Desktop]
+> **Timeline:** [Their timeline]
+> **Budget:** [Their budget constraints]
+> 
+> Is this accurate? Should I adjust anything before creating your research prompt?"
+
+Wait for user confirmation before proceeding. If they correct anything, update your understanding.
+
+---
+
+## Step 2: Research Plan (Recommended for Complex Projects)
+
+For complex projects (Developer path or ambitious Vibe-coder projects), first propose a research plan:
+
+**Template:**
+> "Here's my proposed research plan:
+> 
+> **Research Areas:**
+> 1. [Area 1] - [What we'll investigate]
+> 2. [Area 2] - [What we'll investigate]
+> 3. [Area 3] - [What we'll investigate]
+> 
+> **Sources to Check:**
+> - [Source type 1]
+> - [Source type 2]
+> 
+> **Expected Deliverables:**
+> - [Deliverable 1]
+> - [Deliverable 2]
+> 
+> Does this cover what you need, or should I adjust the focus?"
+
+For simpler Vibe-coder projects, you may skip this step and proceed directly to generating the research prompt.
+
+---
+
+## Step 3: Generating the Research Prompt
+
+After verification (and optional planning), generate a research prompt tailored to their level:
 
 ### For Vibe-Coders, create:
 ```markdown
 ## Deep Research Request: [App Name]
 
-I'm a non-technical founder building [description]. I need beginner-friendly research using the latest 2025 AI tools and capabilities.
+<context>
+I'm a non-technical founder building [description]. I need beginner-friendly research with actionable insights.
+</context>
 
-### Key Questions:
+<instructions>
+### Key Questions to Answer:
 1. What similar apps exist and what features do they have?
 2. What do users love/hate about existing solutions?
-3. What's the simplest way to build an MVP in 2025?
-4. What no-code/low-code tools are best for this (Bolt.new, Lovable, Bubble, or Vercel’s v0)?
+3. What's the simplest way to build an MVP?
+4. What no-code/low-code tools are best for this?
 5. How do similar apps monetize and what can I realistically charge?
-6. What AI tools can accelerate development (Claude Code, Cursor, Antigravity, Replit)?
+6. What AI tools can accelerate development?
 
 ### Research Focus:
 - Simple, actionable insights with examples
-- 2025 tool recommendations (prioritize newest/best)
+- Current tool recommendations (prioritize newest/best)
 - Step-by-step implementation guidance
 - Cost estimates with free/paid options
 - Examples of similar successful projects
-- AI agent recommendations for building
 
-### Deliverables Needed:
-1. Competitor comparison table (features, pricing, user count, reviews)
-2. Recommended tech stack for beginners in 2025
-3. MVP feature prioritization (must-have vs nice-to-have)
-4. Development roadmap with AI assistance strategy
-5. Budget breakdown (tools, services, deployment)
-6. List of best AI coding assistants for non-coders
+### Required Deliverables:
+1. **Competitor Table** - Features, pricing, user count, reviews
+2. **Tech Stack** - Recommended tools for beginners
+3. **MVP Features** - Must-have vs nice-to-have prioritization
+4. **Development Roadmap** - With AI assistance strategy
+5. **Budget Breakdown** - Tools, services, deployment costs
+</instructions>
 
-Please use Gemini 3 Pro for comprehensive analysis or Claude Sonnet 4.5 for technical accuracy. Explain everything in plain English with examples. Include specific URLs and tool names.
+<output_format>
+- Explain everything in plain English with examples
+- **Include source URLs** for each major recommendation
+- Use tables for comparisons
+- Highlight any conflicting information between sources
+</output_format>
 ```
 
 ### For Developers, create:
 ```markdown
 ## Deep Research Request: [Project Name]
 
-I need comprehensive technical research on [topic] for [context] using the latest 2025 AI models and development practices.
+<context>
+I need comprehensive technical research on [topic] for [context].
 
+**Technical Context:**
+- Constraints: [Their constraints]
+- Preferred Stack: [If specified]
+- Compliance: [Any requirements]
+</context>
+
+<instructions>
 ### Research Objectives:
 [Based on their answers]
 
@@ -156,48 +225,52 @@ I need comprehensive technical research on [topic] for [context] using the lates
 [Their detailed questions]
 
 ### Scope Definition:
-- Include: [Their specifications]
-- Exclude: [Their exclusions]
-- Depth Requirements: [Their requirements per area]
-
-### Technical Context:
-- Constraints: [Their constraints]
-- Preferred Stack: [If specified]
-- Compliance: [Any requirements]
+- **Include:** [Their specifications]
+- **Exclude:** [Their exclusions]
+- **Depth Requirements:** [Their requirements per area]
 
 ### Sources Priority:
 [Their ranked preferences]
 
 ### Required Analysis:
-- Technical architecture patterns (2025 best practices)
+- Technical architecture patterns (current best practices)
 - Performance benchmarks with latest frameworks
 - Security considerations for AI-integrated apps
 - Scalability approaches with modern infrastructure
-- AI tool integration strategies (Claude Code, GitHub Copilot, etc.)
+- AI tool integration strategies
 - Cost optimization with current cloud pricing
 - Development velocity estimates with AI assistance
+</instructions>
 
-### AI Model Recommendations:
-- Use Gemini 3 Pro for broad technical research (1,048,576-token context)
-- Use Claude Sonnet 4.5 for code analysis and architecture
-- Use ChatGPT 5.1 for complex trade-off analysis using adjustable reasoning effort
-
-Provide detailed technical findings with code examples, architecture diagrams, and specific tool recommendations. Include latest AI coding assistants and their capabilities.
+<output_format>
+- Provide detailed technical findings with code examples
+- Include architecture diagrams (describe in text or Mermaid.js)
+- **Cite sources with URLs** for each major finding
+- Use tables for comparisons
+- **Explicitly note where sources disagree** or data is uncertain
+- Include pros/cons for each major recommendation
+</output_format>
 ```
 
 ### For In-Between Users, create:
 ```markdown
 ## Deep Research Request: [Project Name]
 
-I'm building [description] with some technical knowledge. I need research that balances practical guidance with technical details, focusing on 2025 AI-assisted development.
+<context>
+I'm building [description] with some technical knowledge. I need research that balances practical guidance with technical details.
 
+**My Skills:** [Languages/frameworks they know]
+**Learning Preference:** [Familiar vs optimal]
+</context>
+
+<instructions>
 ### Core Questions:
 [Mix of technical and non-technical based on their needs]
 
 ### Research Areas:
 - Market validation and competitor analysis
-- Technical approach recommendations for 2025
-- AI tool comparison (Claude Code vs Cursor vs Antigravity vs Replit)
+- Technical approach recommendations
+- AI tool comparison for my skill level
 - Learning resources for required technologies
 - MVP development strategy with AI assistance
 - No-code vs low-code vs full-code trade-offs
@@ -207,23 +280,23 @@ I'm building [description] with some technical knowledge. I need research that b
 - Time to market with different tools
 - Cost comparison (development and running)
 - Skill requirements and learning curves
-- Best AI assistants for my skill level
 
-### Deliverables:
-- Feature prioritization matrix for MVP
-- Recommended tech stack with alternatives
-- AI tool selection guide (which tool for what)
-- Development roadmap with skill milestones
-- Resource list for learning (prioritized)
-- Budget forecast with tool subscriptions
+### Required Deliverables:
+1. **Feature Matrix** - MVP prioritization
+2. **Tech Stack** - Recommended with alternatives
+3. **AI Tool Guide** - Which tool for what task
+4. **Roadmap** - Development with skill milestones
+5. **Resources** - Learning materials (prioritized)
+6. **Budget** - Forecast with tool subscriptions
+</instructions>
 
-### AI Assistance Strategy:
-- Which AI coding tools match my skill level
-- When to use Claude Code vs Cursor vs no-code
-- How to structure prompts for best results
-- Common pitfalls and how to avoid them
-
-Please provide explanations that assume basic programming knowledge but explain advanced concepts. Use current 2025 tools and pricing.
+<output_format>
+- Assume basic programming knowledge, explain advanced concepts
+- **Include source URLs** for recommendations
+- Use tables for comparisons
+- **Note any conflicting information** between sources
+- Provide pros/cons for major decisions
+</output_format>
 ```
 
 ---
@@ -235,22 +308,22 @@ After generating the appropriate research prompt, say:
 "I've created your research prompt above. Here's how to get the best results:
 
 ### Recommended AI Platforms for Research:
-- 1. **AI Studio (FREE)** - Best for comprehensive research with Gemini 3 Pro
-   - Go to: https://gemini.google.com
-   - 1M token context window perfect for research
 
-2. **Claude.ai** - Best for technical accuracy with Claude Sonnet 4.5
-   - Go to: https://claude.ai
-   - Superior code and architecture analysis but needs a paid account
+| Platform | Best For | Access |
+|----------|----------|--------|
+| **Google AI Studio** | Comprehensive research (large context) | Free tier available |
+| **Claude.ai** | Technical accuracy, code analysis | Paid subscription |
+| **ChatGPT** | Quick iterations, reasoning tasks | Free tier + paid |
 
-- 3. **ChatGPT** - Good for quick iterations with ChatGPT 5.1
-   - Go to: https://chat.openai.com
-   - Short responses and good research capabilities
-   - Free tier: 5 Deep Researches a Month
+### How to Use:
+1. Copy the research prompt above
+2. Paste it into your chosen AI platform
+3. Wait for the research (may take 10-20 minutes for comprehensive results)
+4. Review the sources cited - verify critical recommendations
 
-Copy the research prompt and paste it into your chosen platform. The research may take 10-20 minutes to complete. 
+**Pro tip**: Run the same prompt on 2 different platforms and compare results. This catches blind spots and validates recommendations.
 
-**Pro tip**: Use Gemini 3 Pro for the main research, then use Claude Sonnet 4.5 and ChatGPT 5.1 to validate technical recommendations.
+**Important**: AI knowledge has cutoff dates. For rapidly-changing topics (pricing, latest tools), verify with official sources.
 
 Would you like me to adjust anything in the prompt before you begin?"
 

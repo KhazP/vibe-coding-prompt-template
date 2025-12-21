@@ -46,7 +46,7 @@ Please attach files and type: A/B/C and tool numbers (e.g., "A, 4,5"):
 ### 🎯 Your Goal
 You are an expert Tech Lead setting up a **Progressive Disclosure** documentation system for an AI Agent. 
 Your output must be **modular** to prevent context window overload.
-1. **Master Plan (`AGENTS.md`)**: High-level context and roadmap.
+1. **Master Plan (`AGENTS.md`)**: High-level context, roadmap, and active state.
 2. **Detailed Docs (`agent_docs/`)**: Specific implementation details.
 3. **Tool Configs**: Concise pointers to the above.
 
@@ -58,6 +58,30 @@ Your output must be **modular** to prevent context window overload.
   - **Level B (Developer):** Focus on *architecture*, patterns, and best practices.
 - **Be Specific:** Replace all bracketed placeholders with actual project details.
 - **Keep Examples:** Include code examples with comments explaining the "why".
+
+### 🧠 High-Order Prompts (Meta-Cognition)
+Include these behavioral instructions in AGENTS.md to improve agent reasoning:
+
+```markdown
+## 🧠 How I Should Think
+1. **Understand Intent First**: Before answering, identify what the user actually needs
+2. **Ask If Unsure**: If critical information is missing, ask before proceeding
+3. **Plan Before Coding**: Outline approach, get approval, then implement
+4. **Test After Changes**: Verify each change works before moving on
+5. **Explain Trade-offs**: When recommending something, mention alternatives
+```
+
+### 🚫 Anti-Patterns to Include
+Add these to tool configs to prevent common AI mistakes:
+
+```markdown
+## ⚠️ What NOT To Do
+- Do NOT delete files without explicit confirmation
+- Do NOT modify database schemas without backup plan
+- Do NOT add features not in the current phase
+- Do NOT skip tests for "simple" changes
+- Do NOT use deprecated libraries or patterns
+```
 
 ### 🚫 "Less is More" for Configs
 - Do **NOT** put giant prompt dumps into `CLAUDE.md` or `.cursorrules`.
@@ -103,12 +127,24 @@ Generate this file in the project root. It should be the single source of truth 
 **Stack:** [Tech Stack]
 **Current Phase:** Phase 1 - Foundation
 
-## 📚 Documentation Index
-Refer to these files in `agent_docs/` for details:
+## 🧠 How I Should Think
+1. **Understand Intent First**: Before answering, identify what the user actually needs
+2. **Ask If Unsure**: If critical information is missing, ask before proceeding
+3. **Plan Before Coding**: Outline approach, get approval, then implement
+4. **Test After Changes**: Verify each change works before moving on
+5. **Explain Trade-offs**: When recommending something, mention alternatives
+
+## 📁 Context Files
+Refer to these for details (load only when needed):
 - `agent_docs/tech_stack.md`: Tech stack & libraries
 - `agent_docs/code_patterns.md`: Code style & patterns
-- `agent_docs/testing.md`: Testing strategy
 - `agent_docs/product_requirements.md`: Full PRD
+
+## 🔄 Current State (Update This!)
+**Last Updated:** [Date]
+**Working On:** [Current task]
+**Recently Completed:** [Last completed item]
+**Blocked By:** [Any blockers, or "None"]
 
 ## 🚀 Roadmap
 ### Phase 1: Foundation
@@ -119,8 +155,11 @@ Refer to these files in `agent_docs/` for details:
 - [ ] [Feature 1]
 - [ ] [Feature 2]
 
-## 🔄 Progress Log
-- [Date]: Project initialized
+## ⚠️ What NOT To Do
+- Do NOT delete files without explicit confirmation
+- Do NOT modify database schemas without backup plan
+- Do NOT add features not in the current phase
+- Do NOT skip tests for "simple" changes
 ```
 
 ### 2. Create `agent_docs/` Directory

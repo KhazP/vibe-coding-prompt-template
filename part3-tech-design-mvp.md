@@ -1,6 +1,6 @@
 # Part III - Technical Design Document Generator for MVP
 
-I'll help you create a Technical Design Document for your MVP. This document will define HOW to build what you outlined in your PRD using the best tools available in 2025.
+I'll help you create a Technical Design Document for your MVP. This document will define HOW to build what you outlined in your PRD using modern tools and best practices.
 
 <details>
 <summary><b>📁 Before We Start - Required Documents</b></summary>
@@ -29,11 +29,21 @@ Please attach your PRD (and optionally your research) and type A, B, or C:
 ## Instructions for AI Assistant
 
 <details>
-<summary><b>🤖 AI Models Best Suited for Technical Design (Late 2025)</b></summary>
+<summary><b>🤖 Best AI Platforms for Technical Design</b></summary>
 
-- **Claude Sonnet 4.5** – Latest September 2025 release tuned for architecture reasoning with 200K–1M token context support
-- **Gemini 3 Pro** – Handles complex trade-off analysis with its 1,048,576-token input window and 65,536-token outputs  
-- **ChatGPT 5.1** – Delivers fast technical iteration with configurable reasoning effort through the Responses API
+### Recommended Platforms
+- **Claude.ai** – Strong architecture reasoning and consistent technical documentation
+- **Gemini** – Handles complex trade-off analysis with large context
+- **ChatGPT** – Fast technical iteration with good reasoning capabilities
+
+### Choosing the Right Platform
+| Need | Best Choice | Why |
+|------|-------------|-----|
+| Architecture design | Claude | Strong at system thinking |
+| Trade-off analysis | Gemini | Large context for comparisons |
+| Quick iteration | ChatGPT | Fast responses |
+
+*Note: AI capabilities evolve rapidly. Choose based on current features.*
 
 </details>
 
@@ -196,9 +206,38 @@ Then ask these questions ONE AT A TIME based on their technical level:
 
 ---
 
-## Generate Technical Design Document
+## Step 1: Verification Echo (Required)
 
-After Q&A, create a Tech Design Doc appropriate to their level:
+After completing ALL questions, summarize your understanding back to the user:
+
+**Template:**
+> "Let me confirm I understand your technical requirements:
+> 
+> **Project:** [App Name] from your PRD
+> **Platform:** [Web/Mobile/Desktop]
+> **Tech Approach:** [No-code/Low-code/Full-code]
+> **Key Technical Decisions:**
+> - Frontend: [Choice]
+> - Backend: [Choice]
+> - Database: [Choice]
+> **Budget:** [$/month]
+> **Timeline:** [Weeks/Months]
+> **Main Concern:** [Their biggest worry]
+> 
+> Is this correct? Any adjustments before I create the Technical Design?"
+
+Wait for user confirmation. If they correct anything, update your understanding.
+
+---
+
+## Step 2: Generate Technical Design Document
+
+After verification, create a Tech Design Doc appropriate to their level.
+
+> **Important**: For each major technical decision, you MUST:
+> 1. **Provide alternatives** - Show 2-3 options with pros/cons
+> 2. **Justify your recommendation** - Explain why one option is best for their situation
+> 3. **Acknowledge trade-offs** - Be honest about limitations
 
 ### For Vibe-Coders - TechDesign-[AppName]-MVP.md:
 
@@ -1349,18 +1388,39 @@ Your technical implementation succeeds when:
 
 After generating the appropriate Technical Design Document based on their level, say:
 
-"I've created your Technical Design Document above. This document defines HOW to build what's described in your PRD using the best tools available in 2025.
+"I've created your Technical Design Document above. This document defines HOW to build what's described in your PRD.
+
+### Self-Verification Checklist
+
+Let's verify the Technical Design is complete:
+
+| Required Section | Present? |
+|-----------------|----------|
+| Platform/approach clearly chosen | ✅ / ❌ |
+| Alternatives compared with pros/cons | ✅ / ❌ |
+| Tech stack fully specified | ✅ / ❌ |
+| Trade-offs honestly acknowledged | ✅ / ❌ |
+| Cost breakdown included | ✅ / ❌ |
+| Timeline realistic | ✅ / ❌ |
+| AI assistance strategy defined | ✅ / ❌ |
+
+*If any items are missing, I'll add them now.*
+
+### Critical Review Questions
+
+Before proceeding, let's sanity-check:
+1. **Does this tech stack match the budget?** (Free tiers vs paid)
+2. **Does the timeline match the complexity?** (Realistic expectations)
+3. **Are there any security concerns?** (User data, payments)
 
 **Save this as** `TechDesign-[AppName]-MVP.md` in your project folder.
 
-## Your Documents So Far:
+### Your Documents So Far:
 1. ✅ Research findings (Part I)
 2. ✅ PRD - what to build (Part II) 
 3. ✅ Technical Design - how to build it (Part III)
 
-## Next Step:
-Proceed to **Part IV** to generate the NOTES.md file and tool-specific configuration files that will guide your AI assistant in building the actual code.
+### Next Step:
+Proceed to **Part IV** to generate the AGENTS.md file and tool-specific configuration files that will guide your AI assistant in building the actual code.
 
-The tech design is your blueprint - but remember, the AI will handle most of the complex implementation details!
-
-Would you like me to adjust anything in the Technical Design before moving on?
+Would you like me to adjust anything in the Technical Design before moving on?"

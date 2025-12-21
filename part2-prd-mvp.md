@@ -27,11 +27,21 @@ Please attach your research file (or type "no file") and type A, B, or C:
 ## Instructions for AI Assistant
 
 <details>
-<summary><b>🤖 Best AI Models for PRD Creation (Late 2025)</b></summary>
+<summary><b>🤖 Best AI Platforms for PRD Creation</b></summary>
 
-- **Claude Sonnet 4.5** – September 2025 snapshot excels at structured document planning with 200K–1M token context support
-- **ChatGPT 5.1** – Latest OpenAI model offers controllable reasoning depth for rapid user story generation via the Responses API
-- **Gemini 3 Pro** – Handles large research attachments with its 1,048,576-token input window and 65,536-token outputs
+### Recommended Platforms
+- **Claude.ai** – Excels at structured document planning and consistent formatting
+- **ChatGPT** – Good for rapid iteration and user story generation
+- **Gemini** – Handles large research attachments with extensive context window
+
+### Choosing the Right Platform
+| Need | Best Choice | Why |
+|------|-------------|-----|
+| Structured documents | Claude | Consistent formatting, follows templates well |
+| Quick iterations | ChatGPT | Fast responses, good at brainstorming |
+| Large context (research input) | Gemini | Largest context window |
+
+*Note: AI capabilities evolve rapidly. Choose based on current features.*
 
 </details>
 
@@ -47,6 +57,8 @@ If they attach a file, quickly scan it for:
 - Budget/timeline constraints
 
 Reference these insights during the Q&A process.
+
+> **Slot-Filling Approach**: The Q&A below gathers all required context before PRD generation. Do NOT generate the PRD until all essential slots are filled. If any critical information is missing, ask follow-up questions.
 
 ### Initial Questions for ALL Users:
 
@@ -160,9 +172,33 @@ Primary: 'As a [user type], I want to [action] so that [benefit]'
 
 ---
 
-## Generate PRD Document
+## Step 1: Verification Echo (Required)
 
-After Q&A, create a PRD appropriate to their level:
+After completing ALL questions, summarize your understanding back to the user:
+
+**Template:**
+> "Let me confirm I understand your product correctly:
+> 
+> **Product:** [Name] - [One-line description]
+> **Target User:** [Primary persona description]
+> **Problem:** [Core problem being solved]
+> **Must-Have Features:** 
+> 1. [Feature 1]
+> 2. [Feature 2]
+> 3. [Feature 3]
+> **Success Metric:** [Primary metric and target]
+> **Timeline:** [Launch target]
+> **Budget:** [Constraints]
+> 
+> Is this accurate? Should I adjust anything before creating your PRD?"
+
+Wait for user confirmation. If they correct anything, update your understanding before proceeding.
+
+---
+
+## Step 2: Generate PRD Document
+
+After verification, create a PRD appropriate to their level:
 
 ### For Vibe-Coders - PRD-[AppName]-MVP.md:
 
@@ -770,19 +806,28 @@ After generating the appropriate PRD document based on their level, say:
 
 "I've created your Product Requirements Document (PRD) above. This document defines WHAT you're building and WHY.
 
-**Next Steps:**
+### Self-Verification Checklist
+
+Before proceeding, let's verify the PRD is complete:
+
+| Required Section | Present? |
+|-----------------|----------|
+| Core problem clearly defined | ✅ / ❌ |
+| Target user well described | ✅ / ❌ |
+| 3-5 must-have features listed | ✅ / ❌ |
+| Each feature has user story | ✅ / ❌ |
+| Success metrics defined | ✅ / ❌ |
+| Constraints acknowledged | ✅ / ❌ |
+| NOT-in-MVP features listed | ✅ / ❌ |
+
+*If any items are missing, I'll add them now.*
+
+### Next Steps:
 
 1. **Review the PRD** - Make sure it captures your vision accurately
 2. **Save the document** as `PRD-[AppName]-MVP.md` in your project folder
 3. **Proceed to Part III** to create your Technical Design Document
 
-The PRD is a living document - you can update it as you learn more from users.
-
-### Quick Checklist:
-- ✅ Core problem clearly defined?
-- ✅ Target user well understood?
-- ✅ 3-5 must-have features identified?
-- ✅ Success metrics defined?
-- ✅ Constraints acknowledged?
+The PRD is a living document - update it as you learn from users.
 
 Would you like me to adjust anything in the PRD before moving on to technical design?"
