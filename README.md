@@ -268,16 +268,15 @@ gemini "Read GEMINI.md and AGENTS.md, then implement"
 **Starting prompts by experience level:**
 | Level | First Prompt |
 |-------|--------------|
-| **Beginner** | *"I'm new to coding. Read AGENTS.md and guide me step-by-step to build this MVP. Explain what you're doing."* |
-| **Intermediate** | *"Read AGENTS.md and the docs folder. Build the core features first, test, then add polish."* |
+| **Vibe-coder** | *"Read AGENTS.md and agent_docs. Build the MVP step by step. Test after each feature."* |
+| **In-Between** | *"Read AGENTS.md and the docs folder. Build core features first, test, then add polish."* |
 | **Developer** | *"Review AGENTS.md and architecture. Implement Phase 1 with proper patterns and test coverage."* |
 
 **Follow-up prompts for all levels:**
-- *"Show me the current progress vs requirements"*
+- *"What's done and what's left?"*
 - *"Test [feature] and fix any issues"*
-- *"Add error handling and edge cases"*
-- *"Generate README with setup instructions"*
-- *"Prepare for deployment to [platform]"*
+- *"Make it work on mobile"*
+- *"Deploy to [platform]"*
 
 </details>
 
@@ -291,16 +290,22 @@ your-app/
 │   ├── research-YourApp.txt
 │   ├── PRD-YourApp-MVP.md
 │   └── TechDesign-YourApp-MVP.md
-├── AGENTS.md             # Universal AI instructions
-├── CLAUDE.md             # Claude Code config (if using)
-├── GEMINI.md             # Gemini CLI & Antigravity config (if using)
-├── .aider.conf.yml       # Aider config (if using)
-├── .clinerules           # Cline config (if using)
-├── .cursorrules          # Cursor config (if using)
-├── .windsurfrules        # Windsurf config (if using)
-├── README.md             # Setup instructions (AI-generated)
-├── .env.example          # Environment variables
-└── src/                  # Your application code
+├── agent_docs/                # Detailed context for AI agents
+│   ├── tech_stack.md
+│   ├── code_patterns.md
+│   ├── product_requirements.md
+│   ├── testing.md
+│   └── resources.md           # Curated repos & patterns
+├── AGENTS.md                  # Universal AI instructions
+├── CLAUDE.md                  # Claude Code config (if using)
+├── GEMINI.md                  # Gemini CLI & Antigravity config (if using)
+├── .aider.conf.yml            # Aider config (if using)
+├── .clinerules                # Cline config (if using)
+├── .cursorrules               # Cursor config (if using)
+├── .windsurfrules             # Windsurf config (if using)
+├── README.md                  # Setup instructions (AI-generated)
+├── .env.example               # Environment variables
+└── src/                       # Your application code
 ```
 
 ---
@@ -332,6 +337,14 @@ your-app/
 - **GitHub Copilot CLI** - Version 0.0.365 adds `--silent` option for cleaner output.
 - **Bolt.new** - Instant Next.js/Supabase deployments with scheduled automations.
 - **Lovable** - "Custom Knowledge" tab for project-wide context.
+
+### Advanced Patterns (Round 2)
+- **Anti-Vibe Quality Rules** - Templates now generate strict engineering constraints (type safety, architectural governance) to prevent common AI code mistakes
+- **Visual Verification** - Generate-Render-Inspect-Refine loop patterns for UI testing
+- **Self-Healing Tests** - Playwright failure auto-repair with ARIA snapshots
+- **PER Architecture** - Planner-Executor-Reviewer loop guidance for complex features
+- **MCP Integration** - Database, Git, and Memory server configuration patterns
+- **Curated Resources** - agent_docs/resources.md with notable repos (awesome-cursorrules, healing-agent)
 
 </details>
 
