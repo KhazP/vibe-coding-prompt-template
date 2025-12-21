@@ -4,7 +4,7 @@
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
-[![Last Updated](https://img.shields.io/badge/Updated-November%202025-blue.svg)](README.md)
+[![Last Updated](https://img.shields.io/badge/Updated-December%202025-blue.svg)](README.md)
 
 **Build an MVP in hours, not months – guided by the latest AI coding agents**
 
@@ -35,7 +35,7 @@ Transform any app idea into working code through 5 AI-powered stages using the l
 **Skip the manual copy-pasting!**  
 We now have an interactive web app that automates the entire process for you.
 
-[![Launch Web App](https://img.shields.io/badge/🚀_Launch-Vibe_Coding_Web_App-blue?style=for-the-badge&logo=vercel)](https://vibe-coding-template-webapp.vercel.app/#/)
+[![Launch Vibe-Coding Webapp](https://img.shields.io/badge/🚀_Launch-Vibe_Coding_Webapp-blue?style=for-the-badge&logo=vercel)](https://vibeworkflow.app/#/vibe-coding)
 
 </div>
 
@@ -204,7 +204,7 @@ We now have an interactive web app that automates the entire process for you.
 1. Copy `part4-notes-for-agent.md` into a new AI chat
 2. Attach PRD and Technical Design documents
 3. AI generates:
-   - `AGENTS.md` - Universal instructions
+   - `AGENTS.md` - Universal instructions (renamed from NOTES.md in v2.0.0)
    - Tool-specific configs (based on your choice):
      - `CLAUDE.md` for Claude Code
      - `GEMINI.md` for Gemini CLI & Antigravity
@@ -293,8 +293,7 @@ your-app/
 │   └── TechDesign-YourApp-MVP.md
 ├── AGENTS.md             # Universal AI instructions
 ├── CLAUDE.md             # Claude Code config (if using)
-├── GEMINI.md             # Gemini CLI config (if using)
-├── GEMINI.md             # Antigravity config (if using)
+├── GEMINI.md             # Gemini CLI & Antigravity config (if using)
 ├── .aider.conf.yml       # Aider config (if using)
 ├── .clinerules           # Cline config (if using)
 ├── .cursorrules          # Cursor config (if using)
@@ -310,6 +309,8 @@ your-app/
 
 <details>
 <summary><b>Latest AI Models & Capabilities</b></summary>
+
+- See the [v2.0.0 release](https://github.com/KhazP/vibe-coding-prompt-template/releases/tag/v2.0.0) for full tool ecosystem + AGENTS.md updates.
 
 ### Model Updates
 - **Claude Sonnet 4.5** – September 2025 release with 200K default / 1M beta context and top-tier architecture reasoning
