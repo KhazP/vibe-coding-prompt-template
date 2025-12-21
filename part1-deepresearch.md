@@ -240,6 +240,18 @@ I need comprehensive technical research on [topic] for [context].
 - AI tool integration strategies
 - Cost optimization with current cloud pricing
 - Development velocity estimates with AI assistance
+
+### Premium UI/Design Research:
+- Design system generators (Motiff, Components AI, Relume)
+- Figma-to-code tools (Kombai, Builder.io Fusion)
+- v0.dev-style generative UI approaches
+- Design token standardization patterns
+
+### Agent Architecture Research:
+- Planner-Executor-Reviewer (PER) loop patterns
+- MCP (Model Context Protocol) & Claude Skills (or Skills for other AI platforms) integration options
+- Self-healing code and test strategies
+- Visual verification workflows
 </instructions>
 
 <output_format>

@@ -865,6 +865,25 @@ test('user can complete main flow', async ({ page }) => {
 });
 ```
 
+### Visual Verification Loop
+UI changes should use a Generate-Render-Inspect-Refine cycle:
+1. **Generate:** AI produces component code
+2. **Render:** Preview in dev server or headless browser
+3. **Inspect:** Screenshot capture + design principle check
+4. **Refine:** Fix visual regressions before committing
+
+### Self-Healing Test Pattern
+When Playwright tests fail, capture context for auto-repair:
+```javascript
+// Capture failure context for AI repair
+const failureContext = {
+  error: error.message,
+  codeSnippet: testCode,
+  ariaSnapshot: await page.accessibility.snapshot()
+};
+// AI prompt: "Fix selector using getByRole or getByText"
+```
+
 ## Deployment
 
 ### Infrastructure as Code
@@ -959,6 +978,20 @@ logger.info({
 - Microservices migration
 - Multi-region deployment
 - Advanced monitoring
+
+## 🧠 Agent Architecture (Advanced)
+
+### Planner-Executor-Reviewer (PER) Loop
+For complex features, structure AI interactions as:
+1. **Planner:** Decompose feature into task dependency graph
+2. **Executor:** Implement single isolated tasks with tools
+3. **Reviewer:** Validate output against acceptance criteria
+
+### MCP Integration Points
+Consider adding relevant MCP servers for enhanced AI capabilities:
+- **Database MCP:** Secure schema discovery and read-only queries
+- **Git MCP:** Repository manipulation and version control
+- **Memory MCP:** Persistent knowledge graph across sessions
 
 ## Documentation Requirements
 

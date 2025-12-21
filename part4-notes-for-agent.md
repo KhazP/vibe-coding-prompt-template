@@ -83,6 +83,33 @@ Add these to tool configs to prevent common AI mistakes:
 - Do NOT use deprecated libraries or patterns
 ```
 
+### ⛔ Strict Anti-Vibe Engineering Rules
+For developer-level projects, add these to enforce production quality:
+
+```markdown
+## ⛔ Engineering Constraints
+
+### Type Safety (No Compromises)
+- The `any` type is FORBIDDEN—use `unknown` with type guards
+- All function parameters and returns must be typed
+- Use Zod or similar for runtime validation
+
+### Architectural Sovereignty  
+- Routes/controllers handle request/response ONLY
+- All business logic goes in `services/` or `core/`
+- No database calls from route handlers
+
+### Library Governance
+- Check existing `package.json` before suggesting new dependencies
+- Prefer native APIs over libraries (fetch over axios)
+- No deprecated patterns (useEffect for data → use TanStack Query)
+
+### The "No Apologies" Rule
+- Do NOT apologize for errors—fix them immediately
+- Do NOT generate filler text before providing solutions
+- If context is missing, ask ONE specific clarifying question
+```
+
 ### 🚫 "Less is More" for Configs
 - Do **NOT** put giant prompt dumps into `CLAUDE.md` or `.cursorrules`.
 - Instead, put that content into `agent_docs/code_patterns.md` or `agent_docs/tech_stack.md`.
@@ -200,6 +227,25 @@ Create a folder named `agent_docs` and add these files. **Fill them with RICH DE
 - **Unit Tests:** [Tool]
 - **E2E Tests:** [Tool]
 - **Manual Checks:** [List]
+```
+
+#### `agent_docs/resources.md`
+*Instructions: Include for developer-level projects with references to advanced patterns.*
+```markdown
+# Essential Resources
+
+## Curated Repositories
+| Repository | Purpose |
+|------------|---------|
+| **PatrickJS/awesome-cursorrules** | Anti-vibe rule templates |
+| **OneRedOak/claude-code-workflows** | Review workflow packs |
+| **matebenyovszky/healing-agent** | Self-healing Python patterns |
+| **modelcontextprotocol/servers** | MCP server implementations |
+
+## Key Documentation
+- **MCP Protocol:** modelcontextprotocol.io
+- **Playwright Testing:** playwright.dev/docs
+- **AI Prompting Patterns:** See v0.dev system prompt patterns
 ```
 
 ---

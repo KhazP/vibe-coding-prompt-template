@@ -345,6 +345,16 @@ After verification, create a PRD appropriate to their level:
 **Performance:** Page load < 3 seconds  
 **Accessibility:** WCAG 2.1 AA minimum  
 
+## 🛡️ Quality Standards
+
+**What This App Will NOT Accept:**
+- Placeholder content in production ("Lorem ipsum", sample images)
+- Broken features—everything listed works or isn't included
+- Skipping mobile testing before launch
+- Ignoring accessibility basics
+
+*These standards will be enforced by the AI coding assistant.*  
+
 ## 💰 Budget & Constraints
 
 **Development Budget:** [$X or "Minimal - using free/cheap tools"]  
@@ -504,6 +514,25 @@ After this PRD is approved:
 - **User Growth:** Support 10x growth without architecture change
 - **Data Growth:** [Expectations]
 - **Geographic Distribution:** [Requirements]
+
+## 🛡️ Quality Standards (Anti-Vibe Rules)
+
+### Code Quality Requirements
+- **Type Safety:** Strict TypeScript, no `any` types allowed
+- **Architecture:** Thin controllers—logic in services only
+- **Error Handling:** Explicit error types, no swallowed exceptions
+- **Testing:** 80% coverage minimum on critical paths
+
+### Design Quality Requirements
+- **Design System:** Use design tokens only—no raw hex/pixel values
+- **Accessibility:** WCAG 2.1 AA verified
+- **Performance:** Core Web Vitals in green zone
+
+### What This Project Will NOT Accept
+- Placeholder content in production
+- Features outside current phase scope
+- Skipped tests for "simple" changes
+- Deprecated libraries when modern alternatives exist
 
 ## UI/UX Requirements
 
@@ -755,6 +784,23 @@ graph LR
 - [Any specific requirements]
 - [Platform limitations]
 - [Integration needs]
+
+## 🛡️ Quality Standards
+
+**Code Quality:**
+- Use TypeScript when possible—it catches errors early
+- Handle errors explicitly—don't hide them
+- Test the important paths before launch
+
+**Design Quality:**
+- Use consistent colors and spacing (design tokens)
+- Test on mobile before desktop
+- Check accessibility basics (contrast, labels)
+
+**What This Project Will NOT Accept:**
+- Placeholder content ("Lorem ipsum") at launch
+- Features that half-work—complete or cut
+- Skipping mobile testing
 
 ## Risk Mitigation
 
