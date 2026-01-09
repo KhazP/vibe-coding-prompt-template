@@ -60,6 +60,8 @@ Reference these insights during the Q&A process.
 
 > **Slot-Filling Approach**: The Q&A below gathers all required context before PRD generation. Do NOT generate the PRD until all essential slots are filled. If any critical information is missing, ask follow-up questions.
 
+> **Format Preference**: Keep the PRD concise. Use bullet points and tables where possible, and avoid long paragraphs.
+
 ### Initial Questions for ALL Users:
 
 **Q1:** "What's the name of your product/app? (If undecided, we can brainstorm!)"
@@ -94,7 +96,7 @@ Reference these insights during the Q&A process.
 
 **Q9:** "Describe the vibe in 3-5 words (Examples: 'Clean, fast, professional' or 'Fun, colorful, friendly')"
 
-**Q10:** "Any constraints? Budget limits, must launch by date, specific platform needs?"
+**Q10:** "Any constraints or non-functional requirements? Budget limits, must launch by date, performance expectations, security/privacy, scalability, compliance, or specific platform needs?"
 
 ### Path B - Developer Questions:
 
@@ -123,6 +125,8 @@ Primary: 'As a [user type], I want to [action] so that [benefit]'
 - Performance: [requirements]
 - Accessibility: [standards]
 - Platform support: [browsers, devices]
+- Security/Privacy: [requirements]
+- Scalability: [expectations]
 - Design system: [preferences]"
 
 **Q9:** "Risk assessment:
@@ -168,6 +172,7 @@ Primary: 'As a [user type], I want to [action] so that [benefit]'
 **Q10:** "Constraints and requirements:
 - Budget for tools/services: [$X/month]
 - Timeline: [launch date]
+- Non-functional requirements: [performance, security/privacy, scalability, compliance]
 - Any technical preferences from research?"
 
 ---
@@ -344,6 +349,8 @@ After verification, create a PRD appropriate to their level:
 **Responsive:** [Yes, mobile-first]  
 **Performance:** Page load < 3 seconds  
 **Accessibility:** WCAG 2.1 AA minimum  
+**Security/Privacy:** [Basic requirements, data sensitivity]  
+**Scalability:** [Expected user growth or constraints]  
 
 ## 🛡️ Quality Standards
 
@@ -361,6 +368,10 @@ After verification, create a PRD appropriate to their level:
 **Monthly Operating:** [$X estimated]  
 **Timeline:** [X weeks to launch]  
 **Team:** [Solo/team size]
+
+## ❓ Open Questions & Assumptions
+- [Open question]
+- [Key assumption]
 
 ## 🚀 Launch Strategy (Brief)
 
@@ -605,6 +616,10 @@ graph LR
 - [Assumption about market]
 - [Assumption about technology]
 
+### Open Questions
+- [Open question]
+- [Open question]
+
 ### Dependencies
 - [External dependency]
 - [Internal dependency]
@@ -762,6 +777,9 @@ graph LR
 - Smooth animations (60fps)
 - Works on 3-year-old devices
 
+**Security/Privacy:** [Data sensitivity, auth requirements]  
+**Scalability:** [Expected user growth or constraints]
+
 **Browser/Device Support:**
 - Chrome, Safari, Firefox (latest)
 - iOS 14+, Android 10+
@@ -784,6 +802,10 @@ graph LR
 - [Any specific requirements]
 - [Platform limitations]
 - [Integration needs]
+
+## ❓ Open Questions & Assumptions
+- [Open question]
+- [Key assumption]
 
 ## 🛡️ Quality Standards
 

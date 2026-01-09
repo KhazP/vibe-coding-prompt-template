@@ -32,6 +32,11 @@ Please type A, B, or C:
 
 *Note: AI capabilities evolve rapidly. Check each platform's current features before starting.*
 
+### Freshness & Grounding (2026)
+- If the platform supports web search or tool use, enable it for up-to-date stats and competitor info.
+- Cite source URLs with access dates for major claims and flag uncertain data.
+- Distinguish sourced facts from model knowledge when needed.
+
 </details>
 
 Based on the user's response, follow the appropriate question path below. Ask questions ONE AT A TIME and wait for responses before proceeding.
@@ -179,7 +184,7 @@ I'm a non-technical founder building [description]. I need beginner-friendly res
 3. What's the simplest way to build an MVP?
 4. What no-code/low-code tools are best for this?
 5. How do similar apps monetize and what can I realistically charge?
-6. What AI tools can accelerate development?
+6. What recent AI tools or APIs can accelerate development or differentiate the MVP?
 
 ### Research Focus:
 - Simple, actionable insights with examples
@@ -198,7 +203,7 @@ I'm a non-technical founder building [description]. I need beginner-friendly res
 
 <output_format>
 - Explain everything in plain English with examples
-- **Include source URLs** for each major recommendation
+- **Include source URLs with access dates** for each major recommendation
 - Use tables for comparisons
 - Highlight any conflicting information between sources
 </output_format>
@@ -237,7 +242,7 @@ I need comprehensive technical research on [topic] for [context].
 - Performance benchmarks with latest frameworks
 - Security considerations for AI-integrated apps
 - Scalability approaches with modern infrastructure
-- AI tool integration strategies
+- AI tool/API integration strategies (include sources and current pricing when available)
 - Cost optimization with current cloud pricing
 - Development velocity estimates with AI assistance
 
@@ -257,7 +262,7 @@ I need comprehensive technical research on [topic] for [context].
 <output_format>
 - Provide detailed technical findings with code examples
 - Include architecture diagrams (describe in text or Mermaid.js)
-- **Cite sources with URLs** for each major finding
+- **Cite sources with URLs and access dates** for each major finding
 - Use tables for comparisons
 - **Explicitly note where sources disagree** or data is uncertain
 - Include pros/cons for each major recommendation
@@ -282,7 +287,7 @@ I'm building [description] with some technical knowledge. I need research that b
 ### Research Areas:
 - Market validation and competitor analysis
 - Technical approach recommendations
-- AI tool comparison for my skill level
+- AI tools/APIs relevant to this product and my skill level
 - Learning resources for required technologies
 - MVP development strategy with AI assistance
 - No-code vs low-code vs full-code trade-offs
@@ -304,7 +309,7 @@ I'm building [description] with some technical knowledge. I need research that b
 
 <output_format>
 - Assume basic programming knowledge, explain advanced concepts
-- **Include source URLs** for recommendations
+- **Include source URLs with access dates** for recommendations
 - Use tables for comparisons
 - **Note any conflicting information** between sources
 - Provide pros/cons for major decisions
@@ -334,6 +339,8 @@ After generating the appropriate research prompt, say:
 4. Review the sources cited - verify critical recommendations
 
 **Pro tip**: Run the same prompt on 2 different platforms and compare results. This catches blind spots and validates recommendations.
+
+**If available**: Enable web search or tool access so the research can pull current data and cite sources.
 
 **Important**: AI knowledge has cutoff dates. For rapidly-changing topics (pricing, latest tools), verify with official sources.
 

@@ -66,10 +66,28 @@ Include these behavioral instructions in AGENTS.md to improve agent reasoning:
 ## 🧠 How I Should Think
 1. **Understand Intent First**: Before answering, identify what the user actually needs
 2. **Ask If Unsure**: If critical information is missing, ask before proceeding
-3. **Plan Before Coding**: Outline approach, get approval, then implement
-4. **Test After Changes**: Verify each change works before moving on
+3. **Plan Before Coding**: Propose a plan, ask for approval, then implement
+4. **Verify After Changes**: Run tests/linters or manual checks after each change
 5. **Explain Trade-offs**: When recommending something, mention alternatives
 ```
+
+### 🔁 Plan → Execute → Verify (Required)
+- **Plan:** Outline a brief approach and ask for approval before coding.
+- **Plan Mode:** If the tool supports Plan/Reflect mode, use it for this step.
+- **Execute:** Implement one feature at a time.
+- **Verify:** Run tests/linters or manual checks after each feature; fix before moving on.
+
+### 🧠 Context & Memory Guidance
+- Treat `AGENTS.md` and `agent_docs/` as living docs.
+- Use tool config files (`CLAUDE.md`, `GEMINI.md`, `.cursorrules`, etc.) for persistent project rules.
+- Update these files as the project scales (commands, conventions, constraints).
+
+### 🤝 Optional Multi-Agent/Parallel Work
+- If the tool supports sub-agents or parallel search, delegate exploration or test checks to speed up work.
+
+### 🧩 Checkpoints & Pre-Commit Hooks
+- Create checkpoints/commits after milestones.
+- Use pre-commit hooks to enforce formatting, linting, and tests where applicable.
 
 ### 🚫 Anti-Patterns to Include
 Add these to tool configs to prevent common AI mistakes:
@@ -80,6 +98,7 @@ Add these to tool configs to prevent common AI mistakes:
 - Do NOT modify database schemas without backup plan
 - Do NOT add features not in the current phase
 - Do NOT skip tests for "simple" changes
+- Do NOT bypass failing tests or pre-commit hooks
 - Do NOT use deprecated libraries or patterns
 ```
 
@@ -108,6 +127,10 @@ For developer-level projects, add these to enforce production quality:
 - Do NOT apologize for errors—fix them immediately
 - Do NOT generate filler text before providing solutions
 - If context is missing, ask ONE specific clarifying question
+
+### Workflow Discipline
+- Pre-commit hooks must pass before commits (or ask if they should be bypassed)
+- If verification fails, fix issues before continuing
 ```
 
 ### 🚫 "Less is More" for Configs
@@ -157,15 +180,42 @@ Generate this file in the project root. It should be the single source of truth 
 ## 🧠 How I Should Think
 1. **Understand Intent First**: Before answering, identify what the user actually needs
 2. **Ask If Unsure**: If critical information is missing, ask before proceeding
-3. **Plan Before Coding**: Outline approach, get approval, then implement
-4. **Test After Changes**: Verify each change works before moving on
+3. **Plan Before Coding**: Propose a plan, ask for approval, then implement
+4. **Verify After Changes**: Run tests/linters or manual checks after each change
 5. **Explain Trade-offs**: When recommending something, mention alternatives
+
+## 🔁 Plan → Execute → Verify
+1. **Plan:** Outline a brief approach and ask for approval before coding.
+2. **Plan Mode:** If supported, use a Plan/Reflect mode for this step.
+3. **Execute:** Implement one feature at a time.
+4. **Verify:** Run tests/linters or manual checks after each feature; fix before moving on.
+
+## 🧠 Context & Memory
+- Treat `AGENTS.md` and `agent_docs/` as living docs.
+- Use persistent tool configs (`CLAUDE.md`, `GEMINI.md`, `.cursorrules`, etc.) for project rules.
+- Update these files as the project scales (commands, conventions, constraints).
+
+## 🤝 Optional Roles (If Supported)
+- **Explorer:** Scan codebase or docs in parallel for relevant info.
+- **Builder:** Implement features based on the approved plan.
+- **Tester:** Run tests/linters and report failures.
+
+## ✅ Testing & Verification
+- Follow `agent_docs/testing.md` for test strategy.
+- If no tests exist, propose minimal checks before proceeding.
+- Do not move forward when verification fails.
+
+## 🧩 Checkpoints & Pre-Commit Hooks
+- Create checkpoints/commits after milestones.
+- Ensure pre-commit hooks pass before commits.
 
 ## 📁 Context Files
 Refer to these for details (load only when needed):
 - `agent_docs/tech_stack.md`: Tech stack & libraries
 - `agent_docs/code_patterns.md`: Code style & patterns
+- `agent_docs/project_brief.md`: Persistent project rules and conventions
 - `agent_docs/product_requirements.md`: Full PRD
+- `agent_docs/testing.md`: Verification strategy and commands
 
 ## 🔄 Current State (Update This!)
 **Last Updated:** [Date]
@@ -177,6 +227,7 @@ Refer to these for details (load only when needed):
 ### Phase 1: Foundation
 - [ ] Initialize project
 - [ ] Setup database
+- [ ] Set up pre-commit hooks
 
 ### Phase 2: Core Features
 - [ ] [Feature 1]
@@ -187,6 +238,7 @@ Refer to these for details (load only when needed):
 - Do NOT modify database schemas without backup plan
 - Do NOT add features not in the current phase
 - Do NOT skip tests for "simple" changes
+- Do NOT bypass failing tests or pre-commit hooks
 ```
 
 ### 2. Create `agent_docs/` Directory
@@ -213,6 +265,17 @@ Create a folder named `agent_docs` and add these files. **Fill them with RICH DE
 - [List conventions]
 ```
 
+#### `agent_docs/project_brief.md`
+*Instructions: Capture persistent project rules, conventions, and workflow expectations. Keep this updated as the project scales.*
+```markdown
+# Project Brief (Persistent)
+- **Product vision:** [One-line summary]
+- **Coding conventions:** [Naming, formatting, architecture]
+- **Quality gates:** [Tests, pre-commit hooks, review rules]
+- **Key commands:** [Dev/test/build commands]
+- **Update cadence:** [When to refresh this brief]
+```
+
 #### `agent_docs/product_requirements.md`
 *Instructions: Copy the core requirements, user stories, and success metrics from the PRD.*
 ```markdown
@@ -227,6 +290,8 @@ Create a folder named `agent_docs` and add these files. **Fill them with RICH DE
 - **Unit Tests:** [Tool]
 - **E2E Tests:** [Tool]
 - **Manual Checks:** [List]
+- **Pre-commit Hooks:** [Lint/format/tests to run before commit]
+- **Verification Loop:** Run checks after each feature and fix failures
 ```
 
 #### `agent_docs/resources.md`
@@ -270,9 +335,11 @@ Use this exact template, filling in project-specific details:
 ## 📋 Directives
 1. **Master Plan:** Always read `AGENTS.md` first. It contains the current phase and tasks.
 2. **Documentation:** Refer to `agent_docs/` for tech stack details, code patterns, and testing guides.
-3. **Incremental Build:** Build one small feature at a time. Test frequently.
-4. **No Linting:** Do not act as a linter. Use `npm run lint` if needed.
-5. **Communication:** Be concise. Explain your plan before implementing.
+3. **Plan-First:** Propose a brief plan and wait for approval before coding.
+4. **Incremental Build:** Build one small feature at a time. Test frequently.
+5. **Pre-Commit:** If hooks exist, run them before commits; fix failures.
+6. **No Linting:** Do not act as a linter. Use `npm run lint` if needed.
+7. **Communication:** Be concise. Ask clarifying questions when needed.
 
 ## 🛠 Commands
 - `npm run dev` - Start server
@@ -294,9 +361,11 @@ Use this exact template, filling in project-specific details:
 ## 📋 Directives
 1. **Master Plan:** Always read `AGENTS.md` first. It contains the current phase and tasks.
 2. **Documentation:** Refer to `agent_docs/` for tech stack details, code patterns, and testing guides.
-3. **Incremental Build:** Build one small feature at a time. Test frequently.
-4. **No Linting:** Do not act as a linter. Use `npm run lint` if needed.
-5. **Communication:** Be concise. Explain your plan before implementing.
+3. **Plan-First:** Propose a brief plan and wait for approval before coding.
+4. **Incremental Build:** Build one small feature at a time. Test frequently.
+5. **Pre-Commit:** If hooks exist, run them before commits; fix failures.
+6. **No Linting:** Do not act as a linter. Use `npm run lint` if needed.
+7. **Communication:** Be concise. Ask clarifying questions when needed.
 
 ## 🛠 Commands
 - `npm run dev` - Start server
@@ -318,9 +387,11 @@ Use this exact template, filling in project-specific details:
 ## 📋 Directives
 1. **Master Plan:** Always read `AGENTS.md` first. It contains the current phase and tasks.
 2. **Documentation:** Refer to `agent_docs/` for tech stack details, code patterns, and testing guides.
-3. **Incremental Build:** Build one small feature at a time. Test frequently.
-4. **No Linting:** Do not act as a linter. Use `npm run lint` if needed.
-5. **Communication:** Be concise. Explain your plan before implementing.
+3. **Plan-First:** Propose a brief plan and wait for approval before coding.
+4. **Incremental Build:** Build one small feature at a time. Test frequently.
+5. **Pre-Commit:** If hooks exist, run them before commits; fix failures.
+6. **No Linting:** Do not act as a linter. Use `npm run lint` if needed.
+7. **Communication:** Be concise. Ask clarifying questions when needed.
 
 ## 🛠 Commands
 - `npm run dev` - Start server
@@ -342,9 +413,11 @@ Use this exact template, filling in project-specific details:
 ## 📋 Directives
 1. **Master Plan:** Always read `AGENTS.md` first. It contains the current phase and tasks.
 2. **Documentation:** Refer to `agent_docs/` for tech stack details, code patterns, and testing guides.
-3. **Incremental Build:** Build one small feature at a time. Test frequently.
-4. **No Linting:** Do not act as a linter. Use `npm run lint` if needed.
-5. **Communication:** Be concise. Explain your plan before implementing.
+3. **Plan-First:** Propose a brief plan and wait for approval before coding.
+4. **Incremental Build:** Build one small feature at a time. Test frequently.
+5. **Pre-Commit:** If hooks exist, run them before commits; fix failures.
+6. **No Linting:** Do not act as a linter. Use `npm run lint` if needed.
+7. **Communication:** Be concise. Ask clarifying questions when needed.
 
 ## 🛠 Commands
 - `npm run dev` - Start server
@@ -366,9 +439,11 @@ Use this exact template, filling in project-specific details:
 ## 📋 Directives
 1. **Master Plan:** Always read `AGENTS.md` first. It contains the current phase and tasks.
 2. **Documentation:** Refer to `agent_docs/` for tech stack details, code patterns, and testing guides.
-3. **Incremental Build:** Build one small feature at a time. Test frequently.
-4. **No Linting:** Do not act as a linter. Use `npm run lint` if needed.
-5. **Communication:** Be concise. Explain your plan before implementing.
+3. **Plan-First:** Propose a brief plan and wait for approval before coding.
+4. **Incremental Build:** Build one small feature at a time. Test frequently.
+5. **Pre-Commit:** If hooks exist, run them before commits; fix failures.
+6. **No Linting:** Do not act as a linter. Use `npm run lint` if needed.
+7. **Communication:** Be concise. Ask clarifying questions when needed.
 
 ## 🛠 Commands
 - `npm run dev` - Start server
@@ -390,9 +465,11 @@ Use this exact template, filling in project-specific details:
 ## 📋 Directives
 1. **Master Plan:** Always read `AGENTS.md` first. It contains the current phase and tasks.
 2. **Documentation:** Refer to `agent_docs/` for tech stack details, code patterns, and testing guides.
-3. **Incremental Build:** Build one small feature at a time. Test frequently.
-4. **No Linting:** Do not act as a linter. Use `npm run lint` if needed.
-5. **Communication:** Be concise. Explain your plan before implementing.
+3. **Plan-First:** Propose a brief plan and wait for approval before coding.
+4. **Incremental Build:** Build one small feature at a time. Test frequently.
+5. **Pre-Commit:** If hooks exist, run them before commits; fix failures.
+6. **No Linting:** Do not act as a linter. Use `npm run lint` if needed.
+7. **Communication:** Be concise. Ask clarifying questions when needed.
 
 ## 🛠 Commands
 - `npm run dev` - Start server
@@ -438,6 +515,7 @@ your-app/
 ├── agent_docs/                  ← Detailed documentation
 │   ├── tech_stack.md
 │   ├── code_patterns.md
+│   ├── project_brief.md
 │   ├── product_requirements.md
 │   └── testing.md
 ├── [Tool-specific files]       ← Based on your selection
@@ -496,6 +574,7 @@ Based on your level ([their level]), start with:
 **Follow-up prompts:**
 - "Show me the current progress"
 - "Test [feature name] and fix any issues"  
+- "Set up pre-commit hooks for lint/tests and keep them updated as the project scales"
 - "Make it work on mobile"
 - "Add error handling"
 - "Deploy to [platform from Tech Design]"
@@ -514,6 +593,7 @@ Your setup is complete when:
 - You guide the direction and test the results
 - Start simple, add features incrementally
 - Test after each feature
+- Update AGENTS.md and tool configs as the project scales
 - Don't hesitate to ask for explanations
 
 **You're ready to build! Your AI assistant has all the context it needs. Just start the conversation and watch your MVP come to life!**

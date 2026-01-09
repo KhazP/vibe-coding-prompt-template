@@ -45,6 +45,8 @@ Please attach your PRD (and optionally your research) and type A, B, or C:
 
 *Note: AI capabilities evolve rapidly. Choose based on current features.*
 
+**Stability note (2026):** Prefer stacks and tools the team can realistically maintain. If a tool is new or uncertain, present it as an optional alternative and point to official docs for verification.
+
 </details>
 
 Wait for the user to attach their PRD document. Read it thoroughly to understand:
@@ -106,6 +108,8 @@ Then ask these questions ONE AT A TIME based on their technical level:
 - Looks amazing
 - Scales if successful"
 
+**Q8:** "Do you want any AI-powered features (chat, summarization, recommendations)? If yes, list them and any privacy constraints."
+
 ### Path B - Developer Questions:
 
 **Q1:** "Based on the PRD for [App Name], what's your platform strategy and why?"
@@ -160,6 +164,8 @@ Then ask these questions ONE AT A TIME based on their technical level:
 - Authentication: [Username/OAuth/SSO]
 - API security: [Rate limiting/CORS/Auth]"
 
+**Q9:** "Any AI/LLM product features? If yes, specify use cases, latency/cost constraints, and data sensitivity."
+
 ### Path C - In-Between Questions:
 
 **Q1:** "Where should [App Name] run based on your PRD? 
@@ -203,6 +209,8 @@ Then ask these questions ONE AT A TIME based on their technical level:
 - Can you dedicate [X] hours/week?
 - Need to launch by [date]?
 - Beta test with how many users?"
+
+**Q8:** "Do you want any AI-powered features (chat, summarization, recommendations)? If yes, list them and any privacy constraints."
 
 ---
 
@@ -382,6 +390,15 @@ Based on your PRD, here's how to implement each feature:
 }
 ```
 
+## 🤖 Product AI Features (Optional)
+
+If your MVP includes AI features, clarify:
+- **Use cases:** [Chat, summarization, recommendations]
+- **Data sensitivity:** [Public/Private/PII]
+- **Provider options:** [API-based vs local models]
+- **Latency/cost targets:** [Constraints]
+- **Failure fallback:** [What happens if the AI call fails]
+
 ## 🤖 AI Assistance Strategy
 
 ### Which AI Tool for What
@@ -478,6 +495,11 @@ Please fix and explain the issue.
 - Add caching layer
 - Consider hiring help
 
+## 🔧 Maintenance & Updates
+- Prefer stable dependencies and avoid unnecessary churn
+- Review tool/docs updates monthly and adjust if needed
+- Update AGENTS.md and tool configs as the project scales (commands, conventions, constraints)
+
 ## ⚠️ Important Limitations
 
 ### What This Approach CAN'T Do:
@@ -520,6 +542,7 @@ Please fix and explain the issue.
 - [ ] Following PRD features only
 - [ ] Testing after each feature
 - [ ] Committing code regularly
+- [ ] Pre-commit hooks set up (if using git)
 - [ ] Asking AI when stuck
 
 ### Before Launch
@@ -609,6 +632,13 @@ graph TB
 - **Cache:** [Redis / Upstash]
 - **Storage:** [S3 / Cloudinary / Local]
 - **Monitoring:** [Sentry / DataDog / New Relic]
+
+### AI/LLM Integration (If Applicable)
+- **Use cases:** [Chat, summarization, recommendations]
+- **Provider options:** [API-based vs local models]
+- **Data handling:** [PII, retention, redaction needs]
+- **Latency/cost budgets:** [Targets]
+- **Fallback behavior:** [What happens on API failure]
 
 ## Component Design
 
@@ -813,6 +843,11 @@ main
 └── release/[version]
 ```
 
+### Pre-Commit Hooks
+- Run format/lint/tests before commit
+- Use git hooks or a hook manager appropriate for your stack
+- Update hooks as the project scales
+
 ### CI/CD Pipeline
 ```yaml
 # .github/workflows/deploy.yml
@@ -978,6 +1013,11 @@ logger.info({
 - Microservices migration
 - Multi-region deployment
 - Advanced monitoring
+
+## 🔧 Maintainability & Update Cadence
+- Prefer stable dependencies; avoid unnecessary churn
+- Review release notes regularly and adjust when needed
+- Update AGENTS.md, agent_docs, and hook/CI commands as the project scales
 
 ## 🧠 Agent Architecture (Advanced)
 
@@ -1185,6 +1225,7 @@ Based on your PRD, here's the implementation plan:
    git add .
    git commit -m "Initial commit"
    ```
+   Optional: set up pre-commit hooks to run lint/tests before commits.
 
 ### Environment Setup
 
@@ -1265,6 +1306,15 @@ Specifically:
    
 4. **Hooks:** React features
    - Think: Special functions starting with 'use'
+
+## 🤖 AI Feature Integration (Optional)
+
+If your MVP includes AI features, define:
+- **Use cases:** [Chat, summarization, recommendations]
+- **Provider options:** [API-based vs local models]
+- **Data sensitivity:** [Public/Private/PII]
+- **Latency/cost targets:** [Constraints]
+- **Fallback behavior:** [What happens on failure]
 
 ## Step-by-Step Implementation
 
@@ -1348,6 +1398,11 @@ Specifically:
 | 0-500 | $0-20 | Mostly free tiers |
 | 500-2000 | $20-50 | Upgrade Supabase |
 | 2000+ | $50-100 | Upgrade everything |
+
+## 🔧 Maintenance & Updates
+- Keep dependencies stable; update intentionally
+- Review tool/docs updates regularly
+- Update AGENTS.md, agent_docs, and pre-commit hooks as the project scales
 
 ## Learning Resources
 

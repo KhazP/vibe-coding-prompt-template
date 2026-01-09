@@ -4,7 +4,7 @@
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
-[![Last Updated](https://img.shields.io/badge/Updated-December%202025-blue.svg)](README.md)
+[![Last Updated](https://img.shields.io/badge/Updated-January%202026-blue.svg)](README.md)
 
 **Build an MVP in hours, not months – guided by the latest AI coding agents**
 
@@ -14,7 +14,7 @@
 
 ## 🎯 What This Does
 
-Transform any app idea into working code through 5 AI-powered stages using the latest 2025 AI models:
+Transform any app idea into working code through 5 AI-powered stages using the latest 2026 AI models:
 
 | # | Stage | Goal | Output |
 |---|-------|------|--------|
@@ -53,6 +53,12 @@ We now have an interactive web app that automates the entire process for you.
 </details>
 
 ---
+
+## 📚 Google CodeWiki (Auto Docs)
+
+Explore the auto-generated wiki for this repo:
+- https://codewiki.google/github.com/khazp/vibe-coding-prompt-template
+- Learn more: https://codewiki.google
 
 ## ✅ Prerequisites
 
@@ -150,7 +156,8 @@ We now have an interactive web app that automates the entire process for you.
    - Cost estimates
 5. Save output as `research-[YourAppName].txt`
 
-**💡 Pro Tip:** Use Gemini 3 Pro for better research (1,048,576-token context window).
+**💡 Pro Tip:** Use Gemini 3 Pro for better research (1,048,576-token context window).  
+**💡 2026 Tip:** If your platform supports web search/tools, enable it and request source URLs with access dates for key stats.
 </details>
 
 ### 2️⃣ Product Requirements (PRD) 📝
@@ -176,7 +183,7 @@ We now have an interactive web app that automates the entire process for you.
 <details>
 <summary><b>Plan the technical architecture</b> • 15-20 min • Creates <code>TechDesign-*.md</code></summary>
 
-**What this does:** Decides the best tech stack and implementation approach for 2025.
+**What this does:** Decides the best tech stack and implementation approach for 2026.
 
 **How it works:**
 1. Copy `part3-tech-design-mvp.md` into a new AI chat
@@ -203,7 +210,8 @@ We now have an interactive web app that automates the entire process for you.
 **How it works:**
 1. Copy `part4-notes-for-agent.md` into a new AI chat
 2. Attach PRD and Technical Design documents
-3. AI generates:
+3. Ask the AI for a brief plan (no code) for the AGENTS structure and any missing inputs; review and approve
+4. AI generates:
    - `AGENTS.md` - Universal instructions (renamed from NOTES.md in v2.0.0)
    - Tool-specific configs (based on your choice):
      - `CLAUDE.md` for Claude Code
@@ -212,7 +220,9 @@ We now have an interactive web app that automates the entire process for you.
      - `.clinerules` for Cline
      - `.cursorrules` for Cursor
      - `.windsurfrules` for Windsurf
-4. Save all files in your project root
+5. Save all files in your project root
+
+**Note:** Treat `AGENTS.md` and tool configs as living docs—update them as your project scales (commands, conventions, constraints).
 
 </details>
 
@@ -263,18 +273,27 @@ gemini "Read GEMINI.md and AGENTS.md, then implement"
 
 </details>
 
+#### Recommended Loop (Plan → Execute → Verify)
+1. **Plan:** Ask for a brief plan first (no code) and approve it.
+2. **Execute:** Build one feature at a time.
+3. **Verify:** Run tests/linters or manual checks after each feature; fix before moving on.
+
+**Optional accelerators:** If your tool supports sub-agents or parallel search, delegate exploration or test checks. Use checkpoints (git commit/undo) after milestones, and set up pre-commit hooks early; update them as the project scales.
+
 #### Essential Prompts for Building
 
 **Starting prompts by experience level:**
 | Level | First Prompt |
 |-------|--------------|
-| **Vibe-coder** | *"Read AGENTS.md and agent_docs. Build the MVP step by step. Test after each feature."* |
-| **In-Between** | *"Read AGENTS.md and the docs folder. Build core features first, test, then add polish."* |
-| **Developer** | *"Review AGENTS.md and architecture. Implement Phase 1 with proper patterns and test coverage."* |
+| **Vibe-coder** | *"Read AGENTS.md and agent_docs. Propose a plan first, wait for approval, then build step by step. Test after each feature."* |
+| **In-Between** | *"Read AGENTS.md and the docs folder. Propose a plan, build core features first, test, then add polish."* |
+| **Developer** | *"Review AGENTS.md and architecture. Propose a Phase 1 plan, get approval, then implement with proper patterns and test coverage."* |
 
 **Follow-up prompts for all levels:**
 - *"What's done and what's left?"*
 - *"Test [feature] and fix any issues"*
+- *"Set up pre-commit hooks for lint/tests and keep them updated as the project scales"*
+- *"Save a checkpoint/commit before the next phase"*
 - *"Make it work on mobile"*
 - *"Deploy to [platform]"*
 
@@ -293,6 +312,7 @@ your-app/
 ├── agent_docs/                # Detailed context for AI agents
 │   ├── tech_stack.md
 │   ├── code_patterns.md
+│   ├── project_brief.md
 │   ├── product_requirements.md
 │   ├── testing.md
 │   └── resources.md           # Curated repos & patterns
@@ -310,12 +330,13 @@ your-app/
 
 ---
 
-## 🆕 What's New in 2025
+## 🆕 What's New in 2026
 
 <details>
 <summary><b>Latest AI Models & Capabilities</b></summary>
 
 - See the [v2.0.0 release](https://github.com/KhazP/vibe-coding-prompt-template/releases/tag/v2.0.0) for full tool ecosystem + AGENTS.md updates.
+- Highlights below are from late 2025 and still useful in January 2026; verify current versions in official docs.
 
 ### Model Updates
 - **Claude Sonnet 4.5** – September 2025 release with 200K default / 1M beta context and top-tier architecture reasoning
@@ -350,7 +371,7 @@ your-app/
 
 ---
 
-## 💡 Pro Tips for 2025
+## 💡 Pro Tips for 2026
 
 <details>
 <summary><b>Tool Selection Guide</b></summary>
@@ -375,7 +396,7 @@ your-app/
 - No budget? Stick with Cline + Gemini CLI and the generous free request limits.
 - Mobile-first? Preview flows in v0 Mobile or build native screens with Flutter + Gemini’s suggestions.
 
-**Pricing Guardrails (Nov 2025)**
+**Pricing Guardrails (late 2025; verify current)**
 - Free forever: Gemini Code Assist (6K code reqs/day), Copilot Free (2K completions + 50 chats), Windsurf Free (25 prompts).
 - Best under $20: Windsurf Pro $15/mo (500 credits), Copilot Pro $10/mo (Agent Mode), Cursor Pro $20/mo (credit pool + parallel agents).
 - Power tiers: Copilot Pro+ $39/mo (1.5K premium calls), Cursor Ultra $200/mo (20× credits), Bolt Pro 200 $200/mo (120M tokens).
@@ -437,6 +458,8 @@ PRs & issues welcome! Help us improve:
 - 🔧 Add new tool configurations
 - 📚 Submit example MVPs built with this workflow
 
+See contribution guidelines in `.github/CONTRIBUTING.md`, the code of conduct in `.github/CODE_OF_CONDUCT.md`, and security reporting in `.github/SECURITY.md`.
+
 ---
 
 ## 📜 License
@@ -448,6 +471,6 @@ Released under the [MIT License](LICENSE).
 **The best time to build your idea was yesterday.**  
 **The second best time is now.** 🚀
 
-*Last updated: November 2025 | Created by the vibe-coding community*
+*Last updated: January 2026 | Created by the vibe-coding community*
 
 </div>
