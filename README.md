@@ -1,476 +1,421 @@
-# 🚀 Vibe-Coding Workflow: AI-Powered MVP Development
+<p align="center">
+  <img src="https://img.shields.io/badge/Vibe--Coding-Workflow-blueviolet?style=for-the-badge&logo=rocket&logoColor=white" alt="Vibe-Coding Workflow" height="40"/>
+</p>
 
-<div align="center">
+<h3 align="center">AI-Powered MVP Development</h3>
 
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
-[![Last Updated](https://img.shields.io/badge/Updated-January%202026-blue.svg)](README.md)
+<p align="center">
+  <strong>Build an MVP in hours, not months — guided by AI coding agents</strong>
+</p>
 
-**Build an MVP in hours, not months – guided by the latest AI coding agents**
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg?style=flat-square" alt="MIT License"/></a>
+  <a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="PRs Welcome"/></a>
+  <a href="https://github.com/KhazP/vibe-coding-prompt-template/stargazers"><img src="https://img.shields.io/github/stars/KhazP/vibe-coding-prompt-template?style=flat-square&color=yellow" alt="Stars"/></a>
+  <a href="https://github.com/KhazP/vibe-coding-prompt-template/issues"><img src="https://img.shields.io/github/issues/KhazP/vibe-coding-prompt-template?style=flat-square" alt="Issues"/></a>
+</p>
 
-</div>
-
----
-
-## 🎯 What This Does
-
-Transform any app idea into working code through 5 AI-powered stages using the latest 2026 AI models:
-
-| # | Stage | Goal | Output |
-|---|-------|------|--------|
-| 1️⃣ | **Research** | Validate market & tech landscape | Research findings |
-| 2️⃣ | **Define** | Clarify product scope | PRD (Product Requirements) |
-| 3️⃣ | **Design** | Decide how to build | Technical Design doc |
-| 4️⃣ | **Generate AI Agent Instructions** | Convert docs into agent blueprints | AGENTS.md + tool-specific config files |
-| 5️⃣ | **Build** | Generate & test code | Working MVP |
-
----
-
-## 🏃 Quick Start
-
-<div align="center">
-
-### ✨ **New: Automated Web App Workflow** ✨
-
-**Skip the manual copy-pasting!**  
-We now have an interactive web app that automates the entire process for you.
-
-[![Launch Vibe-Coding Webapp](https://img.shields.io/badge/🚀_Launch-Vibe_Coding_Webapp-blue?style=for-the-badge&logo=vercel)](https://vibeworkflow.app/#/vibe-coding)
-
-</div>
-
-<details>
-<summary><b>⚡ Manual Workflow Guide (The Classic Way)</b></summary>
-
-| Step | What You Do | Time | Result |
-|:---:|-------------|:----:|--------|
-| 📚 | Copy prompts → Answer questions | 20 min | Research doc |
-| 📝 | Define your app idea | 15 min | PRD doc |
-| 🏗️ | Choose technical approach | 15 min | Tech Design doc |
-| 🤖 | Generate AI instructions | 10 min | AGENTS.md + agent config |
-| 💻 | Tell the AI agent: *"Read AGENTS.md and build the MVP"* | 1-3 hrs | **Working MVP!** |
-
-</details>
+<p align="center">
+  <img src="https://img.shields.io/badge/Claude-Anthropic-orange?style=flat-square&logo=anthropic" alt="Claude"/>
+  <img src="https://img.shields.io/badge/Gemini-Google-4285F4?style=flat-square&logo=google" alt="Gemini"/>
+  <img src="https://img.shields.io/badge/ChatGPT-OpenAI-412991?style=flat-square&logo=openai" alt="ChatGPT"/>
+  <img src="https://img.shields.io/badge/Cursor-Editor-000000?style=flat-square&logo=cursor" alt="Cursor"/>
+  <img src="https://img.shields.io/badge/VS_Code-Microsoft-007ACC?style=flat-square&logo=visualstudiocode" alt="VS Code"/>
+</p>
 
 ---
 
-## 📚 Google CodeWiki (Auto Docs)
+## The Workflow
 
-Explore the auto-generated wiki for this repo:
-- https://codewiki.google/github.com/khazp/vibe-coding-prompt-template
-- Learn more: https://codewiki.google
+Transform any app idea into working code through 5 AI-powered stages:
 
-## ✅ Prerequisites
+```mermaid
+flowchart LR
+    subgraph Phase1[" "]
+        A[💡 Idea]
+    end
 
-<details>
-<summary><b>🤖 AI Platform (Required - Choose One)</b></summary>
+    subgraph Phase2["Research"]
+        B[📊 Market Analysis]
+    end
 
-### Best Free Options
-- **[AI Studio](https://aistudio.google.com)** ⭐ - Gemini 3 Pro free tier with the full 1,048,576-token context ([see model details](https://ai.google.dev/gemini-api/docs))
-- **[Claude.ai](https://claude.ai)** - Claude Sonnet 4.5 with 200K default / 1M beta context ([see current versions](https://docs.anthropic.com))
-- **[ChatGPT](https://chat.openai.com)** - ChatGPT 5.1 via the Responses interface ([see OpenAI docs](https://developers.openai.com))
+    subgraph Phase3["Define"]
+        C[📋 PRD]
+    end
 
-### Premium Options (Better for Complete Apps)
-- **[Claude Pro](https://claude.ai)** - Sonnet 4.5 with higher rate limits and 1M-token projects ([pricing](https://claude.ai))
-- **[Gemini Advanced](https://gemini.google.com)** - Gemini 3 Pro/Flash Ultra access with priority throughput ([pricing](https://gemini.google.com))
-- **[ChatGPT Plus](https://chat.openai.com)** - ChatGPT 5.1 with higher allocations ([pricing](https://openai.com/chatgpt))
+    subgraph Phase4["Design"]
+        D[🏗️ Tech Design]
+    end
 
-</details>
+    subgraph Phase5["Generate"]
+        E[🤖 AGENTS.md]
+    end
 
-<details>
-<summary><b>💻 AI Coding Agent/IDE (Required - Choose One)</b></summary>
+    subgraph Phase6["Build"]
+        F[🚀 MVP]
+    end
 
-### Terminal-Based Agents (Advanced)
-- **[Claude Code](https://claude.ai/docs/claude-code)** ⭐ - Project-aware CLI with session memory.
-  ```bash
-  curl -fsSL https://claude.ai/install.sh | bash
-  claude init # Generates CLAUDE.md; import AGENTS.md via @AGENTS.md
-  ```
-- **[Gemini CLI](https://github.com/google/gemini-cli)** - Free & open source with Gemini 3 Pro.
-   ```bash
-   npm install -g @google/gemini-cli
-   gemini login
-   # Uses GEMINI.md; import AGENTS.md via @AGENTS.md
-   ```
-- **[Aider](https://aider.chat)** - CLI tool, requires explicit context loading.
-   ```bash
-   python -m pip install aider-install
-   aider --read AGENTS.md
-   ```
-- **[GitHub Copilot CLI](https://docs.github.com/en/copilot)** - Terminal interface for Copilot.
-   ```bash
-   npm install -g @github/copilot
-   copilot --context AGENTS.md
-   ```
-- **[OpenAI Codex CLI](https://developers.openai.com/codex/cli/)** - An open-source, terminal-based coding agent (TUI) that can read, edit, and run code in your repo. ([docs](https://platform.openai.com/docs))
-   ```bash
-   npm i -g @openai/codex
-   codex exec "Summarize AGENTS.md"
-   ```
+    A --> B --> C --> D --> E --> F
 
-### Async/Cloud Agents
-- **[Jules by Google](https://jules.google/docs)** ⭐ - Vertex AI-connected async agent.
-- **[GitHub Copilot Agent](https://github.com/features/copilot)** - VS Code extension; enable `chat.useAgentsMdFile` to read AGENTS.md.
+    style A fill:#667eea,stroke:#667eea,color:#fff
+    style B fill:#764ba2,stroke:#764ba2,color:#fff
+    style C fill:#f093fb,stroke:#f093fb,color:#fff
+    style D fill:#4facfe,stroke:#4facfe,color:#fff
+    style E fill:#00f2fe,stroke:#00f2fe,color:#000
+    style F fill:#43e97b,stroke:#43e97b,color:#000
+```
 
-### IDE-Based Tools (Beginner Friendly)
-- **[Cursor](https://cursor.com)** ⭐ - AI editor that automatically reads `AGENTS.md`.
-- **[Windsurf](https://codeium.com/windsurf)** ⭐ - IDE by Codeium; reads `AGENTS.md` and `.windsurf/rules`.
-- **[Cline](https://docs.cline.dev)** - VS Code extension; reads `AGENTS.md` and `.clinerules`.
-- **[Google Antigravity](https://antigravity.google)** - Agent-first IDE; manually add `AGENTS.md` content to Knowledge Base.
+| Stage | What Happens | Output | Time |
+|:-----:|--------------|--------|:----:|
+| ![Research](https://img.shields.io/badge/1-Research-764ba2?style=flat-square) | Validate market & tech landscape | `research.txt` | 20 min |
+| ![Define](https://img.shields.io/badge/2-Define-f093fb?style=flat-square) | Clarify product scope | `PRD.md` | 15 min |
+| ![Design](https://img.shields.io/badge/3-Design-4facfe?style=flat-square) | Decide how to build | `TechDesign.md` | 15 min |
+| ![Generate](https://img.shields.io/badge/4-Generate-00f2fe?style=flat-square) | Convert docs into agent blueprints | `AGENTS.md` | 10 min |
+| ![Build](https://img.shields.io/badge/5-Build-43e97b?style=flat-square) | Generate & test code | **Working MVP** | 1-3 hrs |
 
-### No-Code Platforms (Easiest)
-- **[Bolt.new](https://bolt.new)** ⭐ - Instant Next.js/Supabase apps.
-- **[Lovable](https://lovable.dev)** - Fullstack builder; add `AGENTS.md` to "Custom Knowledge".
-- **[v0 by Vercel](https://v0.dev)** - UI composition; add `AGENTS.md` to "Project Instructions".
+---
 
-</details>
+<p align="center">
+  <a href=".claude/README.md">
+    <img src="https://img.shields.io/badge/Using_Claude_Code%3F-Click_here_for_built--in_skills-667eea?style=for-the-badge&logo=anthropic&logoColor=white" alt="Claude Code Skills"/>
+  </a>
+</p>
 
-<details>
-<summary><b>🛠 Basic Requirements</b></summary>
+---
+
+## Quick Start
+
+### How It Works
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  1. Copy prompt file  →  2. Answer questions  →  3. Get docs    │
+│  4. Feed docs to AI agent  →  5. Ship your MVP                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+| Step | What You Do | Result |
+|:----:|-------------|--------|
+| 1 | Copy `part1-deepresearch.md`, answer questions | Research doc |
+| 2 | Copy `part2-prd-mvp.md`, answer questions | PRD doc |
+| 3 | Copy `part3-tech-design-mvp.md`, answer questions | Tech Design doc |
+| 4 | Copy `part4-notes-for-agent.md`, generate configs | AGENTS.md + configs |
+| 5 | Tell your AI agent: *"Read AGENTS.md and build the MVP"* | **Working MVP** |
+
+> **Automated alternative:** Try the [Vibe-Coding Webapp](https://vibeworkflow.app/#/vibe-coding) to skip the manual copy-pasting.
+
+---
+
+## Prerequisites
+
+### ![AI](https://img.shields.io/badge/AI-Platform-orange?style=flat-square) AI Platform (Choose One)
+
+For the research and planning phases (Parts 1-4):
+
+| Platform | Best For | Link |
+|----------|----------|------|
+| ![Claude](https://img.shields.io/badge/Claude-Anthropic-orange?style=flat-square) | Technical accuracy and reasoning | [claude.ai](https://claude.ai) |
+| ![Gemini](https://img.shields.io/badge/Gemini-Google-4285F4?style=flat-square) | Large context for comprehensive research | [aistudio.google.com](https://aistudio.google.com) |
+| ![ChatGPT](https://img.shields.io/badge/ChatGPT-OpenAI-412991?style=flat-square) | Iterative research | [chat.openai.com](https://chat.openai.com) |
+
+### ![Code](https://img.shields.io/badge/AI-Coding_Agent-blue?style=flat-square) AI Coding Agent (Choose One)
+
+For the build phase (Part 5):
+
+<table>
+<tr>
+<td width="33%">
+
+**Terminal-Based**
+| Tool | Description |
+|------|-------------|
+| ![Claude Code](https://img.shields.io/badge/Claude_Code-CLI-orange?style=flat-square) | Project-aware CLI with session memory |
+| ![Gemini CLI](https://img.shields.io/badge/Gemini_CLI-Free-4285F4?style=flat-square) | Free, open source terminal agent |
+
+</td>
+<td width="33%">
+
+**IDE-Based**
+| Tool | Description |
+|------|-------------|
+| ![Cursor](https://img.shields.io/badge/Cursor-Editor-000?style=flat-square) | AI editor, reads `AGENTS.md` |
+| ![VS Code](https://img.shields.io/badge/VS_Code-IDE-007ACC?style=flat-square) | + GitHub Copilot or Cline |
+| ![Antigravity](https://img.shields.io/badge/Antigravity-Google-4285F4?style=flat-square) | Agent-first IDE |
+
+</td>
+<td width="33%">
+
+**No-Code**
+| Tool | Description |
+|------|-------------|
+| ![Lovable](https://img.shields.io/badge/Lovable-Builder-ff69b4?style=flat-square) | Fullstack builder |
+| ![v0](https://img.shields.io/badge/v0-Vercel-000?style=flat-square) | UI composition |
+
+</td>
+</tr>
+</table>
+
+### ![Requirements](https://img.shields.io/badge/Basic-Requirements-gray?style=flat-square) Basic Requirements
 
 - Any modern browser
 - 2-4 hours of time
-- Basic computer skills (no coding required!)
-- Optional: Node.js 22+ for terminal tools
-
-</details>
+- Basic computer skills (no coding required)
+- Optional: Node.js for terminal-based tools
 
 ---
 
-## 📋 The 5-Step Workflow
+## The 5-Step Workflow
 
-### 1️⃣ Deep Research 🔍
+### ![Step 1](https://img.shields.io/badge/Step_1-Deep_Research-764ba2?style=flat-square) Deep Research
+
 <details>
-<summary><b>Validate your idea with AI-powered market research</b> • 20-30 min • Creates <code>research-*.txt</code></summary>
+<summary><b>Validate your idea with AI-powered market research</b> — 20-30 min</summary>
 
-**What this does:** Analyzes market opportunity, competitors, and technical feasibility using the latest AI models.
+**What this does:** Analyzes market opportunity, competitors, and technical feasibility.
 
 **How it works:**
 1. Copy the entire `part1-deepresearch.md` file
-2. Paste into AI Studio (for Gemini 3 Pro), Claude.ai (for Claude Sonnet 4.5), or ChatGPT (for ChatGPT 5.1)
+2. Paste into your chosen AI platform (Claude, Gemini, or ChatGPT)
 3. Answer 5-6 questions tailored to your experience level
-4. AI generates comprehensive research with:
-   - Market analysis & size
-   - Competitor breakdown
-   - Technical recommendations
-   - Cost estimates
+4. AI generates comprehensive research with market analysis, competitor breakdown, technical recommendations, and cost estimates
 5. Save output as `research-[YourAppName].txt`
 
-**💡 Pro Tip:** Use Gemini 3 Pro for better research (1,048,576-token context window).  
-**💡 2026 Tip:** If your platform supports web search/tools, enable it and request source URLs with access dates for key stats.
+**Tip:** If your platform supports web search, enable it for up-to-date stats and competitor info.
+
 </details>
 
-### 2️⃣ Product Requirements (PRD) 📝
+### ![Step 2](https://img.shields.io/badge/Step_2-Product_Requirements-f093fb?style=flat-square) Product Requirements (PRD)
+
 <details>
-<summary><b>Define exactly what you're building</b> • 15-20 min • Creates <code>PRD-*.md</code></summary>
+<summary><b>Define exactly what you're building</b> — 15-20 min</summary>
 
 **What this does:** Transforms your idea into clear, actionable product specifications.
 
 **How it works:**
 1. Copy `part2-prd-mvp.md` into a new AI chat
 2. Attach your research findings when prompted
-3. Answer questions about:
-   - Core features (3-5 must-haves)
-   - Target users
-   - Success metrics
-   - UI/UX vision
+3. Answer questions about core features, target users, success metrics, and UI/UX vision
 4. AI creates professional PRD document
 5. Save as `PRD-[YourAppName]-MVP.md`
 
 </details>
 
-### 3️⃣ Technical Design 🏗️
-<details>
-<summary><b>Plan the technical architecture</b> • 15-20 min • Creates <code>TechDesign-*.md</code></summary>
+### ![Step 3](https://img.shields.io/badge/Step_3-Technical_Design-4facfe?style=flat-square) Technical Design
 
-**What this does:** Decides the best tech stack and implementation approach for 2026.
+<details>
+<summary><b>Plan the technical architecture</b> — 15-20 min</summary>
+
+**What this does:** Decides the best tech stack and implementation approach.
 
 **How it works:**
 1. Copy `part3-tech-design-mvp.md` into a new AI chat
 2. Attach your PRD (required) and research (optional)
-3. Answer questions about:
-   - Platform (web/mobile/desktop)
-   - Complexity tolerance
-   - Budget constraints
-   - Timeline
-4. AI recommends optimal stack from:
-   - No-code: Bolt.new, Lovable, Bubble
-   - Low-code: Next.js + Supabase
-   - Full-code: Your preferred framework
+3. Answer questions about platform, complexity tolerance, budget, and timeline
+4. AI recommends optimal stack (no-code, low-code, or full-code)
 5. Save as `TechDesign-[YourAppName]-MVP.md`
 
 </details>
 
-### 4️⃣ Generate AI Agent Instructions 🤖
+### ![Step 4](https://img.shields.io/badge/Step_4-Generate_Instructions-00f2fe?style=flat-square) Generate AI Agent Instructions
+
 <details>
-<summary><b>Create blueprints for your AI coding assistant</b> • 5-10 min • Creates <code>AGENTS.md</code> + agent configs</summary>
+<summary><b>Create blueprints for your AI coding assistant</b> — 5-10 min</summary>
 
 **What this does:** Converts all docs into step-by-step coding instructions for AI agents.
 
 **How it works:**
 1. Copy `part4-notes-for-agent.md` into a new AI chat
 2. Attach PRD and Technical Design documents
-3. Ask the AI for a brief plan (no code) for the AGENTS structure and any missing inputs; review and approve
+3. Ask the AI for a brief plan for the AGENTS structure; review and approve
 4. AI generates:
-   - `AGENTS.md` - Universal instructions (renamed from NOTES.md in v2.0.0)
-   - Tool-specific configs (based on your choice):
-     - `CLAUDE.md` for Claude Code
-     - `GEMINI.md` for Gemini CLI & Antigravity
-     - `.aider.conf.yml` for Aider
-     - `.clinerules` for Cline
-     - `.cursorrules` for Cursor
-     - `.windsurfrules` for Windsurf
+   - `AGENTS.md` — Universal instructions
+   - Tool-specific configs based on your choice (CLAUDE.md, .cursorrules, etc.)
 5. Save all files in your project root
 
-**Note:** Treat `AGENTS.md` and tool configs as living docs—update them as your project scales (commands, conventions, constraints).
+**Note:** Treat `AGENTS.md` and tool configs as living docs — update them as your project scales.
 
 </details>
 
-### 5️⃣ Build with AI Agent 💻
+### ![Step 5](https://img.shields.io/badge/Step_5-Build_MVP-43e97b?style=flat-square) Build with AI Agent
+
 <details>
-<summary><b>Let AI build your MVP</b> • 1-3 hrs • Creates working application</summary>
+<summary><b>Let AI build your MVP</b> — 1-3 hrs</summary>
 
 #### Setup by Tool Type
 
-<details>
-<summary><b>Terminal Agents (Claude Code, Gemini CLI)</b></summary>
-
+**Terminal Agents (Claude Code, Gemini CLI)**
 ```bash
-# Claude Code
-npm install -g @anthropic-ai/claude-code
 cd your-project
-claude init
-# Add CLAUDE.md to project root
-claude "Read CLAUDE.md and AGENTS.md, then build the MVP"
-
-# Gemini CLI
-npm install -g @google-gemini/cli
-gemini login
-# Add GEMINI.md to project root
-gemini "Read GEMINI.md and AGENTS.md, then implement"
+claude "Read AGENTS.md and build the MVP"
+# or
+gemini "Read AGENTS.md and implement"
 ```
 
-</details>
-
-<details>
-<summary><b>IDE Tools (Cursor, Windsurf)</b></summary>
-
+**IDE Tools (Cursor, VS Code)**
 1. Open your project folder in the IDE
-2. Add configuration file:
-   - Cursor: `.cursorrules` or `.cursor/rules.mdc`
-   - Windsurf: `.windsurfrules`
+2. Add configuration file (.cursorrules or similar)
 3. Start with: *"Read AGENTS.md and build the MVP step by step"*
 
-</details>
-
-<details>
-<summary><b>No-Code Platforms (Bolt.new, Lovable)</b></summary>
-
+**No-Code Platforms (Lovable, v0)**
 1. Go to platform website
 2. Paste your PRD content
 3. Say: *"Build this MVP following the specifications"*
-4. Deploy instantly with one click
 
-</details>
+#### Recommended Loop
 
-#### Recommended Loop (Plan → Execute → Verify)
-1. **Plan:** Ask for a brief plan first (no code) and approve it.
-2. **Execute:** Build one feature at a time.
-3. **Verify:** Run tests/linters or manual checks after each feature; fix before moving on.
+```
+┌──────────┐     ┌──────────┐     ┌──────────┐
+│   Plan   │ --> │ Execute  │ --> │  Verify  │
+│ (approve)│     │(one feat)│     │ (test)   │
+└──────────┘     └──────────┘     └──────────┘
+      ^                                 │
+      └─────────────────────────────────┘
+```
 
-**Optional accelerators:** If your tool supports sub-agents or parallel search, delegate exploration or test checks. Use checkpoints (git commit/undo) after milestones, and set up pre-commit hooks early; update them as the project scales.
+#### Useful Prompts
 
-#### Essential Prompts for Building
-
-**Starting prompts by experience level:**
 | Level | First Prompt |
 |-------|--------------|
-| **Vibe-coder** | *"Read AGENTS.md and agent_docs. Propose a plan first, wait for approval, then build step by step. Test after each feature."* |
-| **In-Between** | *"Read AGENTS.md and the docs folder. Propose a plan, build core features first, test, then add polish."* |
-| **Developer** | *"Review AGENTS.md and architecture. Propose a Phase 1 plan, get approval, then implement with proper patterns and test coverage."* |
+| **Vibe-coder** | *"Read AGENTS.md and agent_docs. Propose a plan first, wait for approval, then build step by step."* |
+| **Developer** | *"Review AGENTS.md and architecture. Propose a Phase 1 plan, get approval, then implement with proper patterns."* |
 
-**Follow-up prompts for all levels:**
+**Follow-up prompts:**
 - *"What's done and what's left?"*
 - *"Test [feature] and fix any issues"*
-- *"Set up pre-commit hooks for lint/tests and keep them updated as the project scales"*
-- *"Save a checkpoint/commit before the next phase"*
 - *"Make it work on mobile"*
-- *"Deploy to [platform]"*
+- *"Deploy to Vercel/Cloudflare"*
 
 </details>
 
 ---
 
-## 📁 Final Project Structure
+## Final Project Structure
 
 ```
 your-app/
-├── docs/
+├── 📁 docs/
 │   ├── research-YourApp.txt
 │   ├── PRD-YourApp-MVP.md
 │   └── TechDesign-YourApp-MVP.md
-├── agent_docs/                # Detailed context for AI agents
+├── 📁 agent_docs/
 │   ├── tech_stack.md
 │   ├── code_patterns.md
 │   ├── project_brief.md
 │   ├── product_requirements.md
-│   ├── testing.md
-│   └── resources.md           # Curated repos & patterns
-├── AGENTS.md                  # Universal AI instructions
-├── CLAUDE.md                  # Claude Code config (if using)
-├── GEMINI.md                  # Gemini CLI & Antigravity config (if using)
-├── .aider.conf.yml            # Aider config (if using)
-├── .clinerules                # Cline config (if using)
-├── .cursorrules               # Cursor config (if using)
-├── .windsurfrules             # Windsurf config (if using)
-├── README.md                  # Setup instructions (AI-generated)
-├── .env.example               # Environment variables
-└── src/                       # Your application code
+│   └── testing.md
+├── 📄 AGENTS.md                  # Universal AI instructions
+├── 📄 CLAUDE.md                  # Claude Code config (if using)
+├── 📄 .cursorrules               # Cursor config (if using)
+└── 📁 src/                       # Your application code
 ```
 
 ---
 
-## 🆕 What's New in 2026
+## Deployment
+
+Once your MVP is built, deploy to one of these platforms:
+
+| Platform | Best For | Free Tier |
+|----------|----------|:---------:|
+| ![Vercel](https://img.shields.io/badge/Vercel-Deploy-000?style=flat-square&logo=vercel) | Next.js, React, frontend apps | ✓ |
+| ![Cloudflare](https://img.shields.io/badge/Cloudflare-Pages-F38020?style=flat-square&logo=cloudflare) | Static sites, edge functions | ✓ |
+
+Both platforms support git-based deployments — push your code and it deploys automatically.
+
+---
+
+## Tool Selection Guide
 
 <details>
-<summary><b>Latest AI Models & Capabilities</b></summary>
+<summary><b>Which tools should I use?</b></summary>
 
-- See the [v2.0.0 release](https://github.com/KhazP/vibe-coding-prompt-template/releases/tag/v2.0.0) for full tool ecosystem + AGENTS.md updates.
-- Highlights below are from late 2025 and still useful in January 2026; verify current versions in official docs.
+| Situation | Recommended Tools |
+|-----------|-------------------|
+| Complete beginner | ![Lovable](https://img.shields.io/badge/Lovable-ff69b4?style=flat-square) or ![v0](https://img.shields.io/badge/v0-000?style=flat-square) → instant hosted apps |
+| Learning to code | ![Cursor](https://img.shields.io/badge/Cursor-000?style=flat-square) or VS Code with Copilot |
+| Experienced developer | ![Claude Code](https://img.shields.io/badge/Claude_Code-orange?style=flat-square) or Cursor |
+| Budget-limited | ![Gemini CLI](https://img.shields.io/badge/Gemini_CLI-4285F4?style=flat-square) (free) + VS Code |
+| Need MVP fast | Lovable → quick prototypes |
+| Complex logic | Claude Code → session memory for large codebases |
 
-### Model Updates
-- **Claude Sonnet 4.5** – September 2025 release with 200K default / 1M beta context and top-tier architecture reasoning
-- **Claude Opus (2025 snapshot)** – Handles massive monorepos and multi-hour planning sessions with improved tool use
-- **Gemini 3 Pro** – 1,048,576-token input and 65,536-token output windows for deep research and synthesis
-- **ChatGPT 5.1** – Responses API with adjustable reasoning effort, faster tool orchestration, and lower latency
-
-### New Tools
-- **Claude Code** - Anthropic's project-aware terminal agent with session memory and automated test orchestration
-- **Jules** - Google's asynchronous coding agent that can work independently across Vertex AI projects
-- **Gemini CLI** - Open-source CLI with direct Gemini 3 Pro/Flash access, live context streaming, and MCP integrations
-- **GitHub Copilot Agent Mode** - Workspace automation for scoped plans, PRs, and deployment checklists
-- **OpenAI CLI (Responses API)** - Terminal workflow for ChatGPT 5.1 tool-calling pipelines
-
-### Platform Updates
-- **Cursor** - Version 2.1 adds improved plan mode, AI code reviews, and instant grep.
-- **Windsurf** - Now supports `AGENTS.md` automatically for project context.
-- **Cline** - Manages context in three layers (immediate, project, persistent) with auto-truncation.
-- **GitHub Copilot CLI** - Version 0.0.365 adds `--silent` option for cleaner output.
-- **Bolt.new** - Instant Next.js/Supabase deployments with scheduled automations.
-- **Lovable** - "Custom Knowledge" tab for project-wide context.
-
-### Advanced Patterns (Round 2)
-- **Anti-Vibe Quality Rules** - Templates now generate strict engineering constraints (type safety, architectural governance) to prevent common AI code mistakes
-- **Visual Verification** - Generate-Render-Inspect-Refine loop patterns for UI testing
-- **Self-Healing Tests** - Playwright failure auto-repair with ARIA snapshots
-- **PER Architecture** - Planner-Executor-Reviewer loop guidance for complex features
-- **MCP Integration** - Database, Git, and Memory server configuration patterns
-- **Curated Resources** - agent_docs/resources.md with notable repos (awesome-cursorrules, healing-agent)
+**When NOT to use these tools:**
+- Native mobile or hardware builds — use traditional toolchains
+- Regulated workloads (SOC2, HIPAA) — use enterprise solutions
+- Safety-critical systems — require deterministic, human-led engineering
 
 </details>
 
 ---
 
-## 💡 Pro Tips for 2026
+## Common Pitfalls
 
 <details>
-<summary><b>Tool Selection Guide</b></summary>
+<summary><b>Avoid these mistakes</b></summary>
 
-| Persona | Best Tool Stack | Why it fits | What to watch | Setup time |
-|---------|-----------------|-----------|--------------|------------|
-| Complete beginner | Lovable • Bolt.new | Paste your idea, get a hosted app. Use "Custom Knowledge" for guidelines. | Daily credit caps; hosted code. | 2–5 min |
-| Learning hobbyist | Copilot Agent • Cline | Copilot edits files; Cline manages context layers for you. | Copilot requires subscription; Cline needs API key. | 5–10 min |
-| Experienced developer | Cursor • Windsurf | Cursor 2.1 has instant grep; Windsurf reads AGENTS.md automatically. | Usage-based credits; new IDE workflows. | 5–10 min |
-| Budget-limited builder | Cline • Gemini CLI | Free to install; Gemini CLI uses free tier API. | Less hand-holding; requires more prompting. | 5–10 min |
-| Need-it-today founder | Lovable • v0 | Fastest path to MVP. Use "Project Instructions" for v0 context. | Watch credit burn; plan for security review. | 2–5 min |
-| Mobile-first product team | v0 • Flutter + Gemini | v0 sketches mobile UI; Gemini CLI helps with native code. | Mobile features are evolving. | 45–60 min |
-| Complex logic engineer | Claude Code • Windsurf | Claude Code has session memory; Windsurf handles deep context. | Claude Code is CLI-based. | 10–15 min |
-| Security/compliance lead | Cline (client-side) | All code stays local; persistent context is managed locally. | You define the policy. | 10–20 min |
-| Offline/privacy-focused dev | Gemini CLI • Cline | Works with local models (Ollama) or private keys. | Offline mode depends on hardware. | 10–30 min |
-| Open-source maintainer | Cline • Aider | Aider explicitly reads AGENTS.md; Cline merges rule files. | Terminal-first or VS Code extension. | 5–10 min |
-
-**Quick Picks (Plain English)**
-- Need an MVP tonight? Use Lovable or Bolt.new, then plan a follow-up pass for polish and security.
-- Working inside an editor? Cursor or Copilot Agent can code for you—open Cline when you want to double-check every change.
-- Huge legacy repo? Bring in Claude Code or Windsurf so the agent “remembers” more of your code at once.
-- No budget? Stick with Cline + Gemini CLI and the generous free request limits.
-- Mobile-first? Preview flows in v0 Mobile or build native screens with Flutter + Gemini’s suggestions.
-
-**Pricing Guardrails (late 2025; verify current)**
-- Free forever: Gemini Code Assist (6K code reqs/day), Copilot Free (2K completions + 50 chats), Windsurf Free (25 prompts).
-- Best under $20: Windsurf Pro $15/mo (500 credits), Copilot Pro $10/mo (Agent Mode), Cursor Pro $20/mo (credit pool + parallel agents).
-- Power tiers: Copilot Pro+ $39/mo (1.5K premium calls), Cursor Ultra $200/mo (20× credits), Bolt Pro 200 $200/mo (120M tokens).
-
-**MCP Watch**
-- Model Context Protocol (MCP) is a shared standard that lets your AI talk to extra tools (think CI pipelines, databases, ticket queues).
-- Cline, Cursor, Claude Code, and Gemini CLI all plug into MCP, but treat those connections like production credentials.
-
-**Caution Flags**
-- Claude consumer accounts now offer opt-in data sharing; stick to org workspaces or API keys for sensitive repos.
-- Replit Agent 3 can run 200-minute autonomous loops—enable guardrails so retries cannot nuke production data.
-
-**When Not to Use These Tools**
-- Native mobile or hardware builds: prefer Flutter + traditional toolchains with AI pairing.
-- Regulated workloads needing SOC2/FedRAMP/HIPAA: lean on Copilot Enterprise, Cline with strict policies, or self-hosted stacks.
-- Safety-critical or real-time systems: require deterministic, human-led engineering.
-- Fundamentals practice: hand-code portions to avoid skipping core concepts.
-
-</details>
-
-<details>
-<summary><b>Common Pitfalls & Solutions</b></summary>
-
-| ❌ Pitfall | ✅ Solution |
-|-----------|------------|
-| Skipping discovery work | Run the Part I research prompt first so the PRD and tech design aren’t guesses |
-| Letting agents ship code alone | Ask agents to show their plan, review the diff, and run tests before anything merges |
-| Sticker-shock bills | Check credit dashboards weekly and keep a backup stack (Cline + Gemini) that stays free |
-| Publishing auto-generated UIs without checks | Test accessibility, security, and performance before launch day |
-| Building sensitive apps with personal accounts | Use business plans or API workspaces, switch off data sharing, and keep secrets in vaults |
-| Forcing one tool to do everything | Mix and match (IDE + terminal + builder) so each tool covers what it does best |
+| Pitfall | Solution |
+|---------|----------|
+| Skipping discovery work | Run the Part 1 research prompt first |
+| Letting agents ship code alone | Review the diff and run tests before merging |
+| Publishing auto-generated UIs without checks | Test accessibility and security before launch |
+| Forcing one tool to do everything | Mix tools — IDE + terminal + builder |
 
 </details>
 
 ---
 
-## 🚨 Troubleshooting
+## Troubleshooting
 
 <details>
-<summary><b>Quick Fixes for Common Issues</b></summary>
+<summary><b>Quick fixes for common issues</b></summary>
 
 | Problem | Solution |
 |---------|----------|
 | **"AI ignores my documents"** | Start with: *"First read AGENTS.md, PRD, and TechDesign. Summarize key requirements before coding."* |
 | **"Code doesn't match PRD"** | Say: *"Re-read the PRD section on [feature], list acceptance criteria, then refactor accordingly."* |
-| **"AI is overcomplicating"** | Add to config: *"Prioritize MVP scope. Offer the simplest working implementation before optimizations."* |
-| **"Lost track of progress"** | Ask: *"Update the AGENTS.md progress log and map remaining tasks to implementation phases."* |
-| **"Deployment failing"** | Request: *"Walk through deployment checklist, verify env vars, then run the platform-specific health command."* |
+| **"AI is overcomplicating"** | Add to config: *"Prioritize MVP scope. Offer the simplest working implementation."* |
+| **"Deployment failing"** | Request: *"Walk through deployment checklist, verify env vars, then run health check."* |
 
 </details>
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
-PRs & issues welcome! Help us improve:
-- 🐛 Report issues with prompts
-- 💡 Share your success stories
-- 🔧 Add new tool configurations
-- 📚 Submit example MVPs built with this workflow
+<p align="center">
+  <a href="https://github.com/KhazP/vibe-coding-prompt-template/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/KhazP/vibe-coding-prompt-template?style=for-the-badge&color=blue" alt="Contributors"/>
+  </a>
+  <a href="https://github.com/KhazP/vibe-coding-prompt-template/network/members">
+    <img src="https://img.shields.io/github/forks/KhazP/vibe-coding-prompt-template?style=for-the-badge&color=blue" alt="Forks"/>
+  </a>
+</p>
 
-See contribution guidelines in `.github/CONTRIBUTING.md`, the code of conduct in `.github/CODE_OF_CONDUCT.md`, and security reporting in `.github/SECURITY.md`.
+PRs and issues welcome! Help us improve:
+- Report issues with prompts
+- Share your success stories
+- Add new tool configurations
+- Submit example MVPs built with this workflow
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ---
 
-## 📜 License
+## License
 
 Released under the [MIT License](LICENSE).
 
 ---
 
-**The best time to build your idea was yesterday.**  
-**The second best time is now.** 🚀
+<p align="center">
+  <strong>The best time to build your idea was yesterday. The second best time is now.</strong>
+</p>
 
-*Last updated: January 2026 | Created by the vibe-coding community*
+<p align="center">
+  <sub>Created by the vibe-coding community</sub>
+</p>
 
-</div>
+<p align="center">
+  <a href="#the-workflow">
+    <img src="https://img.shields.io/badge/↑_Back_to_Top-blueviolet?style=for-the-badge" alt="Back to Top"/>
+  </a>
+</p>

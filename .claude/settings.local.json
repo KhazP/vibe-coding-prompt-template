@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(frontend-design)",
+      "Skill(frontend-design:*)"
+    ]
+  }
+}

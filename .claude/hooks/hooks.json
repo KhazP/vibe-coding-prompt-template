@@ -1,0 +1,62 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"const fs=require('fs'); const d=JSON.parse(fs.readFileSync(0,'utf8')); const p=d.tool_input?.file_path||''; if(p.includes('.env')||p.includes('package-lock.json')||p.includes('.git/')) { console.error('Blocked: Protected file. Use npm commands for package-lock.json, never commit .env files.'); process.exit(2); }\"",
+            "timeout": 5000
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"const fs=require('fs'); const d=JSON.parse(fs.readFileSync(0,'utf8')); const c=d.tool_input?.command||''; if(/rm\\s+-rf\\s+(\\/|~|\\.\\.)|DROP\\s+(DATABASE|TABLE)|TRUNCATE/i.test(c)) { console.error('Blocked: Destructive command detected. Please confirm this action manually.'); process.exit(2); }\"",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"const fs=require('fs'); const d=JSON.parse(fs.readFileSync(0,'utf8')); const p=d.tool_input?.file_path||''; if(/\\.(ts|tsx|js|jsx)$/.test(p) && fs.existsSync('node_modules/.bin/prettier')) { require('child_process').execSync('npx prettier --write \\\"'+p+'\\\"', {stdio:'inherit'}); }\"",
+            "timeout": 30000
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"console.log('\\n--- Session Summary ---'); const {execSync}=require('child_process'); try { const status=execSync('git status --porcelain',{encoding:'utf8'}); if(status.trim()) { console.log('Modified files:'); console.log(status); console.log('Remember: Review changes before committing!'); } else { console.log('No uncommitted changes.'); } } catch(e) { console.log('Not a git repository or git not available.'); }\"",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"const d=JSON.parse(require('fs').readFileSync(0,'utf8')); const msg=d.message||'Claude needs your attention'; if(process.platform==='win32') { require('child_process').exec('powershell -Command \\\"[System.Reflection.Assembly]::LoadWithPartialName(\\'System.Windows.Forms\\'); [System.Windows.Forms.MessageBox]::Show(\\''+msg.replace(/'/g,\"''\")+'\\')\\\"\'); } else if(process.platform==='darwin') { require('child_process').exec('osascript -e \\'display notification \\\"'+msg+'\\\" with title \\\"Claude Code\\\"\\' '); } else { require('child_process').exec('notify-send \\\"Claude Code\\\" \\\"'+msg+'\\\"'); }\"",
+            "timeout": 5000
+          }
+        ]
+      }
+    ]
+  }
+}

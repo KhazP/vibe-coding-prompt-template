@@ -1,9 +1,9 @@
-# Part II - Product Requirements Document (PRD) Generator for MVP
+# Part 2 — Product Requirements Document (PRD) Generator
 
 I'll help you create a Product Requirements Document (PRD) for your MVP. This document will define WHAT you're building, WHO it's for, and WHY it matters.
 
 <details>
-<summary><b>📁 Before We Begin - File Upload Instructions</b></summary>
+<summary><b>Before We Begin — File Upload Instructions</b></summary>
 
 ### If you have research from Part 1:
 Please attach your research findings in any format:
@@ -16,9 +16,9 @@ No problem! We can still create a great PRD. Just let me know and we'll proceed.
 </details>
 
 Once you've attached the file (or indicated you don't have one), please tell me about yourself:
-- A) **Vibe-coder** - Great ideas, limited coding experience, using AI to build
-- B) **Developer** - Experienced programmer  
-- C) **Somewhere in between** - Some coding knowledge, still learning
+- A) **Vibe-coder** — Great ideas, limited coding experience, using AI to build
+- B) **Developer** — Experienced programmer
+- C) **Somewhere in between** — Some coding knowledge, still learning
 
 Please attach your research file (or type "no file") and type A, B, or C:
 
@@ -27,12 +27,12 @@ Please attach your research file (or type "no file") and type A, B, or C:
 ## Instructions for AI Assistant
 
 <details>
-<summary><b>🤖 Best AI Platforms for PRD Creation</b></summary>
+<summary><b>Best AI Platforms for PRD Creation</b></summary>
 
 ### Recommended Platforms
-- **Claude.ai** – Excels at structured document planning and consistent formatting
-- **ChatGPT** – Good for rapid iteration and user story generation
-- **Gemini** – Handles large research attachments with extensive context window
+- **Claude** — Excels at structured document planning and consistent formatting
+- **ChatGPT** — Good for rapid iteration and user story generation
+- **Gemini** — Handles large research attachments with extensive context window
 
 ### Choosing the Right Platform
 | Need | Best Choice | Why |
@@ -40,8 +40,6 @@ Please attach your research file (or type "no file") and type A, B, or C:
 | Structured documents | Claude | Consistent formatting, follows templates well |
 | Quick iterations | ChatGPT | Fast responses, good at brainstorming |
 | Large context (research input) | Gemini | Largest context window |
-
-*Note: AI capabilities evolve rapidly. Choose based on current features.*
 
 </details>
 
@@ -70,7 +68,7 @@ Reference these insights during the Q&A process.
 
 **Q3:** "What's your launch goal? (Examples: '100 users', '$1000 MRR', 'Replace my day job', 'Learn to build apps')"
 
-### Path A - Vibe-Coder Questions:
+### Path A — Vibe-Coder Questions:
 
 **Q4:** "Who will use your app? Describe them like you're explaining to a friend:
 - What do they do? (job, lifestyle)
@@ -98,7 +96,7 @@ Reference these insights during the Q&A process.
 
 **Q10:** "Any constraints or non-functional requirements? Budget limits, must launch by date, performance expectations, security/privacy, scalability, compliance, or specific platform needs?"
 
-### Path B - Developer Questions:
+### Path B — Developer Questions:
 
 **Q4:** "Define your target audience:
 - Primary persona (demographics, role, technical level)
@@ -140,7 +138,7 @@ Primary: 'As a [user type], I want to [action] so that [benefit]'
 - Timeline requirements
 - Compliance/regulatory needs"
 
-### Path C - In-Between Questions:
+### Path C — In-Between Questions:
 
 **Q4:** "Who are your users and what do they need?
 - Primary user type: [describe]
@@ -183,18 +181,18 @@ After completing ALL questions, summarize your understanding back to the user:
 
 **Template:**
 > "Let me confirm I understand your product correctly:
-> 
-> **Product:** [Name] - [One-line description]
+>
+> **Product:** [Name] — [One-line description]
 > **Target User:** [Primary persona description]
 > **Problem:** [Core problem being solved]
-> **Must-Have Features:** 
+> **Must-Have Features:**
 > 1. [Feature 1]
 > 2. [Feature 2]
 > 3. [Feature 3]
 > **Success Metric:** [Primary metric and target]
 > **Timeline:** [Launch target]
 > **Budget:** [Constraints]
-> 
+>
 > Is this accurate? Should I adjust anything before creating your PRD?"
 
 Wait for user confirmation. If they correct anything, update your understanding before proceeding.
@@ -205,19 +203,19 @@ Wait for user confirmation. If they correct anything, update your understanding 
 
 After verification, create a PRD appropriate to their level:
 
-### For Vibe-Coders - PRD-[AppName]-MVP.md:
+### For Vibe-Coders — PRD-[AppName]-MVP.md:
 
 ```markdown
 # Product Requirements Document: [App Name] MVP
 
-## 🎯 Product Overview
+## Product Overview
 
-**App Name:** [Name]  
-**Tagline:** [Their one-liner in catchier form]  
-**Launch Goal:** [What success looks like]  
+**App Name:** [Name]
+**Tagline:** [Their one-liner in catchier form]
+**Launch Goal:** [What success looks like]
 **Target Launch:** [Date if provided, otherwise "6-8 weeks"]
 
-## 👥 Who It's For
+## Who It's For
 
 ### Primary User: [Persona Name]
 [User description in conversational language]
@@ -235,7 +233,7 @@ After verification, create a PRD appropriate to their level:
 ### Example User Story
 "Meet [persona name], a [description] who struggles with [problem]. Every day they [current situation]. They need [solution] so they can [desired outcome]."
 
-## 🔧 The Problem We're Solving
+## The Problem We're Solving
 
 [Expand on their problem statement with context, why it matters, and why now is the right time to solve it]
 
@@ -243,7 +241,7 @@ After verification, create a PRD appropriate to their level:
 - [Competitor/current solution]: [Why it's not enough]
 - [Competitor/current solution]: [Why it's not enough]
 
-## 🎬 User Journey
+## User Journey
 
 ### Discovery → First Use → Success
 
@@ -267,14 +265,14 @@ After verification, create a PRD appropriate to their level:
    - "Aha!" moment: [when they get it]
    - Share trigger: [what makes them tell others]
 
-## ✨ MVP Features
+## MVP Features
 
-### 🔴 Must Have for Launch
+### Must Have for Launch
 
 #### 1. [Feature Name]
 - **What:** [Simple description]
 - **User Story:** As a [user], I want to [action] so that [benefit]
-- **Success Criteria:** 
+- **Success Criteria:**
   - [ ] [Specific measurable outcome]
   - [ ] [Specific measurable outcome]
 - **Priority:** P0 (Critical)
@@ -289,18 +287,18 @@ After verification, create a PRD appropriate to their level:
 
 [Continue for all must-have features]
 
-### 🟡 Nice to Have (If Time Allows)
+### Nice to Have (If Time Allows)
 - **[Feature]**: [Quick description]
 - **[Feature]**: [Quick description]
 
-### 🚫 NOT in MVP (Saving for Later)
+### NOT in MVP (Saving for Later)
 - **[Feature]**: Will add after [trigger/milestone]
 - **[Feature]**: Will add after [trigger/milestone]
 - **[Feature]**: Will add after [trigger/milestone]
 
 *Why we're waiting: Keeps MVP focused and launchable in [timeframe]*
 
-## 📊 How We'll Know It's Working
+## How We'll Know It's Working
 
 ### Launch Success Metrics (First 30 Days)
 | Metric | Target | Measure |
@@ -313,7 +311,7 @@ After verification, create a PRD appropriate to their level:
 |--------|--------|---------|
 | [Metric name] | [Target number] | [How to measure] |
 
-## 🎨 Look & Feel
+## Look & Feel
 
 **Design Vibe:** [Their 3-5 words]
 
@@ -343,44 +341,44 @@ After verification, create a PRD appropriate to their level:
 └─────────────────────────┘
 ```
 
-## ⚡ Technical Considerations
+## Technical Considerations
 
-**Platform:** [Web/Mobile/Both]  
-**Responsive:** [Yes, mobile-first]  
-**Performance:** Page load < 3 seconds  
-**Accessibility:** WCAG 2.1 AA minimum  
-**Security/Privacy:** [Basic requirements, data sensitivity]  
-**Scalability:** [Expected user growth or constraints]  
+**Platform:** [Web/Mobile/Both]
+**Responsive:** [Yes, mobile-first]
+**Performance:** Page load < 3 seconds
+**Accessibility:** WCAG 2.1 AA minimum
+**Security/Privacy:** [Basic requirements, data sensitivity]
+**Scalability:** [Expected user growth or constraints]
 
-## 🛡️ Quality Standards
+## Quality Standards
 
 **What This App Will NOT Accept:**
 - Placeholder content in production ("Lorem ipsum", sample images)
-- Broken features—everything listed works or isn't included
+- Broken features — everything listed works or isn't included
 - Skipping mobile testing before launch
 - Ignoring accessibility basics
 
-*These standards will be enforced by the AI coding assistant.*  
+*These standards will be enforced by the AI coding assistant.*
 
-## 💰 Budget & Constraints
+## Budget & Constraints
 
-**Development Budget:** [$X or "Minimal - using free/cheap tools"]  
-**Monthly Operating:** [$X estimated]  
-**Timeline:** [X weeks to launch]  
+**Development Budget:** [$X or "Minimal — using free/cheap tools"]
+**Monthly Operating:** [$X estimated]
+**Timeline:** [X weeks to launch]
 **Team:** [Solo/team size]
 
-## ❓ Open Questions & Assumptions
+## Open Questions & Assumptions
 - [Open question]
 - [Key assumption]
 
-## 🚀 Launch Strategy (Brief)
+## Launch Strategy (Brief)
 
-**Soft Launch:** [Approach]  
-**Target Users:** [How many]  
-**Feedback Plan:** [How to collect]  
+**Soft Launch:** [Approach]
+**Target Users:** [How many]
+**Feedback Plan:** [How to collect]
 **Iteration Cycle:** [How often to update]
 
-## ✅ Definition of Done for MVP
+## Definition of Done for MVP
 
 The MVP is ready to launch when:
 - [ ] All P0 features are functional
@@ -391,30 +389,30 @@ The MVP is ready to launch when:
 - [ ] Friends/family test is complete
 - [ ] Deployment is automated
 
-## 📝 Next Steps
+## Next Steps
 
 After this PRD is approved:
-1. Create Technical Design Document (Part III)
+1. Create Technical Design Document (Part 3)
 2. Set up development environment
 3. Build MVP with AI assistance
 4. Test with 5-10 beta users
-5. Launch! 🎉
+5. Launch!
 
 ---
-*Document created: [Date]*  
-*Status: Draft - Ready for Technical Design*
+*Document created: [Date]*
+*Status: Draft — Ready for Technical Design*
 ```
 
-### For Developers - PRD-[AppName]-MVP.md:
+### For Developers — PRD-[AppName]-MVP.md:
 
 ```markdown
 # Product Requirements Document: [App Name] MVP
 
 ## Executive Summary
 
-**Product:** [Name]  
-**Version:** MVP (1.0)  
-**Document Status:** [Draft/Final]  
+**Product:** [Name]
+**Version:** MVP (1.0)
+**Document Status:** [Draft/Final]
 **Last Updated:** [Date]
 
 ### Product Vision
@@ -477,7 +475,7 @@ After this PRD is approved:
 
 ## Functional Requirements
 
-### Core Features (MVP - P0)
+### Core Features (MVP — P0)
 
 #### Feature 1: [Name]
 - **Description:** [Detailed description]
@@ -526,16 +524,16 @@ After this PRD is approved:
 - **Data Growth:** [Expectations]
 - **Geographic Distribution:** [Requirements]
 
-## 🛡️ Quality Standards (Anti-Vibe Rules)
+## Quality Standards (Anti-Vibe Rules)
 
 ### Code Quality Requirements
 - **Type Safety:** Strict TypeScript, no `any` types allowed
-- **Architecture:** Thin controllers—logic in services only
+- **Architecture:** Thin controllers — logic in services only
 - **Error Handling:** Explicit error types, no swallowed exceptions
 - **Testing:** 80% coverage minimum on critical paths
 
 ### Design Quality Requirements
-- **Design System:** Use design tokens only—no raw hex/pixel values
+- **Design System:** Use design tokens only — no raw hex/pixel values
 - **Accessibility:** WCAG 2.1 AA verified
 - **Performance:** Core Web Vitals in green zone
 
@@ -666,30 +664,30 @@ graph LR
 [Links or embedded images]
 
 ---
-*PRD Version: 1.0*  
-*Next Review: [Date]*  
-*Owner: [Name]*  
+*PRD Version: 1.0*
+*Next Review: [Date]*
+*Owner: [Name]*
 *Stakeholders: [List]*
 ```
 
-### For In-Between Users - PRD-[AppName]-MVP.md:
+### For In-Between Users — PRD-[AppName]-MVP.md:
 
 ```markdown
 # Product Requirements Document: [App Name] MVP
 
 ## Overview
 
-**Product Name:** [Name]  
-**Problem Statement:** [Expanded from their input]  
-**MVP Goal:** [Clear, measurable objective]  
+**Product Name:** [Name]
+**Problem Statement:** [Expanded from their input]
+**MVP Goal:** [Clear, measurable objective]
 **Target Launch:** [Timeframe]
 
 ## Target Users
 
 ### Primary User Profile
-**Who:** [User description]  
-**Problem:** [What they struggle with]  
-**Current Solution:** [What they use now]  
+**Who:** [User description]
+**Problem:** [What they struggle with]
+**Current Solution:** [What they use now]
 **Why They'll Switch:** [Your unique value]
 
 ### User Persona: [Name]
@@ -712,12 +710,12 @@ graph LR
 
 ## MVP Features
 
-### Core Features (Must Have) ✅
+### Core Features (Must Have)
 
 #### 1. [Feature Name]
 - **Description:** [What it does]
 - **User Value:** [Why users need it]
-- **Success Criteria:** 
+- **Success Criteria:**
   - Users can [action]
   - System [behavior]
   - Data is [state]
@@ -728,7 +726,7 @@ graph LR
 
 [Continue for 3-5 core features]
 
-### Future Features (Not in MVP) ⏳
+### Future Features (Not in MVP)
 | Feature | Why Wait | Planned For |
 |---------|----------|-------------|
 | [Feature] | [Reason] | Version 2 |
@@ -751,7 +749,7 @@ graph LR
 
 ## UI/UX Direction
 
-**Design Feel:** [Their descriptive words]  
+**Design Feel:** [Their descriptive words]
 **Inspiration:** [Similar apps/sites they like]
 
 ### Key Screens
@@ -770,14 +768,14 @@ graph LR
 
 ## Technical Considerations
 
-**Platform:** [Web/Mobile/Both]  
-**Responsive:** [Yes/No/Mobile-first]  
+**Platform:** [Web/Mobile/Both]
+**Responsive:** [Yes/No/Mobile-first]
 **Performance Goals:**
 - Load time: < 3 seconds
 - Smooth animations (60fps)
 - Works on 3-year-old devices
 
-**Security/Privacy:** [Data sensitivity, auth requirements]  
+**Security/Privacy:** [Data sensitivity, auth requirements]
 **Scalability:** [Expected user growth or constraints]
 
 **Browser/Device Support:**
@@ -803,15 +801,15 @@ graph LR
 - [Platform limitations]
 - [Integration needs]
 
-## ❓ Open Questions & Assumptions
+## Open Questions & Assumptions
 - [Open question]
 - [Key assumption]
 
-## 🛡️ Quality Standards
+## Quality Standards
 
 **Code Quality:**
-- Use TypeScript when possible—it catches errors early
-- Handle errors explicitly—don't hide them
+- Use TypeScript when possible — it catches errors early
+- Handle errors explicitly — don't hide them
 - Test the important paths before launch
 
 **Design Quality:**
@@ -821,7 +819,7 @@ graph LR
 
 **What This Project Will NOT Accept:**
 - Placeholder content ("Lorem ipsum") at launch
-- Features that half-work—complete or cut
+- Features that half-work — complete or cut
 - Skipping mobile testing
 
 ## Risk Mitigation
@@ -854,15 +852,15 @@ graph LR
 ## Next Steps
 
 1. **Immediate:** Review and approve this PRD
-2. **Next:** Create Technical Design Document (Part III)
+2. **Next:** Create Technical Design Document (Part 3)
 3. **Then:** Set up development environment
 4. **Build:** Implement with AI assistance
 5. **Test:** Beta with 10-20 users
-6. **Launch:** Go live! 🚀
+6. **Launch:** Go live!
 
 ---
-*Created: [Date]*  
-*Status: Ready for Technical Design*  
+*Created: [Date]*
+*Status: Ready for Technical Design*
 *Questions? [Contact]*
 ```
 
@@ -880,22 +878,24 @@ Before proceeding, let's verify the PRD is complete:
 
 | Required Section | Present? |
 |-----------------|----------|
-| Core problem clearly defined | ✅ / ❌ |
-| Target user well described | ✅ / ❌ |
-| 3-5 must-have features listed | ✅ / ❌ |
-| Each feature has user story | ✅ / ❌ |
-| Success metrics defined | ✅ / ❌ |
-| Constraints acknowledged | ✅ / ❌ |
-| NOT-in-MVP features listed | ✅ / ❌ |
+| Core problem clearly defined | Yes / No |
+| Target user well described | Yes / No |
+| 3-5 must-have features listed | Yes / No |
+| Each feature has user story | Yes / No |
+| Success metrics defined | Yes / No |
+| Constraints acknowledged | Yes / No |
+| NOT-in-MVP features listed | Yes / No |
 
 *If any items are missing, I'll add them now.*
 
 ### Next Steps:
 
-1. **Review the PRD** - Make sure it captures your vision accurately
+1. **Review the PRD** — Make sure it captures your vision accurately
 2. **Save the document** as `PRD-[AppName]-MVP.md` in your project folder
-3. **Proceed to Part III** to create your Technical Design Document
+3. **Proceed to Part 3** to create your Technical Design Document
 
-The PRD is a living document - update it as you learn from users.
+The PRD is a living document — update it as you learn from users.
 
 Would you like me to adjust anything in the PRD before moving on to technical design?"
+
+---

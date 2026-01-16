@@ -1,26 +1,25 @@
-# Part I - Deep Research Prompt Builder
+# Part 1 — Deep Research Prompt Builder
 
-I'm going to help you create a research prompt for your project using the latest AI capabilities. First, I need to understand your technical background to ask the right questions.
+I'm going to help you create a research prompt for your project. First, I need to understand your technical background to ask the right questions.
 
 **Are you a:**
-- A) **Vibe-coder** - You have great ideas but limited coding experience
-- B) **Developer** - You have programming experience  
-- C) **Somewhere in between** - You know some basics but still learning
+- A) **Vibe-coder** — You have great ideas but limited coding experience
+- B) **Developer** — You have programming experience
+- C) **Somewhere in between** — You know some basics but still learning
 
 Please type A, B, or C:
-*(You can use the Vibe-Coding Webapp, select your profile (A, B, or C) in the interface instead of typing it.)*
 
 ---
 
 ## Instructions for AI Assistant
 
 <details>
-<summary><b>🤖 AI Platform Recommendations for Research</b></summary>
+<summary><b>AI Platform Recommendations for Research</b></summary>
 
 ### Best Platforms for Deep Research
-- **Google AI Studio / Gemini** – Large context window for comprehensive research synthesis
-- **Claude.ai** – Strong technical accuracy and reasoning capabilities
-- **ChatGPT** – Good for iterative research with reasoning controls
+- **Claude** — Strong technical accuracy and reasoning capabilities
+- **Gemini** — Large context window for comprehensive research synthesis
+- **ChatGPT** — Good for iterative research with reasoning controls
 
 ### Choosing the Right Platform
 | Need | Best Choice | Why |
@@ -28,24 +27,21 @@ Please type A, B, or C:
 | Large context (whole codebases) | Gemini | Largest context window |
 | Technical accuracy | Claude | Strong code/architecture analysis |
 | Quick iterations | ChatGPT | Fast responses, good reasoning |
-| Free access | AI Studio | Generous free tier |
 
-*Note: AI capabilities evolve rapidly. Check each platform's current features before starting.*
-
-### Freshness & Grounding (2026)
-- If the platform supports web search or tool use, enable it for up-to-date stats and competitor info.
-- Cite source URLs with access dates for major claims and flag uncertain data.
-- Distinguish sourced facts from model knowledge when needed.
+### Freshness & Grounding
+- If the platform supports web search or tool use, enable it for up-to-date stats and competitor info
+- Cite source URLs with access dates for major claims and flag uncertain data
+- Distinguish sourced facts from model knowledge when needed
 
 </details>
 
-Based on the user's response, follow the appropriate question path below. Ask questions ONE AT A TIME and wait for responses before proceeding.
+Based on the user's response, follow the appropriate question path below. Ask questions **one at a time** and wait for responses before proceeding.
 
 > **Important**: After completing all questions, you MUST perform a **Verification Echo** before generating the research prompt. This confirms your understanding is correct.
 
 ### If User Selects A (Vibe-coder):
 
-**Q1:** "What's your app idea? Describe it like you're explaining to a friend - what problem does it solve?"
+**Q1:** "What's your app idea? Describe it like you're explaining to a friend — what problem does it solve?"
 
 **Q2:** "Who needs this most? Describe your ideal user (e.g., 'busy parents', 'small business owners', 'students')"
 
@@ -55,7 +51,7 @@ Based on the user's response, follow the appropriate question path below. Ask qu
 
 **Q5:** "What are the 3 absolute must-have features for launch? Just the essentials!"
 
-**Q6:** "How do you imagine people using this - phone app, website, or both?"
+**Q6:** "How do you imagine people using this — phone app, website, or both?"
 
 **Q7:** "What's your timeline? Days, weeks, or months to launch?"
 
@@ -69,11 +65,11 @@ Based on the user's response, follow the appropriate question path below. Ask qu
 
 **Q3:** "What technical decisions will this research inform? (architecture, stack, integrations)"
 
-**Q4:** "Define scope boundaries - what's included and explicitly excluded?"
+**Q4:** "Define scope boundaries — what's included and explicitly excluded?"
 
 **Q5:** "For each area, specify depth needed:
 - Market Analysis: [Surface/Deep/Comprehensive]
-- Technical Architecture: [Surface/Deep/Comprehensive]  
+- Technical Architecture: [Surface/Deep/Comprehensive]
 - Competitor Analysis: [Surface/Deep/Comprehensive]
 - Implementation Options: [Surface/Deep/Comprehensive]
 - Cost Analysis: [Surface/Deep/Comprehensive]"
@@ -105,7 +101,7 @@ Based on the user's response, follow the appropriate question path below. Ask qu
 - Web app (works in browser)
 - Mobile app (iOS/Android)
 - Desktop app
-- Not sure - help me decide"
+- Not sure — help me decide"
 
 **Q6:** "Your technical comfort zone:
 - Languages/frameworks you know
@@ -124,7 +120,7 @@ After completing ALL questions, summarize your understanding back to the user:
 
 **Template:**
 > "Let me confirm I understand your project correctly:
-> 
+>
 > **Project:** [App/product name and one-line description]
 > **Target Users:** [Who this is for]
 > **Problem Solved:** [Core problem being addressed]
@@ -132,7 +128,7 @@ After completing ALL questions, summarize your understanding back to the user:
 > **Platform:** [Web/Mobile/Desktop]
 > **Timeline:** [Their timeline]
 > **Budget:** [Their budget constraints]
-> 
+>
 > Is this accurate? Should I adjust anything before creating your research prompt?"
 
 Wait for user confirmation before proceeding. If they correct anything, update your understanding.
@@ -145,20 +141,20 @@ For complex projects (Developer path or ambitious Vibe-coder projects), first pr
 
 **Template:**
 > "Here's my proposed research plan:
-> 
+>
 > **Research Areas:**
-> 1. [Area 1] - [What we'll investigate]
-> 2. [Area 2] - [What we'll investigate]
-> 3. [Area 3] - [What we'll investigate]
-> 
+> 1. [Area 1] — [What we'll investigate]
+> 2. [Area 2] — [What we'll investigate]
+> 3. [Area 3] — [What we'll investigate]
+>
 > **Sources to Check:**
 > - [Source type 1]
 > - [Source type 2]
-> 
+>
 > **Expected Deliverables:**
 > - [Deliverable 1]
 > - [Deliverable 2]
-> 
+>
 > Does this cover what you need, or should I adjust the focus?"
 
 For simpler Vibe-coder projects, you may skip this step and proceed directly to generating the research prompt.
@@ -184,7 +180,7 @@ I'm a non-technical founder building [description]. I need beginner-friendly res
 3. What's the simplest way to build an MVP?
 4. What no-code/low-code tools are best for this?
 5. How do similar apps monetize and what can I realistically charge?
-6. What recent AI tools or APIs can accelerate development or differentiate the MVP?
+6. What AI tools or APIs can accelerate development or differentiate the MVP?
 
 ### Research Focus:
 - Simple, actionable insights with examples
@@ -194,11 +190,11 @@ I'm a non-technical founder building [description]. I need beginner-friendly res
 - Examples of similar successful projects
 
 ### Required Deliverables:
-1. **Competitor Table** - Features, pricing, user count, reviews
-2. **Tech Stack** - Recommended tools for beginners
-3. **MVP Features** - Must-have vs nice-to-have prioritization
-4. **Development Roadmap** - With AI assistance strategy
-5. **Budget Breakdown** - Tools, services, deployment costs
+1. **Competitor Table** — Features, pricing, user count, reviews
+2. **Tech Stack** — Recommended tools for beginners
+3. **MVP Features** — Must-have vs nice-to-have prioritization
+4. **Development Roadmap** — With AI assistance strategy
+5. **Budget Breakdown** — Tools, services, deployment costs
 </instructions>
 
 <output_format>
@@ -247,14 +243,14 @@ I need comprehensive technical research on [topic] for [context].
 - Development velocity estimates with AI assistance
 
 ### Premium UI/Design Research:
-- Design system generators (Motiff, Components AI, Relume)
-- Figma-to-code tools (Kombai, Builder.io Fusion)
-- v0.dev-style generative UI approaches
+- Design system generators and component libraries
+- Figma-to-code tools
+- Generative UI approaches
 - Design token standardization patterns
 
 ### Agent Architecture Research:
 - Planner-Executor-Reviewer (PER) loop patterns
-- MCP (Model Context Protocol) & Claude Skills (or Skills for other AI platforms) integration options
+- MCP (Model Context Protocol) integration options
 - Self-healing code and test strategies
 - Visual verification workflows
 </instructions>
@@ -299,12 +295,12 @@ I'm building [description] with some technical knowledge. I need research that b
 - Skill requirements and learning curves
 
 ### Required Deliverables:
-1. **Feature Matrix** - MVP prioritization
-2. **Tech Stack** - Recommended with alternatives
-3. **AI Tool Guide** - Which tool for what task
-4. **Roadmap** - Development with skill milestones
-5. **Resources** - Learning materials (prioritized)
-6. **Budget** - Forecast with tool subscriptions
+1. **Feature Matrix** — MVP prioritization
+2. **Tech Stack** — Recommended with alternatives
+3. **AI Tool Guide** — Which tool for what task
+4. **Roadmap** — Development with skill milestones
+5. **Resources** — Learning materials (prioritized)
+6. **Budget** — Forecast with tool subscriptions
 </instructions>
 
 <output_format>
@@ -326,17 +322,17 @@ After generating the appropriate research prompt, say:
 
 ### Recommended AI Platforms for Research:
 
-| Platform | Best For | Access |
-|----------|----------|--------|
-| **Google AI Studio** | Comprehensive research (large context) | Free tier available |
-| **Claude.ai** | Technical accuracy, code analysis | Paid subscription |
-| **ChatGPT** | Quick iterations, reasoning tasks | Free tier + paid |
+| Platform | Best For |
+|----------|----------|
+| **Claude** | Technical accuracy, code analysis |
+| **Gemini** | Comprehensive research (large context) |
+| **ChatGPT** | Quick iterations, reasoning tasks |
 
 ### How to Use:
 1. Copy the research prompt above
 2. Paste it into your chosen AI platform
 3. Wait for the research (may take 10-20 minutes for comprehensive results)
-4. Review the sources cited - verify critical recommendations
+4. Review the sources cited — verify critical recommendations
 
 **Pro tip**: Run the same prompt on 2 different platforms and compare results. This catches blind spots and validates recommendations.
 
