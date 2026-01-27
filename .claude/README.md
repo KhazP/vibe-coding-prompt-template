@@ -4,6 +4,8 @@ This directory contains Claude Code skills and hooks for the Vibe-Coding workflo
 
 ## Quick Setup
 
+### Option A: Clone the Repository
+
 ```bash
 # Clone the repo
 git clone https://github.com/KhazP/vibe-coding-prompt-template.git
@@ -13,18 +15,36 @@ cd vibe-coding-prompt-template
 claude
 ```
 
+### Option B: Install Individual Skills with npx
+
+Install only the skills you need directly into any project:
+
+```bash
+# Install master orchestrator skill
+npx skills add https://github.com/khazp/vibe-coding-prompt-template --skill vibe-workflow
+
+# Install all skills at once
+npx skills add https://github.com/khazp/vibe-coding-prompt-template --skill vibe-research
+npx skills add https://github.com/khazp/vibe-coding-prompt-template --skill vibe-prd
+npx skills add https://github.com/khazp/vibe-coding-prompt-template --skill vibe-techdesign
+npx skills add https://github.com/khazp/vibe-coding-prompt-template --skill vibe-agents
+npx skills add https://github.com/khazp/vibe-coding-prompt-template --skill vibe-build
+```
+
+> **Browse all skills:** [skills.sh/khazp/vibe-coding-prompt-template](https://skills.sh/khazp/vibe-coding-prompt-template)
+
 That's it! The skills are automatically available.
 
 ## Available Skills
 
-| Command | Description | Time |
-|---------|-------------|------|
-| `/vibe-workflow` | Complete guided workflow from idea to MVP | Full |
-| `/vibe-research` | Deep research and market validation | 20 min |
-| `/vibe-prd` | Create Product Requirements Document | 15 min |
-| `/vibe-techdesign` | Plan technical architecture | 15 min |
-| `/vibe-agents` | Generate AGENTS.md and AI configs | 10 min |
-| `/vibe-build` | Build your MVP following the plan | 1-3 hrs |
+| Command | Description | Time | npx Install |
+|---------|-------------|------|-------------|
+| `/vibe-workflow` | Complete guided workflow from idea to MVP | Full | `npx skills add https://github.com/khazp/vibe-coding-prompt-template --skill vibe-workflow` |
+| `/vibe-research` | Deep research and market validation | 20 min | `npx skills add https://github.com/khazp/vibe-coding-prompt-template --skill vibe-research` |
+| `/vibe-prd` | Create Product Requirements Document | 15 min | `npx skills add https://github.com/khazp/vibe-coding-prompt-template --skill vibe-prd` |
+| `/vibe-techdesign` | Plan technical architecture | 15 min | `npx skills add https://github.com/khazp/vibe-coding-prompt-template --skill vibe-techdesign` |
+| `/vibe-agents` | Generate AGENTS.md and AI configs | 10 min | `npx skills add https://github.com/khazp/vibe-coding-prompt-template --skill vibe-agents` |
+| `/vibe-build` | Build your MVP following the plan | 1-3 hrs | `npx skills add https://github.com/khazp/vibe-coding-prompt-template --skill vibe-build` |
 
 ## Skill Details
 
