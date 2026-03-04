@@ -26,7 +26,7 @@ After attaching your files, confirm your setup:
 **B) Which AI Tool(s) Will You Use?** (Can select multiple)
 1. **Claude Code** — Terminal-based agent with session memory
 2. **Gemini CLI** — Free terminal agent
-3. **Google Antigravity** — Agent-first IDE
+3. **Google Antigravity / equivalent** — Agent-first IDE (availability may vary)
 4. **Cursor** — AI-powered IDE
 5. **VS Code + GitHub Copilot** — IDE with AI extension
 6. **Lovable / v0** — No-code platforms
@@ -76,8 +76,14 @@ Include these behavioral instructions in AGENTS.md to improve agent reasoning:
 
 ### Context & Memory Guidance
 - Treat `AGENTS.md` and `agent_docs/` as living docs.
-- Use tool config files (`CLAUDE.md`, `GEMINI.md`, `.cursorrules`, etc.) for persistent project rules.
+- Use tool config files (`CLAUDE.md`, `GEMINI.md`, `.cursor/rules/` or legacy `.cursorrules`, etc.) for persistent project rules.
 - Update these files as the project scales (commands, conventions, constraints).
+- Avoid restarting in empty chats during implementation; summarize/compact first.
+
+### Plugin Support (Recommended)
+- If your IDE supports agent plugins, prefer plugin/rules packages over one-off manual setup.
+- Verify plugin load status before implementation work.
+- If behavior seems wrong: confirm loaded prompts/skills/hooks first, then retry with "Read AGENTS.md first".
 
 ### Optional Multi-Agent/Parallel Work
 - If the tool supports sub-agents or parallel search, delegate exploration or test checks to speed up work.
@@ -131,9 +137,12 @@ For developer-level projects, add these to enforce production quality:
 ```
 
 ### "Less is More" for Configs
-- Do **NOT** put giant prompt dumps into `CLAUDE.md` or `.cursorrules`.
+- Do **NOT** put giant prompt dumps into `CLAUDE.md` or Cursor rules files.
 - Instead, put that content into `agent_docs/code_patterns.md` or `agent_docs/tech_stack.md`.
 - The config files should merely *point* the AI to the right documentation.
+
+### Model Naming Policy
+- Use model family names (Claude Sonnet, Claude Opus, Gemini Pro, Gemini Flash) in generated docs unless the user explicitly asks for pinned versions.
 
 </details>
 
@@ -160,85 +169,28 @@ After receiving the files, extract the following:
 
 ---
 
-## Generate AGENTS.md (Universal Instructions)
+## 🎯 Action Required: Instantiate the Templates
 
-### 1. Create `AGENTS.md` (Master Plan)
-Generate this file in the project root. It should be the single source of truth for the project status and high-level goals.
+Your workflow is governed by the `vibe-coding-prompt-template`. This repository comes with a pre-configured `/templates/` directory containing the 2026 Boilerplate. 
 
-```markdown
-# AGENTS.md — Master Plan for [App Name]
+Your task is to **copy** these templates to the project root and **fill in the bracketed variables** using the provided PRD and Tech Design. Do not invent new structures.
 
-## Project Overview
-**App:** [App Name]
-**Goal:** [One-line description]
-**Stack:** [Tech Stack]
-**Current Phase:** Phase 1 — Foundation
+### 1. Root Files
+- Copy `templates/AGENTS.md` to `AGENTS.md` in the root folder. Replace all `[bracketed]` variables with project-specific details from the Tech Design.
+- Copy `templates/MEMORY.md` to `MEMORY.md` in the root folder. Initialize the `## 🏗️ Active Phase & Goal` based on the PRD's Phase 1.
+- Copy `templates/REVIEW-CHECKLIST.md` to the root folder as-is.
 
-## How I Should Think
-1. **Understand Intent First**: Before answering, identify what the user actually needs
-2. **Ask If Unsure**: If critical information is missing, ask before proceeding
-3. **Plan Before Coding**: Propose a plan, ask for approval, then implement
-4. **Verify After Changes**: Run tests/linters or manual checks after each change
-5. **Explain Trade-offs**: When recommending something, mention alternatives
+### 2. Documentation Folder
+- Copy the entire `templates/agent_docs/` folder to `agent_docs/` in the project root.
+- Open `agent_docs/tech_stack.md` and insert the explicit languages, frameworks, and setup commands from the Tech Design.
+- Open `agent_docs/testing.md` and define the test framework as specified.
+- Open `agent_docs/project_brief.md` and insert the vision and core conventions.
+- Open `agent_docs/product_requirements.md` and dump the complete feature list and user stories from the PRD.
 
-## Plan → Execute → Verify
-1. **Plan:** Outline a brief approach and ask for approval before coding.
-2. **Plan Mode:** If supported, use a Plan/Reflect mode for this step.
-3. **Execute:** Implement one feature at a time.
-4. **Verify:** Run tests/linters or manual checks after each feature; fix before moving on.
+---
 
-## Context & Memory
-- Treat `AGENTS.md` and `agent_docs/` as living docs.
-- Use persistent tool configs (`CLAUDE.md`, `GEMINI.md`, `.cursorrules`, etc.) for project rules.
-- Update these files as the project scales (commands, conventions, constraints).
-
-## Optional Roles (If Supported)
-- **Explorer:** Scan codebase or docs in parallel for relevant info.
-- **Builder:** Implement features based on the approved plan.
-- **Tester:** Run tests/linters and report failures.
-
-## Testing & Verification
-- Follow `agent_docs/testing.md` for test strategy.
-- If no tests exist, propose minimal checks before proceeding.
-- Do not move forward when verification fails.
-
-## Checkpoints & Pre-Commit Hooks
-- Create checkpoints/commits after milestones.
-- Ensure pre-commit hooks pass before commits.
-
-## Context Files
-Refer to these for details (load only when needed):
-- `agent_docs/tech_stack.md`: Tech stack & libraries
-- `agent_docs/code_patterns.md`: Code style & patterns
-- `agent_docs/project_brief.md`: Persistent project rules and conventions
-- `agent_docs/product_requirements.md`: Full PRD
-- `agent_docs/testing.md`: Verification strategy and commands
-
-## Current State (Update This!)
-**Last Updated:** [Date]
-**Working On:** [Current task]
-**Recently Completed:** [Last completed item]
-**Blocked By:** [Any blockers, or "None"]
-
-## Roadmap
-### Phase 1: Foundation
-- [ ] Initialize project
-- [ ] Setup database
-- [ ] Set up pre-commit hooks
-
-### Phase 2: Core Features
-- [ ] [Feature 1]
-- [ ] [Feature 2]
-
-## What NOT To Do
-- Do NOT delete files without explicit confirmation
-- Do NOT modify database schemas without backup plan
-- Do NOT add features not in the current phase
-- Do NOT skip tests for "simple" changes
-- Do NOT bypass failing tests or pre-commit hooks
-```
-
-### 2. Create `agent_docs/` Directory
+Once completed, you the Agent must stop and say: 
+> *"Templates instantiated! You can now start the coding loop. Shall we begin Phase 1?"*
 Create a folder named `agent_docs` and add these files. **Fill them with RICH DETAIL from the source documents.**
 
 #### `agent_docs/tech_stack.md`
@@ -344,6 +296,8 @@ Based on the tools they selected, generate the appropriate configuration files b
 
 ### For Cursor Users — .cursorrules:
 
+Prefer `.cursor/rules/` for modern Cursor setups. If needed, generate legacy `.cursorrules` as a compatibility fallback.
+
 ```markdown
 # Cursor Rules for [App Name]
 
@@ -371,7 +325,7 @@ Based on the tools they selected, generate the appropriate configuration files b
 ### For Gemini CLI / Antigravity Users — GEMINI.md:
 
 ```markdown
-# GEMINI.md — Gemini CLI / Antigravity Configuration for [App Name]
+# GEMINI.md — Gemini CLI / Agent-First IDE Configuration for [App Name]
 
 ## Project Context
 **App:** [App Name]
@@ -472,7 +426,7 @@ claude
 
 #### If Cursor:
 1. Open your project folder in Cursor
-2. The .cursorrules file will be automatically detected
+2. Ensure `.cursor/rules/` (or legacy `.cursorrules`) is detected
 3. Start with: "Read AGENTS.md and begin implementing the MVP step by step"
 
 #### If Lovable/v0:
@@ -486,8 +440,8 @@ claude
 gemini "Read GEMINI.md, then implement the MVP"
 ```
 
-#### If Antigravity:
-1. Open the project in Antigravity
+#### If Antigravity / equivalent agent-first IDE:
+1. Open the project in your selected agent-first IDE
 2. Ensure GEMINI.md is loaded as context
 3. Start with: "Read AGENTS.md and begin"
 
@@ -520,6 +474,8 @@ Your setup is complete when:
 - You guide the direction and test the results
 - Start simple, add features incrementally
 - Test after each feature
+- For frontend projects, require browser-based verification before marking tasks complete
+- Run a dedicated security pass before deployment
 - Update AGENTS.md and tool configs as the project scales
 - Don't hesitate to ask for explanations
 

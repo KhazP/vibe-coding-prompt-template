@@ -25,7 +25,17 @@
 
 ---
 
-## The Workflow
+## 📖 Table of Contents
+- [🚀 The Workflow Overview](#-the-workflow-overview)
+- [🏁 Quick Start & The 5 Steps](#-quick-start--the-5-steps)
+- [🛠️ Prerequisites & Tools](#️-prerequisites--tools)
+- [🧠 Advanced Agent Best Practices](#-advanced-agent-best-practices)
+- [🏗️ Structure & Deployment](#-final-project-structure--deployment)
+- [💡 Common Pitfalls & Troubleshooting](#-common-pitfalls--troubleshooting)
+
+---
+
+## 🚀 The Workflow Overview
 
 Transform any app idea into working code through 5 AI-powered stages:
 
@@ -65,232 +75,170 @@ flowchart LR
     style F fill:#43e97b,stroke:#43e97b,color:#000
 ```
 
-| Stage | What Happens | Output | Time |
-|:-----:|--------------|--------|:----:|
-| ![Research](https://img.shields.io/badge/1-Research-764ba2?style=flat-square) | Validate market & tech landscape | `research.txt` | 20 min |
-| ![Define](https://img.shields.io/badge/2-Define-f093fb?style=flat-square) | Clarify product scope | `PRD.md` | 15 min |
-| ![Design](https://img.shields.io/badge/3-Design-4facfe?style=flat-square) | Decide how to build | `TechDesign.md` | 15 min |
-| ![Generate](https://img.shields.io/badge/4-Generate-00f2fe?style=flat-square) | Convert docs into agent blueprints | `AGENTS.md` | 10 min |
-| ![Build](https://img.shields.io/badge/5-Build-43e97b?style=flat-square) | Generate & test code | **Working MVP** | 1-3 hrs |
-
----
-
 <p align="center">
   <a href=".claude/README.md">
     <img src="https://img.shields.io/badge/Using_Claude_Code%3F-Click_here_for_built--in_skills-667eea?style=for-the-badge&logo=anthropic&logoColor=white" alt="Claude Code Skills"/>
+  </a>
+  <a href="https://vibeworkflow.app/#/vibe-coding">
+    <img src="https://img.shields.io/badge/Try_the_Website-Open_Vibe--Coding_Webapp-43e97b?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Vibe-Coding Website"/>
   </a>
 </p>
 
 ---
 
-## Quick Start
+## 🏁 Quick Start & The 5 Steps
 
-### How It Works
+> **TL;DR:** 📄 1. Copy Prompt → 💬 2. Answer Questions → 💾 3. Save Docs → 🤖 4. Feed to Agent → 🚀 5. Ship!
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│  1. Copy prompt file  →  2. Answer questions  →  3. Get docs    │
-│  4. Feed docs to AI agent  →  5. Ship your MVP                  │
-└─────────────────────────────────────────────────────────────────┘
-```
-
-| Step | What You Do | Result |
-|:----:|-------------|--------|
-| 1 | Copy `part1-deepresearch.md`, answer questions | Research doc |
-| 2 | Copy `part2-prd-mvp.md`, answer questions | PRD doc |
-| 3 | Copy `part3-tech-design-mvp.md`, answer questions | Tech Design doc |
-| 4 | Copy `part4-notes-for-agent.md`, generate configs | AGENTS.md + configs |
-| 5 | Tell your AI agent: *"Read AGENTS.md and build the MVP"* | **Working MVP** |
-
-> **Automated alternative:** Try the [Vibe-Coding Webapp](https://vibeworkflow.app/#/vibe-coding) to skip the manual copy-pasting.
-
----
-
-## Prerequisites
-
-### ![AI](https://img.shields.io/badge/AI-Platform-orange?style=flat-square) AI Platform (Choose One)
-
-For the research and planning phases (Parts 1-4):
-
-| Platform | Best For | Link |
-|----------|----------|------|
-| ![Claude](https://img.shields.io/badge/Claude-Anthropic-orange?style=flat-square) | Technical accuracy and reasoning | [claude.ai](https://claude.ai) |
-| ![Gemini](https://img.shields.io/badge/Gemini-Google-4285F4?style=flat-square) | Large context for comprehensive research | [aistudio.google.com](https://aistudio.google.com) |
-| ![ChatGPT](https://img.shields.io/badge/ChatGPT-OpenAI-412991?style=flat-square) | Iterative research | [chat.openai.com](https://chat.openai.com) |
-
-### ![Code](https://img.shields.io/badge/AI-Coding_Agent-blue?style=flat-square) AI Coding Agent (Choose One)
-
-For the build phase (Part 5):
-
-<table>
-<tr>
-<td width="33%">
-
-**Terminal-Based**
-| Tool | Description |
-|------|-------------|
-| ![Claude Code](https://img.shields.io/badge/Claude_Code-CLI-orange?style=flat-square) | Project-aware CLI with session memory |
-| ![Gemini CLI](https://img.shields.io/badge/Gemini_CLI-Free-4285F4?style=flat-square) | Free, open source terminal agent |
-
-</td>
-<td width="33%">
-
-**IDE-Based**
-| Tool | Description |
-|------|-------------|
-| ![Cursor](https://img.shields.io/badge/Cursor-Editor-000?style=flat-square) | AI editor, reads `AGENTS.md` |
-| ![VS Code](https://img.shields.io/badge/VS_Code-IDE-007ACC?style=flat-square) | + GitHub Copilot or Cline |
-| ![Antigravity](https://img.shields.io/badge/Antigravity-Google-4285F4?style=flat-square) | Agent-first IDE |
-
-</td>
-<td width="33%">
-
-**No-Code**
-| Tool | Description |
-|------|-------------|
-| ![Lovable](https://img.shields.io/badge/Lovable-Builder-ff69b4?style=flat-square) | Fullstack builder |
-| ![v0](https://img.shields.io/badge/v0-Vercel-000?style=flat-square) | UI composition |
-
-</td>
-</tr>
-</table>
-
-### ![Requirements](https://img.shields.io/badge/Basic-Requirements-gray?style=flat-square) Basic Requirements
-
-- Any modern browser
-- 2-4 hours of time
-- Basic computer skills (no coding required)
-- Optional: Node.js for terminal-based tools
-
----
-
-## The 5-Step Workflow
+### 🟢 Phase 1: The "Thinking" Phase (Web Chatbots)
+*Do these first 3 steps in ChatGPT, Claude.ai, Gemini, or an IDE. You don't need a code repository yet.*
 
 ### ![Step 1](https://img.shields.io/badge/Step_1-Deep_Research-764ba2?style=flat-square) Deep Research
-
-<details>
+<details open>
 <summary><b>Validate your idea with AI-powered market research</b> — 20-30 min</summary>
 
-**What this does:** Analyzes market opportunity, competitors, and technical feasibility.
+**What this does:** Analyzes market opportunity, competitors, and tech feasibility.
 
-**How it works:**
-1. Copy the entire `part1-deepresearch.md` file
-2. Paste into your chosen AI platform (Claude, Gemini, or ChatGPT)
-3. Answer 5-6 questions tailored to your experience level
-4. AI generates comprehensive research with market analysis, competitor breakdown, technical recommendations, and cost estimates
-5. Save output as `research-[YourAppName].txt`
+1. Open [`part1-deepresearch.md`](part1-deepresearch.md) and **copy all of its contents**.
+2. **Paste it** into your preferred AI platform Chat (like Claude.ai, ChatGPT, or Gemini) and press **Enter**.
+3. The AI will ask you a few questions about your idea. Answer them truthfully in the chat.
+4. The AI will generate a comprehensive research document based on your answers.
+5. **Save the output** into a local file named `research-[YourAppName].txt` or simply **keep this chat open** for Step 2.
 
-**Tip:** If your platform supports web search, enable it for up-to-date stats and competitor info.
-
+> **💡 Tip:** If your platform supports web search, enable it for up-to-date stats and competitor info.
 </details>
 
 ### ![Step 2](https://img.shields.io/badge/Step_2-Product_Requirements-f093fb?style=flat-square) Product Requirements (PRD)
-
-<details>
+<details open>
 <summary><b>Define exactly what you're building</b> — 15-20 min</summary>
 
-**What this does:** Transforms your idea into clear, actionable product specifications.
+**What this does:** Transforms your idea into clear, actionable specs.
 
-**How it works:**
-1. Copy `part2-prd-mvp.md` into a new AI chat
-2. Attach your research findings when prompted
-3. Answer questions about core features, target users, success metrics, and UI/UX vision
-4. AI creates professional PRD document
-5. Save as `PRD-[YourAppName]-MVP.md`
-
+1. Copy the contents of [`part2-prd-mvp.md`](part2-prd-mvp.md).
+2. **Option A (Same Chat):** If you kept your chat open, paste the prompt right below the Deep Research output.
+3. **Option B (New Chat):** Start a fresh chat, paste your saved `research-[YourAppName].txt` content, and then paste the Part 2 prompt below it.
+4. Press Enter, answer any clarifying questions the AI asks, and let it generate your requirements.
+5. **Save the final output** as `PRD-[YourAppName]-MVP.md`.
 </details>
 
 ### ![Step 3](https://img.shields.io/badge/Step_3-Technical_Design-4facfe?style=flat-square) Technical Design
-
-<details>
+<details open>
 <summary><b>Plan the technical architecture</b> — 15-20 min</summary>
 
 **What this does:** Decides the best tech stack and implementation approach.
 
-**How it works:**
-1. Copy `part3-tech-design-mvp.md` into a new AI chat
-2. Attach your PRD (required) and research (optional)
-3. Answer questions about platform, complexity tolerance, budget, and timeline
-4. AI recommends optimal stack (no-code, low-code, or full-code)
-5. Save as `TechDesign-[YourAppName]-MVP.md`
-
+1. Copy the contents of [`part3-tech-design-mvp.md`](part3-tech-design-mvp.md).
+2. Paste it into your **ongoing conversation** (or into a new one, making sure to attach the `PRD-[YourAppName]-MVP.md` from Step 2 as context).
+3. The AI will ask questions regarding your budget, timeline, and complexity tolerance.
+4. Discuss the trade-offs it presents (e.g., full-code vs. no-code builder).
+5. Once a stack is decided, **save the output** as `TechDesign-[YourAppName]-MVP.md`.
 </details>
 
-### ![Step 4](https://img.shields.io/badge/Step_4-Generate_Instructions-00f2fe?style=flat-square) Generate AI Agent Instructions
+### 🔵 Phase 2: The "Execution" Phase (AI IDEs & CLIs)
+*Transition to Cursor, VS Code with Copilot, or Claude Code. This is where your code gets written.*
 
-<details>
-<summary><b>Create blueprints for your AI coding assistant</b> — 5-10 min</summary>
+### ![Step 4](https://img.shields.io/badge/Step_4-Instantiate_Templates-00f2fe?style=flat-square) Scaffolding the Agent Contracts
+<details open>
+<summary><b>Configure your AI IDE for Agentic execution</b> — 1-2 min</summary>
 
-**What this does:** Converts all docs into step-by-step coding instructions for AI agents.
+**What this does:** Automates the creation of `AGENTS.md` and memory constraints.
 
-**How it works:**
-1. Copy `part4-notes-for-agent.md` into a new AI chat
-2. Attach PRD and Technical Design documents
-3. Ask the AI for a brief plan for the AGENTS structure; review and approve
-4. AI generates:
-   - `AGENTS.md` — Universal instructions
-   - Tool-specific configs based on your choice (CLAUDE.md, .cursorrules, etc.)
-5. Save all files in your project root
-
-**Note:** Treat `AGENTS.md` and tool configs as living docs — update them as your project scales.
-
+1. Click **"Use this template"** in GitHub (or clone this repository locally).
+2. Open this cloned repository folder in your **AI IDE** (like Cursor or VS Code).
+3. Upload/move the formatting documents you saved (`PRD.md` and `TechDesign.md`) into your IDE.
+4. Open the AI Chat inside your IDE, type: *"Read [`part4-notes-for-agent.md`](part4-notes-for-agent.md), follow its instructions, and set up my workspace."*
+5. Look at your files! The AI will automatically copy the pre-made boilerplates out of the `/templates/` directory to the root of your project, and intelligently fill in all the brackets based on your PRD constraints.
 </details>
 
 ### ![Step 5](https://img.shields.io/badge/Step_5-Build_MVP-43e97b?style=flat-square) Build with AI Agent
-
-<details>
+<details open>
 <summary><b>Let AI build your MVP</b> — 1-3 hrs</summary>
 
-#### Setup by Tool Type
+Choose your development environment and unleash your agent:
 
-**Terminal Agents (Claude Code, Gemini CLI)**
-```bash
-cd your-project
-claude "Read AGENTS.md and build the MVP"
-# or
-gemini "Read AGENTS.md and implement"
+1. Ensure your newly generated `AGENTS.md` and configuration files are physically in the project folder.
+2. Give your agent its **first command:** 
+   > *"Read AGENTS.md, propose a Phase 1 plan, wait for my approval, and then build it step by step."*
+3. Treat the agent like a junior developer. Ask it to stop and test after each major feature. Fix simple console errors before moving on.
+4. **Repeat the loop** until your MVP is complete:
+
+**Recommended Loop:**
+```text
+╭──────────────╮      ╭──────────────╮      ╭──────────────╮
+│   📝 Plan    │ ───>│  ⚡ Execute │ ───>│  🔍 Verify  │
+│  (Approve)   │      │  (One Feat)  │      │    (Test)    │
+╰──────────────╯      ╰──────────────╯      ╰──────────────╯
+       ▲                                           │
+       └───────────────────────────────────────────┘
 ```
-
-**IDE Tools (Cursor, VS Code)**
-1. Open your project folder in the IDE
-2. Add configuration file (.cursorrules or similar)
-3. Start with: *"Read AGENTS.md and build the MVP step by step"*
-
-**No-Code Platforms (Lovable, v0)**
-1. Go to platform website
-2. Paste your PRD content
-3. Say: *"Build this MVP following the specifications"*
-
-#### Recommended Loop
-
-```
-┌──────────┐     ┌──────────┐     ┌──────────┐
-│   Plan   │ --> │ Execute  │ --> │  Verify  │
-│ (approve)│     │(one feat)│     │ (test)   │
-└──────────┘     └──────────┘     └──────────┘
-      ^                                 │
-      └─────────────────────────────────┘
-```
-
-#### Useful Prompts
-
-| Level | First Prompt |
-|-------|--------------|
-| **Vibe-coder** | *"Read AGENTS.md and agent_docs. Propose a plan first, wait for approval, then build step by step."* |
-| **Developer** | *"Review AGENTS.md and architecture. Propose a Phase 1 plan, get approval, then implement with proper patterns."* |
-
-**Follow-up prompts:**
-- *"What's done and what's left?"*
-- *"Test [feature] and fix any issues"*
-- *"Make it work on mobile"*
-- *"Deploy to Vercel/Cloudflare"*
-
 </details>
 
 ---
 
-## Final Project Structure
+## 🛠️ Prerequisites & Tools
 
+> **Basic Requirements:** Any modern browser, 2-4 hours of time, and basic computer skills (no coding required).
+
+### Platform Selection Guide
+
+| Focus Area | Recommended Tools |
+|------------|-------------------|
+| **Fast Prototype (Full-stack)** | ![Lovable](https://img.shields.io/badge/Lovable-ff69b4?style=flat-square) (Includes Agent/Plan mode, DB, Auth) |
+| **Production-Ready Frontend** | ![v0](https://img.shields.io/badge/v0-000?style=flat-square) (Vercel-native, exact Next.js/React components) |
+| **Learning / Sandbox Coding** | ![Cursor](https://img.shields.io/badge/Cursor-000?style=flat-square) (Dynamic Context) or VS Code with Copilot |
+| **Complex Logic / Multi-Agent** | ![Claude Code](https://img.shields.io/badge/Claude_Code-orange?style=flat-square) (Agent Teams) or GitHub Copilot CLI |
+| **Budget-Limited** | ![Gemini CLI](https://img.shields.io/badge/Gemini_CLI-4285F4?style=flat-square) (Free) + VS Code |
+
+*Note: Avoid these tools for native mobile/hardware builds, regulated workloads (SOC2, HIPAA), or safety-critical systems.*
+
+---
+
+## 🧠 Advanced Agent Best Practices
+
+<details open>
+<summary><b>1. Artifact-First Memory & Compaction 🔄</b></summary>
+
+To avoid context overload, modern agents rely on **artifact-first memory** instead of infinite chats:
+- **Compaction & Handoffs:** Use native compaction (`/compact` in Copilot CLI, Claude Code logic) instead of hard resets. When swapping sessions, have the agent write a `001-spec.md` or `recap.md` and load ONLY that file into the new chat.
+- **Dynamic Context (Cursor):** Let the agent write its findings into physical files rather than keeping them raw in the chat history.
+- If you must restart, attach `AGENTS.md`, `PRD.md`, and your latest spec file.
+</details>
+
+<details open>
+<summary><b>2. Multi-Agent Orchestration & Plugins 🤖</b></summary>
+
+- **Agent Teams:** Tools like Claude Code support multiple agents working in parallel (e.g., Team Lead + Teammates). Treat your workflows like squad assignments.
+- **Plan-Before-Edit:** Always demand an approved plan from the lead agent before allowing the execute agent to touch code. This prevents silent regressions.
+- Keep `AGENTS.md` as the source of truth, then add tool-specific plugins or `.cursor/rules/` to seamlessly extend capabilities.
+</details>
+
+<details>
+<summary><b>3. Model Strategy Matrix 🧠</b></summary>
+
+Use model families instead of pinned version names for better stability as models rotate.
+
+| Strategy | Primary Families | Best For | Speed |
+|----------|------------------|----------|:-----:|
+| Speed-first | Gemini Flash, Claude Sonnet | Fast prototyping, broad iteration | High |
+| Balanced | Claude Sonnet, Gemini Pro | Daily coding, debugging, planning | Med-High |
+| Depth-first | Claude Opus, Gemini Pro | Deep reasoning, complex refactors | Medium |
+</details>
+
+<details>
+<summary><b>4. Agent Observability 🔍</b></summary>
+
+When an agent ignores instructions or behaves inconsistently:
+1. Check which instructions/rules/hooks were loaded.
+2. Confirm tool permissions and blocked actions.
+3. Verify the active session context was not reset.
+4. Re-run with explicit instruction order: *"Read AGENTS.md, then agent_docs/, then execute."*
+</details>
+
+---
+
+## 🏗️ Final Project Structure & Deployment
+
+### Recommended Project Skeleton
 ```
 your-app/
 ├── 📁 docs/
@@ -298,86 +246,54 @@ your-app/
 │   ├── PRD-YourApp-MVP.md
 │   └── TechDesign-YourApp-MVP.md
 ├── 📁 agent_docs/
-│   ├── tech_stack.md
-│   ├── code_patterns.md
-│   ├── project_brief.md
-│   ├── product_requirements.md
-│   └── testing.md
-├── 📄 AGENTS.md                  # Universal AI instructions
-├── 📄 CLAUDE.md                  # Claude Code config (if using)
-├── 📄 .cursorrules               # Cursor config (if using)
+│   └── tech_stack.md, project_brief.md, testing.md
+├── 📄 AGENTS.md                  # Universal AI instructions (The Master Contract)
+├── 📁 specs/                     # Agent handoff artifacts (e.g. 001-feature-spec.md)
+├── 📁 .cursor/rules/             # Cursor rules (preferred)
 └── 📁 src/                       # Your application code
 ```
 
----
+### Deployment & Security
 
-## Deployment
+Once your MVP is built, run your final security checks and deploy:
 
-Once your MVP is built, deploy to one of these platforms:
-
-| Platform | Best For | Free Tier |
-|----------|----------|:---------:|
-| ![Vercel](https://img.shields.io/badge/Vercel-Deploy-000?style=flat-square&logo=vercel) | Next.js, React, frontend apps | ✓ |
-| ![Cloudflare](https://img.shields.io/badge/Cloudflare-Pages-F38020?style=flat-square&logo=cloudflare) | Static sites, edge functions | ✓ |
-
-Both platforms support git-based deployments — push your code and it deploys automatically.
+1. **Security Pass:** Check dependencies, secrets, auth paths, and rate limits.
+2. **Push & Deploy:**
+   - ![Vercel](https://img.shields.io/badge/Vercel-Deploy-000?style=flat-square&logo=vercel) For Next.js, React, frontend apps.
+   - ![Cloudflare](https://img.shields.io/badge/Cloudflare-Pages-F38020?style=flat-square&logo=cloudflare) For Static sites, edge functions.
 
 ---
 
-## Tool Selection Guide
+## 💡 Common Pitfalls & Troubleshooting
 
 <details>
-<summary><b>Which tools should I use?</b></summary>
-
-| Situation | Recommended Tools |
-|-----------|-------------------|
-| Complete beginner | ![Lovable](https://img.shields.io/badge/Lovable-ff69b4?style=flat-square) or ![v0](https://img.shields.io/badge/v0-000?style=flat-square) → instant hosted apps |
-| Learning to code | ![Cursor](https://img.shields.io/badge/Cursor-000?style=flat-square) or VS Code with Copilot |
-| Experienced developer | ![Claude Code](https://img.shields.io/badge/Claude_Code-orange?style=flat-square) or Cursor |
-| Budget-limited | ![Gemini CLI](https://img.shields.io/badge/Gemini_CLI-4285F4?style=flat-square) (free) + VS Code |
-| Need MVP fast | Lovable → quick prototypes |
-| Complex logic | Claude Code → session memory for large codebases |
-
-**When NOT to use these tools:**
-- Native mobile or hardware builds — use traditional toolchains
-- Regulated workloads (SOC2, HIPAA) — use enterprise solutions
-- Safety-critical systems — require deterministic, human-led engineering
-
-</details>
-
----
-
-## Common Pitfalls
-
-<details>
-<summary><b>Avoid these mistakes</b></summary>
+<summary><b>Avoid these mistakes ⚠️</b></summary>
 
 | Pitfall | Solution |
 |---------|----------|
 | Skipping discovery work | Run the Part 1 research prompt first |
 | Letting agents ship code alone | Review the diff and run tests before merging |
-| Publishing auto-generated UIs without checks | Test accessibility and security before launch |
+| Publishing auto-generated UIs | Test accessibility and security before launch |
 | Forcing one tool to do everything | Mix tools — IDE + terminal + builder |
 
 </details>
 
----
-
-## Troubleshooting
-
 <details>
-<summary><b>Quick fixes for common issues</b></summary>
+<summary><b>Agent Troubleshooting 🔧</b></summary>
 
 | Problem | Solution |
 |---------|----------|
-| **"AI ignores my documents"** | Start with: *"First read AGENTS.md, PRD, and TechDesign. Summarize key requirements before coding."* |
-| **"Code doesn't match PRD"** | Say: *"Re-read the PRD section on [feature], list acceptance criteria, then refactor accordingly."* |
+| **"AI ignores my docs"** | Say: *"First read AGENTS.md, PRD, and TechDesign. Summarize key requirements before coding."* |
+| **"Code doesn't match PRD"** | Say: *"Re-read the PRD section on [feature], list acceptance criteria, then refactor."* |
 | **"AI is overcomplicating"** | Add to config: *"Prioritize MVP scope. Offer the simplest working implementation."* |
 | **"Deployment failing"** | Request: *"Walk through deployment checklist, verify env vars, then run health check."* |
 
 </details>
 
 ---
+
+## Monthly Update Cadence
+This template is maintained monthly. Review model/tool deprecations, refresh doc references to model families, and update agent capabilities.
 
 ## Contributing
 
@@ -390,13 +306,7 @@ Both platforms support git-based deployments — push your code and it deploys a
   </a>
 </p>
 
-PRs and issues welcome! Help us improve:
-- Report issues with prompts
-- Share your success stories
-- Add new tool configurations
-- Submit example MVPs built with this workflow
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+PRs and issues welcome! Share your success stories, add new tool configurations, or submit example MVPs. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ---
 
@@ -415,7 +325,7 @@ Released under the [MIT License](LICENSE).
 </p>
 
 <p align="center">
-  <a href="#the-workflow">
+  <a href="#the-workflow-overview">
     <img src="https://img.shields.io/badge/↑_Back_to_Top-blueviolet?style=for-the-badge" alt="Back to Top"/>
   </a>
 </p>
