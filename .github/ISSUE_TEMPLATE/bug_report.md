@@ -19,7 +19,7 @@ A clear and concise description of the problem with the workflow, prompts, or do
 **Your setup**
 
 - AI tool: e.g. Cursor, Claude Code, Gemini CLI, ChatGPT, Cline, etc.
-- Model: e.g. Claude 4.5 Sonnet, Gemini 3 Pro, GPT‑4.1, etc.
+- Model family: e.g. Claude Sonnet, Claude Opus, Gemini Pro, Gemini Flash, etc.
 - Environment: terminal / IDE / web app (AI Studio, Claude.ai, chatgpt.com, etc.)
 
 **Steps to reproduce**

@@ -30,7 +30,7 @@ If you have suggested wording, prompts, or screenshots, add them here.
 **Tool / environment (optional but helpful)**
 
 - AI tool / IDE: e.g. Cursor, Claude Code, Gemini CLI, ChatGPT, Cline, Lovable, Bolt, etc.
-- Model: e.g. Claude 4.5 Sonnet, Gemini 3 Pro, GPT‑4.1, etc.
+- Model family: e.g. Claude Sonnet, Claude Opus, Gemini Pro, Gemini Flash, etc.
 
 **Additional context**
 
