@@ -128,7 +128,7 @@ Triggers on:
 Creates:
 - `AGENTS.md` - Master build plan
 - `agent_docs/` - Detailed specifications
-- Tool-specific configs (CLAUDE.md, .cursorrules, etc.)
+- Tool-specific configs (CLAUDE.md, GEMINI.md, `.cursor/rules/` or legacy `.cursorrules`, etc.)
 
 ### /vibe-build
 
@@ -237,6 +237,14 @@ model: sonnet  # Optional: sonnet, opus, haiku
 
 ## Troubleshooting
 
+### Session continuity first
+
+If your build starts drifting, avoid opening a fresh empty chat. Re-anchor with:
+
+1. `AGENTS.md` current phase
+2. Last completed task
+3. One short summary of pending tasks
+
 ### Skills not appearing
 
 1. Check you're in the project directory
@@ -254,6 +262,18 @@ model: sonnet  # Optional: sonnet, opus, haiku
 The skill's `description` determines when it triggers. Include keywords users would naturally say:
 - Good: "Use when user says 'create PRD' or 'define product requirements'"
 - Bad: "PRD generation utility"
+
+### Plugin/rules troubleshooting
+
+If using plugin-enabled IDE workflows:
+
+1. Confirm plugin/rules package is loaded
+2. Confirm required tools are enabled
+3. Retry with explicit instruction: "Read AGENTS.md first, then proceed"
+
+### Model naming guidance
+
+Prefer model family names in docs and examples (Claude Sonnet, Claude Opus, Gemini Pro, Gemini Flash) to reduce churn from provider version rotations.
 
 ## Contributing
 

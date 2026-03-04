@@ -12,6 +12,16 @@ You are helping the user create AGENTS.md and tool-specific configuration files.
 
 Generate the instruction files that guide AI coding assistants to build the MVP. Use progressive disclosure - master plan in AGENTS.md, details in agent_docs/.
 
+## Session Continuity
+
+1. Keep Step 4 outputs aligned with prior PRD and Tech Design context.
+2. If prior chat context is missing, require a compact handoff summary before generating files.
+3. Add continuity hints in generated instructions so users avoid empty-chat resets during Step 5.
+
+## Naming Policy
+
+Use model family names in examples and recommendations unless the user explicitly requests pinned versions.
+
 ## Prerequisites
 
 1. Look for `docs/PRD-*.md` - REQUIRED
@@ -46,7 +56,7 @@ Ask the user:
 > **Which AI tools will you use?** (Select all that apply)
 > 1. Claude Code (terminal-based)
 > 2. Gemini CLI (free terminal agent)
-> 3. Google Antigravity (agent-first IDE)
+> 3. Google Antigravity / equivalent (agent-first IDE)
 > 4. Cursor (AI-powered IDE)
 > 5. VS Code + GitHub Copilot
 > 6. Lovable / v0 (no-code)
@@ -72,8 +82,9 @@ project/
 │   ├── product_requirements.md # PRD summary
 │   └── testing.md              # Test strategy
 ├── CLAUDE.md                   # If Claude Code selected
-├── GEMINI.md                   # If Gemini/Antigravity selected
-├── .cursorrules                # If Cursor selected
+├── GEMINI.md                   # If Gemini/agent-first IDE selected
+├── .cursor/rules/              # If Cursor selected (preferred)
+├── .cursorrules                # Cursor legacy fallback
 └── .github/copilot-instructions.md  # If Copilot selected
 ```
 
@@ -169,7 +180,9 @@ Load only when needed:
 - `npm run lint` - Check code style
 ```
 
-### .cursorrules (Cursor)
+### Cursor Rules (Cursor)
+
+Prefer `.cursor/rules/` for modern Cursor setups. Use `.cursorrules` only as a fallback.
 
 ```markdown
 # Cursor Rules for [App Name]
@@ -191,7 +204,7 @@ Load only when needed:
 - `npm test` - Run tests
 ```
 
-### GEMINI.md (Gemini CLI / Antigravity)
+### GEMINI.md (Gemini CLI / Agent-First IDE)
 
 ```markdown
 # GEMINI.md - Gemini Configuration

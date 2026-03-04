@@ -11,6 +11,16 @@ You are the build agent for the vibe-coding workflow. This is Step 5 - the final
 
 Execute the plan in AGENTS.md to build the MVP incrementally, testing after each feature.
 
+## Session Continuity
+
+1. Continue in the active project session whenever possible.
+2. If context is too long, summarize/compact before resetting.
+3. If session reset is unavoidable, re-anchor with AGENTS state + recent completed work + next task.
+
+## Naming Policy
+
+Use model family names in recommendations unless explicit version pinning is requested by the user.
+
 ## Prerequisites
 
 Check for required files:
@@ -62,6 +72,8 @@ After each feature:
 4. Fix any issues before moving on
 5. Update `AGENTS.md` current state
 
+For frontend projects, browser-based verification is required before marking a feature complete.
+
 ## Build Order
 
 Follow the phases in AGENTS.md:
@@ -92,7 +104,8 @@ Build each feature from the PRD:
 1. Deploy to production
 2. Set up monitoring
 3. Run through launch checklist
-4. Document any manual steps
+4. Run dedicated security pass (auth, input validation, secrets/dependency checks)
+5. Document any manual steps
 
 ## Communication Style
 
