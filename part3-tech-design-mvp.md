@@ -45,6 +45,8 @@ Please attach your PRD (and optionally your research) and type A, B, or C:
 
 **Stability note:** Prefer stacks and tools the team can realistically maintain. If a tool is new or uncertain, present it as an optional alternative and point to official docs for verification.
 
+**Continuity note:** Keep technical design in the same project conversation where possible. If the session gets too long, summarize/compact instead of opening an empty thread.
+
 </details>
 
 Wait for the user to attach their PRD document. Read it thoroughly to understand:
@@ -136,9 +138,9 @@ Then ask these questions ONE AT A TIME based on their technical level:
 **Q5:** "AI coding assistance strategy?
 - Claude Code (CLI with session memory)
 - Gemini CLI (free, open source)
-- Cursor (reads AGENTS.md automatically)
+- Cursor (uses AGENTS + rules/plugins)
 - VS Code + GitHub Copilot
-- Google Antigravity (agent-first IDE)
+- Google Antigravity / equivalent agent-first IDE (availability may vary)
 - Mix of tools"
 
 **Q6:** "Development workflow preferences?
@@ -1073,7 +1075,7 @@ Based on your skills and goals, here's the optimal strategy:
   - *Learning time:* 1 hour
 
 #### AI Assistance
-- **Primary:** [Cursor / Claude Code / Antigravity]
+- **Primary:** [Cursor / Claude Code / Antigravity (or equivalent)]
   - *Why:* Best balance of power and ease
 
 ## Project Structure

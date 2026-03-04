@@ -41,6 +41,13 @@ Please attach your research file (or type "no file") and type A, B, or C:
 | Quick iterations | ChatGPT | Fast responses, good at brainstorming |
 | Large context (research input) | Gemini | Largest context window |
 
+### Session Continuity
+- Continue from your Part 1 thread when possible to preserve context.
+- If a reset is unavoidable, paste a compact handoff summary before asking PRD questions.
+
+### Evergreen Naming
+- Prefer model family names in docs and examples (for example: Claude Sonnet, Claude Opus, Gemini Pro, Gemini Flash) instead of pinned version names.
+
 </details>
 
 Wait for the user to either:

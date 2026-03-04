@@ -33,6 +33,11 @@ Please type A, B, or C:
 - Cite source URLs with access dates for major claims and flag uncertain data
 - Distinguish sourced facts from model knowledge when needed
 
+### Session Continuity
+- Keep this project in a single ongoing conversation where possible.
+- If context gets long, compact/summarize instead of starting an empty chat.
+- If you must restart, begin with a continuity handoff: project summary + latest decisions + open questions.
+
 </details>
 
 Based on the user's response, follow the appropriate question path below. Ask questions **one at a time** and wait for responses before proceeding.
@@ -317,6 +322,8 @@ I'm building [description] with some technical knowledge. I need research that b
 ## Final Instructions
 
 After generating the appropriate research prompt, say:
+
+"Session continuity reminder: save a short summary of this research and reuse it in Part 2 instead of restarting from scratch."
 
 "I've created your research prompt above. Here's how to get the best results:
 
