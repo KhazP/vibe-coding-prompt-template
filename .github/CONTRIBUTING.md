@@ -3,12 +3,12 @@
 Thanks for your interest in improving the Vibe-Coding workflow! 🙌  
 Pull requests and issue reports are welcome.
 
+This repository focuses on a reusable workflow for taking an idea from research to shipped MVP, not on hosting a single application codebase.
+
 ## Before you start
 
 - Read the README to understand the goals of this project and its scope.
 - Review the Code of Conduct (CODE_OF_CONDUCT.md). By participating, you agree to follow it.
-
-This repo focuses on **prompt templates, documentation, and workflow improvements**, not on hosting production code.
 
 ## How to propose changes
 
@@ -28,6 +28,8 @@ Good candidates for contributions:
 - Clarifying confusing wording in prompts or docs.
 - Updating examples for newer AI tools or model versions.
 - Adding missing steps or checks to the workflow.
+- Sharing a live product or case study built with this workflow.
+- Adding better onboarding notes for beginners using AI IDEs for the first time.
 - Fixing typos, formatting, or broken links.
 
 Out of scope (will usually be closed):
@@ -36,6 +38,15 @@ Out of scope (will usually be closed):
 - Vendor marketing or non-neutral comparisons.
 
 Open an issue first for any **large** change so we can agree on direction.
+
+## Community-friendly contributions
+
+Useful non-code contributions are welcome too:
+
+- Share what you built with the workflow and what parts helped or failed.
+- Suggest clearer wording for first-time builders who are not yet comfortable with AI IDEs.
+- Propose tool-specific guidance for Cursor, Claude Code, GitHub Copilot, Gemini CLI, or similar tools.
+- Submit link fixes, screenshots, or example outputs that make the workflow easier to trust.
 
 ## Pull request guidelines
 
@@ -46,6 +57,7 @@ Open an issue first for any **large** change so we can agree on direction.
   - What changed.
   - Why it helps users of the workflow.
   - Any breaking changes to existing instructions.
+- If your change adds a new example or showcase item, include the public URL and a one-line explanation of what was built.
 
 Maintainers may ask for tweaks before merging.
 
