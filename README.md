@@ -2,10 +2,14 @@
   <img src="https://img.shields.io/badge/Vibe--Coding-Workflow-blueviolet?style=for-the-badge&logo=rocket&logoColor=white" alt="Vibe-Coding Workflow" height="40"/>
 </p>
 
-<h3 align="center">AI-Powered MVP Development</h3>
+<h3 align="center">Beginner-Friendly AI Workflow for Shipping MVPs</h3>
 
 <p align="center">
-  <strong>Build an MVP in hours, not months — guided by AI coding agents</strong>
+  <strong>Build an MVP in hours, not months, with structured prompts, agent contracts, and AI IDE workflows.</strong>
+</p>
+
+<p align="center">
+  Used to ship <a href="https://vibeworkflow.app">vibeworkflow.app</a>, <a href="https://moneyvisualiser.com">moneyvisualiser.com</a>, <a href="https://caglacabaoglu.com">caglacabaoglu.com</a>, and <a href="https://alpyalay.org/realdex">RealDex App</a>.
 </p>
 
 <p align="center">
@@ -26,12 +30,30 @@
 ---
 
 ## 📖 Table of Contents
+- [✅ Built With This Workflow](#-built-with-this-workflow)
 - [🚀 The Workflow Overview](#-the-workflow-overview)
 - [🏁 Quick Start & The 5 Steps](#-quick-start--the-5-steps)
 - [🛠️ Prerequisites & Tools](#️-prerequisites--tools)
 - [🧠 Advanced Agent Best Practices](#-advanced-agent-best-practices)
 - [🏗️ Structure & Deployment](#-final-project-structure--deployment)
 - [💡 Common Pitfalls & Troubleshooting](#-common-pitfalls--troubleshooting)
+
+---
+
+## ✅ Built With This Workflow
+
+This repo is based on a workflow that has already been used to ship live products.
+
+| Project | What it is |
+| :-- | :-- |
+| [vibeworkflow.app](https://vibeworkflow.app) | An interactive web app built around the same structured vibe-coding workflow documented here. |
+| [moneyvisualiser.com](https://moneyvisualiser.com) | A money visualization website that visualized money in a 3D environment. |
+| [caglacabaoglu.com](https://caglacabaoglu.com) | A production portfolio and gallery site built with the same PRD-to-agent execution approach. |
+| [alpyalay.org/realdex](https://alpyalay.org/realdex) | A mobile app built on React Native that lets you catch animals, and put them in a Pokemon-like collection. |
+
+<p align="center">
+  <sub>Maintained by <a href="https://x.com/alpyalay">Alpy Alay</a>.</sub>
+</p>
 
 ---
 
@@ -306,7 +328,7 @@ This template is maintained monthly. Review model/tool deprecations, refresh doc
   </a>
 </p>
 
-PRs and issues welcome! Share your success stories, add new tool configurations, or submit example MVPs. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+PRs and issues welcome! Share your success stories, add new tool configurations, or submit example MVPs. See [.github/CONTRIBUTING.md](.github/CONTRIBUTING.md) for guidelines.
 
 ---
 
@@ -321,7 +343,7 @@ Released under the [MIT License](LICENSE).
 </p>
 
 <p align="center">
-  <sub>Created by the vibe-coding community</sub>
+  <sub>Created by <a href="https://x.com/alpyalay">@alpyalay</a> and improved through community contributions.</sub>
 </p>
 
 <p align="center">
