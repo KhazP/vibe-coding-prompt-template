@@ -52,7 +52,7 @@ This repo documents the workflow behind a handful of shipped projects. The goal 
 | [alpyalay.org/realdex](https://alpyalay.org/realdex) | A mobile app built on React Native that lets you catch animals, and put them in a Pokemon-like collection. |
 
 <p align="center">
-  <sub>Maintained by <a href="https://x.com/alpyalay">Alpy Alay</a>.</sub>
+  <sub>Maintained by <a href="https://x.com/alpyalay">Alp Yalay</a>.</sub>
 </p>
 
 ---
