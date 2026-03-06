@@ -2,14 +2,14 @@
   <img src="https://img.shields.io/badge/Vibe--Coding-Workflow-blueviolet?style=for-the-badge&logo=rocket&logoColor=white" alt="Vibe-Coding Workflow" height="40"/>
 </p>
 
-<h3 align="center">Beginner-Friendly AI Workflow for Shipping MVPs</h3>
+<h3 align="center">A practical AI workflow for shipping MVPs</h3>
 
 <p align="center">
-  <strong>Build an MVP in hours, not months, with structured prompts, agent contracts, and AI IDE workflows.</strong>
+  <strong>Turn an idea into an MVP with structured prompts, agent docs, and AI-assisted coding workflows.</strong>
 </p>
 
 <p align="center">
-  Used to ship <a href="https://vibeworkflow.app">vibeworkflow.app</a>, <a href="https://moneyvisualiser.com">moneyvisualiser.com</a>, <a href="https://caglacabaoglu.com">caglacabaoglu.com</a>, and <a href="https://alpyalay.org/realdex">RealDex App</a>.
+  Used on projects like <a href="https://vibeworkflow.app">vibeworkflow.app</a>, <a href="https://moneyvisualiser.com">moneyvisualiser.com</a>, <a href="https://caglacabaoglu.com">caglacabaoglu.com</a>, and <a href="https://alpyalay.org/realdex">RealDex App</a>.
 </p>
 
 <p align="center">
@@ -29,20 +29,20 @@
 
 ---
 
-## 📖 Table of Contents
-- [✅ Built With This Workflow](#-built-with-this-workflow)
-- [🚀 The Workflow Overview](#-the-workflow-overview)
-- [🏁 Quick Start & The 5 Steps](#-quick-start--the-5-steps)
-- [🛠️ Prerequisites & Tools](#️-prerequisites--tools)
-- [🧠 Advanced Agent Best Practices](#-advanced-agent-best-practices)
-- [🏗️ Structure & Deployment](#-final-project-structure--deployment)
-- [💡 Common Pitfalls & Troubleshooting](#-common-pitfalls--troubleshooting)
+## Table of contents
+- [Built with this workflow](#built-with-this-workflow)
+- [Workflow overview](#workflow-overview)
+- [Quick start and the 5 steps](#quick-start-and-the-5-steps)
+- [Prerequisites and tools](#prerequisites-and-tools)
+- [Advanced agent practices](#advanced-agent-practices)
+- [Project structure and deployment](#project-structure-and-deployment)
+- [Common pitfalls and troubleshooting](#common-pitfalls-and-troubleshooting)
 
 ---
 
-## ✅ Built With This Workflow
+## Built with this workflow
 
-This repo is based on a workflow that has already been used to ship live products.
+This repo documents the workflow behind a handful of shipped projects. The goal is simple: do the thinking upfront, hand clean context to your tools, and keep the build phase moving.
 
 | Project | What it is |
 | :-- | :-- |
@@ -57,9 +57,9 @@ This repo is based on a workflow that has already been used to ship live product
 
 ---
 
-## 🚀 The Workflow Overview
+## Workflow overview
 
-Transform any app idea into working code through 5 AI-powered stages:
+The process moves through five stages, from idea validation to working code:
 
 ```mermaid
 flowchart LR
@@ -108,18 +108,18 @@ flowchart LR
 
 ---
 
-## 🏁 Quick Start & The 5 Steps
+## Quick start and the 5 steps
 
-> **TL;DR:** 📄 1. Copy Prompt → 💬 2. Answer Questions → 💾 3. Save Docs → 🤖 4. Feed to Agent → 🚀 5. Ship!
+> TL;DR: run research, turn it into a PRD, choose the stack, generate your agent files, then build in small passes.
 
-### 🟢 Phase 1: The "Thinking" Phase (Web Chatbots)
-*Do these first 3 steps in ChatGPT, Claude.ai, Gemini, or an IDE. You don't need a code repository yet.*
+### Phase 1: thinking through the product
+Do the first three steps in ChatGPT, Claude.ai, Gemini, or any other chat tool. You do not need a repo yet.
 
 ### ![Step 1](https://img.shields.io/badge/Step_1-Deep_Research-764ba2?style=flat-square) Deep Research
 <details open>
-<summary><b>Validate your idea with AI-powered market research</b> — 20-30 min</summary>
+<summary><b>Check whether the idea is worth building</b> - 20-30 min</summary>
 
-**What this does:** Analyzes market opportunity, competitors, and tech feasibility.
+This step gives you a quick read on demand, competitors, and whether the scope looks realistic.
 
 1. Open [`part1-deepresearch.md`](part1-deepresearch.md) and **copy all of its contents**.
 2. **Paste it** into your preferred AI platform Chat (like Claude.ai, ChatGPT, or Gemini) and press **Enter**.
@@ -127,14 +127,14 @@ flowchart LR
 4. The AI will generate a comprehensive research document based on your answers.
 5. **Save the output** into a local file named `research-[YourAppName].txt` or simply **keep this chat open** for Step 2.
 
-> **💡 Tip:** If your platform supports web search, enable it for up-to-date stats and competitor info.
+Tip: if your chat tool supports web search, turn it on so the stats and competitor references are current.
 </details>
 
 ### ![Step 2](https://img.shields.io/badge/Step_2-Product_Requirements-f093fb?style=flat-square) Product Requirements (PRD)
 <details open>
-<summary><b>Define exactly what you're building</b> — 15-20 min</summary>
+<summary><b>Write down what the MVP actually needs to do</b> - 15-20 min</summary>
 
-**What this does:** Transforms your idea into clear, actionable specs.
+This turns the rough idea into a scope you can build against.
 
 1. Copy the contents of [`part2-prd-mvp.md`](part2-prd-mvp.md).
 2. **Option A (Same Chat):** If you kept your chat open, paste the prompt right below the Deep Research output.
@@ -145,9 +145,9 @@ flowchart LR
 
 ### ![Step 3](https://img.shields.io/badge/Step_3-Technical_Design-4facfe?style=flat-square) Technical Design
 <details open>
-<summary><b>Plan the technical architecture</b> — 15-20 min</summary>
+<summary><b>Pick a stack you can actually ship with</b> - 15-20 min</summary>
 
-**What this does:** Decides the best tech stack and implementation approach.
+This step helps you choose the stack and decide where to keep things simple.
 
 1. Copy the contents of [`part3-tech-design-mvp.md`](part3-tech-design-mvp.md).
 2. Paste it into your **ongoing conversation** (or into a new one, making sure to attach the `PRD-[YourAppName]-MVP.md` from Step 2 as context).
@@ -156,32 +156,32 @@ flowchart LR
 5. Once a stack is decided, **save the output** as `TechDesign-[YourAppName]-MVP.md`.
 </details>
 
-### 🔵 Phase 2: The "Execution" Phase (AI IDEs & CLIs)
-*Transition to Cursor, VS Code with Copilot, or Claude Code. This is where your code gets written.*
+### Phase 2: execution in your IDE
+Move into Cursor, VS Code with Copilot, Claude Code, or your preferred coding setup. This is where the project becomes code.
 
-### ![Step 4](https://img.shields.io/badge/Step_4-Instantiate_Templates-00f2fe?style=flat-square) Scaffolding the Agent Contracts
+### ![Step 4](https://img.shields.io/badge/Step_4-Instantiate_Templates-00f2fe?style=flat-square) Set up the agent files
 <details open>
-<summary><b>Configure your AI IDE for Agentic execution</b> — 1-2 min</summary>
+<summary><b>Create the docs and instructions your coding agent will rely on</b> - 1-2 min</summary>
 
-**What this does:** Automates the creation of `AGENTS.md` and memory constraints.
+This step fills out `AGENTS.md` and the supporting docs from your PRD and tech design.
 
 1. Click **"Use this template"** in GitHub (or clone this repository locally).
 2. Open this cloned repository folder in your **AI IDE** (like Cursor or VS Code).
 3. Upload/move the formatting documents you saved (`PRD.md` and `TechDesign.md`) into your IDE.
 4. Open the AI Chat inside your IDE, type: *"Read [`part4-notes-for-agent.md`](part4-notes-for-agent.md), follow its instructions, and set up my workspace."*
-5. Look at your files! The AI will automatically copy the pre-made boilerplates out of the `/templates/` directory to the root of your project, and intelligently fill in all the brackets based on your PRD constraints.
+5. The agent should copy the boilerplates from `/templates/` into your project root and fill in the placeholders using your PRD and tech design.
 </details>
 
 ### ![Step 5](https://img.shields.io/badge/Step_5-Build_MVP-43e97b?style=flat-square) Build with AI Agent
 <details open>
-<summary><b>Let AI build your MVP</b> — 1-3 hrs</summary>
+<summary><b>Build the MVP in small, reviewable chunks</b> - 1-3 hrs</summary>
 
-Choose your development environment and unleash your agent:
+Choose your development environment and start iterating:
 
 1. Ensure your newly generated `AGENTS.md` and configuration files are physically in the project folder.
 2. Give your agent its **first command:** 
    > *"Read AGENTS.md, propose a Phase 1 plan, wait for my approval, and then build it step by step."*
-3. Treat the agent like a junior developer. Ask it to stop and test after each major feature. Fix simple console errors before moving on.
+3. Treat the agent like a junior developer. Ask it to stop after each major feature, explain the diff, and run tests where possible.
 4. **Repeat the loop** until your MVP is complete:
 
 **Recommended Loop:**
@@ -197,11 +197,11 @@ Choose your development environment and unleash your agent:
 
 ---
 
-## 🛠️ Prerequisites & Tools
+## Prerequisites and tools
 
-> **Basic Requirements:** Any modern browser, 2-4 hours of time, and basic computer skills (no coding required).
+You need a modern browser, a few hours, and enough comfort with files and copy-paste to move between tools. You do not need to be an experienced developer.
 
-### Platform Selection Guide
+### Platform selection guide
 
 | Focus Area | Recommended Tools |
 |------------|-------------------|
@@ -211,33 +211,33 @@ Choose your development environment and unleash your agent:
 | **Complex Logic / Multi-Agent** | ![Claude Code](https://img.shields.io/badge/Claude_Code-orange?style=flat-square) (Agent Teams) or GitHub Copilot CLI |
 | **Budget-Limited** | ![Gemini CLI](https://img.shields.io/badge/Gemini_CLI-4285F4?style=flat-square) (Free) + VS Code |
 
-*Note: Avoid these tools for native mobile/hardware builds, regulated workloads (SOC2, HIPAA), or safety-critical systems.*
+Note: I would not use this workflow as-is for native hardware work, heavily regulated products, or safety-critical systems.
 
 ---
 
-## 🧠 Advanced Agent Best Practices
+## Advanced agent practices
 
 <details open>
-<summary><b>1. Artifact-First Memory & Compaction 🔄</b></summary>
+<summary><b>1. Artifact-first memory and compaction</b></summary>
 
-To avoid context overload, modern agents rely on **artifact-first memory** instead of infinite chats:
-- **Compaction & Handoffs:** Use native compaction (`/compact` in Copilot CLI, Claude Code logic) instead of hard resets. When swapping sessions, have the agent write a `001-spec.md` or `recap.md` and load ONLY that file into the new chat.
-- **Dynamic Context (Cursor):** Let the agent write its findings into physical files rather than keeping them raw in the chat history.
+To avoid context overload, let the agent write things down instead of trying to keep everything in one giant chat:
+- **Compaction and handoffs:** Use native compaction (`/compact` in Copilot CLI, Claude Code logic) instead of hard resets. When you switch sessions, have the agent write a `001-spec.md` or `recap.md` and load only that file into the new chat.
+- **Dynamic context (Cursor):** Let the agent save findings into real files instead of burying them in chat history.
 - If you must restart, attach `AGENTS.md`, `PRD.md`, and your latest spec file.
 </details>
 
 <details open>
-<summary><b>2. Multi-Agent Orchestration & Plugins 🤖</b></summary>
+<summary><b>2. Multi-agent orchestration and plugins</b></summary>
 
-- **Agent Teams:** Tools like Claude Code support multiple agents working in parallel (e.g., Team Lead + Teammates). Treat your workflows like squad assignments.
-- **Plan-Before-Edit:** Always demand an approved plan from the lead agent before allowing the execute agent to touch code. This prevents silent regressions.
+- **Agent teams:** Tools like Claude Code support multiple agents working in parallel. Treat them like assigned roles, not magic.
+- **Plan before edit:** Ask for an approved plan from the lead agent before the execute agent starts changing files. It cuts down on silent regressions.
 - Keep `AGENTS.md` as the source of truth, then add tool-specific plugins or `.cursor/rules/` to seamlessly extend capabilities.
 </details>
 
 <details>
-<summary><b>3. Model Strategy Matrix 🧠</b></summary>
+<summary><b>3. Model strategy matrix</b></summary>
 
-Use model families instead of pinned version names for better stability as models rotate.
+Use model families instead of pinned version names. It ages better as models get swapped underneath you.
 
 | Strategy | Primary Families | Best For | Speed |
 |----------|------------------|----------|:-----:|
@@ -247,7 +247,7 @@ Use model families instead of pinned version names for better stability as model
 </details>
 
 <details>
-<summary><b>4. Agent Observability 🔍</b></summary>
+<summary><b>4. Agent observability</b></summary>
 
 When an agent ignores instructions or behaves inconsistently:
 1. Check which instructions/rules/hooks were loaded.
@@ -258,9 +258,9 @@ When an agent ignores instructions or behaves inconsistently:
 
 ---
 
-## 🏗️ Final Project Structure & Deployment
+## Project structure and deployment
 
-### Recommended Project Skeleton
+### Recommended project skeleton
 ```
 your-app/
 ├── 📁 docs/
@@ -275,9 +275,9 @@ your-app/
 └── 📁 src/                       # Your application code
 ```
 
-### Deployment & Security
+### Deployment and security
 
-Once your MVP is built, run your final security checks and deploy:
+Once the MVP works, do a final pass on secrets, auth, and basic abuse protections before you deploy:
 
 1. **Security Pass:** Check dependencies, secrets, auth paths, and rate limits.
 2. **Push & Deploy:**
@@ -286,22 +286,22 @@ Once your MVP is built, run your final security checks and deploy:
 
 ---
 
-## 💡 Common Pitfalls & Troubleshooting
+## Common pitfalls and troubleshooting
 
 <details>
-<summary><b>Avoid these mistakes ⚠️</b></summary>
+<summary><b>Avoid these mistakes</b></summary>
 
 | Pitfall | Solution |
 |---------|----------|
 | Skipping discovery work | Run the Part 1 research prompt first |
 | Letting agents ship code alone | Review the diff and run tests before merging |
 | Publishing auto-generated UIs | Test accessibility and security before launch |
-| Forcing one tool to do everything | Mix tools — IDE + terminal + builder |
+| Forcing one tool to do everything | Mix tools, IDE + terminal + builder usually works better |
 
 </details>
 
 <details>
-<summary><b>Agent Troubleshooting 🔧</b></summary>
+<summary><b>Agent troubleshooting</b></summary>
 
 | Problem | Solution |
 |---------|----------|
@@ -314,8 +314,8 @@ Once your MVP is built, run your final security checks and deploy:
 
 ---
 
-## Monthly Update Cadence
-This template is maintained monthly. Review model/tool deprecations, refresh doc references to model families, and update agent capabilities.
+## Monthly update cadence
+This template is maintained monthly. Review tool deprecations, refresh model-family references, and update agent capability notes when the ecosystem shifts.
 
 ## Contributing
 
@@ -328,7 +328,7 @@ This template is maintained monthly. Review model/tool deprecations, refresh doc
   </a>
 </p>
 
-PRs and issues welcome! Share your success stories, add new tool configurations, or submit example MVPs. See [.github/CONTRIBUTING.md](.github/CONTRIBUTING.md) for guidelines.
+PRs and issues are welcome. If you adapt this workflow, add a new tool setup, or ship something interesting with it, that is useful context for everyone else too. See [.github/CONTRIBUTING.md](.github/CONTRIBUTING.md) for guidelines.
 
 ---
 
@@ -339,7 +339,7 @@ Released under the [MIT License](LICENSE).
 ---
 
 <p align="center">
-  <strong>The best time to build your idea was yesterday. The second best time is now.</strong>
+  <strong>If this workflow helps you ship something real, open an issue or PR and show what changed.</strong>
 </p>
 
 <p align="center">
@@ -347,7 +347,7 @@ Released under the [MIT License](LICENSE).
 </p>
 
 <p align="center">
-  <a href="#the-workflow-overview">
+  <a href="#workflow-overview">
     <img src="https://img.shields.io/badge/↑_Back_to_Top-blueviolet?style=for-the-badge" alt="Back to Top"/>
   </a>
 </p>
