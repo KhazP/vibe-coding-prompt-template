@@ -454,23 +454,25 @@ Please fix and explain the issue.
 
 ## Cost Breakdown
 
+> **Note:** Verify all pricing directly with each vendor before budgeting. Costs vary by region, plan, and usage. Last verified: 2026-04.
+
 ### Development Phase (Building)
-| Service | Free Tier | Paid Tier | You Need |
-|---------|-----------|-----------|----------|
-| [IDE/Editor] | Yes | Paid | Free OK |
-| [AI Assistant] | Limited | Paid | Paid recommended |
-| [Database] | 500MB | Paid | Free OK |
-| [Hosting] | 100GB | Paid | Free OK |
-| **Total** | **$0** | **$85/mo** | **$20/mo** |
+| Service | Free Tier Available | Notes |
+|---------|---------------------|-------|
+| [IDE/Editor] | Often yes | Check vendor site |
+| [AI Assistant] | Limited | Paid tier recommended for heavy use |
+| [Database] | Often yes | Check storage/row limits |
+| [Hosting] | Often yes | Check bandwidth limits |
+| **Total** | **Verify current plans** | **Costs vary by stack and usage** |
 
 ### Production Phase (After Launch)
-| Service | Monthly Cost | At 1000 Users |
-|---------|--------------|---------------|
-| Hosting | $0-20 | $20 |
-| Database | $0-25 | $25 |
-| Email | $0-10 | $10 |
-| Storage | $0-5 | $5 |
-| **Total** | **$0-60** | **$60** |
+| Service | Notes |
+|---------|-------|
+| Hosting | Check vendor pricing page |
+| Database | Check vendor pricing page |
+| Email | Check vendor pricing page |
+| Storage | Check vendor pricing page |
+| **Total** | **Verify current vendor pages before budgeting** |
 
 ## Scaling Path
 
@@ -707,22 +709,24 @@ CREATE INDEX idx_[entity]_created_at ON [entity](created_at);
 ### Feature 1: [From PRD]
 
 #### API Design
-```typescript
-// Endpoint definitions
-POST   /api/[feature]          // Create
-GET    /api/[feature]          // List
-GET    /api/[feature]/:id      // Get one
-PUT    /api/[feature]/:id      // Update
-DELETE /api/[feature]/:id      // Delete
+```text
+// Endpoint definitions (pseudocode — replace FEATURE with your actual feature name)
+POST   /api/FEATURE          // Create
+GET    /api/FEATURE          // List
+GET    /api/FEATURE/:id      // Get one
+PUT    /api/FEATURE/:id      // Update
+DELETE /api/FEATURE/:id      // Delete
+```
 
-// Request/Response types
-interface Create[Feature]Request {
-  [fields from PRD]
+```typescript
+// Request/Response types (replace Feature with your actual feature name, e.g. Task, Project)
+interface CreateFeatureRequest {
+  // fields from PRD
 }
 
-interface [Feature]Response {
+interface FeatureResponse {
   id: string;
-  [fields];
+  // fields from PRD
   createdAt: Date;
   updatedAt: Date;
 }
@@ -730,15 +734,16 @@ interface [Feature]Response {
 
 #### Business Logic
 ```typescript
-class [Feature]Service {
-  async create(data: Create[Feature]DTO): Promise<[Feature]> {
+// Service class (replace Feature with your actual feature name)
+class FeatureService {
+  async create(data: CreateFeatureRequest): Promise<FeatureResponse> {
     // Validation
     // Business rules
     // Persistence
     // Event emission
   }
 
-  async findAll(filters: FilterDTO): Promise<[Feature][]> {
+  async findAll(filters: Record<string, unknown>): Promise<FeatureResponse[]> {
     // Query building
     // Pagination
     // Caching strategy
@@ -856,7 +861,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - run: npm ci
       - run: npm test
       - run: npm run build
@@ -865,7 +870,7 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - run: npm ci --production
       - uses: [deploy-action]
 ```
@@ -965,15 +970,17 @@ logger.info({
 
 ## Cost Analysis
 
-### Running Costs (Monthly)
-| Service | Tier | Cost |
-|---------|------|------|
-| Hosting (Vercel) | Pro | $20 |
-| Database (Supabase) | Pro | $25 |
-| Redis (Upstash) | Pay-as-you-go | $10 |
-| Monitoring (Sentry) | Team | $26 |
-| Email (Resend) | Pro | $20 |
-| **Total** | | **$101** |
+> **Note:** Verify all pricing directly with each vendor before budgeting. Tiers and costs change frequently. Last verified: 2026-04.
+
+### Running Costs (Monthly — example stack, verify current pricing)
+| Service | Example Tier | Verify at |
+|---------|-------------|-----------|
+| Hosting (Vercel) | Pro | vercel.com/pricing |
+| Database (Supabase) | Pro | supabase.com/pricing |
+| Redis (Upstash) | Pay-as-you-go | upstash.com/pricing |
+| Monitoring (Sentry) | Team | sentry.io/pricing |
+| Email (Resend) | Pro | resend.com/pricing |
+| **Total** | | **Check current vendor pages** |
 
 ## Risk Mitigation
 
@@ -1370,19 +1377,21 @@ If your MVP includes AI features, define:
 ## Cost Breakdown
 
 ### Development Phase
-| Service | Free Tier | Paid | You Need |
-|---------|-----------|------|----------|
-| Cursor | Trial | Paid | Paid (worth it) |
-| Supabase | 500MB | Paid | Free sufficient |
-| Vercel | Generous | Paid | Free sufficient |
-| **Total** | **$0** | **$65** | **$20/mo** |
+| Service | Free Tier | Paid Tier | Notes |
+|---------|-----------|-----------|-------|
+| Cursor | Trial | Paid | Check cursor.com/pricing |
+| Supabase | Limited | Paid | Check supabase.com/pricing |
+| Vercel | Generous | Paid | Check vercel.com/pricing |
+| **Total** | **Varies** | **Varies** | **Verify current vendor pages** |
+
+> Last verified: 2026-04. Always check vendor pricing pages before budgeting.
 
 ### After Launch (Production)
-| Users | Monthly Cost | Notes |
-|-------|--------------|-------|
-| 0-500 | $0-20 | Mostly free tiers |
-| 500-2000 | $20-50 | Upgrade Supabase |
-| 2000+ | $50-100 | Upgrade everything |
+| Users | Cost trend | Notes |
+|-------|------------|-------|
+| 0-500 | Low | Mostly free tiers |
+| 500-2000 | Moderate | May need paid DB tier |
+| 2000+ | Higher | Likely need paid tiers across services |
 
 ## Maintenance & Updates
 - Keep dependencies stable; update intentionally
