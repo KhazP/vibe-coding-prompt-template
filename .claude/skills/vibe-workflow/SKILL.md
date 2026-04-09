@@ -26,7 +26,7 @@ First, check what already exists in the project:
 
 | File | Status | What It Means |
 |------|--------|---------------|
-| `docs/research-*.txt` | Check | Research complete |
+| `docs/research-*.md` (or `*.txt`) | Check | Research complete |
 | `docs/PRD-*.md` | Check | Requirements defined |
 | `docs/TechDesign-*.md` | Check | Architecture planned |
 | `AGENTS.md` | Check | Ready to build |
@@ -57,14 +57,14 @@ Say:
 
 Then guide them through the research phase (see vibe-research skill).
 
-### If Research Exists (has research-*.txt)
+### If Research Exists (has research-*.md or *.txt)
 
 Say:
 > **Progress Check:** Research complete!
 >
 > **Next Step:** Create your Product Requirements Document (PRD)
 >
-> I found your research at `docs/research-[name].txt`. I'll use this to inform your PRD.
+> I found your research at `docs/research-[name].md`. I'll use this to inform your PRD.
 >
 > Ready to define your product requirements?
 

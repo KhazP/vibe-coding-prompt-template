@@ -78,7 +78,7 @@ Questions are tailored to your experience level:
 - **Developer**: Technical, detailed questions
 - **In-between**: Balanced approach
 
-Output: `docs/research-[AppName].txt`
+Output: `docs/research-[AppName].md`
 
 ### /vibe-prd
 
@@ -160,15 +160,14 @@ This project includes hooks that run automatically:
 ### PostToolUse Hooks
 
 **Auto-formatting** - After file edits:
-- Runs Prettier on `.ts`, `.tsx`, `.js`, `.jsx` files
-- Runs ESLint fix on JavaScript/TypeScript
+- Runs Prettier on `.ts`, `.tsx`, `.js`, `.jsx` files (only when `node_modules/.bin/prettier` exists)
 
 ### Stop Hooks
 
-**Session Summary** - When Claude finishes:
-- Shows what was accomplished
-- Lists files modified
-- Suggests next steps
+**Git Status** - When Claude finishes:
+- Runs `git status --porcelain` and prints modified files
+- Reminds you to review changes before committing
+- Shows "No uncommitted changes" if the working tree is clean
 
 ## Hook Configuration
 

@@ -25,7 +25,7 @@ Prefer model family names in guidance unless the user explicitly requests pinned
 ## Prerequisites
 
 1. Look for `docs/PRD-*.md` in the project - this is REQUIRED
-2. Optionally check for `docs/research-*.txt` for additional context
+2. Optionally check for `docs/research-*.md` (or `*.txt` for backward compatibility) for additional context
 3. If no PRD exists, suggest running `/vibe-prd` first
 
 ## Step 1: Load Context

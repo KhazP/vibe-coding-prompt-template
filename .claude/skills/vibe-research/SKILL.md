@@ -97,7 +97,7 @@ After confirmation, generate a tailored research prompt. Use WebSearch to gather
 - Cost estimates for recommended tools
 - Similar successful projects
 
-Then write the research findings to `docs/research-[AppName].txt` in the project directory.
+Then write the research findings to `docs/research-[AppName].md` in the project directory.
 
 ## Output Format
 
@@ -115,6 +115,6 @@ The research document should include:
 
 Tell the user:
 
-> Your research is saved to `docs/research-[AppName].txt`.
+> Your research is saved to `docs/research-[AppName].md`.
 >
 > **Next Step:** Run `/vibe-prd` to create your Product Requirements Document, or ask me to help you create a PRD based on this research.

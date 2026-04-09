@@ -1,8 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Skill(frontend-design)",
-      "Skill(frontend-design:*)"
+      "Bash(exit 1)",
+      "Bash(grep -rEn '\\\\$[0-9]+\\(/mo|/month\\)' README.md part*.md templates/)"
     ]
   }
 }

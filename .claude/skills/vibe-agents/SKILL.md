@@ -243,7 +243,7 @@ Write all files to the project, then tell the user:
 > ```
 > your-app/
 > ├── docs/
-> │   ├── research-[App].txt
+> │   ├── research-[App].md
 > │   ├── PRD-[App]-MVP.md
 > │   └── TechDesign-[App]-MVP.md
 > ├── AGENTS.md

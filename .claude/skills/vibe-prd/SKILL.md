@@ -26,7 +26,7 @@ Use model family names in examples and recommendations unless the user explicitl
 
 First, check if research exists:
 
-1. Look for `docs/research-*.txt` in the project
+1. Look for `docs/research-*.md` (or `*.txt` for backward compatibility) in the project
 2. If found, read it and reference insights during Q&A
 3. If not found, proceed without it
 
