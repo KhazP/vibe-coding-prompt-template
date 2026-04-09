@@ -1,0 +1,77 @@
+name: Repo Lint
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Verify required files exist
+        run: |
+          test -f templates/agent_docs/code_patterns.md
+          test -f templates/agent_docs/product_requirements.md
+          test -f templates/agent_docs/project_brief.md
+          test -f templates/agent_docs/tech_stack.md
+          test -f templates/agent_docs/testing.md
+          test -f templates/AGENTS.md
+          test -f templates/MEMORY.md
+          test -f templates/REVIEW-CHECKLIST.md
+          test -f docs/freshness-policy.md
+          test -f docs/golden-path-checklist.md
+
+      - name: Reject placeholder security contact
+        run: |
+          if grep -rn "\[your-email\]" .github/SECURITY.md; then
+            echo "ERROR: Unresolved [your-email] placeholder found in SECURITY.md"
+            exit 1
+          fi
+
+      - name: Reject outdated actions/checkout versions
+        run: |
+          if grep -rn "actions/checkout@v[0-5]" README.md part*.md .github/; then
+            echo "ERROR: Outdated actions/checkout version found. Update to @v6."
+            exit 1
+          fi
+
+      - name: Reject stale nonexistent skill references
+        run: |
+          if grep -rn "frontend-design" .claude/settings.local.json .claude/README.md .claude/skills/ 2>/dev/null; then
+            echo "ERROR: Reference to nonexistent frontend-design skill found."
+            exit 1
+          fi
+
+      - name: Reject broken canonical filename references
+        run: |
+          if grep -rEn '`PRD\.md`|`TechDesign\.md`' README.md part*.md .claude/README.md .claude/skills/ 2>/dev/null; then
+            echo "ERROR: Stale PRD.md / TechDesign.md filename reference found. Use PRD-[AppName]-MVP.md and TechDesign-[AppName]-MVP.md."
+            exit 1
+          fi
+
+      - name: Reject stale .txt-only research references in skill files
+        run: |
+          if grep -rn 'research-.*\.txt' .claude/skills/ | grep -v '\.md.*\.txt\|or.*\.txt\|\.txt.*compat'; then
+            echo "ERROR: Skill files reference research-*.txt without .md. Update to .md (with optional .txt compat)."
+            exit 1
+          fi
+
+      - name: Reject orphaned skill directories
+        run: |
+          for dir in .claude/skills/*/; do
+            if [ ! -f "${dir}SKILL.md" ]; then
+              echo "ERROR: Orphaned skill directory found: $dir (no SKILL.md)"
+              exit 1
+            fi
+          done
+
+      - name: Warn on hardcoded price claims
+        run: |
+          # Exclude budget question prompts (user-facing ranges like "under/Up to $50/month")
+          if grep -rEn '\$[0-9]+(/mo|/month)' README.md part*.md templates/ 2>/dev/null | grep -vi 'under \$.*month\|up to \$.*month\|Budget.*Free only'; then
+            echo "ERROR: Hardcoded pricing detected. Replace with verification language."
+            exit 1
+          fi
