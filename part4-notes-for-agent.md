@@ -124,12 +124,11 @@ For developer-level projects, add these to enforce production quality:
 ### Library Governance
 - Check existing `package.json` before suggesting new dependencies
 - Prefer native APIs over libraries (fetch over axios)
-- No deprecated patterns (useEffect for data → use TanStack Query)
+- Avoid deprecated patterns; use the project's standard data-fetching approach (RSC, route loaders, query library, or direct calls — whatever `agent_docs/tech_stack.md` specifies)
 
-### The "No Apologies" Rule
-- Do NOT apologize for errors—fix them immediately
-- Do NOT generate filler text before providing solutions
-- If context is missing, ask ONE specific clarifying question
+### Clear Communication Rule
+- State issues briefly and fix them immediately; do not repeat apologies or filler text
+- If context is missing, ask ONE specific clarifying question before proceeding
 
 ### Workflow Discipline
 - Pre-commit hooks must pass before commits (or ask if they should be bypassed)
@@ -241,25 +240,6 @@ Create a folder named `agent_docs` and add these files. **Fill them with RICH DE
 - **Manual Checks:** [List]
 - **Pre-commit Hooks:** [Lint/format/tests to run before commit]
 - **Verification Loop:** Run checks after each feature and fix failures
-```
-
-#### `agent_docs/resources.md`
-*Instructions: Include for developer-level projects with references to advanced patterns.*
-```markdown
-# Essential Resources
-
-## Curated Repositories
-| Repository | Purpose |
-|------------|---------|
-| **PatrickJS/awesome-cursorrules** | Anti-vibe rule templates |
-| **OneRedOak/claude-code-workflows** | Review workflow packs |
-| **matebenyovszky/healing-agent** | Self-healing Python patterns |
-| **modelcontextprotocol/servers** | MCP server implementations |
-
-## Key Documentation
-- **MCP Protocol:** modelcontextprotocol.io
-- **Playwright Testing:** playwright.dev/docs
-- **AI Prompting Patterns:** See v0.dev system prompt patterns
 ```
 
 ---
@@ -396,10 +376,11 @@ After generating AGENTS.md and the appropriate configuration files based on thei
 ```
 your-app/
 ├── docs/
-│   ├── research-[AppName].txt
+│   ├── research-[AppName].md
 │   ├── PRD-[AppName]-MVP.md
 │   └── TechDesign-[AppName]-MVP.md
 ├── AGENTS.md                    ← Universal instructions
+├── MEMORY.md                    ← Artifact-first memory
 ├── agent_docs/                  ← Detailed documentation
 │   ├── tech_stack.md
 │   ├── code_patterns.md

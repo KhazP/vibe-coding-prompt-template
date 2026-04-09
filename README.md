@@ -37,6 +37,7 @@
 - [Advanced agent practices](#advanced-agent-practices)
 - [Project structure and deployment](#project-structure-and-deployment)
 - [Common pitfalls and troubleshooting](#common-pitfalls-and-troubleshooting)
+- [Further reading](#further-reading)
 
 ---
 
@@ -125,7 +126,7 @@ This step gives you a quick read on demand, competitors, and whether the scope l
 2. **Paste it** into your preferred AI platform Chat (like Claude.ai, ChatGPT, or Gemini) and press **Enter**.
 3. The AI will ask you a few questions about your idea. Answer them truthfully in the chat.
 4. The AI will generate a comprehensive research document based on your answers.
-5. **Save the output** into a local file named `research-[YourAppName].txt` or simply **keep this chat open** for Step 2.
+5. **Save the output** into a local file named `research-[YourAppName].md` (or `.txt`) or simply **keep this chat open** for Step 2.
 
 Tip: if your chat tool supports web search, turn it on so the stats and competitor references are current.
 </details>
@@ -138,7 +139,7 @@ This turns the rough idea into a scope you can build against.
 
 1. Copy the contents of [`part2-prd-mvp.md`](part2-prd-mvp.md).
 2. **Option A (Same Chat):** If you kept your chat open, paste the prompt right below the Deep Research output.
-3. **Option B (New Chat):** Start a fresh chat, paste your saved `research-[YourAppName].txt` content, and then paste the Part 2 prompt below it.
+3. **Option B (New Chat):** Start a fresh chat, paste your saved `research-[YourAppName].md` content, and then paste the Part 2 prompt below it.
 4. Press Enter, answer any clarifying questions the AI asks, and let it generate your requirements.
 5. **Save the final output** as `PRD-[YourAppName]-MVP.md`.
 </details>
@@ -167,9 +168,13 @@ This step fills out `AGENTS.md` and the supporting docs from your PRD and tech d
 
 1. Click **"Use this template"** in GitHub (or clone this repository locally).
 2. Open this cloned repository folder in your **AI IDE** (like Cursor or VS Code).
-3. Upload/move the formatting documents you saved (`PRD.md` and `TechDesign.md`) into your IDE.
-4. Open the AI Chat inside your IDE, type: *"Read [`part4-notes-for-agent.md`](part4-notes-for-agent.md), follow its instructions, and set up my workspace."*
-5. The agent should copy the boilerplates from `/templates/` into your project root and fill in the placeholders using your PRD and tech design.
+3. Create a `docs/` folder in your project root if it does not already exist.
+4. Move your saved documents into `docs/` using these names:
+   - `docs/PRD-[YourAppName]-MVP.md`
+   - `docs/TechDesign-[YourAppName]-MVP.md`
+   - optional: `docs/research-[YourAppName].md` (or `.txt` for backward compatibility)
+5. Open the AI Chat inside your IDE, type: *"Read [`part4-notes-for-agent.md`](part4-notes-for-agent.md), follow its instructions, and set up my workspace."*
+6. The agent should copy the boilerplates from `/templates/` into your project root and fill in the placeholders using the files in `docs/`.
 </details>
 
 ### ![Step 5](https://img.shields.io/badge/Step_5-Build_MVP-43e97b?style=flat-square) Build with AI Agent
@@ -223,7 +228,7 @@ Note: I would not use this workflow as-is for native hardware work, heavily regu
 To avoid context overload, let the agent write things down instead of trying to keep everything in one giant chat:
 - **Compaction and handoffs:** Use native compaction (`/compact` in Copilot CLI, Claude Code logic) instead of hard resets. When you switch sessions, have the agent write a `001-spec.md` or `recap.md` and load only that file into the new chat.
 - **Dynamic context (Cursor):** Let the agent save findings into real files instead of burying them in chat history.
-- If you must restart, attach `AGENTS.md`, `PRD.md`, and your latest spec file.
+- If you must restart, attach `AGENTS.md`, `docs/PRD-[YourAppName]-MVP.md`, and your latest handoff artifact.
 </details>
 
 <details open>
@@ -264,12 +269,17 @@ When an agent ignores instructions or behaves inconsistently:
 ```
 your-app/
 ├── 📁 docs/
-│   ├── research-YourApp.txt
+│   ├── research-YourApp.md
 │   ├── PRD-YourApp-MVP.md
 │   └── TechDesign-YourApp-MVP.md
 ├── 📁 agent_docs/
-│   └── tech_stack.md, project_brief.md, testing.md
+│   ├── tech_stack.md
+│   ├── code_patterns.md
+│   ├── project_brief.md
+│   ├── product_requirements.md
+│   └── testing.md
 ├── 📄 AGENTS.md                  # Universal AI instructions (The Master Contract)
+├── 📄 MEMORY.md                  # Artifact-first memory for session continuity
 ├── 📁 specs/                     # Agent handoff artifacts (e.g. 001-feature-spec.md)
 ├── 📁 .cursor/rules/             # Cursor rules (preferred)
 └── 📁 src/                       # Your application code
@@ -311,6 +321,15 @@ Once the MVP works, do a final pass on secrets, auth, and basic abuse protection
 | **"Deployment failing"** | Request: *"Walk through deployment checklist, verify env vars, then run health check."* |
 
 </details>
+
+---
+
+## Further reading
+
+- [Claude agent teams — multi-agent orchestration patterns](docs/claude-agent-teams.md)
+- [Cursor cloud agents — cloud-based Cursor agent setup](docs/cursor-cloud-agents.md)
+- [Freshness policy — how time-sensitive content is maintained](docs/freshness-policy.md)
+- [Golden path checklist — end-to-end workflow validation](docs/golden-path-checklist.md)
 
 ---
 
