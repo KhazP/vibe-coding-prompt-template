@@ -37,7 +37,7 @@ This repository provides templates for building MVPs with AI coding agents. Whil
 If you discover a security issue in the prompt templates or workflow:
 
 1. **Do NOT** open a public issue
-2. Email: [your-email] or use GitHub's private vulnerability reporting
+2. Use [GitHub's private vulnerability reporting](https://github.com/KhazP/vibe-coding-prompt-template/security/advisories/new) for this repository
 3. Include:
    - Description of the vulnerability
    - Steps to reproduce
