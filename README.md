@@ -37,6 +37,7 @@
 - [Advanced agent practices](#advanced-agent-practices)
 - [Project structure and deployment](#project-structure-and-deployment)
 - [Common pitfalls and troubleshooting](#common-pitfalls-and-troubleshooting)
+- [Open source readiness](#open-source-readiness)
 - [Further reading](#further-reading)
 
 ---
@@ -324,6 +325,39 @@ Once the MVP works, do a final pass on secrets, auth, and basic abuse protection
 
 ---
 
+## Open source readiness
+
+### Development status
+This project is currently in **Beta**. The workflow is production-used, but we still evolve prompts, docs, and tooling guidance monthly.
+
+### Existing analogues
+If you are comparing approaches before adopting this template, useful references include:
+- [libresource/open-source-checklist](https://github.com/libresource/open-source-checklist)
+- [cfpb/open-source-project-template](https://github.com/cfpb/open-source-project-template)
+- [findsimilar/find-similar CHECKLIST](https://github.com/findsimilar/find-similar/blob/main/CHECKLIST.md)
+
+### Download and releases
+- Use this repository directly via **Use this template**.
+- Stable snapshots are listed on [GitHub Releases](https://github.com/KhazP/vibe-coding-prompt-template/releases).
+
+### Communication channels
+- Discussions: [GitHub Discussions](https://github.com/KhazP/vibe-coding-prompt-template/discussions)
+- Bug reports: [GitHub Issues](https://github.com/KhazP/vibe-coding-prompt-template/issues)
+- Security reports: [Private security advisory form](https://github.com/KhazP/vibe-coding-prompt-template/security/advisories/new)
+
+### Community and policies
+This project is free and open source under MIT. Contributions are welcome in all forms (docs, examples, fixes, and suggestions).
+
+- Contribution guide: [.github/CONTRIBUTING.md](.github/CONTRIBUTING.md)
+- Code of conduct: [.github/CODE_OF_CONDUCT.md](.github/CODE_OF_CONDUCT.md)
+- Security policy: [.github/SECURITY.md](.github/SECURITY.md)
+- Governance: [.github/GOVERNANCE.md](.github/GOVERNANCE.md)
+- Support: [.github/SUPPORT.md](.github/SUPPORT.md)
+- FAQ: [.github/FAQ.md](.github/FAQ.md)
+- Checklist: [.github/CHECKLIST.md](.github/CHECKLIST.md)
+
+---
+
 ## Further reading
 
 - [Claude agent teams — multi-agent orchestration patterns](docs/claude-agent-teams.md)
@@ -347,7 +381,7 @@ This template is maintained monthly. Review tool deprecations, refresh model-fam
   </a>
 </p>
 
-PRs and issues are welcome. If you adapt this workflow, add a new tool setup, or ship something interesting with it, that is useful context for everyone else too. See [.github/CONTRIBUTING.md](.github/CONTRIBUTING.md) for guidelines.
+PRs and issues are welcome. If you adapt this workflow, add a new tool setup, or ship something interesting with it, that is useful context for everyone else too. For community Q&A and roadmap ideas, use [Discussions](https://github.com/KhazP/vibe-coding-prompt-template/discussions). See [.github/CONTRIBUTING.md](.github/CONTRIBUTING.md) for contribution guidelines.
 
 ---
 
