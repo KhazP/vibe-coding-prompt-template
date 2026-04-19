@@ -23,6 +23,12 @@ jobs:
           test -f templates/REVIEW-CHECKLIST.md
           test -f docs/freshness-policy.md
           test -f docs/golden-path-checklist.md
+          test -f .github/GOVERNANCE.md
+          test -f .github/SUPPORT.md
+          test -f .github/FAQ.md
+          test -f .github/CHECKLIST.md
+          test -f .github/workflows/greetings.yml
+          test -f .github/workflows/pr-size-labeler.yml
 
       - name: Reject placeholder security contact
         run: |

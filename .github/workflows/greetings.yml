@@ -1,0 +1,43 @@
+name: New User Greetings
+
+on:
+  issues:
+    types: [opened]
+  pull_request_target:
+    types: [opened]
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Welcome first-time contributors
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const isIssue = !!context.payload.issue;
+            const item = isIssue ? context.payload.issue : context.payload.pull_request;
+            const assoc = item.author_association;
+
+            if (!['FIRST_TIME_CONTRIBUTOR', 'FIRST_TIMER'].includes(assoc)) {
+              core.info(`Skipping greeting for association: ${assoc}`);
+              return;
+            }
+
+            const message = isIssue
+              ? `Thanks for opening your first issue in this repository. We appreciate you taking time to improve the vibe-coding workflow. A maintainer will review your report soon.`
+              : `Thanks for your first pull request. Please make sure the PR template is complete and links are verified. We appreciate your contribution.`;
+
+            const issueNumber = isIssue
+              ? context.payload.issue.number
+              : context.payload.pull_request.number;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body: message
+            });
