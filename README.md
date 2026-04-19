@@ -37,7 +37,6 @@
 - [Advanced agent practices](#advanced-agent-practices)
 - [Project structure and deployment](#project-structure-and-deployment)
 - [Common pitfalls and troubleshooting](#common-pitfalls-and-troubleshooting)
-- [Open source readiness](#open-source-readiness)
 - [Further reading](#further-reading)
 
 ---
@@ -322,19 +321,6 @@ Once the MVP works, do a final pass on secrets, auth, and basic abuse protection
 | **"Deployment failing"** | Request: *"Walk through deployment checklist, verify env vars, then run health check."* |
 
 </details>
-
----
-
-## Open source readiness
-
-### Development status
-This project is currently in **Beta**. The workflow is production-used, but we still evolve prompts, docs, and tooling guidance monthly.
-
-### Existing analogues
-If you are comparing approaches before adopting this template, useful references include:
-- [libresource/open-source-checklist](https://github.com/libresource/open-source-checklist)
-- [cfpb/open-source-project-template](https://github.com/cfpb/open-source-project-template)
-- [findsimilar/find-similar CHECKLIST](https://github.com/findsimilar/find-similar/blob/main/CHECKLIST.md)
 
 ### Download and releases
 - Use this repository directly via **Use this template**.
