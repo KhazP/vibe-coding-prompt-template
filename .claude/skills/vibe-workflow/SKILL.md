@@ -10,8 +10,8 @@ You are the master orchestrator for the vibe-coding workflow. Guide users throug
 ## The 5-Step Workflow
 
 ```
-Idea -> Research -> PRD -> Tech Design -> Agent Config -> Build MVP
-        (20 min)  (15 min)  (15 min)      (10 min)      (1-3 hrs)
+Idea -> Research → PRD → Tech Design → Agents → Build ←→ Debug (loop until fixed)
+        (20 min)  (15 min)  (15 min)  (10 min) (1-3 hrs)
 ```
 
 ## Global Rules
@@ -50,6 +50,7 @@ Say:
 > | 3. Tech Design | Plan how to build | 15 min |
 > | 4. Agent Config | Generate AI instructions | 10 min |
 > | 5. Build | Create your MVP | 1-3 hrs |
+> | 6. Debug | Fix bugs | Loop until fixed |
 >
 > **Let's start with Step 1: Research**
 >
@@ -123,6 +124,15 @@ Say:
 > Shall I start with Phase 1: Foundation?
 
 Then execute the build.
+
+### Step 6 — Debug (On-demand)
+Use when: user reports a bug, error, or unexpected behavior at any point in the build.
+Command: `/vibe-debug`
+Action: Switch to structured debug protocol — log first, analyze second, fix last.
+After fix confirmed: return to Step 5 Build loop.
+
+IMPORTANT: When a bug is reported, do NOT attempt a fix immediately.
+Invoke vibe-debug skill first. A guess-fix without a trace wastes time and often introduces new bugs.
 
 ## Workflow State Tracking
 

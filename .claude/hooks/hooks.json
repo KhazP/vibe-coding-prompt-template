@@ -20,6 +20,15 @@
             "timeout": 5000
           }
         ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Before writing: have you traced the data flow and confirmed root cause? If this is a bug fix attempt, ensure debug-log.md exists and hypothesis is documented. If not, pause and run /vibe-debug first."
+          }
+        ]
       }
     ],
     "PostToolUse": [

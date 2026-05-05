@@ -189,3 +189,16 @@ When the MVP is fully built:
 > 3. Prioritize v2 features
 >
 > Congratulations on shipping your MVP!
+
+## When a Bug Is Found During Build
+
+Do NOT attempt to fix inline. Follow this order:
+
+1. Stop current build task.
+2. Activate vibe-debug skill: log the failure, trace data flow, form one hypothesis.
+3. Apply minimal fix only after root cause is confirmed.
+4. Verify fix works and no regression introduced.
+5. Resume build from where you left off.
+
+Anti-pattern to avoid: "I think the issue might be X, let me try changing Y." 
+This is a guess, not a fix. Always trace before touching code.
