@@ -110,6 +110,9 @@ jobs:
             --exclude 'https?://([^/]*\.)?x\.com'
             --exclude 'https?://([^/]*\.)?twitter\.com'
             --exclude 'https?://([^/]*\.)?linkedin\.com'
+            # GitHub intermittently bot-blocks CI traffic on its decorative UI
+            # pages (404 on /stargazers etc.) — these badge targets are fine for humans.
+            --exclude 'https://github\.com/KhazP/vibe-coding-prompt-template/(stargazers|issues|network/members|graphs/contributors)'
             README.md
             docs/
             .claude/README.md

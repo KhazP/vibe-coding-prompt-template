@@ -14,7 +14,7 @@
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg?style=flat-square" alt="MIT License"/></a>
-  <a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="PRs Welcome"/></a>
+  <a href=".github/CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="PRs Welcome"/></a>
   <a href="https://github.com/KhazP/vibe-coding-prompt-template/stargazers"><img src="https://img.shields.io/github/stars/KhazP/vibe-coding-prompt-template?style=flat-square&color=yellow" alt="Stars"/></a>
   <a href="https://github.com/KhazP/vibe-coding-prompt-template/issues"><img src="https://img.shields.io/github/issues/KhazP/vibe-coding-prompt-template?style=flat-square" alt="Issues"/></a>
 </p>
@@ -350,7 +350,7 @@ This project is free and open source under MIT. Contributions are welcome in all
 - Governance: [.github/GOVERNANCE.md](.github/GOVERNANCE.md)
 - Support: [.github/SUPPORT.md](.github/SUPPORT.md)
 - FAQ: [.github/FAQ.md](.github/FAQ.md)
-- Checklist: [.github/CHECKLIST.md](.github/CHECKLIST.md)
+- Changelog: [docs/CHANGELOG.md](docs/CHANGELOG.md)
 
 ---
 
