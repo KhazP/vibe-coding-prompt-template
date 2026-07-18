@@ -78,7 +78,9 @@ jobs:
       - name: Warn on hardcoded price claims
         run: |
           # Exclude budget question prompts (user-facing ranges like "under/Up to $50/month")
-          if grep -rEn '\$[0-9]+(/mo|/month)' README.md part*.md templates/ docs/ .claude/ 2>/dev/null | grep -vi 'under \$.*month\|up to \$.*month\|Budget.*Free only'; then
+          # and Handoff Context confirmation examples ("Got it — level B, web app, ~$50/mo ... — right?"),
+          # which quote the USER's budget back to them rather than claiming a vendor price.
+          if grep -rEn '\$[0-9]+(/mo|/month)' README.md part*.md templates/ docs/ .claude/ 2>/dev/null | grep -vi 'under \$.*month\|up to \$.*month\|Budget.*Free only\|Got it'; then
             echo "ERROR: Hardcoded pricing detected. Replace with verification language."
             exit 1
           fi
