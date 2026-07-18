@@ -30,7 +30,8 @@ Please type A, B, or C:
 
 ### Freshness & Grounding
 - If the platform supports web search or tool use, enable it for up-to-date stats and competitor info
-- Cite source URLs with access dates for major claims and flag uncertain data
+- **With web search:** cite source URLs with access dates for major claims and flag uncertain data
+- **Without web access:** never invent URLs, dates, or statistics — label factual claims "Unverified — model knowledge"
 - Distinguish sourced facts from model knowledge when needed
 
 ### Session Continuity
@@ -41,6 +42,11 @@ Please type A, B, or C:
 </details>
 
 Based on the user's response, follow the appropriate question path below. Ask questions **one at a time** and wait for responses before proceeding.
+
+> **Interview rules (apply to all paths):**
+> - If the user answers several questions at once, accept the answers, skip the answered questions, and continue with the unanswered ones.
+> - If the user says "I don't know" or seems unsure, propose a sensible default and ask them to confirm it.
+> - After any correction during the Verification Echo, re-echo the updated understanding and get fresh confirmation before proceeding.
 
 > **Important**: After completing all questions, you MUST perform a **Verification Echo** before generating the research prompt. This confirms your understanding is correct.
 
@@ -136,7 +142,7 @@ After completing ALL questions, summarize your understanding back to the user:
 >
 > Is this accurate? Should I adjust anything before creating your research prompt?"
 
-Wait for user confirmation before proceeding. If they correct anything, update your understanding.
+Wait for user confirmation before proceeding. If they correct anything, update your understanding and re-echo the corrected summary for confirmation before moving on.
 
 ---
 
@@ -200,11 +206,35 @@ I'm a non-technical founder building [description]. I need beginner-friendly res
 3. **MVP Features** — Must-have vs nice-to-have prioritization
 4. **Development Roadmap** — With AI assistance strategy
 5. **Budget Breakdown** — Tools, services, deployment costs
+
+### Document Structure (organize the research document under these exact section headings):
+1. **Project name** — product name and one-line description
+2. **Core concept** — what it is, the problem it solves, why now
+3. **Target users** — who it's for, their needs and pain points
+4. **Technical decisions (if any)** — recommended tools/platform (detailed architecture options are explored later in the Tech Design step)
+5. **Competitor insights** — similar solutions, what users love/hate, gaps to exploit
+6. **Budget/timeline** — cost estimates and launch timeframe
+7. **Handoff Context** — end the document with this block, filled in:
+
+---
+## Handoff Context
+<!-- Machine-readable summary for the next workflow step. Do not delete; the next prompt in the workflow reads this block. -->
+- Stage: research
+- App name: [app name]
+- User level: [A | B | C]  (A = vibe coder, B = developer, C = in-between)
+- Target platform: [web / mobile / desktop]
+- Budget: [budget]
+- Timeline: [timeline]
+- Source files: research-[AppName].md
+---
 </instructions>
 
 <output_format>
 - Explain everything in plain English with examples
-- **Include source URLs with access dates** for each major recommendation
+- **Sourcing rules — follow the branch that applies to you:**
+  - If you have web search/browsing: include source URLs with access dates for each major recommendation
+  - If you do NOT have web access: label every factual claim "Unverified — model knowledge" and NEVER invent URLs, dates, or statistics
+- Never invent numbers, market sizes, or competitor facts — if unknown, label it an assumption
 - Use tables for comparisons
 - Highlight any conflicting information between sources
 </output_format>
@@ -247,23 +277,39 @@ I need comprehensive technical research on [topic] for [context].
 - Cost optimization with current cloud pricing
 - Development velocity estimates with AI assistance
 
-### Premium UI/Design Research:
-- Design system generators and component libraries
-- Figma-to-code tools
-- Generative UI approaches
-- Design token standardization patterns
+### Looking Ahead (one line each — details belong to the Tech Design step):
+- Premium UI/design options (design systems, Figma-to-code, generative UI) are explored in the Tech Design step — note only the high-level direction here.
+- Agent architecture options (planner-executor loops, tool integration protocols) are explored in the Tech Design step — skip deep detail here.
 
-### Agent Architecture Research:
-- Planner-Executor-Reviewer (PER) loop patterns
-- MCP (Model Context Protocol) integration options
-- Self-healing code and test strategies
-- Visual verification workflows
+### Document Structure (organize the research document under these exact section headings):
+1. **Project name** — project name and one-line description
+2. **Core concept** — what it is, the problem it solves, why now
+3. **Target users** — who it's for, their needs and pain points
+4. **Technical decisions (if any)** — stack/platform choices this research informs (detailed architecture options are explored later in the Tech Design step)
+5. **Competitor insights** — competing solutions, strengths/weaknesses, gaps to exploit
+6. **Budget/timeline** — cost estimates and delivery timeframe
+7. **Handoff Context** — end the document with this block, filled in:
+
+---
+## Handoff Context
+<!-- Machine-readable summary for the next workflow step. Do not delete; the next prompt in the workflow reads this block. -->
+- Stage: research
+- App name: [app name]
+- User level: [A | B | C]  (A = vibe coder, B = developer, C = in-between)
+- Target platform: [web / mobile / desktop]
+- Budget: [budget]
+- Timeline: [timeline]
+- Source files: research-[AppName].md
+---
 </instructions>
 
 <output_format>
 - Provide detailed technical findings with code examples
 - Include architecture diagrams (describe in text or Mermaid.js)
-- **Cite sources with URLs and access dates** for each major finding
+- **Sourcing rules — follow the branch that applies to you:**
+  - If you have web search/browsing: cite source URLs with access dates for each major finding
+  - If you do NOT have web access: label every factual claim "Unverified — model knowledge" and NEVER invent URLs, dates, or statistics
+- Never invent numbers, market sizes, benchmarks, or competitor facts — if unknown, label it an assumption
 - Use tables for comparisons
 - **Explicitly note where sources disagree** or data is uncertain
 - Include pros/cons for each major recommendation
@@ -306,11 +352,35 @@ I'm building [description] with some technical knowledge. I need research that b
 4. **Roadmap** — Development with skill milestones
 5. **Resources** — Learning materials (prioritized)
 6. **Budget** — Forecast with tool subscriptions
+
+### Document Structure (organize the research document under these exact section headings):
+1. **Project name** — product name and one-line description
+2. **Core concept** — what it is, the problem it solves, why now
+3. **Target users** — who it's for, their needs and pain points
+4. **Technical decisions (if any)** — recommended stack/platform (detailed architecture options are explored later in the Tech Design step)
+5. **Competitor insights** — similar solutions, what users like/dislike, gaps to exploit
+6. **Budget/timeline** — cost estimates and launch timeframe
+7. **Handoff Context** — end the document with this block, filled in:
+
+---
+## Handoff Context
+<!-- Machine-readable summary for the next workflow step. Do not delete; the next prompt in the workflow reads this block. -->
+- Stage: research
+- App name: [app name]
+- User level: [A | B | C]  (A = vibe coder, B = developer, C = in-between)
+- Target platform: [web / mobile / desktop]
+- Budget: [budget]
+- Timeline: [timeline]
+- Source files: research-[AppName].md
+---
 </instructions>
 
 <output_format>
 - Assume basic programming knowledge, explain advanced concepts
-- **Include source URLs with access dates** for recommendations
+- **Sourcing rules — follow the branch that applies to you:**
+  - If you have web search/browsing: include source URLs with access dates for each major recommendation
+  - If you do NOT have web access: label every factual claim "Unverified — model knowledge" and NEVER invent URLs, dates, or statistics
+- Never invent numbers, market sizes, or competitor facts — if unknown, label it an assumption
 - Use tables for comparisons
 - **Note any conflicting information** between sources
 - Provide pros/cons for major decisions
@@ -323,23 +393,17 @@ I'm building [description] with some technical knowledge. I need research that b
 
 After generating the appropriate research prompt, say:
 
-"Session continuity reminder: save a short summary of this research and reuse it in Part 2 instead of restarting from scratch."
+"Session continuity reminder: when the research is done, save the FULL research document as `research-[YourAppName].md` — you'll attach that file in Part 2 (the PRD generator) instead of restarting from scratch. Keep the `## Handoff Context` block at the end of the document intact when you save — Part 2 reads it to skip re-asking questions."
 
 "I've created your research prompt above. Here's how to get the best results:
 
-### Recommended AI Platforms for Research:
-
-| Platform | Best For |
-|----------|----------|
-| **Claude** | Technical accuracy, code analysis |
-| **Gemini** | Comprehensive research (large context) |
-| **ChatGPT** | Quick iterations, reasoning tasks |
+**Platform pick:** See the "AI Platform Recommendations for Research" table at the top of this file. In short: Claude for technical accuracy, Gemini for large-context research, ChatGPT for quick iterations.
 
 ### How to Use:
 1. Copy the research prompt above
 2. Paste it into your chosen AI platform
 3. Wait for the research (may take 10-20 minutes for comprehensive results)
-4. Review the sources cited — verify critical recommendations
+4. Review the sources cited (if web search was used) — verify critical recommendations. If the research labels claims "Unverified — model knowledge", double-check the important ones yourself
 
 **Pro tip**: Run the same prompt on 2 different platforms and compare results. This catches blind spots and validates recommendations.
 

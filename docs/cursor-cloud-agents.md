@@ -1,5 +1,7 @@
 # Cursor Cloud Agents & Dynamic Context (2026 Guide)
 
+> Last verified: 2026-07
+
 As of early 2026, Cursor has shifted heavily toward **Cloud Agents** and **Dynamic Context Discovery**. If you are using Cursor for your MVP build (Step 5 of the vibe-coding workflow), use these patterns to prevent context bloat and silent breakages.
 
 ## 1. File-Centric Memory (Dynamic Context)

@@ -1,35 +1,71 @@
-# Claude Code & Agent Teams (2026 Guide)
+# Claude Code: Subagents & Agent Teams
 
-In February 2026, Anthropic significantly upgraded the Claude CLI to support **Agent Teams**. For vibe-coding MVPs, this represents a massive speed and safety upgrade. You no longer have to rely on a single agent trying to rewrite your entire stack at once.
+> Last verified: 2026-07
 
-## 1. What are Agent Teams?
+Claude Code ships two ways to split work across multiple agents: **subagents** (helpers inside your session) and **agent teams** (independent Claude sessions working in parallel). For vibe-coding MVPs, both are a big speed and safety upgrade over one agent trying to rewrite your whole stack at once.
 
-Claude Code can now spawn teammates that work in parallel, maintaining their own context windows. 
+## 1. Subagents (built-in, on by default)
 
-Instead of typing: *"Build my authentication system"*, you should now establish a squad.
+Subagents are specialized helpers that work in their own context window and return only a summary, so your main chat stays clean. Claude Code includes built-in subagents like **Explore** (read-only codebase search) and **Plan** (research for planning), and you can define your own in `.claude/agents/`.
 
-### The "Team Lead" Pattern
-Open Claude Code and use this prompt:
-> *"Read `AGENTS.md`. You are the Team Lead. Please spawn a Researcher teammate to read my existing DB schema, and a Coder teammate to write the new auth routes. You must approve the Coder's plan before they write any code."*
+Useful prompts:
 
-This isolates tasks. The Researcher reads files, the Coder writes files, and the Lead manages the task list. 
+> *"Use the Explore subagent to map out how my auth flow works before we change anything."*
 
-## 2. Using "Plan Mode"
+> *"Spawn subagents in parallel: one to research form libraries, one to check how my current validation works. Summarize both."*
 
-To stop AI from randomly destroying working code, aggressively use the new Plan-First methodology.
+Source: [Claude Code subagents docs](https://docs.anthropic.com/en/docs/claude-code/subagents)
 
-- **Rule:** Never let a teammate execute directly on a complex feature. 
-- Instruct the Lead Agent: *"Before any teammate modifies files in `src/`, they must present a markdown plan and wait for my 'go ahead'."*
-- This workflow dramatically reduces silent regressions. 
+## 2. Agent Teams (experimental)
 
-## 3. Auto-Compaction vs Context Limits
+Agent teams coordinate several full Claude Code instances at once. Your main session acts as the **team lead**: it spawns **teammates**, keeps a shared task list, and synthesizes results. Each teammate works in its own context window, and teammates can message each other directly.
 
-Claude handles long context brilliantly, but over a 3-hour vibe-coding session, the agent will slow down. 
+Agent teams are experimental and disabled by default. Enable them in `.claude/settings.json`:
 
-- Use Claude's new **compaction** capability natively instead of wiping the chat.
-- Tell Claude: *"We are switching contexts from the Frontend to the Backend. Please trigger an auto-compaction of this session's history to focus only on backend state."*
-- Pair this with appending updates to your physical `MEMORY.md` file whenever a major module is completed.
+```json
+{
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  }
+}
+```
 
-## 4. Voice Commands (Optional)
+### The "Team Lead" pattern
 
-If you are using the latest Claude Code capabilities, you can interface via voice to dictate complex logic tweaks or PRD adjustments, which Claude will transcribe and inject straight into the Team Lead's task queue. This is incredibly helpful when you're reviewing a frontend visually and just want to "speak" your feedback.
+Once enabled, describe the team you want in plain language:
+
+> *"Read `AGENTS.md`. You are the Team Lead. Spawn a Researcher teammate to read my existing DB schema, and a Coder teammate to write the new auth routes."*
+
+This isolates work: the Researcher reads files, the Coder writes files, and the Lead manages the task list. You can also watch any teammate and message it directly from the agent panel below the prompt input.
+
+### Require plan approval
+
+For anything risky, make teammates plan before they touch code:
+
+> *"Spawn an architect teammate to refactor the authentication module. Require plan approval before they make any changes."*
+
+The teammate works in read-only plan mode until the lead approves its plan. You can give the lead criteria, e.g. *"only approve plans that include test coverage"* — and you still make the final call, since permission prompts bubble up to your session.
+
+### What teams are good (and bad) at
+
+- **Good:** parallel research, PR review from several angles, features where each teammate owns different files, debugging with competing hypotheses.
+- **Bad:** sequential work, edits to the same file (teammates will overwrite each other), quick one-off changes.
+- **Cost:** each teammate is a separate Claude instance, so token use scales with team size. Start with 3–5 teammates.
+- **Limitations:** experimental — in-process teammates don't survive `/resume`, one team per session, teammates can't spawn their own teammates.
+
+Source: [Claude Code agent teams docs](https://docs.anthropic.com/en/docs/claude-code/agent-teams)
+
+## 3. A safe orchestration pattern for MVPs
+
+Regardless of which feature you use, this rhythm keeps parallel agents from breaking working code:
+
+1. **Lead plans first.** Ask the lead agent to read `AGENTS.md` and produce a step-by-step plan before anyone writes code.
+2. **Execute in owned lanes.** Give each worker agent its own files or modules so nobody collides.
+3. **Review before merge.** Have the lead (or a reviewer subagent) check the work against the plan and your `MEMORY.md` notes before you accept it.
+
+## 4. Managing long sessions
+
+Over a multi-hour vibe-coding session, any agent's context fills up and it slows down.
+
+- Use `/compact` (or let auto-compaction kick in) to summarize history instead of wiping the chat.
+- After finishing a module, ask Claude to append key decisions to your physical `MEMORY.md` file, so a fresh session — or a fresh teammate — can reload context from disk.

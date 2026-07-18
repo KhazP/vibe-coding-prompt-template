@@ -1,6 +1,7 @@
 ---
 name: vibe-workflow
 description: Complete 5-step workflow to build an MVP from idea to launch. Use when the user wants to start a new project from scratch, go through the full workflow, or says "help me build an MVP", "start new project", or "vibe coding workflow".
+allowed-tools: Read, Write, Glob, Grep, AskUserQuestion
 ---
 
 # Vibe-Coding Workflow
@@ -32,7 +33,7 @@ First, check what already exists in the project:
 | `AGENTS.md` | Check | Ready to build |
 | `src/` or `app/` | Check | Building started |
 
-Based on findings, identify where the user is in the workflow.
+Based on findings, identify where the user is in the workflow. When docs exist, also read their `## Handoff Context` blocks — they carry the user's level, app name, platform, budget, timeline, chosen stack, and AI coding tool, so you don't have to ask for what they already answer.
 
 ## Step 2: Guide to Next Step
 
@@ -95,6 +96,8 @@ Say:
 >
 > I'll create:
 > - `AGENTS.md` - Master build plan
+> - `MEMORY.md` - Session memory between chats
+> - `REVIEW-CHECKLIST.md` - Definition of done (quality + security)
 > - `agent_docs/` - Detailed specifications
 > - Tool configs based on your choices
 >

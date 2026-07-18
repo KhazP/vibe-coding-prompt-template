@@ -30,6 +30,8 @@ Use model family names in examples and recommendations unless the user explicitl
 
 ## Step 1: Load Context
 
+**Handoff Context block? Read it first.** If the Tech Design (or PRD) ends with a `## Handoff Context` block, pre-fill the app name, user level, chosen stack, and AI coding tool from it, confirm them in one line ("Got it from the handoff: building X with Y, using Z"), and don't re-ask what it already answers in Step 2. No Handoff Context block? Just ask — older documents won't have it.
+
 Extract from documents:
 
 **From PRD:**
@@ -68,13 +70,44 @@ Then ask:
 > - B) Developer
 > - C) In-between
 
-## Step 3: Generate Files
+## Step 3: Instantiate the Templates
 
-Create the following structure:
+This repository ships the canonical templates in `/templates/`. **Read and instantiate them — do NOT write your own versions of these files.**
+
+Copy ALL of these into the project root:
+
+| Template | Destination |
+|---|---|
+| `templates/AGENTS.md` | `AGENTS.md` |
+| `templates/MEMORY.md` | `MEMORY.md` |
+| `templates/REVIEW-CHECKLIST.md` | `REVIEW-CHECKLIST.md` |
+| `templates/agent_docs/*.md` (all five files) | `agent_docs/` |
+
+Then fill every placeholder using the PRD and Tech Design. Templates use exactly two placeholder kinds:
+
+- `[REPLACE: description]` — fill in with project-specific content.
+- `[CHOOSE: option A | option B | option C]` — pick the ONE matching option and delete the rest.
+
+No square-bracket placeholders may remain when you're done.
+
+Key fills:
+
+- **AGENTS.md** — Overview & Stack, Setup & Commands from the Tech Design. Tune the existing behavioral sections (`How I Should Think`, `What NOT To Do`, `Engineering Constraints`) to the user's level — fill, don't create. Fill Roadmap Phase 2 with the PRD's must-have features. Set Current State to "Project setup — nothing built yet".
+- **MEMORY.md** — Initialize `## 🏗️ Active Phase & Goal` from the PRD's Phase 1.
+- **REVIEW-CHECKLIST.md** — Copy as-is; it has no placeholders.
+- **agent_docs/tech_stack.md** — Every library, version, and setup command from the Tech Design, plus short canonical code examples.
+- **agent_docs/code_patterns.md** — Resolve the CHOOSE lists (architecture pattern, data fetching, file naming) from the Tech Design.
+- **agent_docs/project_brief.md** — Product vision and conventions.
+- **agent_docs/product_requirements.md** — Complete feature list (MoSCoW), user stories, and success metrics from the PRD.
+- **agent_docs/testing.md** — Test frameworks and commands per the Tech Design.
+
+Resulting structure:
 
 ```
 project/
 ├── AGENTS.md                    # Master plan
+├── MEMORY.md                    # Session memory
+├── REVIEW-CHECKLIST.md          # Definition of done
 ├── agent_docs/
 │   ├── tech_stack.md           # Tech details
 │   ├── code_patterns.md        # Code style
@@ -82,153 +115,58 @@ project/
 │   ├── product_requirements.md # PRD summary
 │   └── testing.md              # Test strategy
 ├── CLAUDE.md                   # If Claude Code selected
-├── GEMINI.md                   # If Gemini/agent-first IDE selected
-├── .cursor/rules/              # If Cursor selected (preferred)
-├── .cursorrules                # Cursor legacy fallback
-└── .github/copilot-instructions.md  # If Copilot selected
+├── .cursor/rules/vibe.mdc      # If Cursor selected
+├── .agent/rules/vibe.md        # If Antigravity selected
+└── (Codex needs nothing — it reads AGENTS.md natively)
 ```
 
-## AGENTS.md Template
+## Step 4: Generate Tool Configs
 
-```markdown
-# AGENTS.md - Master Plan for [App Name]
+AGENTS.md is the universal contract — Codex reads it natively, and most modern agents do too. Tool configs are thin adapters that point at it. Ready-to-copy versions live in `templates/tool-adapters/`.
 
-## Project Overview
-**App:** [Name]
-**Goal:** [One-liner]
-**Stack:** [Tech stack]
-**Current Phase:** Phase 1 - Foundation
-
-## How I Should Think
-1. **Understand Intent First**: Identify what the user actually needs
-2. **Ask If Unsure**: If critical info is missing, ask before proceeding
-3. **Plan Before Coding**: Propose a plan, get approval, then implement
-4. **Verify After Changes**: Run tests/checks after each change
-5. **Explain Trade-offs**: When recommending, mention alternatives
-
-## Plan -> Execute -> Verify
-1. **Plan:** Outline approach, ask for approval
-2. **Execute:** One feature at a time
-3. **Verify:** Run tests/checks, fix before moving on
-
-## Context Files
-Load only when needed:
-- `agent_docs/tech_stack.md` - Tech details
-- `agent_docs/code_patterns.md` - Code style
-- `agent_docs/project_brief.md` - Project rules
-- `agent_docs/product_requirements.md` - Requirements
-- `agent_docs/testing.md` - Test strategy
-
-## Current State
-**Last Updated:** [Date]
-**Working On:** [Task]
-**Recently Completed:** None yet
-**Blocked By:** None
-
-## Roadmap
-
-### Phase 1: Foundation
-- [ ] Initialize project
-- [ ] Setup database
-- [ ] Configure auth
-
-### Phase 2: Core Features
-- [ ] [Feature 1 from PRD]
-- [ ] [Feature 2 from PRD]
-- [ ] [Feature 3 from PRD]
-
-### Phase 3: Polish
-- [ ] Error handling
-- [ ] Mobile responsiveness
-- [ ] Performance optimization
-
-### Phase 4: Launch
-- [ ] Deploy to production
-- [ ] Setup monitoring
-- [ ] Launch checklist
-
-## What NOT To Do
-- Do NOT delete files without confirmation
-- Do NOT modify database schemas without backup plan
-- Do NOT add features not in current phase
-- Do NOT skip tests for "simple" changes
-- Do NOT use deprecated libraries
-```
-
-## Tool Config Templates
+| Tool | File | What it is |
+|---|---|---|
+| Claude Code | `CLAUDE.md` | 3-line pointer to `AGENTS.md` + `agent_docs/` |
+| Codex | — none — | Nothing; `AGENTS.md` is Codex's native instruction file. Optional: `~/.codex/prompts/` for personal slash prompts |
+| Antigravity | `.agent/rules/vibe.md` | Always-on workspace rule pointing at `AGENTS.md` |
+| Cursor | `.cursor/rules/vibe.mdc` | Rule with `alwaysApply: true` pointing at `AGENTS.md` |
+| Any other tool | its custom-instructions feature | "Read AGENTS.md — it is the source of truth for this project." (Gemini CLI users: point it at AGENTS.md the same way.) |
 
 ### CLAUDE.md (Claude Code)
 
 ```markdown
-# CLAUDE.md - Claude Code Configuration
+# CLAUDE.md
 
-## Project Context
-**App:** [Name]
-**Stack:** [Stack]
-**Stage:** MVP Development
-
-## Directives
-1. **Master Plan:** Read `AGENTS.md` first for current phase and tasks
-2. **Documentation:** Refer to `agent_docs/` for details
-3. **Plan-First:** Propose plan, wait for approval
-4. **Incremental:** One feature at a time, test frequently
-5. **Concise:** Be brief, ask clarifying questions when needed
-
-## Commands
-- `npm run dev` - Start server
-- `npm test` - Run tests
-- `npm run lint` - Check code style
+Read AGENTS.md first. It is the source of truth for this project: roadmap, commands, rules.
+Implementation details live in `agent_docs/` — consult them before coding.
+Plan before coding, build one feature at a time, verify before moving on.
 ```
 
-### Cursor Rules (Cursor)
+### .cursor/rules/vibe.mdc (Cursor)
 
-Prefer `.cursor/rules/` for modern Cursor setups. Use `.cursorrules` only as a fallback.
+Legacy `.cursorrules` still loads but is deprecated — delete it if one exists.
 
 ```markdown
-# Cursor Rules for [App Name]
+---
+description: Vibe-coding project rules — source of truth is AGENTS.md
+alwaysApply: true
+---
 
-## Project Context
-**App:** [Name]
-**Stack:** [Stack]
-**Stage:** MVP Development
-
-## Directives
-1. Read `AGENTS.md` first
-2. Refer to `agent_docs/` for details
-3. Plan before coding
-4. Build incrementally
-5. Test frequently
-
-## Commands
-- `npm run dev` - Start server
-- `npm test` - Run tests
+Read AGENTS.md first. It is the source of truth: roadmap, commands, rules. Details live in `agent_docs/`.
+- Plan before coding; get approval, then build one feature at a time.
+- Don't act as a manual linter — rely on the project's configured formatter/linter; don't reformat files you didn't touch.
+- Never delete files or change the database schema without confirmation.
 ```
 
-### GEMINI.md (Gemini CLI / Agent-First IDE)
+### .agent/rules/vibe.md (Antigravity)
+
+Current Antigravity reads `AGENTS.md` natively; this always-on workspace rule reinforces it. Global rules live in `~/.gemini/GEMINI.md`.
 
 ```markdown
-# GEMINI.md - Gemini Configuration
-
-## Project Context
-**App:** [Name]
-**Stack:** [Stack]
-
-## Directives
-1. Read `AGENTS.md` first
-2. Use `agent_docs/` for details
-3. Plan, then execute
-4. Build incrementally
+Read AGENTS.md first. It is the source of truth for this project: roadmap, commands, rules.
+Implementation details live in `agent_docs/` — consult them before coding.
+Plan before coding, build one feature at a time, verify before moving on.
 ```
-
-## agent_docs/ Files
-
-Generate each file with content from PRD and Tech Design:
-
-- **tech_stack.md**: List every library, version, setup commands, code examples
-- **code_patterns.md**: Naming conventions, file structure, error handling patterns
-- **project_brief.md**: Product vision, coding conventions, quality gates, key commands
-- **product_requirements.md**: Core requirements, user stories, success metrics
-- **testing.md**: Test strategy, tools, verification loop, pre-commit hooks
 
 ## After Completion
 
@@ -236,6 +174,8 @@ Write all files to the project, then tell the user:
 
 > **Files Created:**
 > - `AGENTS.md` - Master plan
+> - `MEMORY.md` - Session memory
+> - `REVIEW-CHECKLIST.md` - Definition of done
 > - `agent_docs/` - Detailed documentation
 > - [Tool-specific configs based on selection]
 >
@@ -247,6 +187,8 @@ Write all files to the project, then tell the user:
 > │   ├── PRD-[App]-MVP.md
 > │   └── TechDesign-[App]-MVP.md
 > ├── AGENTS.md
+> ├── MEMORY.md
+> ├── REVIEW-CHECKLIST.md
 > ├── agent_docs/
 > │   ├── tech_stack.md
 > │   ├── code_patterns.md

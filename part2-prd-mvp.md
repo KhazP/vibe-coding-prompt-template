@@ -21,6 +21,7 @@ Once you've attached the file (or indicated you don't have one), please tell me 
 - C) **Somewhere in between** — Some coding knowledge, still learning
 
 Please attach your research file (or type "no file") and type A, B, or C:
+(If your research document ends with a **Handoff Context** block, I'll read these answers from it — just confirm.)
 
 ---
 
@@ -54,16 +55,26 @@ Wait for the user to either:
 1. Attach their research findings file, OR
 2. Indicate they don't have one
 
-If they attach a file, quickly scan it for:
-- Project name and core concept
-- Target users mentioned
-- Technical decisions made
-- Competitor insights
-- Budget/timeline constraints
+If they attach a file, do this **required extraction step before asking any questions**:
 
-Reference these insights during the Q&A process.
+**Handoff Context block? Read it first.** If the research document ends with a `## Handoff Context` block, pre-fill the user's level, app name, platform, budget, and timeline from it, confirm them in one line ("Got it — level B, web app, ~$50/mo, 4 weeks — right?"), and DON'T re-ask anything it already answers (including the A/B/C classification — go straight to the matching question path). No Handoff Context block? Just ask — this block is new, older documents won't have it.
+
+**Extract and restate from the research:**
+- **Project name** — [what the research calls it]
+- **Core concept** — [what it is and the problem it solves]
+- **Target users** — [who it's for]
+- **Technical decisions** — [stack, platform, or tools already chosen, if any]
+- **Competitor insights** — [similar solutions and gaps found]
+- **Budget/timeline** — [cost and timeframe constraints]
+
+Show this extraction to the user and ask: "Did I get this right? Anything missing?" If any item is missing from the research, ask for it during the Q&A.
 
 > **Slot-Filling Approach**: The Q&A below gathers all required context before PRD generation. Do NOT generate the PRD until all essential slots are filled. If any critical information is missing, ask follow-up questions.
+
+> **Interview rules (apply to all paths):**
+> - If the user answers several questions at once, accept the answers, skip the answered questions, and continue with the unanswered ones.
+> - If the user says "I don't know" or seems unsure, propose a sensible default and ask them to confirm it.
+> - After any correction during the Verification Echo, re-echo the updated understanding and get fresh confirmation before proceeding.
 
 > **Format Preference**: Keep the PRD concise. Use bullet points and tables where possible, and avoid long paragraphs.
 
@@ -202,11 +213,17 @@ After completing ALL questions, summarize your understanding back to the user:
 >
 > Is this accurate? Should I adjust anything before creating your PRD?"
 
-Wait for user confirmation. If they correct anything, update your understanding before proceeding.
+Wait for user confirmation. If they correct anything, update your understanding and re-echo the corrected summary for confirmation before proceeding.
 
 ---
 
 ## Step 2: Generate PRD Document
+
+> **Generation Guardrails (apply to all templates):**
+> - Replace EVERY [bracketed placeholder] with real content from the interview — no leftover placeholders in the final PRD.
+> - If something is genuinely unknown, write TBD and list it in the Open Questions section.
+> - Never invent market sizes, user numbers, or competitor claims. If a fact isn't from the research or the user, label it as an assumption.
+> - End the PRD with the filled **Handoff Context** block shown at the bottom of the template, carrying values forward from the research and interview. The block always goes last — after the document footer; the canonical `## Out of Scope (Not in MVP)` heading stays where the template places it.
 
 After verification, create a PRD appropriate to their level:
 
@@ -298,7 +315,7 @@ After verification, create a PRD appropriate to their level:
 - **[Feature]**: [Quick description]
 - **[Feature]**: [Quick description]
 
-### NOT in MVP (Saving for Later)
+## Out of Scope (Not in MVP)
 - **[Feature]**: Will add after [trigger/milestone]
 - **[Feature]**: Will add after [trigger/milestone]
 - **[Feature]**: Will add after [trigger/milestone]
@@ -408,6 +425,18 @@ After this PRD is approved:
 ---
 *Document created: [Date]*
 *Status: Draft — Ready for Technical Design*
+
+---
+## Handoff Context
+<!-- Machine-readable summary for the next workflow step. Do not delete; the next prompt in the workflow reads this block. -->
+- Stage: prd
+- App name: [App Name]
+- User level: [A | B | C]  (A = vibe coder, B = developer, C = in-between)
+- Target platform: [platform]
+- Budget: [budget]
+- Timeline: [timeline]
+- Source files: research-[AppName].md → PRD-[AppName]-MVP.md
+---
 ```
 
 ### For Developers — PRD-[AppName]-MVP.md:
@@ -502,7 +531,7 @@ After this PRD is approved:
 ### Could Have (P2)
 [Brief list with rationale]
 
-### Out of Scope (Won't Have)
+## Out of Scope (Not in MVP)
 - [Feature]: [Why excluded]
 - [Feature]: [Why excluded]
 
@@ -531,24 +560,9 @@ After this PRD is approved:
 - **Data Growth:** [Expectations]
 - **Geographic Distribution:** [Requirements]
 
-## Quality Standards (Anti-Vibe Rules)
+## Quality Standards
 
-### Code Quality Requirements
-- **Type Safety:** Strict TypeScript, no `any` types allowed
-- **Architecture:** Thin controllers — logic in services only
-- **Error Handling:** Explicit error types, no swallowed exceptions
-- **Testing:** 80% coverage minimum on critical paths
-
-### Design Quality Requirements
-- **Design System:** Use design tokens only — no raw hex/pixel values
-- **Accessibility:** WCAG 2.1 AA verified
-- **Performance:** Core Web Vitals in green zone
-
-### What This Project Will NOT Accept
-- Placeholder content in production
-- Features outside current phase scope
-- Skipped tests for "simple" changes
-- Deprecated libraries when modern alternatives exist
+*Engineering quality standards (type safety, testing, code rules) are defined later in AGENTS.md (Part 4), not in this document.*
 
 ## UI/UX Requirements
 
@@ -576,37 +590,18 @@ After this PRD is approved:
 ### Key User Flows
 
 #### Flow 1: [Name]
-```mermaid
-graph LR
-    A[Entry Point] --> B[Action 1]
-    B --> C{Decision}
-    C -->|Yes| D[Action 2]
-    C -->|No| E[Alternative]
-    D --> F[Success State]
-```
+1. [Entry point] → 2. [Action] → 3. [Decision: if X, do Y; otherwise Z] → 4. [Success state]
 
-[Include 2-3 critical flows]
+[Include 2-3 critical flows as simple numbered steps]
 
 ## Success Metrics
 
-### North Star Metric
-[Single most important metric]
-
-### OKRs for MVP (First 90 Days)
-
-**Objective 1:** [Objective]
-- KR1: [Measurable result]
-- KR2: [Measurable result]
-- KR3: [Measurable result]
-
-### Metrics Framework
 | Category | Metric | Target | Measurement |
 |----------|--------|--------|-------------|
-| Acquisition | [Metric] | [Target] | [Tool/Method] |
 | Activation | [Metric] | [Target] | [Tool/Method] |
+| Engagement | [Metric] | [Target] | [Tool/Method] |
 | Retention | [Metric] | [Target] | [Tool/Method] |
-| Revenue | [Metric] | [Target] | [Tool/Method] |
-| Referral | [Metric] | [Target] | [Tool/Method] |
+| Revenue (if applicable) | [Metric] | [Target] | [Tool/Method] |
 
 ## Constraints & Assumptions
 
@@ -629,12 +624,6 @@ graph LR
 - [External dependency]
 - [Internal dependency]
 
-## Risk Assessment
-
-| Risk | Probability | Impact | Mitigation |
-|------|------------|--------|------------|
-| [Risk description] | High/Med/Low | High/Med/Low | [Strategy] |
-
 ## MVP Definition of Done
 
 ### Feature Complete
@@ -643,8 +632,7 @@ graph LR
 - [ ] Code review completed
 
 ### Quality Assurance
-- [ ] Unit test coverage > 80%
-- [ ] Integration tests passing
+- [ ] Tests passing on all critical paths
 - [ ] Manual testing completed
 - [ ] Performance benchmarks met
 
@@ -659,22 +647,59 @@ graph LR
 - [ ] Rollback plan documented
 - [ ] Launch communication prepared
 
-## Appendices
+<details>
+<summary><b>Enterprise add-on — skip for MVP</b></summary>
 
-### A. Competitive Analysis
-[Summary from research]
+*These frameworks matter post-launch (or for funded teams reporting to stakeholders) — not for a first MVP with zero users. Come back to them once you have real usage data.*
 
-### B. Technical Specifications
-[Link to Technical Design Document]
+### North Star Metric
+[Single most important metric]
 
-### C. Mockups/Wireframes
-[Links or embedded images]
+### OKRs (First 90 Days)
+
+**Objective 1:** [Objective]
+- KR1: [Measurable result]
+- KR2: [Measurable result]
+- KR3: [Measurable result]
+
+### Full AARRR Metrics Framework
+| Category | Metric | Target | Measurement |
+|----------|--------|--------|-------------|
+| Acquisition | [Metric] | [Target] | [Tool/Method] |
+| Activation | [Metric] | [Target] | [Tool/Method] |
+| Retention | [Metric] | [Target] | [Tool/Method] |
+| Revenue | [Metric] | [Target] | [Tool/Method] |
+| Referral | [Metric] | [Target] | [Tool/Method] |
+
+### Risk Matrix
+| Risk | Probability | Impact | Mitigation |
+|------|------------|--------|------------|
+| [Risk description] | High/Med/Low | High/Med/Low | [Strategy] |
+
+### Appendices
+- **A. Competitive Analysis:** [Summary from research]
+- **B. Technical Specifications:** [Link to Technical Design Document]
+- **C. Mockups/Wireframes:** [Links or embedded images]
+
+</details>
 
 ---
 *PRD Version: 1.0*
 *Next Review: [Date]*
 *Owner: [Name]*
 *Stakeholders: [List]*
+
+---
+## Handoff Context
+<!-- Machine-readable summary for the next workflow step. Do not delete; the next prompt in the workflow reads this block. -->
+- Stage: prd
+- App name: [App Name]
+- User level: [A | B | C]  (A = vibe coder, B = developer, C = in-between)
+- Target platform: [platform]
+- Budget: [budget]
+- Timeline: [timeline]
+- Source files: research-[AppName].md → PRD-[AppName]-MVP.md
+---
 ```
 
 ### For In-Between Users — PRD-[AppName]-MVP.md:
@@ -733,7 +758,7 @@ graph LR
 
 [Continue for 3-5 core features]
 
-### Future Features (Not in MVP)
+## Out of Scope (Not in MVP)
 | Feature | Why Wait | Planned For |
 |---------|----------|-------------|
 | [Feature] | [Reason] | Version 2 |
@@ -869,6 +894,18 @@ graph LR
 *Created: [Date]*
 *Status: Ready for Technical Design*
 *Questions? [Contact]*
+
+---
+## Handoff Context
+<!-- Machine-readable summary for the next workflow step. Do not delete; the next prompt in the workflow reads this block. -->
+- Stage: prd
+- App name: [App Name]
+- User level: [A | B | C]  (A = vibe coder, B = developer, C = in-between)
+- Target platform: [platform]
+- Budget: [budget]
+- Timeline: [timeline]
+- Source files: research-[AppName].md → PRD-[AppName]-MVP.md
+---
 ```
 
 ---
@@ -898,7 +935,7 @@ Before proceeding, let's verify the PRD is complete:
 ### Next Steps:
 
 1. **Review the PRD** — Make sure it captures your vision accurately
-2. **Save the document** as `PRD-[AppName]-MVP.md` in your project folder
+2. **Save the document** as `PRD-[AppName]-MVP.md` in your project folder — keep the `## Handoff Context` block at the end intact; Part 3 reads it
 3. **Proceed to Part 3** to create your Technical Design Document
 
 The PRD is a living document — update it as you learn from users.

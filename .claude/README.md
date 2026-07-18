@@ -148,14 +148,16 @@ Follows Plan → Execute → Verify workflow:
 
 ## Pre-configured Hooks
 
-This project includes hooks that run automatically:
+This project includes hooks that run automatically. They are defined in `.claude/settings.json`, which Claude Code loads on startup.
 
 ### PreToolUse Hooks
 
 **File Protection** - Blocks accidental modifications to:
-- `.env` files (secrets)
+- `.env` files (secrets) — templates like `.env.example` stay editable
 - `package-lock.json` (use npm instead)
-- `.git/` directory
+- Anything inside the `.git/` directory
+
+**Destructive Command Guard** - Blocks catastrophic commands (`rm -rf` at your root/home/project, `git clean -f`, recursive Windows/PowerShell deletes, SQL `DROP`/`TRUNCATE`). It is a safety net, not a sandbox.
 
 ### PostToolUse Hooks
 
@@ -169,9 +171,14 @@ This project includes hooks that run automatically:
 - Reminds you to review changes before committing
 - Shows "No uncommitted changes" if the working tree is clean
 
+### Notification Hooks
+
+**Desktop Notification** - When Claude needs your attention:
+- Pops a native notification (Windows, macOS, or Linux) so you know to come back
+
 ## Hook Configuration
 
-Hooks are defined in `.claude/hooks/hooks.json`. To customize:
+Hooks are defined in `.claude/settings.json`. To customize, edit that file:
 
 ```json
 {
@@ -185,20 +192,23 @@ Hooks are defined in `.claude/hooks/hooks.json`. To customize:
 
 ### Disable Hooks
 
-To disable all hooks temporarily:
-```bash
-claude --no-hooks
+To disable all hooks temporarily, add this to `.claude/settings.json`:
+
+```json
+{
+  "disableAllHooks": true
+}
 ```
 
-To disable specific hooks, edit `hooks.json` and remove the hook entry.
+To disable a specific hook, remove its entry from the `hooks` object.
 
 ## Directory Structure
 
 ```
 .claude/
 ├── README.md              # This file
-├── hooks/
-│   └── hooks.json         # Auto-hooks configuration
+├── settings.json          # Hook configuration (commit this)
+├── settings.local.json    # Your local overrides (gitignored, do not commit)
 └── skills/
     ├── vibe-research/
     │   └── SKILL.md
@@ -230,7 +240,6 @@ Skills are Markdown files with YAML frontmatter. To modify a skill:
 name: skill-name
 description: When to use this skill
 allowed-tools: Read, Write, Bash  # Restrict available tools
-model: sonnet  # Optional: sonnet, opus, haiku
 ---
 ```
 
@@ -252,9 +261,9 @@ If your build starts drifting, avoid opening a fresh empty chat. Re-anchor with:
 
 ### Hooks not running
 
-1. Check `.claude/hooks/hooks.json` exists
+1. Check `.claude/settings.json` exists and contains a `hooks` object
 2. Verify JSON syntax is valid
-3. Check hook scripts are executable
+3. Run `claude --debug` to see hook loading errors
 
 ### Skill not triggering
 

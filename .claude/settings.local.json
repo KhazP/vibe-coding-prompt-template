@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(exit 1)",
-      "Bash(grep -rEn '\\\\$[0-9]+\\(/mo|/month\\)' README.md part*.md templates/)"
-    ]
-  }
-}

@@ -30,6 +30,8 @@ First, check if research exists:
 2. If found, read it and reference insights during Q&A
 3. If not found, proceed without it
 
+**Handoff Context block? Read it first.** If the research document ends with a `## Handoff Context` block, pre-fill the app name, user level, platform, budget, and timeline from it, confirm them in one line ("Got it — level B, web app, ~$50/mo, 4 weeks — right?"), and skip the A/B/C question in Step 2 unless the block is missing or unclear. No Handoff Context block? Just ask — older documents won't have it.
+
 Ask the user:
 > Do you have research findings from Part 1? If so, I'll reference them. If not, we can still create a great PRD.
 
@@ -41,47 +43,19 @@ Ask:
 > - **B) Developer** — Experienced programmer
 > - **C) Somewhere in between** — Some coding knowledge, still learning
 
-## Step 3: Initial Questions (All Levels)
+## Step 3: Run the Question Bank
 
-Ask these first, ONE AT A TIME:
+**Read `part2-prd-mvp.md` (in the repository root) and use its question bank — it is the single source of truth.**
 
-1. "What's the name of your product/app? (If undecided, we can brainstorm!)"
-2. "In one sentence, what problem does it solve?"
-3. "What's your launch goal? (Examples: '100 users', '$1000 MRR', 'Learn to build apps')"
+1. Start with "Initial Questions for ALL Users" (Q1–Q3).
+2. Then follow the path matching the user's level:
+   - Level A → "Path A — Vibe-Coder Questions"
+   - Level B → "Path B — Developer Questions"
+   - Level C → "Path C — In-Between Questions"
 
-## Step 4: Level-Specific Questions
+Ask the questions ONE AT A TIME and wait for responses before proceeding. Do NOT generate the PRD until all essential answers are collected. (If `part2-prd-mvp.md` is not present in the project, ask the user to paste it.)
 
-### Level A (Vibe-coder):
-
-4. "Who will use your app? What do they do, what frustrates them, how tech-savvy are they?"
-5. "Tell me the user journey story: [User] has problem X, discovers your app, does Y, now they're happy because Z"
-6. "What are the 3-5 MUST-have features for launch? Absolute essentials only!"
-7. "What features are you intentionally saving for version 2?"
-8. "How will you know it's working? Pick 1-2 metrics: signups, daily users, tasks completed, or feedback score?"
-9. "Describe the vibe in 3-5 words (e.g., 'Clean, fast, professional' or 'Fun, colorful, friendly')"
-10. "Any constraints? Budget, timeline, performance, security, platform needs?"
-
-### Level B (Developer):
-
-4. "Define your target audience: Primary persona, secondary personas, jobs to be done"
-5. "Write 3-5 user stories: 'As a [user], I want to [action] so that [benefit]'"
-6. "List features with MoSCoW: Must have (3-5), Should have (2-3), Could have (2-3), Won't have"
-7. "Define success metrics: Activation, Engagement, Retention, Revenue (with targets)"
-8. "Technical/UX requirements: Performance, accessibility, platform support, security, scalability"
-9. "Risk assessment: Technical, market, and execution risks"
-10. "Business model and constraints: Monetization, budget, timeline, compliance"
-
-### Level C (In-Between):
-
-4. "Who are your users? Primary type, main problem, current solutions they use"
-5. "Walk through the main user flow: Arrives because..., First sees..., Core action..., Value received..."
-6. "What 3-5 features must be in v1? For each: name, what it does, why essential"
-7. "What are you NOT building yet? List v2 features and why they can wait"
-8. "How will you measure success? Short term (1 month) and medium term (3 months)"
-9. "Design/UX: Visual style, key screens, mobile responsive?"
-10. "Constraints: Budget, timeline, non-functional requirements, tech preferences"
-
-## Step 5: Verification Echo
+## Step 4: Verification Echo
 
 After ALL questions, summarize:
 
@@ -100,22 +74,17 @@ After ALL questions, summarize:
 >
 > Is this accurate? Should I adjust anything before creating your PRD?
 
-## Step 6: Generate PRD
+## Step 5: Generate PRD
 
 After confirmation, generate the PRD document tailored to their level.
 
 ### PRD Structure:
 
-1. **Product Overview** - Name, tagline, goal, timeline
-2. **Target Users** - Persona, pain points, needs
-3. **Problem Statement** - What we're solving and why
-4. **User Journey** - Discovery to success
-5. **MVP Features** - Must-have with user stories and success criteria
-6. **Success Metrics** - How we'll measure
-7. **Design Direction** - Visual style and key screens
-8. **Technical Considerations** - Platform, performance, security
-9. **Constraints** - Budget, timeline, scope
-10. **Definition of Done** - Launch checklist
+Follow the PRD template in `part2-prd-mvp.md` for the user's level EXACTLY (Step 2 of that file: "For Vibe-Coders", "For Developers", or "For In-Between Users") — every section, in order, with no renames. In particular:
+
+- Keep the canonical `## Out of Scope (Not in MVP)` heading exactly as written.
+- End the PRD with the filled `## Handoff Context` block from the template (`Stage: prd`), carrying values forward from the research and interview — it always goes last, after the document footer.
+- Replace every [bracketed placeholder]; anything genuinely unknown goes in Open Questions as TBD.
 
 Write the PRD to `docs/PRD-[AppName]-MVP.md`.
 

@@ -33,6 +33,8 @@ The `.github/workflows/repo-lint.yml` workflow catches common freshness violatio
 - Unresolved placeholder contacts (e.g., `[your-email]`)
 - Stale skill references
 
+The same workflow also runs the structural contract checks in `scripts/validate.py` (canonical template headings, Handoff Context blocks, skill frontmatter) and a lychee link check over the Markdown files. Run `python scripts/validate.py` locally to catch contract regressions before opening a PR.
+
 ## Monthly review checklist
 
 When performing the monthly review:

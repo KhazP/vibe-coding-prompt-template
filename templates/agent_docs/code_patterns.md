@@ -5,19 +5,19 @@ This file defines the implementation patterns the agent should follow for this p
 Prefer these patterns over inventing new ones. Fill in each section from the Technical Design document.
 
 ## Architecture Pattern
-- **Primary pattern:** [feature-based / layered / hexagonal / MVC / service-oriented]
+- **Primary pattern:** [CHOOSE: feature-based | layered | hexagonal | MVC | service-oriented]
 - **Rule:** Keep domain logic separate from transport/UI concerns.
 - **Rule:** Reuse existing modules before creating new abstractions.
 
 ## Data Fetching
-- **Primary approach:** [RSC / route loaders / query library / direct server calls — use whatever the project's tech stack specifies]
+- **Primary approach:** [CHOOSE: RSC | route loaders | query library | direct server calls] *(use whatever `tech_stack.md` specifies)*
 - **Rule:** Do not assume a specific library. Check `tech_stack.md` for the project's chosen approach before fetching data.
 - **Rule:** Keep fetch logic out of render functions unless the framework explicitly encourages it.
 
 ## State Management
-- **Server state:** [tool/pattern from tech_stack.md]
-- **Client state:** [tool/pattern from tech_stack.md]
-- **Forms:** [tool/pattern from tech_stack.md]
+- **Server state:** [REPLACE: tool/pattern from tech_stack.md]
+- **Client state:** [REPLACE: tool/pattern from tech_stack.md]
+- **Forms:** [REPLACE: tool/pattern from tech_stack.md]
 - **Rule:** Prefer the simplest working approach for MVP scope. Do not add a state library if the framework's built-in state is sufficient.
 
 ## Error Handling
@@ -32,7 +32,7 @@ Prefer these patterns over inventing new ones. Fill in each section from the Tec
 - Keep validation rules co-located with the relevant contract (e.g., next to the API route or form schema).
 
 ## File and Naming Conventions
-- **Files:** [kebab-case / camelCase / framework default — match the existing project convention]
+- **Files:** [CHOOSE: kebab-case | camelCase | framework default] *(match the existing project convention)*
 - **Components / classes:** PascalCase
 - **Functions / variables:** camelCase
 - **Constants / env vars:** UPPER_SNAKE_CASE

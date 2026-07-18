@@ -33,44 +33,13 @@ First, ask the user:
 
 ## Step 2: Ask Questions Based on Level
 
-### If Level A (Vibe-coder):
+**Read `part1-deepresearch.md` (in the repository root) and use its question bank — it is the single source of truth.** Follow the path matching the user's level:
 
-Ask these questions ONE AT A TIME:
+- Level A → "If User Selects A (Vibe-coder)" — Q1 through Q8
+- Level B → "If User Selects B (Developer)" — Q1 through Q8
+- Level C → "If User Selects C (In Between)" — Q1 through Q8
 
-1. "What's your app idea? Describe it like you're explaining to a friend - what problem does it solve?"
-2. "Who needs this most? Describe your ideal user (e.g., 'busy parents', 'small business owners')"
-3. "What's out there already? Name any similar apps or current solutions people use."
-4. "What would make someone choose YOUR app? What's the special sauce?"
-5. "What are the 3 absolute must-have features for launch? Just the essentials!"
-6. "How do you imagine people using this - phone app, website, or both?"
-7. "What's your timeline? Days, weeks, or months to launch?"
-8. "Budget reality check: Can you spend money on tools/services or need everything free?"
-
-### If Level B (Developer):
-
-Ask these questions ONE AT A TIME:
-
-1. "What's your main research topic and project context? Include technical domain."
-2. "List 3-5 specific questions your research must answer. Be detailed."
-3. "What technical decisions will this research inform? (architecture, stack, integrations)"
-4. "Define scope boundaries - what's included and explicitly excluded?"
-5. "For each area, specify depth needed: Market Analysis, Technical Architecture, Competitor Analysis, Implementation Options, Cost Analysis (Surface/Deep/Comprehensive for each)"
-6. "Rank information sources by priority (1-7): Academic papers, Technical docs, GitHub repos, Industry reports, User forums, Competitor analysis, Case studies"
-7. "Any technical constraints? Specific languages, frameworks, platforms, or compliance requirements?"
-8. "What's the business context? Startup, enterprise, side project, or client work?"
-
-### If Level C (In-Between):
-
-Ask these questions ONE AT A TIME:
-
-1. "Tell me about your project idea and your current skills. What can you code, and where do you need help?"
-2. "What problem are you solving? Who has this problem most?"
-3. "What specific things do you need to research? List both technical and business aspects."
-4. "What similar solutions exist? What do you like/dislike about them?"
-5. "Platform preferences: Web app, Mobile app, Desktop app, or Not sure?"
-6. "Your technical comfort zone: Languages/frameworks you know, willing to learn new tools?"
-7. "Timeline and success metrics? When do you want to launch and how will you measure success?"
-8. "Budget for tools and services? Free only, under $50/month, under $200/month, or flexible?"
+Ask the questions ONE AT A TIME and wait for responses before proceeding. (If `part1-deepresearch.md` is not present in the project, ask the user to paste it.)
 
 ## Step 3: Verification Echo
 
@@ -88,9 +57,9 @@ After ALL questions are answered, summarize back to the user:
 >
 > Is this accurate? Should I adjust anything before creating your research prompt?
 
-## Step 4: Generate Research Prompt
+## Step 4: Run the Research
 
-After confirmation, generate a tailored research prompt. Use WebSearch to gather current information about:
+After confirmation, run the research now — this skill does the research itself (it has WebSearch). Gather current information about:
 
 - Competitors and market landscape
 - Technical approaches and best practices
@@ -101,15 +70,29 @@ Then write the research findings to `docs/research-[AppName].md` in the project 
 
 ## Output Format
 
-The research document should include:
+The research document MUST follow the Document Structure in `part1-deepresearch.md` exactly — organize findings under these exact section headings:
 
-1. **Market Analysis** - Competitors, market size, opportunity
-2. **Technical Recommendations** - Best approaches for their level
-3. **Tool Recommendations** - Specific tools with current pricing
-4. **MVP Feature Prioritization** - What to build first
-5. **Risk Assessment** - Potential challenges and mitigations
-6. **Cost Estimates** - Development and running costs
-7. **Next Steps** - Clear path forward
+1. **Project name** — product name and one-line description
+2. **Core concept** — what it is, the problem it solves, why now
+3. **Target users** — who it's for, their needs and pain points
+4. **Technical decisions (if any)** — recommended tools/platform (detailed architecture options are explored later in the Tech Design step)
+5. **Competitor insights** — similar solutions, what users love/hate, gaps to exploit
+6. **Budget/timeline** — cost estimates and launch timeframe
+7. **Handoff Context** — end the document with this block, filled in:
+
+---
+## Handoff Context
+<!-- Machine-readable summary for the next workflow step. Do not delete; the next prompt in the workflow reads this block. -->
+- Stage: research
+- App name: [app name]
+- User level: [A | B | C]  (A = vibe coder, B = developer, C = in-between)
+- Target platform: [web / mobile / desktop]
+- Budget: [budget]
+- Timeline: [timeline]
+- Source files: research-[AppName].md
+---
+
+(Use the per-path phrasing from `part1-deepresearch.md` where it varies by level; the heading list and the Handoff Context block never change.)
 
 ## After Completion
 

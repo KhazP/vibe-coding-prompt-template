@@ -37,6 +37,8 @@ Read the PRD and extract:
 - UI/UX requirements
 - Budget and timeline constraints
 
+**Handoff Context block? Read it first.** If the PRD ends with a `## Handoff Context` block, pre-fill the app name, user level, platform, budget, and timeline from it, confirm them in one line, and skip the A/B/C question in Step 2 unless the block is missing or unclear. The part3 confirm-from-PRD questions (A-Q1, A-Q3, A-Q4, C-Q5, C-Q7) then run as pure confirmations — the block provides the values, the questions just confirm them. No Handoff Context block? Just ask — older documents won't have it.
+
 ## Step 2: Determine Technical Level
 
 Ask:
@@ -47,39 +49,13 @@ Ask:
 
 ## Step 3: Level-Specific Questions
 
-### Level A (Vibe-coder):
+**Read `part3-tech-design-mvp.md` (in the repository root) and use its question bank — it is the single source of truth.** Follow the path matching the user's level:
 
-1. "Based on your PRD, where should people use it? Web, Mobile app, Desktop, or Not sure?"
-2. "What's your coding situation? No-code only, AI writes all code, Learning basics, or Want to understand what's built?"
-3. "Budget for tools? Free only, up to $50/month, up to $200/month, or Flexible?"
-4. "How quickly to launch? ASAP (1-2 weeks), 1 month, 2-3 months, or No rush?"
-5. "What worries you most? Getting stuck, costs, security, wrong choices, or breaking things?"
-6. "Have you tried any tools yet? Name any and what you liked/disliked"
-7. "For your main feature, what's most important? Simple to build, works perfectly, looks amazing, or scales well?"
-8. "Do you want AI-powered features (chat, summarization)? If yes, list them and privacy constraints"
+- Level A → "Path A — Vibe-Coder Questions"
+- Level B → "Path B — Developer Questions"
+- Level C → "Path C — In-Between Questions"
 
-### Level B (Developer):
-
-1. "Platform strategy and why?"
-2. "Preferred tech stack? Frontend, Backend, Database, Infrastructure, AI Integration"
-3. "Architecture pattern? Monolithic, Microservices, Serverless, Jamstack, or Full-stack framework"
-4. "Service choices? Auth, File storage, Payments, Email, Analytics"
-5. "AI coding tool preference? Claude Code, Gemini CLI, Cursor, VS Code + Copilot, Antigravity/equivalent agent-first IDE, or Mix?"
-6. "Development workflow? Git strategy, CI/CD, Testing priority, Environments"
-7. "Performance/scaling? Expected load, data volume, geographic distribution, real-time needs"
-8. "Security/compliance? Data sensitivity, compliance needs, auth method, API security"
-9. "AI/LLM features? Use cases, latency/cost constraints, data sensitivity"
-
-### Level C (In-Between):
-
-1. "Where should your app run? Web (easiest), Mobile, Both, or Help me decide?"
-2. "Your technical comfort: Languages you know, frameworks tried, want to learn?"
-3. "Building approach? No-code (fastest), Low-code with AI, Learn by doing, or Hire out?"
-4. "Feature complexity? Simple CRUD, real-time, file uploads, integrations, complex logic?"
-5. "Budget: Development tools, hosting, services - can you spend $X total?"
-6. "AI assistance preference? AI does everything, AI explains, AI helps when stuck, or Mix?"
-7. "Timeline reality: Hours/week available, launch date, beta test size?"
-8. "AI-powered features? List them and privacy constraints if yes"
+Ask the questions ONE AT A TIME and wait for responses before proceeding. (If `part3-tech-design-mvp.md` is not present in the project, ask the user to paste it.)
 
 ## Step 4: Verification Echo
 
@@ -106,17 +82,11 @@ After confirmation, generate a document tailored to their level.
 
 ### Tech Design Structure:
 
-1. **Recommended Approach** - Best option with justification
-2. **Alternative Options** - Comparison table with pros/cons
-3. **Project Setup** - Step-by-step checklist
-4. **Feature Implementation** - How to build each PRD feature
-5. **Design Implementation** - Templates, design system, responsiveness
-6. **Database & Storage** - Schema, setup, hosting
-7. **AI Assistance Strategy** - Which tool for what task
-8. **Deployment Plan** - Platform, steps, backup options
-9. **Cost Breakdown** - Development and production phases
-10. **Scaling Path** - What to do at 100, 1000, 10000 users
-11. **Limitations** - What this approach can't do
+Follow the Tech Design template in `part3-tech-design-mvp.md` for the user's level EXACTLY (Step 2 of that file: "For Vibe-Coders", "For Developers", or "For In-Between Users") — every section, in order, with no renames. In particular:
+
+- Keep the `## Project Structure` section — Part 4 uses it.
+- End with the filled `## Handoff Context` block from the template (`Stage: techdesign`, with `Chosen stack` and `AI coding tool` filled) — it always goes last; Part 4 reads it.
+- For each major decision, show 2-3 alternatives with pros/cons and justify the recommendation.
 
 Write to `docs/TechDesign-[AppName]-MVP.md`.
 

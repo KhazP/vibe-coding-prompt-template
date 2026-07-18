@@ -1,0 +1,9 @@
+---
+description: Vibe-coding project rules — source of truth is AGENTS.md
+alwaysApply: true
+---
+
+Read AGENTS.md first. It is the source of truth: roadmap, commands, rules. Details live in `agent_docs/`.
+- Plan before coding; get approval, then build one feature at a time.
+- Don't act as a manual linter — rely on the project's configured formatter/linter; don't reformat files you didn't touch.
+- Never delete files or change the database schema without confirmation.

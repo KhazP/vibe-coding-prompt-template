@@ -1,0 +1,26 @@
+# Local Claude Code settings (machine-specific, never commit)
+.claude/settings.local.json
+
+# Secrets — never commit real env files; templates stay tracked
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+
+# Dependencies
+node_modules/
+
+# Python
+__pycache__/
+
+# Logs
+logs/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Release artifacts (uploaded to GitHub Releases, not committed)
+/vibe-coding-prompt-template-*.zip
+/RELEASE-NOTES-*.md

@@ -8,6 +8,8 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v6
 
@@ -76,7 +78,38 @@ jobs:
       - name: Warn on hardcoded price claims
         run: |
           # Exclude budget question prompts (user-facing ranges like "under/Up to $50/month")
-          if grep -rEn '\$[0-9]+(/mo|/month)' README.md part*.md templates/ 2>/dev/null | grep -vi 'under \$.*month\|up to \$.*month\|Budget.*Free only'; then
+          if grep -rEn '\$[0-9]+(/mo|/month)' README.md part*.md templates/ docs/ .claude/ 2>/dev/null | grep -vi 'under \$.*month\|up to \$.*month\|Budget.*Free only'; then
             echo "ERROR: Hardcoded pricing detected. Replace with verification language."
             exit 1
           fi
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.x"
+
+      - name: Run contract checks
+        # Single source of truth for the structural contract — contributors
+        # run the same script locally via `python scripts/validate.py`.
+        run: python scripts/validate.py --ci
+
+      - name: Check external links
+        uses: lycheeverse/lychee-action@v2.8.0
+        env:
+          # Authenticated GitHub API access avoids rate limiting on github.com links.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # Broken links fail the build; rate-limit responses (HTTP 429) do not.
+          fail: true
+          args: >-
+            --no-progress
+            --max-retries 3
+            --accept '100..=103,200..=299,429'
+            --exclude 'https?://([^/]*\.)?x\.com'
+            --exclude 'https?://([^/]*\.)?twitter\.com'
+            --exclude 'https?://([^/]*\.)?linkedin\.com'
+            README.md
+            docs/
+            .claude/README.md
+            './part*.md'
+            templates/

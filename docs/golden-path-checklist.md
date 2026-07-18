@@ -2,12 +2,15 @@
 
 Use this checklist to validate the end-to-end workflow produces the expected files at each step.
 
+> **Fast lane:** run `python scripts/validate.py` from the repo root — it automates the mechanical checks (canonical `AGENTS.md` headings, Handoff Context blocks, skill frontmatter, legacy-file cleanup). The rest of this checklist is human review.
+
 ## Step 1: Deep Research
 
 **Input:** User's idea description + `part1-deepresearch.md` prompt
 **Output:**
 - [ ] `docs/research-[AppName].md` exists (`.txt` accepted for backward compatibility)
 - [ ] Document includes: market analysis, competitors, technical recommendations, MVP feature prioritization
+- [ ] Document ends with a `## Handoff Context` block (Stage, App name, User level, Target platform, Budget, Timeline, Source files)
 
 **Handoff to Step 2:** Research document or active chat session
 
@@ -17,6 +20,7 @@ Use this checklist to validate the end-to-end workflow produces the expected fil
 **Output:**
 - [ ] `docs/PRD-[AppName]-MVP.md` exists
 - [ ] Document includes: product overview, target users, must-have features, success metrics, design direction
+- [ ] Document ends with a `## Handoff Context` block (Stage: prd + the standard fields, kept intact)
 
 **Handoff to Step 3:** PRD document or active chat session
 
@@ -26,26 +30,29 @@ Use this checklist to validate the end-to-end workflow produces the expected fil
 **Output:**
 - [ ] `docs/TechDesign-[AppName]-MVP.md` exists
 - [ ] Document includes: tech stack, project structure, implementation approach, deployment plan, cost estimates
+- [ ] Document ends with a `## Handoff Context` block (adds Chosen stack and AI coding tool to the standard fields)
 
 **Handoff to Step 4:** Technical Design document
 
 ## Step 4: Agent Configuration
 
-**Input:** PRD + Technical Design + `part4-notes-for-agent.md`
+**Input:** PRD + Technical Design + `part4-notes-for-agent.md` (or the `/vibe-agents` skill in Claude Code — both paths create the same file set)
 **Output:**
-- [ ] `AGENTS.md` exists in project root
+- [ ] `AGENTS.md` exists in project root and keeps the canonical sections — including `How I Should Think`, `What NOT To Do`, `Current State`, and `Roadmap`
 - [ ] `MEMORY.md` exists in project root
-- [ ] `REVIEW-CHECKLIST.md` exists in project root
+- [ ] `REVIEW-CHECKLIST.md` exists in project root (including its Security section)
 - [ ] `agent_docs/tech_stack.md` exists and is populated
 - [ ] `agent_docs/code_patterns.md` exists and is populated
 - [ ] `agent_docs/project_brief.md` exists and is populated
 - [ ] `agent_docs/product_requirements.md` exists and is populated
 - [ ] `agent_docs/testing.md` exists and is populated
-- [ ] Tool-specific config exists based on user selection:
+- [ ] No `[REPLACE: ...]` or `[CHOOSE: ...]` placeholders remain in any instantiated file
+- [ ] Tool adapter matches the user's selected tool (`AGENTS.md` is the universal contract; ready-made copies ship in `templates/tool-adapters/`):
   - Claude Code: `CLAUDE.md`
-  - Cursor: `.cursor/rules/` or `.cursorrules`
-  - Gemini CLI: `GEMINI.md`
-  - VS Code + Copilot: `.github/copilot-instructions.md`
+  - Codex: nothing — it reads `AGENTS.md` natively
+  - Antigravity: `.agent/rules/vibe.md`
+  - Cursor: `.cursor/rules/vibe.mdc`
+  - Anything else: custom instructions pointing at `AGENTS.md`
 
 **Handoff to Step 5:** All files above in project root
 
@@ -77,7 +84,7 @@ your-app/
 │   ├── project_brief.md
 │   ├── product_requirements.md
 │   └── testing.md
-├── [tool-specific configs]         ← Step 4 output
+├── CLAUDE.md / .cursor/rules/vibe.mdc / .agent/rules/vibe.md  ← Step 4 tool adapters (Codex needs none)
 ├── specs/                          ← Created during Step 5 (handoff artifacts)
 └── src/                            ← Created during Step 5 (application code)
 ```
@@ -88,5 +95,5 @@ If using Claude Code skills, verify:
 - [ ] `/vibe-research` finds and reads `docs/research-*.md` (or `.txt`)
 - [ ] `/vibe-prd` finds and reads `docs/research-*.md` and writes `docs/PRD-*.md`
 - [ ] `/vibe-techdesign` finds and reads `docs/PRD-*.md` and writes `docs/TechDesign-*.md`
-- [ ] `/vibe-agents` finds `docs/PRD-*.md` and `docs/TechDesign-*.md` and generates all config files
+- [ ] `/vibe-agents` finds `docs/PRD-*.md` and `docs/TechDesign-*.md` and generates all config files (including `MEMORY.md` and `REVIEW-CHECKLIST.md`)
 - [ ] `/vibe-build` finds `AGENTS.md` and `agent_docs/` and starts the build loop

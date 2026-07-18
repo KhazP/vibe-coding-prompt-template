@@ -113,6 +113,8 @@ flowchart LR
 
 > TL;DR: run research, turn it into a PRD, choose the stack, generate your agent files, then build in small passes.
 
+Want to see what the output looks like? There's a worked example in [`examples/reddit-to-ai/`](examples/reddit-to-ai/).
+
 ### Phase 1: thinking through the product
 Do the first three steps in ChatGPT, Claude.ai, Gemini, or any other chat tool. You do not need a repo yet.
 
@@ -164,7 +166,7 @@ Move into Cursor, VS Code with Copilot, Claude Code, or your preferred coding se
 <details open>
 <summary><b>Create the docs and instructions your coding agent will rely on</b> - 1-2 min</summary>
 
-This step fills out `AGENTS.md` and the supporting docs from your PRD and tech design.
+This step fills out `AGENTS.md`, `MEMORY.md`, and `REVIEW-CHECKLIST.md` — the docs your coding agent will rely on — from your PRD and tech design.
 
 1. Click **"Use this template"** in GitHub (or clone this repository locally).
 2. Open this cloned repository folder in your **AI IDE** (like Cursor or VS Code).
@@ -175,6 +177,7 @@ This step fills out `AGENTS.md` and the supporting docs from your PRD and tech d
    - optional: `docs/research-[YourAppName].md` (or `.txt` for backward compatibility)
 5. Open the AI Chat inside your IDE, type: *"Read [`part4-notes-for-agent.md`](part4-notes-for-agent.md), follow its instructions, and set up my workspace."*
 6. The agent should copy the boilerplates from `/templates/` into your project root and fill in the placeholders using the files in `docs/`.
+7. It also sets up a thin adapter for your tool from [`templates/tool-adapters/`](templates/tool-adapters/) (`CLAUDE.md` for Claude Code, `.cursor/rules/vibe.mdc` for Cursor, `.agent/rules/vibe.md` for Antigravity). Codex reads `AGENTS.md` natively, so it needs nothing extra. Plus: optional `/vibe-*` slash commands for each workflow stage (Cursor commands, Antigravity workflows, Codex prompts).
 </details>
 
 ### ![Step 5](https://img.shields.io/badge/Step_5-Build_MVP-43e97b?style=flat-square) Build with AI Agent
@@ -214,6 +217,8 @@ You need a modern browser, a few hours, and enough comfort with files and copy-p
 | **Production-Ready Frontend** | ![v0](https://img.shields.io/badge/v0-000?style=flat-square) (Vercel-native, exact Next.js/React components) |
 | **Learning / Sandbox Coding** | ![Cursor](https://img.shields.io/badge/Cursor-000?style=flat-square) (Dynamic Context) or VS Code with Copilot |
 | **Complex Logic / Multi-Agent** | ![Claude Code](https://img.shields.io/badge/Claude_Code-orange?style=flat-square) (Agent Teams) or GitHub Copilot CLI |
+| **Terminal / Agent Workflows** | ![Codex](https://img.shields.io/badge/Codex-OpenAI-412991?style=flat-square&logo=openai) (CLI, IDE extension, or cloud — reads `AGENTS.md` natively) |
+| **Agent-First IDE Flows** | ![Antigravity](https://img.shields.io/badge/Antigravity-Google-4285F4?style=flat-square&logo=google) (Agent-first IDE; availability may vary) |
 | **Budget-Limited** | ![Gemini CLI](https://img.shields.io/badge/Gemini_CLI-4285F4?style=flat-square) (Free) + VS Code |
 
 Note: I would not use this workflow as-is for native hardware work, heavily regulated products, or safety-critical systems.
@@ -236,7 +241,7 @@ To avoid context overload, let the agent write things down instead of trying to 
 
 - **Agent teams:** Tools like Claude Code support multiple agents working in parallel. Treat them like assigned roles, not magic.
 - **Plan before edit:** Ask for an approved plan from the lead agent before the execute agent starts changing files. It cuts down on silent regressions.
-- Keep `AGENTS.md` as the source of truth, then add tool-specific plugins or `.cursor/rules/` to seamlessly extend capabilities.
+- Keep `AGENTS.md` as the source of truth, then add the thin tool adapters (`CLAUDE.md`, `.cursor/rules/`, `.agent/rules/`) instead of duplicating instructions.
 </details>
 
 <details>
@@ -280,16 +285,19 @@ your-app/
 │   └── testing.md
 ├── 📄 AGENTS.md                  # Universal AI instructions (The Master Contract)
 ├── 📄 MEMORY.md                  # Artifact-first memory for session continuity
+├── 📄 REVIEW-CHECKLIST.md        # Definition of done (quality + security)
 ├── 📁 specs/                     # Agent handoff artifacts (e.g. 001-feature-spec.md)
-├── 📁 .cursor/rules/             # Cursor rules (preferred)
+├── 📁 .cursor/rules/             # Thin tool adapter for Cursor (see note below)
 └── 📁 src/                       # Your application code
 ```
+
+Tool adapters are thin pointers to `AGENTS.md` — `CLAUDE.md` for Claude Code, `.cursor/rules/vibe.mdc` for Cursor, `.agent/rules/vibe.md` for Antigravity, and nothing for Codex. Ready-made copies live in [`templates/tool-adapters/`](templates/tool-adapters/).
 
 ### Deployment and security
 
 Once the MVP works, do a final pass on secrets, auth, and basic abuse protections before you deploy:
 
-1. **Security Pass:** Check dependencies, secrets, auth paths, and rate limits.
+1. **Security Pass:** Work through the Security section of `REVIEW-CHECKLIST.md` — dependencies, secrets, auth paths, and rate limits.
 2. **Push & Deploy:**
    - ![Vercel](https://img.shields.io/badge/Vercel-Deploy-000?style=flat-square&logo=vercel) For Next.js, React, frontend apps.
    - ![Cloudflare](https://img.shields.io/badge/Cloudflare-Pages-F38020?style=flat-square&logo=cloudflare) For Static sites, edge functions.
@@ -307,6 +315,7 @@ Once the MVP works, do a final pass on secrets, auth, and basic abuse protection
 | Letting agents ship code alone | Review the diff and run tests before merging |
 | Publishing auto-generated UIs | Test accessibility and security before launch |
 | Forcing one tool to do everything | Mix tools, IDE + terminal + builder usually works better |
+| Not sure what good output looks like | Compare against the worked example in [`examples/reddit-to-ai/`](examples/reddit-to-ai/) |
 
 </details>
 
@@ -328,6 +337,7 @@ Once the MVP works, do a final pass on secrets, auth, and basic abuse protection
 
 ### Communication channels
 - Discussions: [GitHub Discussions](https://github.com/KhazP/vibe-coding-prompt-template/discussions)
+- Feedback: What confused you most? Tell us in [Discussions](https://github.com/KhazP/vibe-coding-prompt-template/discussions) — it shapes the next revision.
 - Bug reports: [GitHub Issues](https://github.com/KhazP/vibe-coding-prompt-template/issues)
 - Security reports: [Private security advisory form](https://github.com/KhazP/vibe-coding-prompt-template/security/advisories/new)
 
@@ -346,15 +356,16 @@ This project is free and open source under MIT. Contributions are welcome in all
 
 ## Further reading
 
+- [Worked example — what the workflow produces end to end (reconstructed)](examples/reddit-to-ai/)
 - [Claude agent teams — multi-agent orchestration patterns](docs/claude-agent-teams.md)
 - [Cursor cloud agents — cloud-based Cursor agent setup](docs/cursor-cloud-agents.md)
 - [Freshness policy — how time-sensitive content is maintained](docs/freshness-policy.md)
-- [Golden path checklist — end-to-end workflow validation](docs/golden-path-checklist.md)
+- [Golden path checklist — end-to-end workflow validation, partially automated via `scripts/validate.py`](docs/golden-path-checklist.md)
 
 ---
 
 ## Monthly update cadence
-This template is maintained monthly. Review tool deprecations, refresh model-family references, and update agent capability notes when the ecosystem shifts.
+This template is maintained monthly. Review tool deprecations, refresh model-family references, and update agent capability notes when the ecosystem shifts. Between reviews, CI (`repo-lint.yml` + the `scripts/validate.py` contract checks) guards against template drift and broken links.
 
 ## Contributing
 

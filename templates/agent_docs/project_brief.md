@@ -1,11 +1,11 @@
 # Project Brief
 
-- **Product vision:** [One-line summary from PRD]
-- **Target Audience:** [Who this is for]
+- **Product vision:** [REPLACE: one-line summary from PRD]
+- **Target Audience:** [REPLACE: who this is for]
 
 ## Conventions
-- **Naming:** [e.g., camelCase for files, PascalCase for React components]
-- **File Structure:** [e.g., Colocate tests with components: `Button.tsx` next to `Button.test.tsx`]
+- **Naming:** [REPLACE: naming rules] *(e.g. camelCase for files, PascalCase for React components)*
+- **File Structure:** [REPLACE: file structure rules] *(e.g. colocate tests with components: `Button.tsx` next to `Button.test.tsx`)*
 
 ## Key Principles
 - Ship the simplest possible solution that solves the user story.
