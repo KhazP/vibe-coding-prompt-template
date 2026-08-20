@@ -120,17 +120,16 @@ def parse_frontmatter(markdown: str):
 # The headings below are matched as *line-start* substrings so trailing
 # emoji (e.g. "## Protected Areas 🛡️") do not matter.
 # --------------------------------------------------------------------------
+# AGENTS.md is the always-loaded context file, so it carries only what an agent
+# cannot infer from the repo. Mutable state (current phase, roadmap) lives in
+# MEMORY.md and procedures live in the skills — deliberately not here.
 AGENTS_REQUIRED_HEADINGS = [
-    "## Project Overview & Stack",
-    "## Setup & Commands",
-    "## Protected Areas",
-    "## Coding Conventions",
-    "## How I Should Think",
-    "## What NOT To Do",
-    "## Engineering Constraints",
-    "## Current State",
-    "## Roadmap",
-    "## Context Files",
+    "## Project",
+    "## Commands",
+    "## Read first",
+    "## Gotchas",
+    "## Protected areas",
+    "## Done means",
 ]
 
 

@@ -1,12 +1,31 @@
 # Project Brief
 
-- **Product vision:** [REPLACE: one-line summary from PRD]
-- **Target Audience:** [REPLACE: who this is for]
+## Product
 
-## Conventions
-- **Naming:** [REPLACE: naming rules] *(e.g. camelCase for files, PascalCase for React components)*
-- **File Structure:** [REPLACE: file structure rules] *(e.g. colocate tests with components: `Button.tsx` next to `Button.test.tsx`)*
+- One-line vision: [what this product does]
+- Target users: [who this is for]
+- Primary user outcome: [the main thing users should accomplish]
 
-## Key Principles
-- Ship the simplest possible solution that solves the user story.
-- If a simpler low-code integration exists (e.g. using pre-built Stripe Checkout instead of a custom form), use it.
+## Scope
+
+- Must ship:
+  - [feature]
+  - [feature]
+- Not in v1:
+  - [excluded feature]
+  - [excluded feature]
+
+## Principles
+
+- Solve the user story before adding polish.
+- Prefer boring, maintainable choices.
+- Keep generated docs short and current.
+- Verify user-visible work in the real product surface.
+
+## AI Position
+
+Fill this in only if AI is part of the product.
+
+- AI is used for: [feature/workflow]
+- AI is not used for: [sensitive/risky areas]
+- Human approval required for: [actions]

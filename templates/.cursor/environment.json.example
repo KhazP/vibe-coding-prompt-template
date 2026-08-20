@@ -1,0 +1,9 @@
+{
+  "install": "[setup command from Tech Design]",
+  "terminals": [
+    {
+      "name": "dev",
+      "command": "[dev command from Tech Design]"
+    }
+  ]
+}

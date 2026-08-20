@@ -1,0 +1,5 @@
+---
+description: Architecture and implementation rules
+---
+
+Follow the architecture chosen in `agent_docs/tech_stack.md` and `agent_docs/code_patterns.md`. Reuse existing modules before adding abstractions. Do not change database migrations, auth, billing, infrastructure, MCP servers, provider credentials, or AI tool permissions without explicit approval.

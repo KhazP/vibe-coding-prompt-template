@@ -2,6 +2,32 @@
 
 All notable changes to the Vibe-Coding Prompt Template are documented here, in [Keep a Changelog](https://keepachangelog.com/) style. Dates come from the git tag for each release.
 
+## [3.1.0] - 2026-08-20
+
+The "agent-first" release: `npx vibeworkflow` now drives the whole workflow through your AI agent, and the planning skills interview you one question at a time instead of dumping a wall of text.
+
+### Added
+- **`vibeworkflow` CLI (published on npm):** `npx vibeworkflow` scaffolds `AGENTS.md`, `agent_docs/`, and tool configs from your PRD and Tech Design. Run it with no docs yet and it installs the planning skills and hands your agent the interview flow instead.
+- **Agent tool auto-detection:** the CLI detects Claude Code, Cursor, Codex, and Gemini from environment variables and existing config directories; `--tools` overrides.
+- **JSON meta blocks:** parts 2 and 3 (and the matching skills) append a machine-readable summary the CLI reads to fill placeholders. Coexists with the `## Handoff Context` block the next prompt reads.
+- **Handoff Context in part1 and part3:** research and tech design now end with the same handoff block part2 had, so later steps stop re-asking your level, platform, budget, and timeline.
+- **Docs reorganized:** `docs/` split into `ai/`, `tools/`, `workflow/`, and `maintenance/`, with an index at `docs/README.md` and a new build-paths guide.
+- **CI:** `cli-test.yml` guards CLI/template drift; `release-cli.yml` publishes the CLI to npm from `cli-v*` tags over OIDC trusted publishing — no npm token stored.
+
+### Changed
+- **README leads with the 5 steps:** a new "Start here" section puts the `npx vibeworkflow` path and the step table in the first screenful, down from line 115.
+- **Skills interview properly:** every interviewing skill now tells the agent to use its native question tool, one question at a time, and never to shorten the question list.
+- **Scaffolding is idempotent:** re-running the CLI never overwrites files you have already filled in (`--force` opts out).
+
+### Fixed
+- **Fabricated Cursor setup in part3:** removed the `cursor.sh` domain and the invented `ai.autoComplete` / `ai.explainCode` settings keys.
+- **Repo Lint on `main` has been red since v3.0.0:** inside `args: >-`, `#` does not start a YAML comment, so the lychee step's comment lines were folded into its arguments and it never received its inputs.
+- **Release tags no longer collide:** the CLI publishes from `cli-v*` tags, so repo release tags like `v3.1.0` no longer trigger an npm publish.
+
+### Removed
+- **`llms.txt`:** this repo has no Pages site, so it was never served at a well-known path and only duplicated the docs index. Guidance telling you to add one to *your* project is unchanged.
+- **The CLI's own interview:** the inline fallback questions, the interactive terminal picker, and the `--level` / `--answers` flags are gone — the skills' interviews are the only interviews.
+
 ## [3.0.0] - 2026-07-19
 
 The "contracts" release: one canonical AGENTS.md, documents that chain themselves, and first-class support for Claude Code, Codex, Antigravity, and Cursor.

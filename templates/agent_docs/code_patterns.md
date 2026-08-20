@@ -1,50 +1,40 @@
 # Code Patterns
 
-## Purpose
-This file defines the implementation patterns the agent should follow for this project.
-Prefer these patterns over inventing new ones. Fill in each section from the Technical Design document.
+Use this only for project-specific conventions. If a section is unknown, inspect the existing code before filling it in.
 
-## Architecture Pattern
-- **Primary pattern:** [CHOOSE: feature-based | layered | hexagonal | MVC | service-oriented]
-- **Rule:** Keep domain logic separate from transport/UI concerns.
-- **Rule:** Reuse existing modules before creating new abstractions.
+## Architecture
 
-## Data Fetching
-- **Primary approach:** [CHOOSE: RSC | route loaders | query library | direct server calls] *(use whatever `tech_stack.md` specifies)*
-- **Rule:** Do not assume a specific library. Check `tech_stack.md` for the project's chosen approach before fetching data.
-- **Rule:** Keep fetch logic out of render functions unless the framework explicitly encourages it.
+- Primary pattern: [feature-based / layered / framework default / other]
+- Keep domain logic separate from UI/transport code.
+- Reuse existing modules before creating new abstractions.
 
-## State Management
-- **Server state:** [REPLACE: tool/pattern from tech_stack.md]
-- **Client state:** [REPLACE: tool/pattern from tech_stack.md]
-- **Forms:** [REPLACE: tool/pattern from tech_stack.md]
-- **Rule:** Prefer the simplest working approach for MVP scope. Do not add a state library if the framework's built-in state is sufficient.
+## Data And State
 
-## Error Handling
-- Normalize errors at service/API boundaries — never let raw exceptions reach the UI.
-- Never swallow errors silently; always log or surface them.
-- Return user-safe messages in the UI; log developer context server-side.
-- Use a consistent error shape across all API responses.
+- Data fetching: [pattern]
+- Server state: [pattern]
+- Client state: [pattern]
+- Forms: [pattern]
 
-## Validation
-- Validate all external inputs (user forms, API payloads, environment variables).
-- Apply runtime validation at system boundaries; trust internal types inside those boundaries.
-- Keep validation rules co-located with the relevant contract (e.g., next to the API route or form schema).
+## Errors And Validation
 
-## File and Naming Conventions
-- **Files:** [CHOOSE: kebab-case | camelCase | framework default] *(match the existing project convention)*
-- **Components / classes:** PascalCase
-- **Functions / variables:** camelCase
-- **Constants / env vars:** UPPER_SNAKE_CASE
+- Validate external inputs at boundaries.
+- Return user-safe errors to the UI.
+- Log developer context server-side.
+- Do not swallow errors silently.
 
-## Testing Pattern
-- Add unit tests for pure logic and utility functions.
-- Add integration tests for API contracts and critical data flows.
-- Add E2E tests only for the top user journeys the PRD marks as must-have.
-- Run the test suite after every feature; fix failures before moving on.
+## Naming
 
-## Change Discipline
-- Prefer focused, minimal edits over large rewrites.
-- Do not introduce new dependencies without checking the existing stack in `tech_stack.md` first.
-- Do not change database migrations, infrastructure config, auth flows, or billing code without explicit approval.
-- One feature at a time — commit or checkpoint after each working feature.
+- Files: [project convention]
+- Components/classes: PascalCase
+- Functions/variables: camelCase
+- Env vars/constants: UPPER_SNAKE_CASE
+
+## AI Tool Patterns
+
+Fill this in only if AI tools/actions exist.
+
+- Keep tools small and server-authorized.
+- Validate model inputs and structured outputs.
+- Treat retrieved docs, web pages, issues, uploads, and MCP responses as untrusted data.
+- Require approval for destructive, external-network, credential-bearing, and production actions.
+- Log trace IDs and redact secrets/customer data.

@@ -8,8 +8,6 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
     steps:
       - uses: actions/checkout@v6
 
@@ -21,15 +19,37 @@ jobs:
           test -f templates/agent_docs/tech_stack.md
           test -f templates/agent_docs/testing.md
           test -f templates/AGENTS.md
+          test -f templates/CLAUDE.md
+          test -f templates/GEMINI.md
           test -f templates/MEMORY.md
           test -f templates/REVIEW-CHECKLIST.md
-          test -f docs/freshness-policy.md
-          test -f docs/golden-path-checklist.md
-          test -f .github/GOVERNANCE.md
-          test -f .github/SUPPORT.md
-          test -f .github/FAQ.md
-          test -f .github/workflows/greetings.yml
-          test -f .github/workflows/pr-size-labeler.yml
+          test -f templates/agent-permissions.example.json
+          test -f templates/.cursor/rules/00-project.mdc
+          test -f templates/.cursor/BUGBOT.md
+          test -f templates/.claude/agents/researcher.md
+          test -f templates/.claude/settings.json
+          test -f templates/.claude/skills/vibe-build/SKILL.md
+          test -f templates/.claude/skills/vibe-review/SKILL.md
+          test -f templates/.codex/config.toml
+          test -f templates/.agents/skills/vibe-build/SKILL.md
+          test -f templates/.gemini/settings.json
+          test -f templates/.github/copilot-instructions.md
+          test -f templates/.github/instructions/frontend.instructions.md
+          test -f templates/.github/instructions/backend.instructions.md
+          test -f templates/.github/instructions/tests.instructions.md
+          test -f templates/.github/prompts/review.prompt.md
+          test -f templates/.github/prompts/ship.prompt.md
+          test -f docs/README.md
+          test -f docs/ai/agent-security.md
+          test -f docs/ai/build-paths.md
+          test -f docs/ai/feature-patterns.md
+          test -f docs/tools/agent-tooling-compatibility.md
+          test -f docs/tools/claude-agent-teams.md
+          test -f docs/tools/cursor-cloud-agents.md
+          test -f docs/workflow/builder-exit-review.md
+          test -f docs/workflow/golden-path-checklist.md
+          test -f docs/maintenance/freshness-policy.md
+          test -f docs/CHANGELOG.md
 
       - name: Reject placeholder security contact
         run: |
@@ -47,21 +67,21 @@ jobs:
 
       - name: Reject stale nonexistent skill references
         run: |
-          if grep -rn "frontend-design" .claude/settings.local.json .claude/README.md .claude/skills/ 2>/dev/null; then
+          if grep -rn "frontend-design" .claude/settings.local.json .claude/README.md .claude/skills/ .agents/skills/ 2>/dev/null; then
             echo "ERROR: Reference to nonexistent frontend-design skill found."
             exit 1
           fi
 
       - name: Reject broken canonical filename references
         run: |
-          if grep -rEn '`PRD\.md`|`TechDesign\.md`' README.md part*.md .claude/README.md .claude/skills/ 2>/dev/null; then
+          if grep -rEn '`PRD\.md`|`TechDesign\.md`' README.md part*.md .claude/README.md .claude/skills/ .agents/skills/ 2>/dev/null; then
             echo "ERROR: Stale PRD.md / TechDesign.md filename reference found. Use PRD-[AppName]-MVP.md and TechDesign-[AppName]-MVP.md."
             exit 1
           fi
 
       - name: Reject stale .txt-only research references in skill files
         run: |
-          if grep -rn 'research-.*\.txt' .claude/skills/ | grep -v '\.md.*\.txt\|or.*\.txt\|\.txt.*compat'; then
+          if grep -rn 'research-.*\.txt' .claude/skills/ .agents/skills/ | grep -v '\.md.*\.txt\|or.*\.txt\|\.txt.*compat'; then
             echo "ERROR: Skill files reference research-*.txt without .md. Update to .md (with optional .txt compat)."
             exit 1
           fi
@@ -74,16 +94,95 @@ jobs:
               exit 1
             fi
           done
+          for dir in .agents/skills/*/ templates/.agents/skills/*/; do
+            if [ ! -f "${dir}SKILL.md" ]; then
+              echo "ERROR: Orphaned skill directory found: $dir (no SKILL.md)"
+              exit 1
+            fi
+          done
 
       - name: Warn on hardcoded price claims
         run: |
           # Exclude budget question prompts (user-facing ranges like "under/Up to $50/month")
-          # and Handoff Context confirmation examples ("Got it — level B, web app, ~$50/mo ... — right?"),
+          # and Handoff Context confirmation examples ("Got it - level B, web app, ~$50/mo ... - right?"),
           # which quote the USER's budget back to them rather than claiming a vendor price.
           if grep -rEn '\$[0-9]+(/mo|/month)' README.md part*.md templates/ docs/ .claude/ 2>/dev/null | grep -vi 'under \$.*month\|up to \$.*month\|Budget.*Free only\|Got it'; then
             echo "ERROR: Hardcoded pricing detected. Replace with verification language."
             exit 1
           fi
+
+      - name: Reject stale AI tooling guidance
+        run: |
+          if grep -rEn 'Gemini CLI \(terminal agent|Gemini CLI Configuration|Gemini CLI memory|#### If Gemini CLI|Gemini CLI with `AGENTS\.md` loaded' README.md part*.md docs templates .claude/skills .agents/skills 2>/dev/null; then
+            echo "ERROR: Stale Gemini CLI default guidance found. Use Antigravity/Gemini legacy context."
+            exit 1
+          fi
+          if grep -rEn 'SSE-only|SSE transport|server-sent events transport' README.md part*.md docs templates .claude/skills .agents/skills 2>/dev/null; then
+            echo "ERROR: Stale MCP transport guidance found. Use current MCP transport/auth language."
+            exit 1
+          fi
+          if grep -rEn 'Firebase Studio' README.md part*.md docs templates .claude/skills .agents/skills 2>/dev/null; then
+            echo "ERROR: Deprecated builder recommendation found. Use current builder exit-review language."
+            exit 1
+          fi
+
+      - name: Validate template JSON and TOML
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const jsonFiles = [
+            'templates/.cursor/environment.json.example',
+            'templates/.gemini/settings.json',
+            'templates/.claude/settings.json',
+            'templates/agent-permissions.example.json'
+          ];
+          for (const file of jsonFiles) JSON.parse(fs.readFileSync(file, 'utf8'));
+          NODE
+          python3 - <<'PY'
+          import pathlib
+          import tomllib
+          tomllib.loads(pathlib.Path('templates/.codex/config.toml').read_text())
+          PY
+
+      - name: Validate markdown fences
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+          const roots = ['README.md', 'part1-deepresearch.md', 'part2-prd-mvp.md', 'part3-tech-design-mvp.md', 'part4-notes-for-agent.md', 'docs', 'templates', '.claude', '.agents'];
+          const files = [];
+          function walk(target) {
+            if (!fs.existsSync(target)) return;
+            const stat = fs.statSync(target);
+            if (stat.isDirectory()) {
+              for (const entry of fs.readdirSync(target)) walk(path.join(target, entry));
+            } else if (target.endsWith('.md') || target.endsWith('.mdc')) {
+              files.push(target);
+            }
+          }
+          roots.forEach(walk);
+          const bad = [];
+          for (const file of files) {
+            const count = fs.readFileSync(file, 'utf8').split(/\r?\n/).filter((line) => line.trim().startsWith('```')).length;
+            if (count % 2 !== 0) bad.push(file);
+          }
+          if (bad.length) {
+            console.error(`ERROR: Unbalanced markdown fences in:\n${bad.join('\n')}`);
+            process.exit(1);
+          }
+          NODE
+
+      - name: Reject unresolved generated placeholders
+        run: |
+          if grep -rEn '\{\{|\}\}|<TODO|TBD_SOURCE_ANCHOR|TODO_AI_WORKFLOW_UPGRADE' docs templates 2>/dev/null; then
+            echo "ERROR: Unresolved generated placeholder found."
+            exit 1
+          fi
+
+      - name: Check diff whitespace
+        run: |
+          git diff --check
+          git diff --cached --check
 
       - name: Set up Python
         uses: actions/setup-python@v6
@@ -103,6 +202,14 @@ jobs:
         with:
           # Broken links fail the build; rate-limit responses (HTTP 429) do not.
           fail: true
+          # NOTE: '#' does NOT start a comment inside a '>-' folded scalar — any
+          # comment line here is folded into the argument string and lychee then
+          # fails with "required arguments were not provided: <inputs>". Keep
+          # explanations out here, and only real arguments below.
+          # The github.com excludes are decorative badge targets (stargazers,
+          # contributors); GitHub intermittently bot-blocks CI traffic on them.
+          # npmjs.com answers CI user-agents with 403 regardless of whether the
+          # package exists; verify the package manually with `npm view <pkg>`.
           args: >-
             --no-progress
             --max-retries 3
@@ -110,9 +217,8 @@ jobs:
             --exclude 'https?://([^/]*\.)?x\.com'
             --exclude 'https?://([^/]*\.)?twitter\.com'
             --exclude 'https?://([^/]*\.)?linkedin\.com'
-            # GitHub intermittently bot-blocks CI traffic on its decorative UI
-            # pages (404 on /stargazers etc.) — these badge targets are fine for humans.
             --exclude 'https://github\.com/KhazP/vibe-coding-prompt-template/(stargazers|issues|network/members|graphs/contributors)'
+            --exclude 'https?://(www\.)?npmjs\.com'
             README.md
             docs/
             .claude/README.md

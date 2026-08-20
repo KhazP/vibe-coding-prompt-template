@@ -1,0 +1,26 @@
+{
+  "name": "vibeworkflow",
+  "version": "0.2.0",
+  "description": "Agent-driven MVP scaffolding for the vibe-coding workflow. Tell your AI coding agent to run `npx vibeworkflow` — it installs the planning skills, interviews you via the agent, and scaffolds AGENTS.md, agent_docs/, and tool configs from your PRD and Tech Design. Zero dependencies.",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "vibeworkflow": "./bin/vibeworkflow.js"
+  },
+  "files": [
+    "dist",
+    "bin"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc && node scripts/copy-templates.mjs",
+    "test": "npm run build && tsc -p tsconfig.test.json && node --test \"dist-test/test/*.test.js\"",
+    "prepack": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.5.0"
+  }
+}

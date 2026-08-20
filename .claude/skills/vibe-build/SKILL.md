@@ -20,7 +20,7 @@ Execute the plan in AGENTS.md to build the MVP incrementally, testing after each
 
 ## Naming Policy
 
-Use model family names in recommendations unless explicit version pinning is requested by the user.
+Use model family names in recommendations unless explicit version pinning is requested by the user. Verify fast-moving vendor claims before relying on them.
 
 ## Prerequisites
 
@@ -30,6 +30,7 @@ Check for required files:
 2. `agent_docs/` directory - REQUIRED (detailed specs)
 3. `docs/PRD-*.md` - Reference for requirements
 4. `docs/TechDesign-*.md` - Reference for implementation
+5. `REVIEW-CHECKLIST.md` - Verification and safety gates
 
 If missing, suggest running `/vibe-agents` first.
 
@@ -67,13 +68,14 @@ After approval:
 
 After each feature:
 
-1. Run tests: `npm test` (or equivalent)
-2. Run linter: `npm run lint`
-3. Manual smoke test if needed
+1. Run the documented commands in `agent_docs/testing.md`
+2. Run linter/typecheck/build if the project defines them
+3. Manual/browser/device smoke test if needed
 4. Fix any issues before moving on
 5. Update the `## Current State` section in `AGENTS.md` and log the completed work as a one-line entry in `MEMORY.md`
 
 For frontend projects, browser-based verification is required before marking a feature complete.
+For AI feature changes, run the documented golden prompts, trajectory/tool-call checks, data-boundary checks, browser checks, or product-surface evals before marking complete.
 
 ## Build Order
 
@@ -106,7 +108,9 @@ Build each feature from the PRD:
 2. Set up monitoring
 3. Run through `REVIEW-CHECKLIST.md` — including its Security section (no hardcoded secrets, `.env` gitignored, dependency audit, input validation, auth, rate limits)
 4. Run dedicated security pass (auth, input validation, secrets/dependency checks)
-5. Document any manual steps
+5. Run AI safety pass if applicable (tool permissions, prompt-injection boundaries, data retention, cost ceilings, evals)
+6. Complete builder exit review if the project started in an AI/no-code builder
+7. Document evidence: changed files, commands run, test/browser/device results, AI eval/tool-call results, unresolved risks, and rollback notes
 
 ## Communication Style
 
@@ -160,6 +164,9 @@ Example:
 - Do NOT skip verification steps
 - Do NOT use deprecated patterns
 - Do NOT over-engineer simple features
+- Do NOT expose secrets, production data, or destructive AI tools without explicit approval
+- Do NOT auto-approve untrusted MCP servers or shell/write/network tools
+- Do NOT rely on local/private models for tool calling until a smoke test proves structured output and tool-call behavior
 
 ## Asking for Help
 
@@ -183,6 +190,13 @@ When the MVP is fully built:
 > - [List of features]
 >
 > **Deployed To:** [URL]
+>
+> **Evidence:**
+> - Commands run: [list]
+> - Browser/device checks: [list]
+> - AI eval/tool checks: [if applicable]
+> - Unresolved risks: [list]
+> - Rollback notes: [list]
 >
 > **Next Steps:**
 > 1. Share with 5-10 beta testers

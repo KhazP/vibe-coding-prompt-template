@@ -1,0 +1,4 @@
+# Codex project config for [App Name]
+# Keep sandbox and approval settings conservative. AGENTS.md is the source of truth.
+
+model = "[model family or leave unset]"

@@ -16,23 +16,26 @@ Please type A, B, or C:
 <details>
 <summary><b>AI Platform Recommendations for Research</b></summary>
 
-### Best Platforms for Deep Research
-- **Claude** — Strong technical accuracy and reasoning capabilities
-- **Gemini** — Large context window for comprehensive research synthesis
-- **ChatGPT** — Good for iterative research with reasoning controls
+### Platform Guidance for Deep Research
+Choose based on current capabilities and the verification path, not old ranking tables:
+- **Claude / ChatGPT / Gemini:** good general options when they can cite sources and reason through trade-offs.
+- **Gemini Deep Research / comparable deep research tools:** useful for cited reports and background research when available; label preview/beta features clearly.
+- **Coding-agent research:** useful after a repo exists, but keep it read-only until the research questions are answered.
 
 ### Choosing the Right Platform
-| Need | Best Choice | Why |
-|------|-------------|-----|
-| Large context (whole codebases) | Gemini | Largest context window |
-| Technical accuracy | Claude | Strong code/architecture analysis |
-| Quick iterations | ChatGPT | Fast responses, good reasoning |
+| Need | Selection Criteria |
+|------|--------------------|
+| Market/current data | Web search or Google Search grounding with source URLs and access dates |
+| Large attachments | Current context-window support plus the ability to cite specific source sections |
+| Technical/API claims | Official docs, changelogs, release notes, and examples |
+| Automated downstream use | Structured Markdown plus optional JSON/JSON-schema export |
 
 ### Freshness & Grounding
 - If the platform supports web search or tool use, enable it for up-to-date stats and competitor info
-- **With web search:** cite source URLs with access dates for major claims and flag uncertain data
-- **Without web access:** never invent URLs, dates, or statistics — label factual claims "Unverified — model knowledge"
+- If the platform supports URL context, attach official docs and competitor URLs instead of relying on memory
+- Cite source URLs with access dates for major claims and flag uncertain data
 - Distinguish sourced facts from model knowledge when needed
+- For pricing, quotas, model names, and beta features, say "verify current docs" instead of treating the answer as permanent
 
 ### Session Continuity
 - Keep this project in a single ongoing conversation where possible.
@@ -42,11 +45,6 @@ Please type A, B, or C:
 </details>
 
 Based on the user's response, follow the appropriate question path below. Ask questions **one at a time** and wait for responses before proceeding.
-
-> **Interview rules (apply to all paths):**
-> - If the user answers several questions at once, accept the answers, skip the answered questions, and continue with the unanswered ones.
-> - If the user says "I don't know" or seems unsure, propose a sensible default and ask them to confirm it.
-> - After any correction during the Verification Echo, re-echo the updated understanding and get fresh confirmation before proceeding.
 
 > **Important**: After completing all questions, you MUST perform a **Verification Echo** before generating the research prompt. This confirms your understanding is correct.
 
@@ -67,6 +65,8 @@ Based on the user's response, follow the appropriate question path below. Ask qu
 **Q7:** "What's your timeline? Days, weeks, or months to launch?"
 
 **Q8:** "Budget reality check: Can you spend money on tools/services or need everything free?"
+
+**Q9:** "Should the research evaluate AI product features, automation, ChatGPT/MCP surfaces, local/private model options, or only AI-assisted development?"
 
 ### If User Selects B (Developer):
 
@@ -98,6 +98,8 @@ Based on the user's response, follow the appropriate question path below. Ask qu
 
 **Q8:** "What's the business context? Startup, enterprise, side project, or client work?"
 
+**Q9:** "Should the research evaluate AI product architecture, provider choices, structured outputs, MCP/tools, evals, telemetry, data retention, and prompt-injection risk?"
+
 ### If User Selects C (In Between):
 
 **Q1:** "Tell me about your project idea and your current skills. What can you code, and where do you need help?"
@@ -123,6 +125,8 @@ Based on the user's response, follow the appropriate question path below. Ask qu
 
 **Q8:** "Budget for tools and services? Free only, under $50/month, under $200/month, or flexible?"
 
+**Q9:** "Should users interact with AI in the product, should AI only help you build, or should research decide?"
+
 ---
 
 ## Step 1: Verification Echo (Required)
@@ -142,7 +146,7 @@ After completing ALL questions, summarize your understanding back to the user:
 >
 > Is this accurate? Should I adjust anything before creating your research prompt?"
 
-Wait for user confirmation before proceeding. If they correct anything, update your understanding and re-echo the corrected summary for confirmation before moving on.
+Wait for user confirmation before proceeding. If they correct anything, update your understanding.
 
 ---
 
@@ -192,6 +196,7 @@ I'm a non-technical founder building [description]. I need beginner-friendly res
 4. What no-code/low-code tools are best for this?
 5. How do similar apps monetize and what can I realistically charge?
 6. What AI tools or APIs can accelerate development or differentiate the MVP?
+7. If AI is part of the product, what data can it read, what actions can it take, and what approval/eval safeguards are required?
 
 ### Research Focus:
 - Simple, actionable insights with examples
@@ -206,17 +211,19 @@ I'm a non-technical founder building [description]. I need beginner-friendly res
 3. **MVP Features** — Must-have vs nice-to-have prioritization
 4. **Development Roadmap** — With AI assistance strategy
 5. **Budget Breakdown** — Tools, services, deployment costs
+6. **AI/Automation Fit** — Whether this should include AI product features or automation
+7. **AI Safety & Evidence** — Data boundaries, provider retention/training setting to verify, eval prompts, telemetry, and confirmation gates if AI is in scope
+</instructions>
 
-### Document Structure (organize the research document under these exact section headings):
-1. **Project name** — product name and one-line description
-2. **Core concept** — what it is, the problem it solves, why now
-3. **Target users** — who it's for, their needs and pain points
-4. **Technical decisions (if any)** — recommended tools/platform (detailed architecture options are explored later in the Tech Design step)
-5. **Competitor insights** — similar solutions, what users love/hate, gaps to exploit
-6. **Budget/timeline** — cost estimates and launch timeframe
-7. **Handoff Context** — end the document with this block, filled in:
+<output_format>
+- Explain everything in plain English with examples
+- **Include source URLs with access dates** for each major recommendation
+- Use tables for comparisons
+- Highlight any conflicting information between sources
+- Separate official-doc facts from community/anecdotal signal
+- End the document with this exact block, so the next workflow step can pre-fill instead of re-asking:
 
----
+```
 ## Handoff Context
 <!-- Machine-readable summary for the next workflow step. Do not delete; the next prompt in the workflow reads this block. -->
 - Stage: research
@@ -225,18 +232,9 @@ I'm a non-technical founder building [description]. I need beginner-friendly res
 - Target platform: [web / mobile / desktop]
 - Budget: [budget]
 - Timeline: [timeline]
+- AI in product scope: [yes / no / undecided]
 - Source files: research-[AppName].md
----
-</instructions>
-
-<output_format>
-- Explain everything in plain English with examples
-- **Sourcing rules — follow the branch that applies to you:**
-  - If you have web search/browsing: include source URLs with access dates for each major recommendation
-  - If you do NOT have web access: label every factual claim "Unverified — model knowledge" and NEVER invent URLs, dates, or statistics
-- Never invent numbers, market sizes, or competitor facts — if unknown, label it an assumption
-- Use tables for comparisons
-- Highlight any conflicting information between sources
+```
 </output_format>
 ```
 
@@ -274,23 +272,37 @@ I need comprehensive technical research on [topic] for [context].
 - Security considerations for AI-integrated apps
 - Scalability approaches with modern infrastructure
 - AI tool/API integration strategies (include sources and current pricing when available)
+- Current AI architecture choices: OpenAI Responses/Agents/Apps SDK, Claude/Anthropic API, Gemini/Antigravity, Vercel AI SDK/Gateway, Cloudflare Workers AI/Agents, local models, MCP, and no-AI alternatives
+- AI safety and evaluation: prompt-injection risk, data retention/training policies, structured outputs, tool permissions, human approvals, telemetry, and cost controls
 - Cost optimization with current cloud pricing
 - Development velocity estimates with AI assistance
+- AI feature fit analysis, including provider options, data sensitivity, cost, and fallback behavior
 
-### Looking Ahead (one line each — details belong to the Tech Design step):
-- Premium UI/design options (design systems, Figma-to-code, generative UI) are explored in the Tech Design step — note only the high-level direction here.
-- Agent architecture options (planner-executor loops, tool integration protocols) are explored in the Tech Design step — skip deep detail here.
+### Premium UI/Design Research:
+- Design system generators and component libraries
+- Figma-to-code tools
+- Generative UI approaches
+- Design token standardization patterns
 
-### Document Structure (organize the research document under these exact section headings):
-1. **Project name** — project name and one-line description
-2. **Core concept** — what it is, the problem it solves, why now
-3. **Target users** — who it's for, their needs and pain points
-4. **Technical decisions (if any)** — stack/platform choices this research informs (detailed architecture options are explored later in the Tech Design step)
-5. **Competitor insights** — competing solutions, strengths/weaknesses, gaps to exploit
-6. **Budget/timeline** — cost estimates and delivery timeframe
-7. **Handoff Context** — end the document with this block, filled in:
+### Agent Architecture Research:
+- Planner-Executor-Reviewer (PER) loop patterns
+- Agent/tooling integration options for development workflow
+- Self-healing code and test strategies
+- Visual verification workflows
+- Prompt-injection, data-retention, and tool-permission risks for any AI feature
+</instructions>
 
----
+<output_format>
+- Provide detailed technical findings with code examples
+- Include architecture diagrams (describe in text or Mermaid.js)
+- **Cite sources with URLs and access dates** for each major finding
+- Use tables for comparisons
+- **Explicitly note where sources disagree** or data is uncertain
+- Include pros/cons for each major recommendation
+- Include an AI architecture section only when relevant: provider, data sent, retention/training setting to verify, tools/actions, output schema, eval set, telemetry, fallback, and cost ceiling
+- End the document with this exact block, so the next workflow step can pre-fill instead of re-asking:
+
+```
 ## Handoff Context
 <!-- Machine-readable summary for the next workflow step. Do not delete; the next prompt in the workflow reads this block. -->
 - Stage: research
@@ -299,20 +311,9 @@ I need comprehensive technical research on [topic] for [context].
 - Target platform: [web / mobile / desktop]
 - Budget: [budget]
 - Timeline: [timeline]
+- AI in product scope: [yes / no / undecided]
 - Source files: research-[AppName].md
----
-</instructions>
-
-<output_format>
-- Provide detailed technical findings with code examples
-- Include architecture diagrams (describe in text or Mermaid.js)
-- **Sourcing rules — follow the branch that applies to you:**
-  - If you have web search/browsing: cite source URLs with access dates for each major finding
-  - If you do NOT have web access: label every factual claim "Unverified — model knowledge" and NEVER invent URLs, dates, or statistics
-- Never invent numbers, market sizes, benchmarks, or competitor facts — if unknown, label it an assumption
-- Use tables for comparisons
-- **Explicitly note where sources disagree** or data is uncertain
-- Include pros/cons for each major recommendation
+```
 </output_format>
 ```
 
@@ -335,6 +336,7 @@ I'm building [description] with some technical knowledge. I need research that b
 - Market validation and competitor analysis
 - Technical approach recommendations
 - AI tools/APIs relevant to this product and my skill level
+- AI safety, data boundary, and eval requirements if AI is part of the product
 - Learning resources for required technologies
 - MVP development strategy with AI assistance
 - No-code vs low-code vs full-code trade-offs
@@ -352,17 +354,19 @@ I'm building [description] with some technical knowledge. I need research that b
 4. **Roadmap** — Development with skill milestones
 5. **Resources** — Learning materials (prioritized)
 6. **Budget** — Forecast with tool subscriptions
+7. **AI/Automation Fit** — Whether AI product features or automation are worth adding
+8. **AI Safety & Evidence** — Provider/data boundary, evals, telemetry, fallback, and approval gates if AI is in scope
+</instructions>
 
-### Document Structure (organize the research document under these exact section headings):
-1. **Project name** — product name and one-line description
-2. **Core concept** — what it is, the problem it solves, why now
-3. **Target users** — who it's for, their needs and pain points
-4. **Technical decisions (if any)** — recommended stack/platform (detailed architecture options are explored later in the Tech Design step)
-5. **Competitor insights** — similar solutions, what users like/dislike, gaps to exploit
-6. **Budget/timeline** — cost estimates and launch timeframe
-7. **Handoff Context** — end the document with this block, filled in:
+<output_format>
+- Assume basic programming knowledge, explain advanced concepts
+- **Include source URLs with access dates** for recommendations
+- Use tables for comparisons
+- **Note any conflicting information** between sources
+- Provide pros/cons for major decisions
+- End the document with this exact block, so the next workflow step can pre-fill instead of re-asking:
 
----
+```
 ## Handoff Context
 <!-- Machine-readable summary for the next workflow step. Do not delete; the next prompt in the workflow reads this block. -->
 - Stage: research
@@ -371,19 +375,9 @@ I'm building [description] with some technical knowledge. I need research that b
 - Target platform: [web / mobile / desktop]
 - Budget: [budget]
 - Timeline: [timeline]
+- AI in product scope: [yes / no / undecided]
 - Source files: research-[AppName].md
----
-</instructions>
-
-<output_format>
-- Assume basic programming knowledge, explain advanced concepts
-- **Sourcing rules — follow the branch that applies to you:**
-  - If you have web search/browsing: include source URLs with access dates for each major recommendation
-  - If you do NOT have web access: label every factual claim "Unverified — model knowledge" and NEVER invent URLs, dates, or statistics
-- Never invent numbers, market sizes, or competitor facts — if unknown, label it an assumption
-- Use tables for comparisons
-- **Note any conflicting information** between sources
-- Provide pros/cons for major decisions
+```
 </output_format>
 ```
 
@@ -393,23 +387,30 @@ I'm building [description] with some technical knowledge. I need research that b
 
 After generating the appropriate research prompt, say:
 
-"Session continuity reminder: when the research is done, save the FULL research document as `research-[YourAppName].md` — you'll attach that file in Part 2 (the PRD generator) instead of restarting from scratch. Keep the `## Handoff Context` block at the end of the document intact when you save — Part 2 reads it to skip re-asking questions."
+"Session continuity reminder: save a short summary of this research and reuse it in Part 2 instead of restarting from scratch."
 
 "I've created your research prompt above. Here's how to get the best results:
 
-**Platform pick:** See the "AI Platform Recommendations for Research" table at the top of this file. In short: Claude for technical accuracy, Gemini for large-context research, ChatGPT for quick iterations.
+### Choosing an AI Platform for Research:
+
+| Need | What to look for |
+|------|------------------|
+| Current market data | Web search, URL context, source grounding, citations |
+| Long source documents | Large context and reliable section-level references |
+| Technical claims | Official docs lookup and clear uncertainty notes |
+| Automation | Structured Markdown plus optional JSON summary |
 
 ### How to Use:
 1. Copy the research prompt above
 2. Paste it into your chosen AI platform
 3. Wait for the research (may take 10-20 minutes for comprehensive results)
-4. Review the sources cited (if web search was used) — verify critical recommendations. If the research labels claims "Unverified — model knowledge", double-check the important ones yourself
+4. Review the sources cited — verify critical recommendations
 
 **Pro tip**: Run the same prompt on 2 different platforms and compare results. This catches blind spots and validates recommendations.
 
-**If available**: Enable web search or tool access so the research can pull current data and cite sources.
+**If available**: Enable web search, URL context, source grounding, or deep research mode so the research can pull current data and cite sources.
 
-**Important**: AI knowledge has cutoff dates. For rapidly-changing topics (pricing, latest tools), verify with official sources.
+**Important**: AI knowledge has cutoff dates. For rapidly-changing topics (pricing, quotas, latest tools, model names, beta features), verify with official sources.
 
 Would you like me to adjust anything in the prompt before you begin?"
 

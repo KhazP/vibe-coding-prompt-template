@@ -24,3 +24,6 @@ Thumbs.db
 # Release artifacts (uploaded to GitHub Releases, not committed)
 /vibe-coding-prompt-template-*.zip
 /RELEASE-NOTES-*.md
+
+# Local tooling caches
+.claude/tsc-cache/

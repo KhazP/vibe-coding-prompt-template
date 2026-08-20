@@ -1,26 +1,31 @@
-# System Memory & Context 🧠
-<!--
-AGENTS: Update this file after every major milestone, structural change, or resolved bug.
-DO NOT delete historical context if it is still relevant. Compress older completed items.
--->
+# Memory
 
-## 🏗️ Active Phase & Goal
-**Current Task:** [REPLACE: current task] *(e.g. the component or route you're actively building)*
-**Next Steps:**
-1. [REPLACE: next step]
-2. [REPLACE: next step]
+Update this after major decisions, completed phases, or bugs that future agents need to know about. Keep it short.
 
-## 📂 Architectural Decisions
-*(Log specific choices made during the build here so future agents respect them)*
-- [REPLACE: date] — [REPLACE: decision and why] *(e.g. chose Zustand over Redux for local component state to reduce boilerplate)*
-- [REPLACE: date] — [REPLACE: decision and why]
+## Current State
 
-## 🐛 Known Issues & Quirks
-*(Log current bugs or weird workarounds here)*
-- [REPLACE: known issue or workaround] *(e.g. API route X occasionally fails due to rate limits from Third Party Y)*
-- [REPLACE: known issue or workaround] *(e.g. database seed script must be run with command Z to avoid PK conflicts)*
+- Current task: [task]
+- Current phase: [phase]
+- Next step: [step]
+- Blocked by: [none / blocker]
 
-## 📜 Completed Phases
+## Decisions
+
+- [YYYY-MM-DD] [decision and why]
+- [YYYY-MM-DD] [decision and why]
+
+## AI / Tooling Decisions
+
+- [YYYY-MM-DD] [provider, model family, local runtime, MCP/tool permission, eval, or retention decision]
+
+## Known Issues
+
+- [issue / workaround / command needed]
+
+## Completed
+
 - [ ] Initial scaffold
-- [ ] Database schema creation
-- [ ] Auth integration
+- [ ] Core data model
+- [ ] Auth
+- [ ] Core MVP flow
+- [ ] Launch checks

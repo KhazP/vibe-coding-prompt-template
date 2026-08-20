@@ -1,36 +1,29 @@
 # Product Requirements
 
-> Fill this in from the PRD (`docs/PRD-*.md`). This is the agent's quick-reference version — keep it short and current.
+Use this as the short build-facing version of the PRD. Do not paste the entire PRD unless the project is complex.
 
-## Product Summary
-- **Product:** [REPLACE: app name]
-- **One-liner:** [REPLACE: what it does, in one sentence]
-- **Target users:** [REPLACE: who this is for]
+## Users
 
-## User Stories
-- As a [REPLACE: user type], I want [REPLACE: action] so that [REPLACE: benefit].
-- As a [REPLACE: user type], I want [REPLACE: action] so that [REPLACE: benefit].
-- As a [REPLACE: user type], I want [REPLACE: action] so that [REPLACE: benefit].
+- Primary user: [who]
+- Main problem: [problem]
 
-## Feature List (MoSCoW)
+## Must-Have Features
 
-### Must Have
-- [ ] [REPLACE: must-have feature 1]
-- [ ] [REPLACE: must-have feature 2]
-- [ ] [REPLACE: must-have feature 3]
+- [feature] - [acceptance criteria]
+- [feature] - [acceptance criteria]
+- [feature] - [acceptance criteria]
 
-### Should Have
-- [ ] [REPLACE: should-have feature]
+## Nice-To-Have Features
 
-### Could Have
-- [ ] [REPLACE: could-have feature]
+- [feature]
+- [feature]
 
-### Won't Have (this version)
-- [REPLACE: feature explicitly saved for later]
+## Out Of Scope
 
-## Success Metrics
-- [REPLACE: primary metric and target] *(e.g. 100 signups in 30 days)*
-- [REPLACE: secondary metric]
+- [excluded feature]
+- [excluded feature]
 
-## Out of Scope
-- [REPLACE: anything the agent must NOT build, even if asked mid-build]
+## Success Signals
+
+- [metric or qualitative signal]
+- [metric or qualitative signal]

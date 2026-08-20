@@ -1,0 +1,5 @@
+---
+description: Verification and review rules
+---
+
+Before marking work complete, run the relevant checks in `agent_docs/testing.md`, review the diff, and update `MEMORY.md` for major decisions. For UI changes, verify in a real browser or device viewport. For AI/MCP changes, run the golden prompt, trajectory, approval, data-boundary, and tool-call checks. Report changed files, commands, evidence, risks, and rollback notes.

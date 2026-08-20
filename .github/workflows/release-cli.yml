@@ -1,0 +1,55 @@
+# Publishes the `vibeworkflow` npm package (cli/) — nothing else in this repo.
+#
+# Trigger:  cli-v* tags ONLY (e.g. cli-v0.2.1). The repo's own release tags
+#           (v3.0.0, ...) are versioned separately and must NOT publish the CLI.
+# Auth:     npm Trusted Publishing via OIDC. No NPM_TOKEN, no secrets to rotate.
+#           Requires the trusted publisher to be registered on npmjs.com for
+#           this repo + this filename, and npm CLI >= 11.5.1 (Node 24 ships it).
+#
+# To cut a release:
+#   1. bump "version" in cli/package.json
+#   2. commit, then: git tag cli-v<version> && git push origin cli-v<version>
+
+name: Release CLI
+
+on:
+  push:
+    tags:
+      - "cli-v*"
+
+permissions:
+  contents: read
+  id-token: write # required for OIDC trusted publishing
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: cli
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: "https://registry.npmjs.org"
+          cache: npm
+          cache-dependency-path: cli/package-lock.json
+
+      - name: Tag must match cli/package.json version
+        run: |
+          TAG_VERSION="${GITHUB_REF_NAME#cli-v}"
+          PKG_VERSION="$(node -p "require('./package.json').version")"
+          if [ "$TAG_VERSION" != "$PKG_VERSION" ]; then
+            echo "::error::tag $GITHUB_REF_NAME does not match cli/package.json version $PKG_VERSION"
+            exit 1
+          fi
+
+      - run: npm ci
+      - run: npm test
+
+      # No NODE_AUTH_TOKEN: npm detects the GitHub OIDC environment and mints a
+      # short-lived token itself. Setting a token here would disable that path.
+      - name: Publish to npm (OIDC)
+        run: npm publish --access public
