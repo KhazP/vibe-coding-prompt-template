@@ -1,10 +1,10 @@
-# GEMINI.md — Gemini CLI Configuration for [App Name]
+# GEMINI.md — Antigravity / Gemini Legacy Configuration for [App Name]
 
 Last generated: [YYYY-MM-DD]
 
 ## Source of Truth
 
-Read `AGENTS.md` first, then use `agent_docs/` for details.
+Read `AGENTS.md` first, then use `agent_docs/` for details. Use this file for Antigravity/Gemini-compatible agents only after verifying current Google tooling support.
 
 ## Operating Rules
 
@@ -14,6 +14,8 @@ Read `AGENTS.md` first, then use `agent_docs/` for details.
 - Use `/memory show`, `/memory refresh`, `/tools`, `/chat save <tag>`, and `/compress` when useful.
 - Keep tool approvals conservative.
 - Do not enable broad always-allow modes unless the user explicitly accepts the risk.
+- Do not auto-approve MCP, shell/write/network, production, billing, or destructive tools.
+- For AI product work, verify structured outputs, provider retention/training settings, evals, telemetry, cost ceilings, and approval gates.
 
 ## Commands
 

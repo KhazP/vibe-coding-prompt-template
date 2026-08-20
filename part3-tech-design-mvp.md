@@ -32,7 +32,7 @@ Please attach your PRD (and optionally your research) and type A, B, or C:
 <summary><b>Best AI Platforms for Technical Design</b></summary>
 
 ### Platform Guidance
-Use the assistant that can reason through trade-offs, cite current official docs, and keep the output structured. Claude, ChatGPT, Gemini, Codex, Cursor, and Gemini CLI can all fit different parts of the work.
+Use the assistant that can reason through trade-offs, cite current official docs, and keep the output structured. Claude, ChatGPT, Gemini, Codex, Cursor, Copilot, and Antigravity/Gemini-compatible agents can all fit different parts of the work.
 
 ### Choosing the Right Tool
 | Need | Selection Criteria |
@@ -114,7 +114,10 @@ Then ask these questions ONE AT A TIME based on their technical level:
 - One narrow helper feature
 - Core AI workflow
 - AI-assisted internal/admin workflow
+- ChatGPT/MCP surface
 - Not sure — help me decide"
+
+**Q10:** "If you start in a builder like v0, Lovable, Bolt, Replit Agent, Google AI Studio, Base44, Tempo, Builder.io, or Framer, what is the export/GitHub/local-build/rollback plan?"
 
 ### Path B — Developer Questions:
 
@@ -143,10 +146,11 @@ Then ask these questions ONE AT A TIME based on their technical level:
 
 **Q5:** "AI coding assistance strategy?
 - Claude Code (CLI with session memory)
-- Gemini CLI (free, open source)
+- Antigravity CLI / Gemini CLI legacy or enterprise-supported path
 - Cursor (uses AGENTS + rules/plugins)
 - VS Code + GitHub Copilot
 - Google Antigravity / equivalent agent-first IDE (availability may vary)
+- Continue, Cline, Aider, OpenHands, or local model workflow
 - Mix of tools"
 
 **Q6:** "Development workflow preferences?
@@ -170,10 +174,17 @@ Then ask these questions ONE AT A TIME based on their technical level:
 **Q9:** "Any AI/LLM product features? If yes, specify use cases, latency/cost constraints, and data sensitivity."
 
 **Q10:** "AI product architecture:
-- Which provider, SDK, or local model path should be used?
+- Which provider, SDK, MCP, agent runtime, or local model path should be used?
 - What user data may be sent to AI systems?
+- What provider/account retention or training setting must be verified?
+- What structured output schema or tool contract will app logic consume?
 - What latency, cost, fallback, and logging limits apply?
 - Which AI-assisted actions require explicit user confirmation?"
+
+**Q11:** "Agent orchestration:
+- Is a single app route or SDK call enough?
+- Do you need subagents only for development work?
+- Does the product itself need durable state, retries, approvals, background jobs, or a workflow graph?"
 
 ### Path C — In-Between Questions:
 
@@ -228,6 +239,8 @@ Then ask these questions ONE AT A TIME based on their technical level:
 - Yes, as a helper/admin feature
 - Only as a development workflow"
 
+**Q10:** "If you use a no-code or AI builder, how will you prove you own the source, can run it locally, can protect secrets, and can leave the platform later?"
+
 ---
 
 ## Step 1: Verification Echo (Required)
@@ -268,9 +281,11 @@ After verification, create a Tech Design Doc appropriate to their level.
 | Need | Default Recommendation | Why |
 |------|------------------------|-----|
 | Standard web MVP | Next.js App Router + Vercel, or an equally familiar full-stack framework | Fast previews, common patterns, strong AI/tool support |
-| AI web app | Server-side AI calls with provider abstraction or Vercel AI SDK | Keeps keys off the client and makes evals/telemetry easier |
-| Budget AI path | Cloudflare Workers AI or another low-cost hosted provider | Isolates quotas, secrets, and abuse limits at the edge/API layer |
-| Fast UI scaffold | v0, Lovable, AI Studio Build mode, or similar | Useful for first drafts; still require export, test, and security review |
+| AI web app | Server-side AI calls with provider abstraction, OpenAI Responses, Vercel AI SDK, or direct SDKs | Keeps keys off the client and makes evals/telemetry easier |
+| Agentic product | OpenAI Agents SDK, Cloudflare Agents SDK, Vercel Workflow, LangGraph/Mastra/PydanticAI, or similar only when durable state/HITL/retries are required | Avoids overengineering simple prompt features |
+| Budget AI path | Cloudflare Workers AI, local model runtime, or another low-cost hosted provider | Isolates quotas, secrets, and abuse limits at the edge/API layer |
+| Fast UI scaffold | v0, Lovable, Google AI Studio Build mode, Bolt, Replit Agent, or similar | Useful for first drafts; still require export, local build, test, and security review |
+| Local/private AI | LM Studio/Ollama/Continue/Cline/Aider/OpenHands with explicit tool approvals | Useful for privacy and experimentation; verify tool calling before relying on it |
 
 Do not present any row as mandatory. Pick the simplest option that satisfies the PRD and can be verified by the builder.
 
@@ -421,12 +436,37 @@ Based on your PRD, here's how to implement each feature:
 If your MVP includes AI features, clarify:
 - **Use cases:** [Chat, summarization, recommendations]
 - **Data sensitivity:** [Public/Private/PII]
-- **Provider options:** [API-based vs local models]
+- **Provider options:** [OpenAI Responses/Agents/Apps SDK, Anthropic API, Gemini/Antigravity, Vercel AI SDK/Gateway, Cloudflare Workers AI/Agents, local models, or no product AI]
+- **Data boundary:** [What data can be sent to model/provider/tool]
+- **Retention/training setting:** [Provider/account setting to verify]
+- **Structured outputs:** [Schema, tool contract, or freeform response]
+- **Tool permissions:** [Read-only, write, destructive, external network, credential-bearing, production]
 - **Latency/cost targets:** [Constraints]
 - **Failure fallback:** [What happens if the AI call fails]
 - **User confirmation:** [Which tool calls or actions require explicit approval]
-- **Eval set:** [Direct, indirect, negative, auth-required, and failure prompts]
-- **Telemetry:** [What logs/traces are allowed and where they are stored]
+- **Eval set:** [Direct, indirect, negative, auth-required, failure, and trajectory prompts]
+- **Telemetry:** [What logs/traces are allowed, redacted, and where they are stored]
+
+## Builder Exit Review (If Using AI Builders)
+
+If starting with an AI builder or no-code platform, document:
+- **Source ownership:** [GitHub sync, ZIP export, PR flow, or no export]
+- **Local verification:** [Install/dev/test/build commands after export]
+- **Secrets:** [Where environment variables live and what must not be committed]
+- **Auth/RLS:** [Auth rules, database permissions, storage rules]
+- **Deployment owner:** [Who controls hosting, domain, rollback]
+- **Exit plan:** [How to migrate away from the builder if needed]
+
+## Agent Orchestration Decision
+
+Default to one lead coding agent plus repo-owned docs. Add complexity only when justified:
+
+| Need | Pattern |
+|------|---------|
+| Simple MVP feature | One lead agent, one plan, one verification loop |
+| Research/review/test isolation | Focused subagents or background agents with disjoint scope |
+| Product workflow with state/retries/HITL | Durable workflow or graph runtime |
+| Tool/API surface for other agents | MCP server with Streamable HTTP for hosted remote tools |
 
 ## AI Assistance Strategy
 
@@ -435,7 +475,7 @@ If your MVP includes AI features, clarify:
 | Task | Good Tool Pattern | Example Prompt |
 |------|-------------------|----------------|
 | Planning architecture | Claude, ChatGPT, Gemini, or Codex with official-doc verification | "Compare 3 stack options for [feature] using current official docs." |
-| Repo implementation | Cursor/Codex/Claude Code/Gemini CLI with `AGENTS.md` loaded | "Implement [feature] using the approved plan and run the documented checks." |
+| Repo implementation | Cursor/Codex/Claude Code/Copilot/Antigravity-compatible agent with `AGENTS.md` loaded | "Implement [feature] using the approved plan and run the documented checks." |
 | Focused delegation | Subagents/background agents with narrow scopes | "Audit only the auth files and return findings; do not edit." |
 | UI scaffold | v0/Lovable/AI Studio Build mode, followed by code/security review | "Create [component] matching [style], then list required cleanup before production." |
 | AI product feature | Direct SDKs, AI SDKs, Workers AI, local models, or provider abstraction | "Design the AI feature with data boundaries, auth, evals, fallback behavior, and deployment checks." |
@@ -487,7 +527,7 @@ Please fix and explain the issue.
 
 ## Cost Breakdown
 
-> **Note:** Verify all pricing directly with each vendor before budgeting. Costs vary by region, plan, and usage. Last verified: 2026-04.
+> **Note:** Verify all pricing directly with each vendor before budgeting. Costs vary by region, plan, and usage. Last verified: 2026-05.
 
 ### Development Phase (Building)
 | Service | Free Tier Available | Notes |
@@ -1003,7 +1043,7 @@ logger.info({
 
 ## Cost Analysis
 
-> **Note:** Verify all pricing directly with each vendor before budgeting. Tiers and costs change frequently. Last verified: 2026-04.
+> **Note:** Verify all pricing directly with each vendor before budgeting. Tiers and costs change frequently. Last verified: 2026-05.
 
 ### Running Costs (Monthly — example stack, verify current pricing)
 | Service | Example Tier | Verify at |
@@ -1419,7 +1459,7 @@ If your MVP includes AI features, define:
 | Vercel | Generous | Paid | Check vercel.com/pricing |
 | **Total** | **Varies** | **Varies** | **Verify current vendor pages** |
 
-> Last verified: 2026-04. Always check vendor pricing pages before budgeting.
+> Last verified: 2026-05. Always check vendor pricing pages before budgeting.
 
 ### After Launch (Production)
 | Users | Cost trend | Notes |
@@ -1506,6 +1546,33 @@ Your technical implementation succeeds when:
 After generating the appropriate Technical Design Document based on their level, say:
 
 "I've created your Technical Design Document above. This document defines HOW to build what's described in your PRD.
+
+### Machine-Readable Summary
+
+Append this fenced JSON block to the very end of the document (after the `---`). It powers the `vibe-coding` CLI and downstream automation, so use the exact stack and commands you chose:
+
+```json
+{
+  "appName": "[App Name]",
+  "stack": {
+    "frontend": "[framework]",
+    "backend": "[framework/runtime]",
+    "database": "[database/ORM]",
+    "auth": "[provider]",
+    "styling": "[library/system]",
+    "deployment": "[host]"
+  },
+  "commands": {
+    "setup": "[exact command]",
+    "dev": "[exact command]",
+    "test": "[exact command]",
+    "typecheck": "[exact command]",
+    "lint": "[exact command]",
+    "build": "[exact command]"
+  },
+  "aiScope": "[none / in-app AI / automation / agent]"
+}
+```
 
 ### Self-Verification Checklist
 

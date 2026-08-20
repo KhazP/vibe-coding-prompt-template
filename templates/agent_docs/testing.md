@@ -1,30 +1,39 @@
-# Testing Strategy
+# Testing
 
-## Frameworks
-- **Unit Tests:** [Tool, e.g., Vitest]
-- **Integration Tests:** [Tool]
-- **E2E Tests:** [Tool, e.g., Playwright]
-- **Browser / Device Checks:** [Tool or manual flow]
-- **AI Evals:** [Tool or golden prompt set, if applicable]
+## Required Before Completion
 
-## Rules & Requirements
-- **Coverage:** Aim for [X]% code coverage on critical paths.
-- **Before Commit:** Always run `[project-specific command]` before verifying a task is complete.
-- **Failures:** NEVER skip tests or mock out assertions to make a pipeline pass without Human approval. If an Agent breaks a test, the Agent must fix it.
-- **Browser Evidence:** For UI changes, capture browser/device evidence or describe the exact manual verification.
-- **AI Evidence:** For AI changes, include prompt/action evidence and data-boundary checks.
+- [ ] Relevant tests pass.
+- [ ] Typecheck/build passes.
+- [ ] User-visible changes are checked in a browser or device when applicable.
+- [ ] No tests were skipped or weakened without human approval.
+- [ ] Evidence is reported in the final response.
 
-## Execution
-- Command to run all tests: `[Command]`
-- Command to run a single test file: `[Command pattern]`
-- Command to run typecheck/build: `[Command]`
-- Command to run browser checks: `[Command or manual steps]`
-- Command to run AI/action checks: `[Command or manual steps]`
+## Commands
 
-## AI Verification (If Applicable)
-- **Direct prompts:** [Expected tool and output]
-- **Indirect prompts:** [Expected routing or refusal]
-- **Negative prompts:** [What must not trigger tool calls]
-- **Auth-required prompts:** [Expected login/permission behavior]
-- **Failure prompts:** [Provider timeout, quota, malformed input, retry/idempotency]
-- **Data assertions:** Model-visible output and logs contain only the intended data
+- All tests: `[command]`
+- Single test: `[command pattern]`
+- Typecheck: `[command]`
+- Lint/format: `[command]`
+- Build: `[command]`
+- Browser/device check: `[command or manual flow]`
+
+## What To Test
+
+| Change type | Minimum check |
+|-------------|---------------|
+| Pure logic | Unit test |
+| API/data flow | Integration test |
+| UI behavior | Browser/device check |
+| Auth, billing, migrations, deployment | Human review plus focused test |
+| AI/tool behavior | Prompt/tool eval plus data-boundary check |
+
+## AI Checks
+
+Fill this in only if the product uses AI.
+
+- Direct prompt: [expected result]
+- Bad/indirect prompt: [expected refusal or safe behavior]
+- Auth-required prompt: [expected permission behavior]
+- Failure case: [provider timeout/quota/malformed response]
+- Tool/action check: [expected tool call and blocked tool calls]
+- Data check: [what must not appear in model output or logs]

@@ -1,32 +1,31 @@
-# System Memory & Context 🧠
-<!--
-AGENTS: Update this file after every major milestone, structural change, or resolved bug.
-DO NOT delete historical context if it is still relevant. Compress older completed items.
-This is repo-owned memory. Tool-side memories may help individual assistants, but this file is the portable source of project state.
--->
+# Memory
 
-## 🏗️ Active Phase & Goal
-**Current Task:** [e.g., Complete active component or specific route]
-**Next Steps:**
-1. [Step 1]
-2. [Step 2]
+Update this after major decisions, completed phases, or bugs that future agents need to know about. Keep it short.
 
-## 📂 Architectural Decisions
-*(Log specific choices made during the build here so future agents respect them)*
-- [Date] - [Decision] e.g., Chose Zustand over Redux for local component state to reduce boilerplate.
-- [Date] - [Decision]
+## Current State
 
-## 🤖 AI / Tooling Decisions
-- [Date] - [AI provider/model family, eval strategy, product AI decision, or agent tooling choice]
-- [Date] - [Tool permission or data-retention decision]
+- Current task: [task]
+- Current phase: [phase]
+- Next step: [step]
+- Blocked by: [none / blocker]
 
-## 🐛 Known Issues & Quirks
-*(Log current bugs or weird workarounds here)*
-- [e.g., API route X occasionally fails due to rate limits from Third Party Y].
-- [e.g., Database seed script must be run with command Z to avoid PK conflicts].
+## Decisions
 
-## 📜 Completed Phases
+- [YYYY-MM-DD] [decision and why]
+- [YYYY-MM-DD] [decision and why]
+
+## AI / Tooling Decisions
+
+- [YYYY-MM-DD] [provider, model family, local runtime, MCP/tool permission, eval, or retention decision]
+
+## Known Issues
+
+- [issue / workaround / command needed]
+
+## Completed
+
 - [ ] Initial scaffold
-- [ ] Database schema creation
-- [ ] Auth integration
-- [ ] AI eval baseline, if applicable
+- [ ] Core data model
+- [ ] Auth
+- [ ] Core MVP flow
+- [ ] Launch checks

@@ -1,14 +1,31 @@
 # Project Brief
 
-- **Product vision:** [One-line summary from PRD]
-- **Target Audience:** [Who this is for]
+## Product
 
-## Conventions
-- **Naming:** [e.g., camelCase for files, PascalCase for React components]
-- **File Structure:** [e.g., Colocate tests with components: `Button.tsx` next to `Button.test.tsx`]
+- One-line vision: [what this product does]
+- Target users: [who this is for]
+- Primary user outcome: [the main thing users should accomplish]
 
-## Key Principles
-- Ship the simplest possible solution that solves the user story.
-- Prefer boring, maintainable choices over novelty unless the Tech Design explicitly chooses a newer tool for a clear reason.
-- Use prebuilt services or low-code integrations only when they match the PRD, security needs, and ownership expectations.
-- For AI features, keep the user outcome narrow and verify behavior with eval prompts before expanding scope.
+## Scope
+
+- Must ship:
+  - [feature]
+  - [feature]
+- Not in v1:
+  - [excluded feature]
+  - [excluded feature]
+
+## Principles
+
+- Solve the user story before adding polish.
+- Prefer boring, maintainable choices.
+- Keep generated docs short and current.
+- Verify user-visible work in the real product surface.
+
+## AI Position
+
+Fill this in only if AI is part of the product.
+
+- AI is used for: [feature/workflow]
+- AI is not used for: [sensitive/risky areas]
+- Human approval required for: [actions]

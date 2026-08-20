@@ -106,7 +106,10 @@ Reference these insights during the Q&A process.
 - No AI features in v1
 - AI inside the app (chat, summarization, recommendations, image/audio, automation)
 - AI-assisted product feature
+- ChatGPT/MCP app surface or internal/admin agent
 - Not sure — help me decide"
+
+If yes or unsure, ask what user data AI may read, what actions it may take, what should require confirmation, and whether local/private model options matter.
 
 ### Path B — Developer Questions:
 
@@ -154,7 +157,8 @@ Primary: 'As a [user type], I want to [action] so that [benefit]'
 - Are there AI product features?
 - Should users access this through a web/mobile app, or is AI only an internal product feature?
 - What data can AI tools read, write, store, or expose?
-- What actions require explicit user confirmation?"
+- What actions require explicit user confirmation?
+- Which provider/account, retention/training setting, telemetry, and eval requirements must be captured?"
 
 ### Path C — In-Between Questions:
 
@@ -195,7 +199,10 @@ Primary: 'As a [user type], I want to [action] so that [benefit]'
 - In-app AI features
 - AI product feature
 - AI only for development assistance
+- ChatGPT/MCP or admin/internal agent
 - No AI in the product yet"
+
+If AI is in scope, capture data boundaries, action permissions, approval gates, fallback behavior, and eval expectations.
 
 ---
 
@@ -379,8 +386,11 @@ After verification, create a PRD appropriate to their level:
 **Product AI:** [None / in-app AI / automation / assistant-assisted workflow]
 **User Outcome:** [If AI is included, the single outcome it should support]
 **Data Access:** [What AI can read, write, store, or expose]
+**Provider / Retention:** [Provider/account type and training/retention setting to verify]
+**Output Contract:** [Structured output schema or user-visible freeform answer]
 **Human Confirmation:** [Actions that require explicit user approval]
-**Evaluation:** [Direct, edge-case, and negative prompts or scenarios to verify]
+**Evaluation:** [Direct, indirect, negative, auth-required, failure, and trajectory scenarios to verify]
+**Telemetry / Cost:** [Allowed logs/traces, redaction rules, fallback behavior, and cost ceiling]
 
 ## Quality Standards
 
@@ -418,6 +428,7 @@ The MVP is ready to launch when:
 - [ ] It works on mobile and desktop
 - [ ] One complete user journey works end-to-end
 - [ ] Basic analytics are tracking
+- [ ] AI evals, data-boundary checks, and approval gates pass if AI is in scope
 - [ ] Friends/family test is complete
 - [ ] Deployment is automated
 
@@ -548,11 +559,13 @@ After this PRD is approved:
 
 ### AI / Automation Requirements
 - **AI Surface:** [None / in-app AI / automation / assistant-assisted workflow]
-- **Provider Strategy:** [Direct SDK / AI SDK / Agents SDK / local model / no product AI]
+- **Provider Strategy:** [OpenAI Responses/Agents/Apps SDK / Anthropic API / Gemini-Antigravity / Vercel AI SDK-Gateway / Cloudflare Workers AI-Agents / local model / no product AI]
+- **Output Contract:** [Structured outputs, tool schema, MCP schema, or conversational response]
+- **Action Permissions:** [Read-only, write, destructive, external network, credential-bearing, production]
 - **Data Retention:** [What prompts, outputs, logs, and files may be stored]
 - **Cost Ceiling:** [Budget or usage limit]
 - **Fallback Behavior:** [What happens when AI calls fail or hit limits]
-- **Eval Set:** [Direct, indirect, negative, auth-required, and failure-case prompts]
+- **Eval Set:** [Direct, indirect, negative, auth-required, failure-case, and tool trajectory prompts]
 
 ### Usability
 - **Accessibility:** WCAG 2.1 AA
@@ -823,8 +836,10 @@ graph LR
 
 **AI Surface:** [None / in-app AI / automation / assistant-assisted workflow]
 **Allowed Data:** [What AI can read/write]
+**Provider / Retention:** [Provider/account type and retention/training setting to verify]
+**Output Contract:** [Structured output schema or freeform response]
 **Confirmation Rules:** [Actions requiring user approval]
-**Verification Prompts:** [Direct, indirect, negative, and failure cases]
+**Verification Prompts:** [Direct, indirect, negative, auth-required, failure, and trajectory cases]
 
 **Browser/Device Support:**
 - Chrome, Safari, Firefox (latest)
@@ -919,6 +934,23 @@ graph LR
 After generating the appropriate PRD document based on their level, say:
 
 "I've created your Product Requirements Document (PRD) above. This document defines WHAT you're building and WHY.
+
+### Machine-Readable Summary
+
+Append this fenced JSON block to the very end of the document (after the `---`). It powers the `vibe-coding` CLI and downstream automation, so keep field values short and match the PRD exactly:
+
+```json
+{
+  "appName": "[App Name]",
+  "oneLiner": "[one-sentence description]",
+  "targetUsers": "[who this is for]",
+  "phase": "Foundation",
+  "mustHave": ["feature", "feature"],
+  "niceToHave": ["feature"],
+  "notInMvp": ["feature"],
+  "successMetrics": ["metric"]
+}
+```
 
 ### Self-Verification Checklist
 

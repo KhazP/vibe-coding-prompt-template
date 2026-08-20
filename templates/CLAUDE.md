@@ -1,29 +1,37 @@
-# CLAUDE.md — Claude Code Configuration for [App Name]
+# CLAUDE.md — [App Name]
 
-Last generated: [YYYY-MM-DD]
+**Project guidance lives in [AGENTS.md](./AGENTS.md).** Read it first. This file
+holds only what is specific to Claude Code, so the two never drift apart —
+duplicating commands or architecture across both is how they start disagreeing.
 
-## Source of Truth
+## Source of truth, in order
 
-Read these in order:
 1. `AGENTS.md`
 2. `agent_docs/project_brief.md`
 3. `agent_docs/tech_stack.md`
 4. `agent_docs/testing.md`
-5. `agent_docs/product_requirements.md`
 
-## Operating Rules
+## Operating notes
 
-- Use Plan Mode or an explicit plan before multi-file edits.
-- Build one small feature at a time.
-- Use the exact verification commands in `agent_docs/testing.md`.
-- Use subagents for focused research, review, debugging, or test work.
-- Treat agent teams as advanced and optional.
-- Do not read, print, or transmit secrets without explicit user permission.
-- Update `MEMORY.md` after major decisions or completed phases.
+- Plan before multi-file edits; build one small change at a time.
+- Use the exact verification commands in `agent_docs/testing.md` — don't invent
+  package-manager scripts.
+- Delegate focused research, review, or debugging to subagents.
+- **Never auto-approve** MCP, shell/write/network, production, billing, or
+  destructive tools. Never read, print, or transmit secrets without explicit
+  permission.
+- For AI product work, verify structured outputs, provider retention/training
+  settings, evals, telemetry, cost ceilings, and approval gates.
 
-## Commands
+## Memory is automatic — don't hand-maintain it
 
-- Setup: `[from Tech Design]`
-- Dev: `[from Tech Design]`
-- Test: `[from Tech Design]`
-- Lint/format/typecheck/build: `[from Tech Design]`
+Claude preserves relevant context on its own. **Do not add instructions to
+manually update a `MEMORY.md` after decisions or phases**; that was the old
+pattern and it produces a stale file that competes with the real one.
+
+## Growing this file
+
+Prefer progressive disclosure over length. Task-specific procedures belong in
+`.claude/skills/<name>/SKILL.md` (only the description stays resident);
+directory-specific conventions belong in `<subdir>/CLAUDE.md` (loads on demand).
+Universal constraints and safety prohibitions stay in `AGENTS.md`.

@@ -74,7 +74,7 @@ After each feature:
 5. Update `AGENTS.md` current state
 
 For frontend projects, browser-based verification is required before marking a feature complete.
-For AI feature changes, run the documented golden prompts, direct action checks, browser checks, or product-surface evals before marking complete.
+For AI feature changes, run the documented golden prompts, trajectory/tool-call checks, data-boundary checks, browser checks, or product-surface evals before marking complete.
 
 ## Build Order
 
@@ -108,7 +108,8 @@ Build each feature from the PRD:
 3. Run through launch checklist
 4. Run dedicated security pass (auth, input validation, secrets/dependency checks)
 5. Run AI safety pass if applicable (tool permissions, prompt-injection boundaries, data retention, cost ceilings, evals)
-6. Document any manual steps
+6. Complete builder exit review if the project started in an AI/no-code builder
+7. Document evidence: changed files, commands run, test/browser/device results, AI eval/tool-call results, unresolved risks, and rollback notes
 
 ## Communication Style
 
@@ -163,6 +164,8 @@ Example:
 - Do NOT use deprecated patterns
 - Do NOT over-engineer simple features
 - Do NOT expose secrets, production data, or destructive AI tools without explicit approval
+- Do NOT auto-approve untrusted MCP servers or shell/write/network tools
+- Do NOT rely on local/private models for tool calling until a smoke test proves structured output and tool-call behavior
 
 ## Asking for Help
 
@@ -186,6 +189,13 @@ When the MVP is fully built:
 > - [List of features]
 >
 > **Deployed To:** [URL]
+>
+> **Evidence:**
+> - Commands run: [list]
+> - Browser/device checks: [list]
+> - AI eval/tool checks: [if applicable]
+> - Unresolved risks: [list]
+> - Rollback notes: [list]
 >
 > **Next Steps:**
 > 1. Share with 5-10 beta testers

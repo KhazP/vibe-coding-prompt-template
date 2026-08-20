@@ -1,43 +1,81 @@
-# AGENTS.md — Master Plan for [App Name]
+# AGENTS.md — [App Name]
 
-## Project Overview & Stack
-**App:** [App Name]
-**Overview:** [One-paragraph description of the project, its core value proposition, and primary users]
-**Stack:** [Primary Tech Stack from Tech Design]
-**Surface:** [Web app / mobile app / desktop app / AI-assisted app / hybrid]
-**Critical Constraints:** [Mobile-first design, compliance, strict types, budget, data sensitivity, etc.]
+> **How to fill this in:** write only what an agent could NOT work out by
+> reading the repo. Skip the directory tree (`ls` shows it), the dependency list
+> (the manifest shows it), and generic advice like "write clean code" or "handle
+> errors" — a capable model already does those, and every line here is loaded
+> into context on every single session. If you find yourself describing the
+> code, delete it. If you find yourself describing something that once cost
+> someone an afternoon, keep it.
 
-## Setup & Commands
-Execute these commands for standard development workflows. Do not invent new package manager commands.
-- **Setup:** `[from Tech Design]`
-- **Development:** `[from Tech Design]`
-- **Testing:** `[from Tech Design]`
-- **Linting & Formatting:** `[from Tech Design]`
-- **Typecheck:** `[from Tech Design]`
-- **Build:** `[from Tech Design]`
-- **Browser / Device Checks:** `[from Tech Design]`
-- **AI Evals:** `[if applicable]`
+## Project
 
-## Protected Areas
-Do NOT modify these areas without explicit human approval:
-- **Infrastructure:** `infrastructure/`, Dockerfiles, and deployment workflows (`.github/workflows/`).
-- **Database Migrations:** Existing migration files.
-- **Third-Party Integrations:** Payment gateway configurations and Auth setups.
-- **AI Action Permissions:** Destructive actions, prompt/eval fixtures, and provider credentials.
-- **Secrets:** `.env*`, API keys, OAuth credentials, tokens, private logs, and production data exports.
+- **What this is:** [one sentence]
+- **Who it is for:** [target users]
+- **Current phase:** [Discovery / Foundation / Core MVP / Polish / Launch]
 
-## Coding Conventions
-- **Formatting:** Enforce required ESLint/Prettier rules strictly. No warnings allowed in new code.
-- **Architecture rules:** Follow the architecture chosen in `agent_docs/tech_stack.md`; do not impose a new pattern without approval.
-- **Testing Expectations:** New behavior needs the test level defined in `agent_docs/testing.md`. Core user flows require integration or browser checks.
-- **Type Safety:** Use the project's strictness level. For TypeScript projects, avoid `any`; use precise interfaces or `unknown` with guards.
-- **AI Safety:** For AI features, keep action boundaries tight, classify read/write/destructive operations, and add eval prompts before declaring complete.
+## Commands
 
-## Agent Behaviors
-These rules apply across all AI coding assistants (Cursor, Copilot, Claude, Gemini):
-1. **Plan Before Execution:** ALWAYS propose a brief step-by-step plan before changing more than one file.
-2. **Refactor Over Rewrite:** Prefer refactoring existing functions incrementally rather than completely rewriting large blocks of code.
-3. **Context Compaction:** Write states to `MEMORY.md` or a `spec.md` instead of filling context history during long sessions.
-4. **Iterative Verification:** Run tests or linters after each logical change. Fix errors before proceeding (See `REVIEW-CHECKLIST.md`).
-5. **Delegation:** Use focused subagents for research/review/test tasks. Keep file ownership explicit and avoid overlapping edits.
-6. **No Secret Exposure:** Do not print or transmit credentials, tokens, private user data, or logs unless the user explicitly authorizes that exact action.
+Only the ones that are **not** guessable from the manifest — non-standard
+scripts, required flags, environment setup. Delete this section if `npm run dev`
+is genuinely all there is.
+
+- [command] — [why it isn't obvious]
+
+## Read first
+
+1. `docs/PRD-*.md` (what we're building — the source of truth)
+2. `docs/TechDesign-*.md` (how we're building it)
+3. `agent_docs/project_brief.md`
+4. `agent_docs/tech_stack.md`
+5. `agent_docs/testing.md`
+
+If this file or `agent_docs/` still has `[bracketed]` placeholders, fill them from
+the two docs above before planning. Load anything else only when it becomes relevant.
+
+## Gotchas
+
+**The highest-value section in this file.** Things that look safe and aren't;
+conventions that differ from the framework default, so the surrounding code
+would teach the wrong pattern; failures that took real time to diagnose.
+
+- [e.g. "All types live in one monolithic `types.ts` — do not co-locate them."]
+- [e.g. "The pre-commit hook reverts the working tree on failure."]
+
+## Protected areas — ask before changing
+
+- `.env*`, secrets, credentials, private logs
+- `.github/workflows/`, deployment, infrastructure
+- existing database migrations
+- auth, payments, billing, production email/send flows
+- AI provider credentials, MCP servers, tool permissions
+
+**Never print, commit, or transmit secrets, tokens, private logs, or production
+data.** Never delete files, rewrite large areas, or change
+infrastructure/auth/billing/migrations without approval.
+
+## AI features
+
+Delete this section unless the product itself uses AI.
+
+- **Model can see:** [public / user-owned / private data]
+- **Never send:** [secrets, tokens, private logs, production exports]
+- **AI can do:** [read only / draft / write / destructive / external network]
+- **Needs approval:** [send, delete, deploy, charge, email, production write]
+- **How to verify behavior:** [eval command or prompts]
+- **Fallback:** [what users see when AI fails]
+
+## Done means
+
+Report: files changed · commands run · test/build/device results · AI eval
+evidence if applicable · remaining risks · rollback notes if relevant.
+
+---
+
+**When this file gets long, that is the signal to split it.** Move task-specific
+procedures (deploy steps, release checklists, API references) into
+`.claude/skills/<name>/SKILL.md`, where only the one-line description stays in
+context and the body loads when it is actually needed. Move
+directory-specific conventions into `<subdir>/CLAUDE.md`, which loads only when
+work touches that directory. Keep universal constraints and safety prohibitions
+here — never move a "never do X" rule somewhere it might not be loaded.

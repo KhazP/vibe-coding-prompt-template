@@ -66,6 +66,8 @@ Based on the user's response, follow the appropriate question path below. Ask qu
 
 **Q8:** "Budget reality check: Can you spend money on tools/services or need everything free?"
 
+**Q9:** "Should the research evaluate AI product features, automation, ChatGPT/MCP surfaces, local/private model options, or only AI-assisted development?"
+
 ### If User Selects B (Developer):
 
 **Q1:** "What's your main research topic and project context? Include technical domain."
@@ -96,6 +98,8 @@ Based on the user's response, follow the appropriate question path below. Ask qu
 
 **Q8:** "What's the business context? Startup, enterprise, side project, or client work?"
 
+**Q9:** "Should the research evaluate AI product architecture, provider choices, structured outputs, MCP/tools, evals, telemetry, data retention, and prompt-injection risk?"
+
 ### If User Selects C (In Between):
 
 **Q1:** "Tell me about your project idea and your current skills. What can you code, and where do you need help?"
@@ -120,6 +124,8 @@ Based on the user's response, follow the appropriate question path below. Ask qu
 **Q7:** "Timeline and success metrics? When do you want to launch and how will you measure success?"
 
 **Q8:** "Budget for tools and services? Free only, under $50/month, under $200/month, or flexible?"
+
+**Q9:** "Should users interact with AI in the product, should AI only help you build, or should research decide?"
 
 ---
 
@@ -190,6 +196,7 @@ I'm a non-technical founder building [description]. I need beginner-friendly res
 4. What no-code/low-code tools are best for this?
 5. How do similar apps monetize and what can I realistically charge?
 6. What AI tools or APIs can accelerate development or differentiate the MVP?
+7. If AI is part of the product, what data can it read, what actions can it take, and what approval/eval safeguards are required?
 
 ### Research Focus:
 - Simple, actionable insights with examples
@@ -205,6 +212,7 @@ I'm a non-technical founder building [description]. I need beginner-friendly res
 4. **Development Roadmap** — With AI assistance strategy
 5. **Budget Breakdown** — Tools, services, deployment costs
 6. **AI/Automation Fit** — Whether this should include AI product features or automation
+7. **AI Safety & Evidence** — Data boundaries, provider retention/training setting to verify, eval prompts, telemetry, and confirmation gates if AI is in scope
 </instructions>
 
 <output_format>
@@ -212,6 +220,7 @@ I'm a non-technical founder building [description]. I need beginner-friendly res
 - **Include source URLs with access dates** for each major recommendation
 - Use tables for comparisons
 - Highlight any conflicting information between sources
+- Separate official-doc facts from community/anecdotal signal
 - Add an optional `structured_summary` JSON block with project category, users, must-have features, risks, and recommended next step
 </output_format>
 ```
@@ -250,6 +259,8 @@ I need comprehensive technical research on [topic] for [context].
 - Security considerations for AI-integrated apps
 - Scalability approaches with modern infrastructure
 - AI tool/API integration strategies (include sources and current pricing when available)
+- Current AI architecture choices: OpenAI Responses/Agents/Apps SDK, Claude/Anthropic API, Gemini/Antigravity, Vercel AI SDK/Gateway, Cloudflare Workers AI/Agents, local models, MCP, and no-AI alternatives
+- AI safety and evaluation: prompt-injection risk, data retention/training policies, structured outputs, tool permissions, human approvals, telemetry, and cost controls
 - Cost optimization with current cloud pricing
 - Development velocity estimates with AI assistance
 - AI feature fit analysis, including provider options, data sensitivity, cost, and fallback behavior
@@ -275,6 +286,7 @@ I need comprehensive technical research on [topic] for [context].
 - Use tables for comparisons
 - **Explicitly note where sources disagree** or data is uncertain
 - Include pros/cons for each major recommendation
+- Include an AI architecture section only when relevant: provider, data sent, retention/training setting to verify, tools/actions, output schema, eval set, telemetry, fallback, and cost ceiling
 </output_format>
 ```
 
@@ -297,6 +309,7 @@ I'm building [description] with some technical knowledge. I need research that b
 - Market validation and competitor analysis
 - Technical approach recommendations
 - AI tools/APIs relevant to this product and my skill level
+- AI safety, data boundary, and eval requirements if AI is part of the product
 - Learning resources for required technologies
 - MVP development strategy with AI assistance
 - No-code vs low-code vs full-code trade-offs
@@ -315,6 +328,7 @@ I'm building [description] with some technical knowledge. I need research that b
 5. **Resources** — Learning materials (prioritized)
 6. **Budget** — Forecast with tool subscriptions
 7. **AI/Automation Fit** — Whether AI product features or automation are worth adding
+8. **AI Safety & Evidence** — Provider/data boundary, evals, telemetry, fallback, and approval gates if AI is in scope
 </instructions>
 
 <output_format>
