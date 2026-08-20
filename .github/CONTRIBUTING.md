@@ -61,6 +61,16 @@ Useful non-code contributions are welcome too:
 
 Maintainers may ask for tweaks before merging.
 
+## Validating changes
+
+Before submitting a PR, run the repo's contract checks locally:
+
+```bash
+python scripts/validate.py
+```
+
+The script verifies the structural rules the templates rely on (required sections in `templates/AGENTS.md`, handoff blocks in the part files, skill frontmatter, config file validity, and more) and prints a PASS/FAIL line per rule. CI runs the same checks plus an external link check, so a green local run means a green build.
+
 ## Style and formatting
 
 - Use clear, concise English.

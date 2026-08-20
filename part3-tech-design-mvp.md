@@ -1277,14 +1277,9 @@ Based on your PRD, here's the implementation plan:
      - Tailwind CSS IntelliSense
 
 2. **AI Assistant: Cursor**
-   - Install from: cursor.sh
-   - Settings for beginners:
-     ```json
-     {
-       "ai.autoComplete": true,
-       "ai.explainCode": true
-     }
-     ```
+   - Install from the official Cursor site, then sign in
+   - Add a `.cursor/rules/` file pointing at `AGENTS.md` so the assistant reads
+     project context instead of guessing (Part 4 generates this for you)
 
 3. **Version Control: Git**
    ```bash
@@ -1546,6 +1541,26 @@ Your technical implementation succeeds when:
 After generating the appropriate Technical Design Document based on their level, say:
 
 "I've created your Technical Design Document above. This document defines HOW to build what's described in your PRD.
+
+
+### Handoff Context (required)
+
+End the document with this exact block. The next workflow step reads it to pre-fill
+answers instead of re-asking; `vibeworkflow` reads the JSON block below it.
+
+```
+## Handoff Context
+<!-- Machine-readable summary for the next workflow step. Do not delete; the next prompt in the workflow reads this block. -->
+- Stage: techdesign
+- App name: [App Name]
+- User level: [A | B | C]  (A = vibe coder, B = developer, C = in-between)
+- Target platform: [platform]
+- Budget: [budget]
+- Timeline: [timeline]
+- Chosen stack: [frontend + backend + database + hosting, one line]
+- AI coding tool: [tool(s) chosen, if decided]
+- Source files: research-[AppName].md → PRD-[AppName]-MVP.md → TechDesign-[AppName]-MVP.md
+```
 
 ### Machine-Readable Summary
 

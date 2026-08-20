@@ -1,0 +1,74 @@
+name: Pull Request Size Labeler
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  label-size:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Label PR by changed lines
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const pull_number = context.payload.pull_request.number;
+
+            const files = await github.paginate(
+              github.rest.pulls.listFiles,
+              { owner, repo, pull_number, per_page: 100 }
+            );
+
+            const changedLines = files.reduce((sum, f) => sum + (f.changes || 0), 0);
+
+            let sizeLabel = 'size/XL';
+            if (changedLines <= 100) sizeLabel = 'size/XS';
+            else if (changedLines <= 400) sizeLabel = 'size/S';
+            else if (changedLines <= 800) sizeLabel = 'size/M';
+            else if (changedLines <= 1500) sizeLabel = 'size/L';
+
+            const labelConfig = {
+              'size/XS': { color: '0e8a16', description: '0-100 changed lines' },
+              'size/S': { color: '5cb85c', description: '101-400 changed lines' },
+              'size/M': { color: 'fbca04', description: '401-800 changed lines' },
+              'size/L': { color: 'f0ad4e', description: '801-1500 changed lines' },
+              'size/XL': { color: 'd93f0b', description: '1501+ changed lines' }
+            };
+
+            for (const [name, cfg] of Object.entries(labelConfig)) {
+              try {
+                await github.rest.issues.getLabel({ owner, repo, name });
+              } catch {
+                await github.rest.issues.createLabel({ owner, repo, name, ...cfg });
+              }
+            }
+
+            const current = await github.rest.issues.listLabelsOnIssue({
+              owner,
+              repo,
+              issue_number: pull_number
+            });
+
+            const existingSizeLabels = current.data
+              .map((l) => l.name)
+              .filter((name) => name.startsWith('size/'));
+
+            const nonSizeLabels = current.data
+              .map((l) => l.name)
+              .filter((name) => !name.startsWith('size/'));
+
+            await github.rest.issues.setLabels({
+              owner,
+              repo,
+              issue_number: pull_number,
+              labels: [...nonSizeLabels, sizeLabel]
+            });
+
+            core.info(`PR #${pull_number} has ${changedLines} changed lines -> ${sizeLabel}`);

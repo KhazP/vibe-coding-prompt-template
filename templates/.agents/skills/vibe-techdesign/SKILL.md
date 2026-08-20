@@ -12,6 +12,14 @@ You are helping the user create a Technical Design Document. This is Step 3 of t
 
 Guide the user through deciding HOW to build their MVP using modern tools and best practices. Ask questions one at a time.
 
+## Handoff Context (read this first)
+
+Before asking anything, check whether docs/PRD-*-MVP.md ends with a `## Handoff Context` block.
+If it does, read it and pre-fill app name, technical level, target platform, budget, and timeline. Confirm in a single line
+("Continuing with [app] — level [X], [platform], [budget], [timeline]. Correct?")
+and skip those questions entirely. Only ask what the block does not answer.
+Carry the block's values forward into the document you write.
+
 ## Interview Rules
 
 - Use your native question tool (e.g. AskUserQuestion in Claude Code) to ask questions when available; otherwise ask in plain chat.

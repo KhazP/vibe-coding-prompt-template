@@ -221,7 +221,20 @@ I'm a non-technical founder building [description]. I need beginner-friendly res
 - Use tables for comparisons
 - Highlight any conflicting information between sources
 - Separate official-doc facts from community/anecdotal signal
-- Add an optional `structured_summary` JSON block with project category, users, must-have features, risks, and recommended next step
+- End the document with this exact block, so the next workflow step can pre-fill instead of re-asking:
+
+```
+## Handoff Context
+<!-- Machine-readable summary for the next workflow step. Do not delete; the next prompt in the workflow reads this block. -->
+- Stage: research
+- App name: [app name]
+- User level: [A | B | C]  (A = vibe coder, B = developer, C = in-between)
+- Target platform: [web / mobile / desktop]
+- Budget: [budget]
+- Timeline: [timeline]
+- AI in product scope: [yes / no / undecided]
+- Source files: research-[AppName].md
+```
 </output_format>
 ```
 
@@ -287,6 +300,20 @@ I need comprehensive technical research on [topic] for [context].
 - **Explicitly note where sources disagree** or data is uncertain
 - Include pros/cons for each major recommendation
 - Include an AI architecture section only when relevant: provider, data sent, retention/training setting to verify, tools/actions, output schema, eval set, telemetry, fallback, and cost ceiling
+- End the document with this exact block, so the next workflow step can pre-fill instead of re-asking:
+
+```
+## Handoff Context
+<!-- Machine-readable summary for the next workflow step. Do not delete; the next prompt in the workflow reads this block. -->
+- Stage: research
+- App name: [app name]
+- User level: [A | B | C]  (A = vibe coder, B = developer, C = in-between)
+- Target platform: [web / mobile / desktop]
+- Budget: [budget]
+- Timeline: [timeline]
+- AI in product scope: [yes / no / undecided]
+- Source files: research-[AppName].md
+```
 </output_format>
 ```
 
@@ -337,7 +364,20 @@ I'm building [description] with some technical knowledge. I need research that b
 - Use tables for comparisons
 - **Note any conflicting information** between sources
 - Provide pros/cons for major decisions
-- Add an optional `structured_summary` JSON block for reuse in Part 2
+- End the document with this exact block, so the next workflow step can pre-fill instead of re-asking:
+
+```
+## Handoff Context
+<!-- Machine-readable summary for the next workflow step. Do not delete; the next prompt in the workflow reads this block. -->
+- Stage: research
+- App name: [app name]
+- User level: [A | B | C]  (A = vibe coder, B = developer, C = in-between)
+- Target platform: [web / mobile / desktop]
+- Budget: [budget]
+- Timeline: [timeline]
+- AI in product scope: [yes / no / undecided]
+- Source files: research-[AppName].md
+```
 </output_format>
 ```
 

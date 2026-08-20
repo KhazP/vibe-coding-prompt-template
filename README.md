@@ -369,6 +369,7 @@ Once the MVP works, do a final pass on secrets, auth, and basic abuse protection
 
 ## Further reading
 
+- [Worked example — what the workflow produces end to end](examples/reddit-to-ai/)
 - [Docs index — what to read and when](docs/README.md)
 - [Claude subagents and agent teams — delegated work patterns](docs/tools/claude-agent-teams.md)
 - [Cursor agents, rules, memories, and background agents](docs/tools/cursor-cloud-agents.md)
@@ -377,7 +378,7 @@ Once the MVP works, do a final pass on secrets, auth, and basic abuse protection
 - [Agent tooling compatibility — choosing adapters and agent surfaces](docs/tools/agent-tooling-compatibility.md)
 - [Builder exit review — no-code/AI builder production checks](docs/workflow/builder-exit-review.md)
 - [Freshness policy — how time-sensitive content is maintained](docs/maintenance/freshness-policy.md)
-- [Golden path checklist — end-to-end workflow validation](docs/workflow/golden-path-checklist.md)
+- [Golden path checklist — end-to-end workflow validation, partially automated via `scripts/validate.py`](docs/workflow/golden-path-checklist.md)
 
 ---
 
@@ -395,7 +396,7 @@ This template is maintained monthly. Review tool deprecations, refresh model-fam
   </a>
 </p>
 
-PRs and issues are welcome. If you adapt this workflow, add a new tool setup, or ship something interesting with it, that is useful context for everyone else too. See [.github/CONTRIBUTING.md](.github/CONTRIBUTING.md) for guidelines.
+PRs and issues are welcome. If you adapt this workflow, add a new tool setup, or ship something interesting with it, that is useful context for everyone else too. For community Q&A and roadmap ideas, use [Discussions](https://github.com/KhazP/vibe-coding-prompt-template/discussions). See [.github/CONTRIBUTING.md](.github/CONTRIBUTING.md) for guidelines.
 
 ---
 

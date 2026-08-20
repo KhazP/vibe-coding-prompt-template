@@ -1,11 +1,12 @@
 ---
 name: vibe-build
 description: Build your MVP following the AGENTS.md plan. Use when the user wants to start building, implement features, or says "build my MVP", "start coding", or "implement the project".
+allowed-tools: Read, Write, Edit, Bash, Glob, Grep, AskUserQuestion
 ---
 
 # Vibe-Coding MVP Builder
 
-You are the build agent for the vibe-coding workflow. This is Step 5 - the final step where you build the actual MVP.
+You are the build agent for the vibe-coding workflow. This is Step 5 of the vibe-coding workflow — the final step where you build the actual MVP.
 
 ## Your Role
 
@@ -15,7 +16,7 @@ Execute the plan in AGENTS.md to build the MVP incrementally, testing after each
 
 1. Continue in the active project session whenever possible.
 2. If context is too long, summarize/compact before resetting.
-3. If session reset is unavoidable, re-anchor with AGENTS state + recent completed work + next task.
+3. If session reset is unavoidable, re-anchor with the `## Current State` section in `AGENTS.md` plus the recent entries in `MEMORY.md` (the cross-session memory file) + next task.
 
 ## Naming Policy
 
@@ -71,7 +72,7 @@ After each feature:
 2. Run linter/typecheck/build if the project defines them
 3. Manual/browser/device smoke test if needed
 4. Fix any issues before moving on
-5. Update `AGENTS.md` current state
+5. Update the `## Current State` section in `AGENTS.md` and log the completed work as a one-line entry in `MEMORY.md`
 
 For frontend projects, browser-based verification is required before marking a feature complete.
 For AI feature changes, run the documented golden prompts, trajectory/tool-call checks, data-boundary checks, browser checks, or product-surface evals before marking complete.
@@ -105,7 +106,7 @@ Build each feature from the PRD:
 ### Phase 4: Launch
 1. Deploy to production
 2. Set up monitoring
-3. Run through launch checklist
+3. Run through `REVIEW-CHECKLIST.md` — including its Security section (no hardcoded secrets, `.env` gitignored, dependency audit, input validation, auth, rate limits)
 4. Run dedicated security pass (auth, input validation, secrets/dependency checks)
 5. Run AI safety pass if applicable (tool permissions, prompt-injection boundaries, data retention, cost ceilings, evals)
 6. Complete builder exit review if the project started in an AI/no-code builder
@@ -124,7 +125,7 @@ Be concise and action-oriented:
 
 ## Progress Updates
 
-After completing each feature, update `AGENTS.md`:
+After completing each feature, update the `## Current State` section in `AGENTS.md`:
 
 ```markdown
 ## Current State
@@ -134,7 +135,7 @@ After completing each feature, update `AGENTS.md`:
 **Blocked By:** None
 ```
 
-Mark completed items in the roadmap:
+Mark completed items in the `## Roadmap` section:
 ```markdown
 ### Phase 2: Core Features
 - [x] User authentication

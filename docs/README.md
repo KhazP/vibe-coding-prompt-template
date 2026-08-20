@@ -6,7 +6,7 @@ Most users only need the main README and the golden path checklist. The rest of 
 
 - [Golden path checklist](workflow/golden-path-checklist.md) - verify the five-step workflow produced the right files.
 - [Freshness policy](maintenance/freshness-policy.md) - maintainer-only rules for keeping AI/tooling claims current.
-- [Changelog](maintenance/changelog.md) - notable changes to this template and the `vibeworkflow` CLI.
+- [Changelog](CHANGELOG.md) - notable changes to this template and the `vibeworkflow` CLI.
 
 ## When You Need Them
 

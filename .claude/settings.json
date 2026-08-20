@@ -1,0 +1,62 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"/* Protect secrets, lockfile, and .git internals. Templates like .env.example stay editable. */ const fs=require('fs'); const d=JSON.parse(fs.readFileSync(0,'utf8')); const p=(d.tool_input?.file_path||'').replace(/\\\\\\\\/g,'/'); const base=p.split('/').pop(); const envOk=['.env.example','.env.sample','.env.template']; const isEnv=/^\\.env(\\..+)?$/.test(base)&&!envOk.includes(base); const isGit=p.split('/').includes('.git'); const isLock=base==='package-lock.json'; if(isEnv||isGit||isLock){ console.error('Blocked: protected file ('+base+'). Put real secrets in .env (never committed); edit .env.example for the template. Use npm commands for package-lock.json.'); process.exit(2); }\"",
+            "timeout": 5000
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"/* Block catastrophic commands. A safety net, not a sandbox. */ const fs=require('fs'); const d=JSON.parse(fs.readFileSync(0,'utf8')); const c=d.tool_input?.command||''; const bad=[/rm\\s+-[a-zA-Z]*[rf][a-zA-Z]*\\s+(\\/\\*?|~\\/?\\*?|\\.\\.?|\\*)(?=\\s|$)/,/git\\s+clean\\s+-[a-zA-Z]*f/i,/\\bdel\\s+\\/[a-zA-Z]*[sq]/i,/Remove-Item\\s+[^\\n]*-Recurse/i,/\\bDROP\\s+(DATABASE|TABLE)\\b/i,/\\bTRUNCATE\\s+\\w/i]; if(bad.some(re=>re.test(c))){ console.error('Blocked: potentially destructive command. If you really need this, run it yourself in a terminal.'); process.exit(2); }\"",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"const fs=require('fs'); const d=JSON.parse(fs.readFileSync(0,'utf8')); const p=d.tool_input?.file_path||''; if(/\\.(ts|tsx|js|jsx)$/.test(p) && fs.existsSync('node_modules/.bin/prettier')) { require('child_process').execSync('npx prettier --write \\\"'+p+'\\\"', {stdio:'inherit'}); }\"",
+            "timeout": 30000
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"console.log('\\n--- Session Summary ---'); const {execSync}=require('child_process'); try { const status=execSync('git status --porcelain',{encoding:'utf8'}); if(status.trim()) { console.log('Modified files:'); console.log(status); console.log('Remember: Review changes before committing!'); } else { console.log('No uncommitted changes.'); } } catch(e) { console.log('Not a git repository or git not available.'); }\"",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"/* Static message text, so no shell-quoting surprises. */ const {exec}=require('child_process'); if(process.platform==='win32'){ exec('powershell -Command \\\"Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.MessageBox]::Show(\\'Claude Code needs your attention\\',\\'Claude Code\\')\\\"'); } else if(process.platform==='darwin'){ exec('osascript -e \\'display notification \\\"Claude Code needs your attention\\\" with title \\\"Claude Code\\\"\\''); } else { exec('notify-send \\\"Claude Code\\\" \\\"Claude Code needs your attention\\\"'); }\"",
+            "timeout": 5000
+          }
+        ]
+      }
+    ]
+  }
+}

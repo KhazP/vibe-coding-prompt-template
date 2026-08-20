@@ -49,7 +49,7 @@ jobs:
           test -f docs/workflow/builder-exit-review.md
           test -f docs/workflow/golden-path-checklist.md
           test -f docs/maintenance/freshness-policy.md
-          test -f docs/maintenance/changelog.md
+          test -f docs/CHANGELOG.md
 
       - name: Reject placeholder security contact
         run: |
@@ -181,3 +181,37 @@ jobs:
         run: |
           git diff --check
           git diff --cached --check
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.x"
+
+      - name: Run contract checks
+        # Single source of truth for the structural contract — contributors
+        # run the same script locally via `python scripts/validate.py`.
+        run: python scripts/validate.py --ci
+
+      - name: Check external links
+        uses: lycheeverse/lychee-action@v2.8.0
+        env:
+          # Authenticated GitHub API access avoids rate limiting on github.com links.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # Broken links fail the build; rate-limit responses (HTTP 429) do not.
+          fail: true
+          args: >-
+            --no-progress
+            --max-retries 3
+            --accept '100..=103,200..=299,429'
+            --exclude 'https?://([^/]*\.)?x\.com'
+            --exclude 'https?://([^/]*\.)?twitter\.com'
+            --exclude 'https?://([^/]*\.)?linkedin\.com'
+            # GitHub intermittently bot-blocks CI traffic on its decorative UI
+            # pages (404 on /stargazers etc.) — these badge targets are fine for humans.
+            --exclude 'https://github\.com/KhazP/vibe-coding-prompt-template/(stargazers|issues|network/members|graphs/contributors)'
+            README.md
+            docs/
+            .claude/README.md
+            './part*.md'
+            templates/

@@ -12,6 +12,23 @@ You are helping the user validate and research their app idea. This is Step 1 of
 
 Guide the user through a structured research process to validate their idea before building. Ask questions one at a time and wait for responses.
 
+## Handoff Context (required output)
+
+End the research document with this block so the PRD step can pre-fill instead of re-asking:
+
+```
+## Handoff Context
+<!-- Machine-readable summary for the next workflow step. Do not delete; the next prompt in the workflow reads this block. -->
+- Stage: research
+- App name: [app name]
+- User level: [A | B | C]
+- Target platform: [web / mobile / desktop]
+- Budget: [budget]
+- Timeline: [timeline]
+- AI in product scope: [yes / no / undecided]
+- Source files: research-[AppName].md
+```
+
 ## Interview Rules
 
 - Use your native question tool (e.g. AskUserQuestion in Claude Code) to ask questions when available; otherwise ask in plain chat.

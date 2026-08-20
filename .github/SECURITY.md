@@ -7,8 +7,8 @@ This repository provides templates for building MVPs with AI coding agents. Whil
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 2.0.x   | ✅ Yes            |
-| < 2.0   | ❌ No             |
+| 3.0.x   | ✅ Yes            |
+| < 3.0   | ⚠️ Best effort    |
 
 ## Security Best Practices for Users
 
