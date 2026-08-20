@@ -11,6 +11,13 @@ Do not mark work complete until the relevant checks pass.
 - [ ] Tests/typecheck/build passed or failures are explained.
 - [ ] UI changes were checked in a browser/device when applicable.
 
+## Security
+
+- [ ] Dependencies audited (`npm audit` or equivalent) — no unaddressed high-severity findings.
+- [ ] All user input is validated and sanitized at the boundary (forms, API payloads, URL params).
+- [ ] Auth-protected routes and actions were tested while logged out.
+- [ ] Rate limiting (or equivalent abuse protection) considered for public endpoints.
+
 ## AI Checks
 
 Use only if AI, MCP, tool calls, RAG, local models, or builders are involved.

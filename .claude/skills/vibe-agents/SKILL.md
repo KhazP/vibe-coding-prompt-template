@@ -15,9 +15,11 @@ Generate the instruction files that guide AI coding assistants to build the MVP.
 ## Interview Rules
 
 - Use your native question tool (e.g. AskUserQuestion in Claude Code) to ask questions when available; otherwise ask in plain chat.
-- Ask STRICTLY one question at a time: ask, wait for the answer, then continue.
-- Never assume, invent, or skip an answer. If a reply is vague, ask a short follow-up before moving on.
-- Do not shorten, merge, or improvise the question lists below — every listed question gets asked.
+- Ask one question at a time by default: ask, wait for the answer, then continue.
+- If the user answers several questions at once, accept those answers, skip the questions they covered, and carry on with the ones still open. Never re-ask something they already told you.
+- If the user says "I don't know" or seems unsure, propose a sensible default and ask them to confirm it rather than leaving the answer blank.
+- Never invent an answer they did not give. If a reply is vague, ask one short follow-up.
+- Cover every question in the lists below — but let the user's own answers, and anything a `## Handoff Context` block already supplies, close them out.
 
 ## Session Continuity
 
