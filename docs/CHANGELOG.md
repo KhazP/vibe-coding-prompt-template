@@ -2,6 +2,20 @@
 
 All notable changes to the Vibe-Coding Prompt Template are documented here, in [Keep a Changelog](https://keepachangelog.com/) style. Dates come from the git tag for each release.
 
+## [Unreleased]
+
+### Changed
+- **Interviews accept batched answers:** the skills (and the CLI's kickoff prompt) no longer insist on one question at a time no matter what. Answer several questions in one go and the agent takes them and moves on instead of re-asking; say "I don't know" and it proposes a default for you to confirm. Shipped as `vibeworkflow` 0.2.1.
+- **part3 is prompt-sized again:** v3.0.0 deliberately stripped the prefab Terraform, SQL schemas, CI workflows, and framework snippets out of the tech design prompt, and the 3.1.0 merge put them back. Removed again — each is now a one-line instruction to generate that artifact for *your* stack, with v3.0.0's generation guardrails restored. 1,627 lines down to 1,448.
+- **`tool-adapters/` no longer ships in the npm package:** the CLI never scaffolded it, so 23 files were dead weight in every install. Still in the repo for manual copying, as the README and part4 describe.
+
+### Added
+- **Security section in `REVIEW-CHECKLIST.md`:** dependency audit, input validated and sanitized at the boundary, auth-protected routes tested while logged out, and rate limiting considered for public endpoints — restored from v3.0.0, which the 3.1.0 merge had dropped.
+- **part4 Step 0 — know where you're running:** read `templates/` from disk in an IDE, or ask the user to paste them in a chat, and never recreate the templates from memory.
+
+### Fixed
+- **npm provenance:** `cli/package.json` had no `repository` field, so trusted publishing signed a provenance statement npm then rejected with a 422. Declared it (with `directory: "cli"`), plus `homepage` and `bugs`.
+
 ## [3.1.0] - 2026-08-20
 
 The "agent-first" release: `npx vibeworkflow` now drives the whole workflow through your AI agent, and the planning skills interview you one question at a time instead of dumping a wall of text.

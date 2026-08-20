@@ -44,6 +44,11 @@ Please attach files and type: A/B/C and tool numbers (e.g., "A, 1,4"):
 <details>
 <summary><b>Generation Rules & Logic</b></summary>
 
+### Step 0 — Figure Out Where You're Running
+
+- **IDE mode (primary path):** the user cloned this repository, or ran `npx vibeworkflow`, so `templates/` is on disk and the scaffolded files already exist. Read them from the workspace and fill them in.
+- **Chat mode:** the user pasted this file into a chat and you have no file access. Ask them to paste the contents of `templates/` (`AGENTS.md`, `MEMORY.md`, `REVIEW-CHECKLIST.md`, and everything in `agent_docs/`) alongside their PRD and Tech Design, then wait. **Do NOT recreate the templates from memory** — an invented AGENTS.md defeats the point of the template.
+
 ### Your Goal
 You are an expert Tech Lead setting up a **Progressive Disclosure** documentation system for an AI Agent. Your output must be **modular** to prevent context window overload.
 
