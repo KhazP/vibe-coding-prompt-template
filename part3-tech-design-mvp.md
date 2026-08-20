@@ -276,6 +276,11 @@ After verification, create a Tech Design Doc appropriate to their level.
 > 2. **Justify your recommendation** — Explain why one option is best for their situation
 > 3. **Acknowledge trade-offs** — Be honest about limitations
 
+> **Generation guardrails:**
+> - No ready-made implementations appear in the templates below on purpose. Generate schemas, configs, CI pipelines, and tests fresh for the user's actual stack, or defer them to their coding agent at build time. A prefab example from a different stack is worse than none.
+> - Leave no unfilled `[brackets]`. Anything genuinely unknown goes into an **Open Questions** section marked TBD, phrased as the question the user still needs to answer.
+> - Never invent prices, benchmarks, or performance figures — label estimates as estimates and point at the vendor's current pricing page.
+
 ### Stack Selection Matrix (Use When Relevant)
 
 | Need | Default Recommendation | Why |
@@ -753,29 +758,7 @@ src/
 
 ### Database Schema
 
-```sql
--- Users table
-CREATE TABLE users (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    email VARCHAR(255) UNIQUE NOT NULL,
-    password_hash VARCHAR(255),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- [Core entity from PRD]
-CREATE TABLE [entity_name] (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-    [fields based on PRD],
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- Indexes for performance
-CREATE INDEX idx_[entity]_user_id ON [entity](user_id);
-CREATE INDEX idx_[entity]_created_at ON [entity](created_at);
-```
+> Write the schema for the chosen database: tables/collections, key columns with types, relationships, indexes the queries actually need, and how migrations are run. Do not copy a prefab schema — derive it from the PRD's features.
 
 ## Feature Implementation
 
@@ -791,83 +774,20 @@ PUT    /api/FEATURE/:id      // Update
 DELETE /api/FEATURE/:id      // Delete
 ```
 
-```typescript
-// Request/Response types (replace Feature with your actual feature name, e.g. Task, Project)
-interface CreateFeatureRequest {
-  // fields from PRD
-}
-
-interface FeatureResponse {
-  id: string;
-  // fields from PRD
-  createdAt: Date;
-  updatedAt: Date;
-}
-```
+> Specify the API surface for this feature: routes/handlers, request and response shapes, validation at the boundary, and error cases. Write it for the chosen stack.
 
 #### Business Logic
-```typescript
-// Service class (replace Feature with your actual feature name)
-class FeatureService {
-  async create(data: CreateFeatureRequest): Promise<FeatureResponse> {
-    // Validation
-    // Business rules
-    // Persistence
-    // Event emission
-  }
-
-  async findAll(filters: Record<string, unknown>): Promise<FeatureResponse[]> {
-    // Query building
-    // Pagination
-    // Caching strategy
-  }
-}
-```
+> Specify the data access and business logic: what it reads and writes, transaction boundaries, and failure handling.
 
 [Repeat for each PRD feature]
 
 ## Security Implementation
 
 ### Authentication & Authorization
-```typescript
-// JWT-based auth with refresh tokens
-interface AuthStrategy {
-  provider: 'local' | 'oauth';
-  tokenExpiry: '1h';
-  refreshExpiry: '7d';
-  mfa: boolean;
-}
-
-// RBAC implementation
-enum Role {
-  USER = 'user',
-  ADMIN = 'admin'
-}
-
-// Middleware
-authenticate() -> validates JWT
-authorize(role) -> checks permissions
-rateLimiter() -> prevents abuse
-```
+> Specify the auth approach: provider or scheme, where sessions/tokens live, how protected routes are guarded, and how the guard is tested while logged out.
 
 ### Security Headers
-```javascript
-// Helmet.js configuration
-{
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      scriptSrc: ["'self'"],
-      imgSrc: ["'self'", "data:", "https:"],
-    }
-  },
-  hsts: {
-    maxAge: 31536000,
-    includeSubDomains: true
-  }
-}
-```
+> List the security headers and middleware the chosen host and framework need, and where they are configured.
 
 ## Performance Optimization
 
@@ -878,22 +798,7 @@ rateLimiter() -> prevents abuse
 - **Database Cache:** Query result caching
 
 ### Optimization Techniques
-```javascript
-// Code splitting (Next.js)
-const Feature = dynamic(() => import('./Feature'), {
-  loading: () => <Skeleton />,
-  ssr: false
-});
-
-// Database query optimization
-// Use indexes, limit projections, paginate
-const results = await db.query({
-  select: ['id', 'name'], // Only needed fields
-  where: { indexed_field: value },
-  limit: 20,
-  offset: page * 20
-});
-```
+> List the optimizations that apply to this stack and where each is applied — measure before adding any of them.
 
 ## Development Workflow
 
@@ -908,14 +813,7 @@ const results = await db.query({
 | Documentation | ChatGPT | Claude | Docs writing |
 
 ### Git Workflow
-```bash
-main
-├── develop
-│   ├── feature/[feature-name]
-│   ├── fix/[bug-fix]
-│   └── chore/[maintenance]
-└── release/[version]
-```
+> Define the branch naming, commit convention, and review rule the project will use.
 
 ### Pre-Commit Hooks
 - Run format/lint/tests before commit
@@ -923,30 +821,7 @@ main
 - Update hooks as the project scales
 
 ### CI/CD Pipeline
-```yaml
-# .github/workflows/deploy.yml
-name: Deploy
-on:
-  push:
-    branches: [main]
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - run: [install command from chosen stack]
-      - run: [test command from chosen stack]
-      - run: [build command from chosen stack]
-
-  deploy:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - run: [production install/build command]
-      - uses: [deploy-action]
-```
+> Define the CI pipeline for the chosen host: what triggers it, which checks gate a merge (typecheck, lint, tests, build), and how deploys are promoted. Generate the workflow file for the actual provider rather than copying one.
 
 ## Testing Strategy
 
@@ -956,23 +831,7 @@ jobs:
 - E2E Tests: Main user journeys
 
 ### Testing Stack
-```javascript
-// Unit testing
-describe('FeatureService', () => {
-  it('should create feature', async () => {
-    const result = await service.create(mockData);
-    expect(result).toMatchObject(expected);
-  });
-});
-
-// E2E testing (Playwright)
-test('user can complete main flow', async ({ page }) => {
-  await page.goto('/');
-  await page.click('[data-testid=start]');
-  // ... test steps
-  await expect(page).toHaveURL('/success');
-});
-```
+> Name the test runner and assertion libraries for the chosen stack, plus the exact commands for unit, integration, and end-to-end runs.
 
 ### Visual Verification Loop
 UI changes should use a Generate-Render-Inspect-Refine cycle:
@@ -983,45 +842,15 @@ UI changes should use a Generate-Render-Inspect-Refine cycle:
 
 ### Self-Healing Test Pattern
 When Playwright tests fail, capture context for auto-repair:
-```javascript
-// Capture failure context for AI repair
-const failureContext = {
-  error: error.message,
-  codeSnippet: testCode,
-  ariaSnapshot: await page.accessibility.snapshot()
-};
-// AI prompt: "Fix selector using getByRole or getByText"
-```
+> Describe how a failing test gets diagnosed and re-run, and what evidence the agent must report.
 
 ## Deployment
 
 ### Infrastructure as Code
-```terraform
-# main.tf
-resource "aws_ecs_service" "app" {
-  name            = var.app_name
-  cluster         = aws_ecs_cluster.main.id
-  task_definition = aws_ecs_task_definition.app.arn
-  desired_count   = var.app_count
-
-  load_balancer {
-    target_group_arn = aws_alb_target_group.app.arn
-    container_name   = var.app_name
-    container_port   = var.app_port
-  }
-}
-```
+> Describe the infrastructure this needs and how it is provisioned — managed platform, containers, or IaC. Generate the config for the chosen provider; do not copy a prefab Terraform module.
 
 ### Environment Configuration
-```bash
-# .env.production
-DATABASE_URL=postgresql://...
-REDIS_URL=redis://...
-JWT_SECRET=...
-AWS_ACCESS_KEY_ID=...
-AWS_SECRET_ACCESS_KEY=...
-SENTRY_DSN=...
-```
+> List the environment variables per environment, where secrets are stored, and how they reach the running app.
 
 ## Monitoring & Observability
 
@@ -1031,15 +860,7 @@ SENTRY_DSN=...
 - **Infrastructure:** CPU, memory, disk, network
 
 ### Logging Strategy
-```typescript
-// Structured logging with Pino
-logger.info({
-  event: 'user_action',
-  userId: user.id,
-  action: 'feature_used',
-  metadata: { feature: 'name', duration: 123 }
-});
-```
+> Define the log format, levels, what must never be logged (secrets, customer data), and where logs are shipped.
 
 ## Cost Analysis
 
