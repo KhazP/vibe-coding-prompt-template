@@ -25,6 +25,7 @@ This repository is a workflow/template guide for AI-assisted MVP building. It is
 - Claude guide: ./docs/tools/claude-agent-teams.md
 - Cursor guide: ./docs/tools/cursor-cloud-agents.md
 - Freshness policy: ./docs/maintenance/freshness-policy.md
+- Changelog: ./docs/maintenance/changelog.md
 
 ## Core Templates
 

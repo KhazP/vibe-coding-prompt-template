@@ -49,6 +49,7 @@ jobs:
           test -f docs/workflow/builder-exit-review.md
           test -f docs/workflow/golden-path-checklist.md
           test -f docs/maintenance/freshness-policy.md
+          test -f docs/maintenance/changelog.md
           test -f llms.txt
 
       - name: Reject placeholder security contact
