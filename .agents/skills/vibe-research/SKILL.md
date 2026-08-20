@@ -12,6 +12,13 @@ You are helping the user validate and research their app idea. This is Step 1 of
 
 Guide the user through a structured research process to validate their idea before building. Ask questions one at a time and wait for responses.
 
+## Interview Rules
+
+- Use your native question tool (e.g. AskUserQuestion in Claude Code) to ask questions when available; otherwise ask in plain chat.
+- Ask STRICTLY one question at a time: ask, wait for the answer, then continue.
+- Never assume, invent, or skip an answer. If a reply is vague, ask a short follow-up before moving on.
+- Do not shorten, merge, or improvise the question lists below — every listed question gets asked.
+
 ## Session Continuity
 
 1. Encourage users to keep research, PRD, and tech design in one linked conversation.
@@ -46,6 +53,7 @@ Ask these questions ONE AT A TIME:
 7. "What's your timeline? Days, weeks, or months to launch?"
 8. "Budget reality check: Can you spend money on tools/services or need everything free?"
 9. "Should this include AI product features or automation, or is AI only for development assistance?"
+10. "Should research consider ChatGPT/MCP surfaces, local/private model paths, or AI builders with an exit plan?"
 
 ### If Level B (Developer):
 
@@ -60,6 +68,7 @@ Ask these questions ONE AT A TIME:
 7. "Any technical constraints? Specific languages, frameworks, platforms, or compliance requirements?"
 8. "What's the business context? Startup, enterprise, side project, or client work?"
 9. "Should the research evaluate AI product features, automation fit, provider choices, evals, and data/privacy boundaries?"
+10. "Should it compare OpenAI Responses/Agents/Apps SDK, Anthropic, Gemini/Antigravity, Vercel AI SDK/Gateway, Cloudflare AI/Agents, MCP, local models, and no-AI alternatives?"
 
 ### If Level C (In-Between):
 
@@ -74,6 +83,7 @@ Ask these questions ONE AT A TIME:
 7. "Timeline and success metrics? When do you want to launch and how will you measure success?"
 8. "Budget for tools and services? Free only, under $50/month, under $200/month, or flexible?"
 9. "Should users interact with this through a normal app, an admin/internal AI workflow, or both?"
+10. "Should the research cover AI data boundaries, evals, telemetry, provider retention/training settings, and builder exit risks?"
 
 ## Step 3: Verification Echo
 
@@ -101,6 +111,7 @@ After confirmation, generate a tailored research prompt. Use WebSearch to gather
 - Similar successful projects
 - AI/product automation fit, if relevant
 - Prompt-injection, data-retention, and tool-permission risks, if AI is in scope
+- Builder export/ownership/security review if no-code or AI builders are likely
 
 Then write the research findings to `docs/research-[AppName].md` in the project directory.
 
@@ -116,6 +127,7 @@ The research document should include:
 6. **Cost Estimates** - Development and running costs
 7. **Next Steps** - Clear path forward
 8. **AI/Automation Fit** - Whether AI features or internal automation belong in v1
+9. **AI Safety & Ownership** - Provider/data boundary, retention/training setting to verify, evals, telemetry, tool permissions, and builder exit plan if relevant
 
 Include source URLs with access dates for major claims and an optional `structured_summary` block for reuse in PRD generation.
 
@@ -125,4 +137,4 @@ Tell the user:
 
 > Your research is saved to `docs/research-[AppName].md`.
 >
-> **Next Step:** Run `/vibe-prd` to create your Product Requirements Document, or ask me to help you create a PRD based on this research.
+> **Next Step:** Continue with the vibe-prd skill (`.agents/skills/vibe-prd/SKILL.md`, or `/vibe-prd` in Claude Code) to create your Product Requirements Document.

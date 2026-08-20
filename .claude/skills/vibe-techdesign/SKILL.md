@@ -12,6 +12,13 @@ You are helping the user create a Technical Design Document. This is Step 3 of t
 
 Guide the user through deciding HOW to build their MVP using modern tools and best practices. Ask questions one at a time.
 
+## Interview Rules
+
+- Use your native question tool (e.g. AskUserQuestion in Claude Code) to ask questions when available; otherwise ask in plain chat.
+- Ask STRICTLY one question at a time: ask, wait for the answer, then continue.
+- Never assume, invent, or skip an answer. If a reply is vague, ask a short follow-up before moving on.
+- Do not shorten, merge, or improvise the question lists below — every listed question gets asked.
+
 ## Session Continuity
 
 1. Keep planning in one ongoing conversation when possible.
@@ -65,12 +72,14 @@ Ask:
 2. "Preferred tech stack? Frontend, Backend, Database, Infrastructure, AI Integration"
 3. "Architecture pattern? Monolithic, Microservices, Serverless, Jamstack, or Full-stack framework"
 4. "Service choices? Auth, File storage, Payments, Email, Analytics"
-5. "AI coding tool preference? Claude Code, Gemini CLI, Cursor, VS Code + Copilot, Antigravity/equivalent agent-first IDE, or Mix?"
+5. "AI coding tool preference? Codex, Antigravity CLI/Gemini legacy, Cursor, VS Code + Copilot, Claude Code, Continue, Cline, Aider, OpenHands, local runtime, or Mix?"
 6. "Development workflow? Git strategy, CI/CD, Testing priority, Environments"
 7. "Performance/scaling? Expected load, data volume, geographic distribution, real-time needs"
 8. "Security/compliance? Data sensitivity, compliance needs, auth method, API security"
 9. "AI/LLM features? Use cases, latency/cost constraints, data sensitivity"
-10. "AI architecture? Provider/local model strategy, data boundaries, fallback behavior, and read/write/destructive action classifications."
+10. "AI architecture? Provider/local model/MCP strategy, structured outputs, data boundaries, retention/training setting to verify, fallback behavior, telemetry, cost ceiling, and read/write/destructive action classifications."
+11. "Agent orchestration? One SDK call, development subagents, durable workflow graph, background jobs, or human-in-the-loop approvals?"
+12. "If using AI builders/no-code, what is the export, GitHub sync, local build, secrets, auth/RLS, deployment owner, rollback, and exit plan?"
 
 ### Level C (In-Between):
 
@@ -116,14 +125,42 @@ After confirmation, generate a document tailored to their level.
 5. **Design Implementation** - Templates, design system, responsiveness
 6. **Database & Storage** - Schema, setup, hosting
 7. **AI Assistance Strategy** - Which tool for what task
-8. **AI Product Strategy** - Provider, privacy, cost ceilings, fallback behavior, and eval prompts if applicable
-9. **AI Product Strategy** - Provider, data boundaries, auth, action permissions, fallback behavior, and eval plan if applicable
-10. **Deployment Plan** - Platform, steps, backup options
-11. **Cost Breakdown** - Development and production phases
-12. **Scaling Path** - What to do at 100, 1000, 10000 users
-13. **Limitations** - What this approach can't do
+8. **AI Product Strategy** - Provider/runtime, structured outputs, MCP/tool contracts, data boundaries, retention/training setting, cost ceilings, fallback behavior, telemetry, and eval prompts if applicable
+9. **Agent Orchestration** - Single agent, scoped subagents, durable workflow graph, background jobs, and approval gates if applicable
+10. **Builder Exit Review** - Source ownership, export/GitHub sync, local build, secrets, auth/RLS, rollback, and exit plan if using builders
+11. **Deployment Plan** - Platform, steps, backup options
+12. **Cost Breakdown** - Development and production phases
+13. **Scaling Path** - What to do at 100, 1000, 10000 users
+14. **Limitations** - What this approach can't do
 
 Write to `docs/TechDesign-[AppName]-MVP.md`.
+
+### Append the Meta Block (required)
+
+After the final `---`, append this fenced JSON block. It powers the `vibeworkflow` CLI, so use the exact stack and commands chosen:
+
+```json
+{
+  "appName": "[App Name]",
+  "stack": {
+    "frontend": "[framework]",
+    "backend": "[framework/runtime]",
+    "database": "[database/ORM]",
+    "auth": "[provider]",
+    "styling": "[library/system]",
+    "deployment": "[host]"
+  },
+  "commands": {
+    "setup": "[exact command]",
+    "dev": "[exact command]",
+    "test": "[exact command]",
+    "typecheck": "[exact command]",
+    "lint": "[exact command]",
+    "build": "[exact command]"
+  },
+  "aiScope": "[none / in-app AI / automation / agent]"
+}
+```
 
 ## After Completion
 
@@ -136,4 +173,4 @@ Tell the user:
 > - Is the timeline realistic for the complexity?
 > - Are there security concerns addressed?
 >
-> **Next Step:** Run `/vibe-agents` to generate your AGENTS.md and AI configuration files.
+> **Next Step:** If `npx vibeworkflow` is available, run `npx vibeworkflow` yourself to scaffold `AGENTS.md`, `agent_docs/`, and tool configs — then `npx vibeworkflow doctor`. Otherwise run `/vibe-agents` to generate them manually.

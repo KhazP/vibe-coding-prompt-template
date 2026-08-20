@@ -12,6 +12,13 @@ You are helping the user create a Product Requirements Document (PRD). This is S
 
 Guide the user through defining WHAT they're building, WHO it's for, and WHY it matters. Ask questions one at a time.
 
+## Interview Rules
+
+- Use your native question tool (e.g. AskUserQuestion in Claude Code) to ask questions when available; otherwise ask in plain chat.
+- Ask STRICTLY one question at a time: ask, wait for the answer, then continue.
+- Never assume, invent, or skip an answer. If a reply is vague, ask a short follow-up before moving on.
+- Do not shorten, merge, or improvise the question lists below — every listed question gets asked.
+
 ## Session Continuity
 
 1. Reuse prior research context instead of restarting in an empty chat.
@@ -60,7 +67,7 @@ Ask these first, ONE AT A TIME:
 8. "How will you know it's working? Pick 1-2 metrics: signups, daily users, tasks completed, or feedback score?"
 9. "Describe the vibe in 3-5 words (e.g., 'Clean, fast, professional' or 'Fun, colorful, friendly')"
 10. "Any constraints? Budget, timeline, performance, security, platform needs?"
-11. "Will the product include AI features or automation? If yes, what can AI read/write and which actions require explicit confirmation?"
+11. "Will the product include AI features, ChatGPT/MCP surfaces, internal agents, local/private AI, or automation? If yes, what can AI read/write, which actions require explicit confirmation, and what eval/telemetry evidence is required?"
 
 ### Level B (Developer):
 
@@ -71,7 +78,7 @@ Ask these first, ONE AT A TIME:
 8. "Technical/UX requirements: Performance, accessibility, platform support, security, scalability"
 9. "Risk assessment: Technical, market, and execution risks"
 10. "Business model and constraints: Monetization, budget, timeline, compliance"
-11. "AI/automation scope: in-app AI, internal automation, provider strategy, data boundaries, human confirmation rules, and eval scenarios"
+11. "AI/automation scope: in-app AI, internal automation, ChatGPT/MCP, local/private AI, provider strategy, data boundaries, retention/training setting to verify, structured outputs, human confirmation rules, telemetry, and eval scenarios"
 
 ### Level C (In-Between):
 
@@ -82,7 +89,7 @@ Ask these first, ONE AT A TIME:
 8. "How will you measure success? Short term (1 month) and medium term (3 months)"
 9. "Design/UX: Visual style, key screens, mobile responsive?"
 10. "Constraints: Budget, timeline, non-functional requirements, tech preferences"
-11. "Does v1 include product AI or AI-facing tools, or only AI-assisted development?"
+11. "Does v1 include product AI, AI-facing tools, ChatGPT/MCP, admin agents, local/private AI, or only AI-assisted development?"
 
 ## Step 5: Verification Echo
 
@@ -117,11 +124,30 @@ After confirmation, generate the PRD document tailored to their level.
 6. **Success Metrics** - How we'll measure
 7. **Design Direction** - Visual style and key screens
 8. **Technical Considerations** - Platform, performance, security
-9. **AI / Automation Scope** - None, in-app AI, internal automation, or hybrid
+9. **AI / Automation Scope** - None, in-app AI, internal automation, ChatGPT/MCP, local/private AI, or hybrid
 10. **Constraints** - Budget, timeline, scope
 11. **Definition of Done** - Launch checklist and eval expectations
 
+If AI is in scope, include provider/account type, retention/training setting to verify, model-visible data, allowed tool/action classes, structured output contracts, approval gates, telemetry/redaction, fallback behavior, cost ceiling, and direct/indirect/negative/auth/failure/trajectory evals.
+
 Write the PRD to `docs/PRD-[AppName]-MVP.md`.
+
+### Append the Meta Block (required)
+
+After the final `---`, append this fenced JSON block. It powers the `vibeworkflow` CLI, so keep values short and matching the PRD:
+
+```json
+{
+  "appName": "[App Name]",
+  "oneLiner": "[one-sentence description]",
+  "targetUsers": "[who this is for]",
+  "phase": "Foundation",
+  "mustHave": ["feature"],
+  "niceToHave": ["feature"],
+  "notInMvp": ["feature"],
+  "successMetrics": ["metric"]
+}
+```
 
 ## After Completion
 
@@ -135,4 +161,4 @@ Tell the user:
 > - 3-5 must-have features listed?
 > - Success metrics defined?
 >
-> **Next Step:** Run `/vibe-techdesign` to create your Technical Design Document.
+> **Next Step:** Continue with the vibe-techdesign skill (`.agents/skills/vibe-techdesign/SKILL.md`, or `/vibe-techdesign` in Claude Code) to create your Technical Design Document.

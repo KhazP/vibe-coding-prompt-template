@@ -21,6 +21,14 @@ Idea -> Research -> PRD -> Tech Design -> Agent Config -> Build MVP / AI App
 3. Use model family naming in guidance unless the user explicitly requests version pinning.
 4. Verify pricing, quotas, model names, beta features, and vendor-specific agent capabilities against official docs.
 5. Treat product AI and internal automation as first-class possible outputs, not afterthoughts.
+6. Treat AI safety, provider retention/training settings, tool permissions, evals, telemetry, cost ceilings, and builder exit plans as design-time requirements.
+
+## Interview Rules
+
+- Use your native question tool (e.g. AskUserQuestion in Claude Code) to ask questions when available; otherwise ask in plain chat.
+- Ask STRICTLY one question at a time: ask, wait for the answer, then continue.
+- Never assume, invent, or skip an answer. If a reply is vague, ask a short follow-up before moving on.
+- Do not shorten, merge, or improvise the question lists below — every listed question gets asked.
 
 ## Step 1: Assess Current State
 
@@ -84,6 +92,7 @@ Say:
 > - Whether this is a web app, mobile app, desktop app, internal tool, or hybrid
 > - How to structure the project
 > - Which tools are best for your skill level
+> - Whether AI belongs in the product, which provider/runtime fits, and what safety/eval evidence is required
 >
 > Ready to plan the technical architecture?
 
@@ -100,10 +109,13 @@ Say:
 > - `AGENTS.md` - Master build plan
 > - `agent_docs/` - Detailed specifications
 > - Tool configs, rules, skills, and subagents based on your choices
+> - AI/tool permission and evidence requirements when applicable
 >
 > Which AI tools will you use to build?
 
 Then guide through Agent Config.
+
+> **Shortcut:** if the docs have JSON meta blocks, you can run `npx vibeworkflow init --tools <list>` to scaffold `AGENTS.md`, `agent_docs/`, and tool configs automatically, then `npx vibeworkflow doctor` to verify. The manual flow below works too.
 
 ### If AGENTS.md Exists
 

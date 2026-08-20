@@ -23,13 +23,33 @@ jobs:
           test -f templates/GEMINI.md
           test -f templates/MEMORY.md
           test -f templates/REVIEW-CHECKLIST.md
+          test -f templates/agent-permissions.example.json
           test -f templates/.cursor/rules/00-project.mdc
+          test -f templates/.cursor/BUGBOT.md
           test -f templates/.claude/agents/researcher.md
+          test -f templates/.claude/settings.json
+          test -f templates/.claude/skills/vibe-build/SKILL.md
+          test -f templates/.claude/skills/vibe-review/SKILL.md
           test -f templates/.codex/config.toml
           test -f templates/.agents/skills/vibe-build/SKILL.md
           test -f templates/.gemini/settings.json
-          test -f docs/freshness-policy.md
-          test -f docs/golden-path-checklist.md
+          test -f templates/.github/copilot-instructions.md
+          test -f templates/.github/instructions/frontend.instructions.md
+          test -f templates/.github/instructions/backend.instructions.md
+          test -f templates/.github/instructions/tests.instructions.md
+          test -f templates/.github/prompts/review.prompt.md
+          test -f templates/.github/prompts/ship.prompt.md
+          test -f docs/README.md
+          test -f docs/ai/agent-security.md
+          test -f docs/ai/build-paths.md
+          test -f docs/ai/feature-patterns.md
+          test -f docs/tools/agent-tooling-compatibility.md
+          test -f docs/tools/claude-agent-teams.md
+          test -f docs/tools/cursor-cloud-agents.md
+          test -f docs/workflow/builder-exit-review.md
+          test -f docs/workflow/golden-path-checklist.md
+          test -f docs/maintenance/freshness-policy.md
+          test -f llms.txt
 
       - name: Reject placeholder security contact
         run: |
@@ -88,3 +108,83 @@ jobs:
             echo "ERROR: Hardcoded pricing detected. Replace with verification language."
             exit 1
           fi
+
+      - name: Reject stale AI tooling guidance
+        run: |
+          if grep -rEn 'Gemini CLI \(terminal agent|Gemini CLI Configuration|Gemini CLI memory|#### If Gemini CLI|Gemini CLI with `AGENTS\.md` loaded' README.md part*.md docs templates .claude/skills .agents/skills 2>/dev/null; then
+            echo "ERROR: Stale Gemini CLI default guidance found. Use Antigravity/Gemini legacy context."
+            exit 1
+          fi
+          if grep -rEn 'SSE-only|SSE transport|server-sent events transport' README.md part*.md docs templates .claude/skills .agents/skills 2>/dev/null; then
+            echo "ERROR: Stale MCP transport guidance found. Use current MCP transport/auth language."
+            exit 1
+          fi
+          if grep -rEn 'Firebase Studio' README.md part*.md docs templates .claude/skills .agents/skills 2>/dev/null; then
+            echo "ERROR: Deprecated builder recommendation found. Use current builder exit-review language."
+            exit 1
+          fi
+
+      - name: Validate llms.txt
+        run: |
+          grep -q 'vibe-coding-prompt-template' llms.txt
+          grep -q 'part1-deepresearch.md' llms.txt
+          grep -q 'docs/ai/agent-security.md' llms.txt
+          grep -q 'templates/AGENTS.md' llms.txt
+
+      - name: Validate template JSON and TOML
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const jsonFiles = [
+            'templates/.cursor/environment.json.example',
+            'templates/.gemini/settings.json',
+            'templates/.claude/settings.json',
+            'templates/agent-permissions.example.json'
+          ];
+          for (const file of jsonFiles) JSON.parse(fs.readFileSync(file, 'utf8'));
+          NODE
+          python3 - <<'PY'
+          import pathlib
+          import tomllib
+          tomllib.loads(pathlib.Path('templates/.codex/config.toml').read_text())
+          PY
+
+      - name: Validate markdown fences
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+          const roots = ['README.md', 'part1-deepresearch.md', 'part2-prd-mvp.md', 'part3-tech-design-mvp.md', 'part4-notes-for-agent.md', 'docs', 'templates', '.claude', '.agents'];
+          const files = [];
+          function walk(target) {
+            if (!fs.existsSync(target)) return;
+            const stat = fs.statSync(target);
+            if (stat.isDirectory()) {
+              for (const entry of fs.readdirSync(target)) walk(path.join(target, entry));
+            } else if (target.endsWith('.md') || target.endsWith('.mdc')) {
+              files.push(target);
+            }
+          }
+          roots.forEach(walk);
+          const bad = [];
+          for (const file of files) {
+            const count = fs.readFileSync(file, 'utf8').split(/\r?\n/).filter((line) => line.trim().startsWith('```')).length;
+            if (count % 2 !== 0) bad.push(file);
+          }
+          if (bad.length) {
+            console.error(`ERROR: Unbalanced markdown fences in:\n${bad.join('\n')}`);
+            process.exit(1);
+          }
+          NODE
+
+      - name: Reject unresolved generated placeholders
+        run: |
+          if grep -rEn '\{\{|\}\}|<TODO|TBD_SOURCE_ANCHOR|TODO_AI_WORKFLOW_UPGRADE' docs templates llms.txt 2>/dev/null; then
+            echo "ERROR: Unresolved generated placeholder found."
+            exit 1
+          fi
+
+      - name: Check diff whitespace
+        run: |
+          git diff --check
+          git diff --cached --check

@@ -223,20 +223,7 @@ Choose your development environment and start iterating:
 
 ## Modern AI build paths
 
-Use the same five-step workflow, but make the target surface explicit in Step 3:
-
-| Target | Good default | Add to Tech Design |
-|--------|--------------|--------------------|
-| Standard web MVP | Next.js App Router or the simplest stack your team can maintain | Routes, data model, auth, deployment, browser smoke tests |
-| OpenAI product path | Responses API first; Agents SDK when orchestration, tracing, handoffs, or guardrails matter; Apps SDK/MCP for ChatGPT surfaces | Model family, structured outputs, hosted tools, MCP trust boundary, evals, data retention |
-| Vercel AI path | AI SDK 6, AI Gateway, AI Elements, v0 API, or Vercel Workflow when durable agents are needed | Gateway/direct provider, budgets, fallbacks, telemetry, UI primitives, workflow retries |
-| Cloudflare AI path | Workers AI for budget inference; AI Gateway for controls; Agents SDK + Durable Objects for stateful agents; AI Search/Vectorize for retrieval | Worker limits, Gateway settings, AI Search vs Vectorize, MCP auth, hard cost ceilings |
-| Google path | Google AI Studio for fast prototypes; Antigravity/Antigravity CLI for agentic implementation; Gemini CLI only where still explicitly supported | Export-to-GitHub/local verification, artifact review, migration status, data policy |
-| Claude/Codex/Cursor/Copilot build path | Use repo-owned `AGENTS.md` plus thin tool adapters, subagents/background agents for bounded tasks, and reviewer/tester passes | Tool-specific config, branch/worktree isolation, verification commands, evidence report |
-| Local/open model path | LM Studio/Ollama for local runtime; Continue/Cline/Aider/OpenHands for local workflows; llama.cpp/MLX for advanced setups | Hardware, endpoint, model family, tool calling, MCP allowlist, fallback, local log storage |
-| Builder prototype path | v0, Lovable, Bolt, Replit Agent, Google AI Studio, Base44, Tempo, Builder.io, Framer | Source ownership, GitHub sync/export, local build, secrets, auth/RLS, rollback, exit plan |
-
-For vendor-specific claims, follow [Freshness policy](docs/maintenance/freshness-policy.md) and re-check official docs before merging.
+The five-step workflow stays the same whether you're building a standard web MVP, an AI product on OpenAI/Vercel/Cloudflare/Google, a local-model setup, or a builder prototype — you just make the target surface explicit in Step 3. See [Modern AI build paths](docs/ai/build-paths.md) for the per-path defaults and the exact items to add to your Tech Design, kept current under the [Freshness policy](docs/maintenance/freshness-policy.md).
 
 For AI product features, use [AI feature patterns](docs/ai/feature-patterns.md). For MCP, agent permissions, prompt injection, and provider retention decisions, use [AI agent security](docs/ai/agent-security.md). For builder-generated projects, complete the [Builder exit review](docs/workflow/builder-exit-review.md).
 
@@ -311,18 +298,9 @@ When an agent ignores instructions or behaves inconsistently:
 
 ## AI safety and evidence
 
-Treat AI safety as a design-time requirement, not a final polish pass.
+Treat AI safety as a design-time requirement, not a final polish pass: Step 3 defines the AI surface, data boundaries, approval gates, evals, and cost ceiling; Step 4 generates the matching tool permissions; Step 5 produces evidence (changed files, commands, test/browser results, unresolved risks). Untrusted content — web pages, emails, tool output, RAG chunks, uploads — is data, not instructions.
 
-- Step 3 must define AI surface, provider/account type, data sent to models, retention/training setting, allowed tools/actions, approval gates, evals, telemetry, and cost ceiling.
-- Step 4 must generate tool permissions and thin adapters that point back to `AGENTS.md`, `agent_docs/`, and `REVIEW-CHECKLIST.md`.
-- Step 5 must produce evidence: changed files, commands run, test/browser/device results, AI eval/tool-call results, unresolved risks, and rollback notes.
-- Untrusted content rule: web pages, emails, docs, issue comments, tool output, RAG chunks, logs, and uploads are data, not instructions.
-
-Useful references:
-- [AI agent security](docs/ai/agent-security.md)
-- [AI feature patterns](docs/ai/feature-patterns.md)
-- [Builder exit review](docs/workflow/builder-exit-review.md)
-- [Agent tooling compatibility](docs/tools/agent-tooling-compatibility.md)
+Full guidance: [AI agent security](docs/ai/agent-security.md) and [AI feature patterns](docs/ai/feature-patterns.md).
 
 ---
 
