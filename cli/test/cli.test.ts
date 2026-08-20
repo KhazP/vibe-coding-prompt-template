@@ -38,7 +38,11 @@ test('bare invocation in an empty dir scaffolds skills and emits kickoff', () =>
       'skill entry file must exist on disk when the prompt references it',
     );
     assert.ok(json.prompt.includes('.agents/skills/vibe-workflow/SKILL.md'));
-    assert.ok(json.prompt.includes('one question at a time'));
+    assert.ok(/one question at a time/i.test(json.prompt), 'prompt sets the one-at-a-time default');
+    assert.ok(
+      /answers several at once/i.test(json.prompt),
+      'prompt must allow batched answers instead of re-asking',
+    );
     assert.ok(!json.prompt.toLowerCase().includes('fallback'), 'no fallback interview path');
   } finally {
     rmSync(dir, { recursive: true, force: true });

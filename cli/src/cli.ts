@@ -130,11 +130,12 @@ The user should only answer your questions.
 
 1. Read ${skillEntryPath} and follow it. It orchestrates the full workflow
    (research -> PRD -> tech design) using the other vibe skills in the same
-   folder. Follow every interview question those skills define — do not
-   shorten, merge, or improvise the interviews.
+   folder. Cover every interview question those skills define.
 2. Ask questions with your native question tool (e.g. AskUserQuestion) if you
-   have one; otherwise ask in chat. STRICTLY one question at a time: ask, wait
-   for the user's answer, then continue. Never assume or invent an answer.
+   have one; otherwise ask in chat. One question at a time by default — but if
+   the user answers several at once, accept them and skip ahead rather than
+   re-asking. On "I don't know", propose a sensible default and confirm it.
+   Never invent an answer the user did not give.
 3. When docs/PRD-[App]-MVP.md and docs/TechDesign-[App]-MVP.md are both
    written (each ending with its \`\`\`json meta block), run: npx vibeworkflow
    It will scaffold AGENTS.md, agent_docs/, and tool configs.
