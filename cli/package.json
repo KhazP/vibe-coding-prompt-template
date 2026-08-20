@@ -1,7 +1,7 @@
 {
   "name": "vibeworkflow",
-  "version": "0.2.1",
-  "description": "Agent-driven MVP scaffolding for the vibe-coding workflow. Tell your AI coding agent to run `npx vibeworkflow` \u2014 it installs the planning skills, interviews you via the agent, and scaffolds AGENTS.md, agent_docs/, and tool configs from your PRD and Tech Design. Zero dependencies.",
+  "version": "0.2.2",
+  "description": "Agent-driven MVP scaffolding for the vibe-coding workflow. Tell your AI coding agent to run `npx vibeworkflow` — it installs the planning skills, interviews you via the agent, and scaffolds AGENTS.md, agent_docs/, and tool configs from your PRD and Tech Design. Zero dependencies.",
   "type": "module",
   "license": "MIT",
   "repository": {
