@@ -202,6 +202,12 @@ jobs:
         with:
           # Broken links fail the build; rate-limit responses (HTTP 429) do not.
           fail: true
+          # NOTE: '#' does NOT start a comment inside a '>-' folded scalar — any
+          # comment line here is folded into the argument string and lychee then
+          # fails with "required arguments were not provided: <inputs>". Keep
+          # explanations out here, and only real arguments below.
+          # The github.com excludes are decorative badge targets (stargazers,
+          # contributors); GitHub intermittently bot-blocks CI traffic on them.
           args: >-
             --no-progress
             --max-retries 3
@@ -209,8 +215,6 @@ jobs:
             --exclude 'https?://([^/]*\.)?x\.com'
             --exclude 'https?://([^/]*\.)?twitter\.com'
             --exclude 'https?://([^/]*\.)?linkedin\.com'
-            # GitHub intermittently bot-blocks CI traffic on its decorative UI
-            # pages (404 on /stargazers etc.) — these badge targets are fine for humans.
             --exclude 'https://github\.com/KhazP/vibe-coding-prompt-template/(stargazers|issues|network/members|graphs/contributors)'
             README.md
             docs/
