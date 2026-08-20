@@ -28,8 +28,8 @@ This repository provides templates for building MVPs with AI coding agents. Whil
 - Test in isolated environments first
 - Follow OWASP guidelines for web applications
 
-### MCP Server Credentials
-- Treat MCP connections like production database credentials
+### External Tool Credentials
+- Treat external tool connections like production database credentials
 - Restrict agent access to non-production systems during development
 
 ## Reporting a Vulnerability

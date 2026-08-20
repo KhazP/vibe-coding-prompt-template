@@ -31,17 +31,16 @@ Please attach your PRD (and optionally your research) and type A, B, or C:
 <details>
 <summary><b>Best AI Platforms for Technical Design</b></summary>
 
-### Recommended Platforms
-- **Claude** — Strong architecture reasoning and consistent technical documentation
-- **Gemini** — Handles complex trade-off analysis with large context
-- **ChatGPT** — Fast technical iteration with good reasoning capabilities
+### Platform Guidance
+Use the assistant that can reason through trade-offs, cite current official docs, and keep the output structured. Claude, ChatGPT, Gemini, Codex, Cursor, and Gemini CLI can all fit different parts of the work.
 
-### Choosing the Right Platform
-| Need | Best Choice | Why |
-|------|-------------|-----|
-| Architecture design | Claude | Strong at system thinking |
-| Trade-off analysis | Gemini | Large context for comparisons |
-| Quick iteration | ChatGPT | Fast responses |
+### Choosing the Right Tool
+| Need | Selection Criteria |
+|------|--------------------|
+| Architecture design | Gives alternatives, trade-offs, and failure modes |
+| Current vendor docs | Can verify official docs for tool/API/deployment claims |
+| Repo-grounded implementation | Can read files, run checks, and preserve existing patterns |
+| Long-context synthesis | Keeps PRD/research constraints intact without dropping scope |
 
 **Stability note:** Prefer stacks and tools the team can realistically maintain. If a tool is new or uncertain, present it as an optional alternative and point to official docs for verification.
 
@@ -110,6 +109,13 @@ Then ask these questions ONE AT A TIME based on their technical level:
 
 **Q8:** "Do you want any AI-powered features (chat, summarization, recommendations)? If yes, list them and any privacy constraints."
 
+**Q9:** "If this MVP includes AI features, what should they do?
+- No product AI in v1
+- One narrow helper feature
+- Core AI workflow
+- AI-assisted internal/admin workflow
+- Not sure — help me decide"
+
 ### Path B — Developer Questions:
 
 **Q1:** "Based on the PRD for [App Name], what's your platform strategy and why?"
@@ -163,6 +169,12 @@ Then ask these questions ONE AT A TIME based on their technical level:
 
 **Q9:** "Any AI/LLM product features? If yes, specify use cases, latency/cost constraints, and data sensitivity."
 
+**Q10:** "AI product architecture:
+- Which provider, SDK, or local model path should be used?
+- What user data may be sent to AI systems?
+- What latency, cost, fallback, and logging limits apply?
+- Which AI-assisted actions require explicit user confirmation?"
+
 ### Path C — In-Between Questions:
 
 **Q1:** "Where should [App Name] run based on your PRD?
@@ -209,6 +221,13 @@ Then ask these questions ONE AT A TIME based on their technical level:
 
 **Q8:** "Do you want any AI-powered features (chat, summarization, recommendations)? If yes, list them and any privacy constraints."
 
+**Q9:** "If AI is in scope, where should it live?
+- No
+- Maybe later
+- Yes, as a core user-facing feature
+- Yes, as a helper/admin feature
+- Only as a development workflow"
+
 ---
 
 ## Step 1: Verification Echo (Required)
@@ -243,6 +262,17 @@ After verification, create a Tech Design Doc appropriate to their level.
 > 1. **Provide alternatives** — Show 2-3 options with pros/cons
 > 2. **Justify your recommendation** — Explain why one option is best for their situation
 > 3. **Acknowledge trade-offs** — Be honest about limitations
+
+### Stack Selection Matrix (Use When Relevant)
+
+| Need | Default Recommendation | Why |
+|------|------------------------|-----|
+| Standard web MVP | Next.js App Router + Vercel, or an equally familiar full-stack framework | Fast previews, common patterns, strong AI/tool support |
+| AI web app | Server-side AI calls with provider abstraction or Vercel AI SDK | Keeps keys off the client and makes evals/telemetry easier |
+| Budget AI path | Cloudflare Workers AI or another low-cost hosted provider | Isolates quotas, secrets, and abuse limits at the edge/API layer |
+| Fast UI scaffold | v0, Lovable, AI Studio Build mode, or similar | Useful for first drafts; still require export, test, and security review |
+
+Do not present any row as mandatory. Pick the simplest option that satisfies the PRD and can be verified by the builder.
 
 ### For Vibe-Coders — TechDesign-[AppName]-MVP.md:
 
@@ -394,18 +424,21 @@ If your MVP includes AI features, clarify:
 - **Provider options:** [API-based vs local models]
 - **Latency/cost targets:** [Constraints]
 - **Failure fallback:** [What happens if the AI call fails]
+- **User confirmation:** [Which tool calls or actions require explicit approval]
+- **Eval set:** [Direct, indirect, negative, auth-required, and failure prompts]
+- **Telemetry:** [What logs/traces are allowed and where they are stored]
 
 ## AI Assistance Strategy
 
 ### Which AI Tool for What
 
-| Task | Best AI Tool | Example Prompt |
-|------|--------------|----------------|
-| Planning architecture | Claude | "Design database schema for [feature]" |
-| Writing code | Cursor/Claude Code | "Implement [feature] with [tech]" |
-| Fixing bugs | ChatGPT | "Error: [error]. How to fix?" |
-| UI/Design | v0/Claude | "Create [component] matching [style]" |
-| Deployment | GitHub Copilot | "Deploy to [platform]" |
+| Task | Good Tool Pattern | Example Prompt |
+|------|-------------------|----------------|
+| Planning architecture | Claude, ChatGPT, Gemini, or Codex with official-doc verification | "Compare 3 stack options for [feature] using current official docs." |
+| Repo implementation | Cursor/Codex/Claude Code/Gemini CLI with `AGENTS.md` loaded | "Implement [feature] using the approved plan and run the documented checks." |
+| Focused delegation | Subagents/background agents with narrow scopes | "Audit only the auth files and return findings; do not edit." |
+| UI scaffold | v0/Lovable/AI Studio Build mode, followed by code/security review | "Create [component] matching [style], then list required cleanup before production." |
+| AI product feature | Direct SDKs, AI SDKs, Workers AI, local models, or provider abstraction | "Design the AI feature with data boundaries, auth, evals, fallback behavior, and deployment checks." |
 
 ### Prompt Templates for Your Features
 
@@ -862,16 +895,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - run: npm ci
-      - run: npm test
-      - run: npm run build
+      - run: [install command from chosen stack]
+      - run: [test command from chosen stack]
+      - run: [build command from chosen stack]
 
   deploy:
     needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - run: npm ci --production
+      - run: [production install/build command]
       - uses: [deploy-action]
 ```
 
@@ -1021,11 +1054,13 @@ For complex features, structure AI interactions as:
 2. **Executor:** Implement single isolated tasks with tools
 3. **Reviewer:** Validate output against acceptance criteria
 
-### MCP Integration Points
-Consider adding relevant MCP servers for enhanced AI capabilities:
-- **Database MCP:** Secure schema discovery and read-only queries
-- **Git MCP:** Repository manipulation and version control
-- **Memory MCP:** Persistent knowledge graph across sessions
+### Agent Tooling Integration Points
+Consider agent-facing tooling only when it improves implementation or verification:
+- **Docs lookup:** Use official vendor docs for fast-moving APIs.
+- **Local inspection:** Prefer read-only schema, route, and fixture inspection before changing code.
+- **Memory:** Persist project knowledge only when retention, privacy, and ownership are clear.
+- **Permissions:** Classify read, write, and destructive actions before granting automation access.
+- **Verification:** Document the exact lint, test, build, browser, and AI-eval commands agents should run.
 
 ## Documentation Requirements
 
@@ -1227,14 +1262,14 @@ git clone [template-repo] my-app
 cd my-app
 
 # 2. Install dependencies
-npm install
+[install command from chosen stack]
 
 # 3. Set up environment
 cp .env.example .env.local
 # Edit .env.local with your keys
 
 # 4. Run development
-npm run dev
+[dev command from chosen stack]
 ```
 
 ## AI Prompting Guide

@@ -25,6 +25,7 @@
   <img src="https://img.shields.io/badge/ChatGPT-OpenAI-412991?style=flat-square&logo=openai" alt="ChatGPT"/>
   <img src="https://img.shields.io/badge/Cursor-Editor-000000?style=flat-square&logo=cursor" alt="Cursor"/>
   <img src="https://img.shields.io/badge/VS_Code-Microsoft-007ACC?style=flat-square&logo=visualstudiocode" alt="VS Code"/>
+  <a href="https://www.npmjs.com/package/vibeworkflow"><img src="https://img.shields.io/badge/npx_vibeworkflow-CLI-CB3837?style=flat-square&logo=npm" alt="npx vibeworkflow"/></a>
 </p>
 
 ---
@@ -33,8 +34,10 @@
 - [Built with this workflow](#built-with-this-workflow)
 - [Workflow overview](#workflow-overview)
 - [Quick start and the 5 steps](#quick-start-and-the-5-steps)
+- [Modern AI build paths](#modern-ai-build-paths)
 - [Prerequisites and tools](#prerequisites-and-tools)
 - [Advanced agent practices](#advanced-agent-practices)
+- [AI safety and evidence](#ai-safety-and-evidence)
 - [Project structure and deployment](#project-structure-and-deployment)
 - [Common pitfalls and troubleshooting](#common-pitfalls-and-troubleshooting)
 - [Further reading](#further-reading)
@@ -43,7 +46,7 @@
 
 ## Built with this workflow
 
-This repo documents the workflow behind a handful of shipped projects. The goal is simple: do the thinking upfront, hand clean context to your tools, and keep the build phase moving.
+This repo documents the workflow behind a handful of shipped projects. The goal is simple: do the thinking upfront, hand clean context to your tools, and keep the build phase moving through reviewable plans, tests, and browser checks.
 
 | Project | What it is |
 | :-- | :-- |
@@ -60,7 +63,7 @@ This repo documents the workflow behind a handful of shipped projects. The goal 
 
 ## Workflow overview
 
-The process moves through five stages, from idea validation to working code:
+The process moves through five stages, from idea validation to working code with agent-friendly documentation and verification:
 
 ```mermaid
 flowchart LR
@@ -85,7 +88,7 @@ flowchart LR
     end
 
     subgraph Phase6["Build"]
-        F[🚀 MVP]
+        F[🚀 MVP / AI App]
     end
 
     A --> B --> C --> D --> E --> F
@@ -111,7 +114,7 @@ flowchart LR
 
 ## Quick start and the 5 steps
 
-> TL;DR: run research, turn it into a PRD, choose the stack, generate your agent files, then build in small passes.
+> TL;DR: run grounded research, turn it into a PRD, choose the product surface and stack, generate your agent files, then build in small verified passes.
 
 ### Phase 1: thinking through the product
 Do the first three steps in ChatGPT, Claude.ai, Gemini, or any other chat tool. You do not need a repo yet.
@@ -128,7 +131,7 @@ This step gives you a quick read on demand, competitors, and whether the scope l
 4. The AI will generate a comprehensive research document based on your answers.
 5. **Save the output** into a local file named `research-[YourAppName].md` (or `.txt`) or simply **keep this chat open** for Step 2.
 
-Tip: if your chat tool supports web search, turn it on so the stats and competitor references are current.
+Tip: if your chat tool supports web search, source grounding, URL context, or deep research mode, turn it on and require cited claims with access dates.
 </details>
 
 ### ![Step 2](https://img.shields.io/badge/Step_2-Product_Requirements-f093fb?style=flat-square) Product Requirements (PRD)
@@ -148,21 +151,23 @@ This turns the rough idea into a scope you can build against.
 <details open>
 <summary><b>Pick a stack you can actually ship with</b> - 15-20 min</summary>
 
-This step helps you choose the stack and decide where to keep things simple.
+This step helps you choose the stack, deployment target, AI provider strategy if the product needs AI, and the verification path.
 
 1. Copy the contents of [`part3-tech-design-mvp.md`](part3-tech-design-mvp.md).
 2. Paste it into your **ongoing conversation** (or into a new one, making sure to attach the `PRD-[YourAppName]-MVP.md` from Step 2 as context).
 3. The AI will ask questions regarding your budget, timeline, and complexity tolerance.
-4. Discuss the trade-offs it presents (e.g., full-code vs. no-code builder).
+4. Discuss the trade-offs it presents, including no-code/full-code, Vercel vs. Cloudflare, and whether AI evals are required.
 5. Once a stack is decided, **save the output** as `TechDesign-[YourAppName]-MVP.md`.
 </details>
 
 ### Phase 2: execution in your IDE
-Move into Cursor, VS Code with Copilot, Claude Code, or your preferred coding setup. This is where the project becomes code.
+Move into Codex, Cursor, VS Code with Copilot, Claude Code, Antigravity/Gemini-compatible agents, or your preferred coding setup. This is where the project becomes code and verified artifacts.
 
 ### ![Step 4](https://img.shields.io/badge/Step_4-Instantiate_Templates-00f2fe?style=flat-square) Set up the agent files
 <details open>
 <summary><b>Create the docs and instructions your coding agent will rely on</b> - 1-2 min</summary>
+
+> **CLI shortcut:** tell your AI agent to run `npx vibeworkflow` from your project folder — the CLI is agent-driven, not meant to be run by hand. If you already have `docs/PRD-*.md` + `docs/TechDesign-*.md` (with the JSON meta block), it scaffolds the files below (skipping anything you've already edited) and verifies with `npx vibeworkflow doctor`. If the docs are missing, it installs the planning skills, auto-detects your AI tools, and prints agent instructions that drive the research → PRD → Tech Design interviews for you — your agent asks the questions one at a time; you just answer. The paste flow below still works everywhere.
 
 This step fills out `AGENTS.md` and the supporting docs from your PRD and tech design.
 
@@ -174,7 +179,21 @@ This step fills out `AGENTS.md` and the supporting docs from your PRD and tech d
    - `docs/TechDesign-[YourAppName]-MVP.md`
    - optional: `docs/research-[YourAppName].md` (or `.txt` for backward compatibility)
 5. Open the AI Chat inside your IDE, type: *"Read [`part4-notes-for-agent.md`](part4-notes-for-agent.md), follow its instructions, and set up my workspace."*
-6. The agent should copy the boilerplates from `/templates/` into your project root and fill in the placeholders using the files in `docs/`.
+6. The agent should copy the boilerplates from `/templates/`, generate selected tool configs (`CLAUDE.md`, `.cursor/rules/`, `GEMINI.md`, `.codex/config.toml`, `.agents/skills/`, etc.), and fill placeholders using the files in `docs/`.
+
+Default generated files:
+- `AGENTS.md`
+- `MEMORY.md`
+- `REVIEW-CHECKLIST.md`
+- `agent_docs/project_brief.md`
+- `agent_docs/tech_stack.md`
+- `agent_docs/testing.md`
+
+Optional generated files:
+- `agent_docs/code_patterns.md` when the codebase has real conventions to preserve.
+- `agent_docs/product_requirements.md` when the PRD is long enough to need a build-facing summary.
+- `.claude/`, `.cursor/`, `.github/`, `.codex/`, `.gemini/`, and local-agent files only for tools the user selected.
+- `agent-permissions.example.json` only when AI tools, MCP servers, or product actions are in scope.
 </details>
 
 ### ![Step 5](https://img.shields.io/badge/Step_5-Build_MVP-43e97b?style=flat-square) Build with AI Agent
@@ -183,10 +202,10 @@ This step fills out `AGENTS.md` and the supporting docs from your PRD and tech d
 
 Choose your development environment and start iterating:
 
-1. Ensure your newly generated `AGENTS.md` and configuration files are physically in the project folder.
+1. Ensure your newly generated `AGENTS.md`, `agent_docs/`, and tool configuration files are physically in the project folder.
 2. Give your agent its **first command:** 
    > *"Read AGENTS.md, propose a Phase 1 plan, wait for my approval, and then build it step by step."*
-3. Treat the agent like a junior developer. Ask it to stop after each major feature, explain the diff, and run tests where possible.
+3. Treat the agent like a junior developer. Ask it to stop after each major feature, explain the diff, run the project-specific verification commands, and use browser/mobile checks for user-visible flows.
 4. **Repeat the loop** until your MVP is complete:
 
 **Recommended Loop:**
@@ -202,6 +221,27 @@ Choose your development environment and start iterating:
 
 ---
 
+## Modern AI build paths
+
+Use the same five-step workflow, but make the target surface explicit in Step 3:
+
+| Target | Good default | Add to Tech Design |
+|--------|--------------|--------------------|
+| Standard web MVP | Next.js App Router or the simplest stack your team can maintain | Routes, data model, auth, deployment, browser smoke tests |
+| OpenAI product path | Responses API first; Agents SDK when orchestration, tracing, handoffs, or guardrails matter; Apps SDK/MCP for ChatGPT surfaces | Model family, structured outputs, hosted tools, MCP trust boundary, evals, data retention |
+| Vercel AI path | AI SDK 6, AI Gateway, AI Elements, v0 API, or Vercel Workflow when durable agents are needed | Gateway/direct provider, budgets, fallbacks, telemetry, UI primitives, workflow retries |
+| Cloudflare AI path | Workers AI for budget inference; AI Gateway for controls; Agents SDK + Durable Objects for stateful agents; AI Search/Vectorize for retrieval | Worker limits, Gateway settings, AI Search vs Vectorize, MCP auth, hard cost ceilings |
+| Google path | Google AI Studio for fast prototypes; Antigravity/Antigravity CLI for agentic implementation; Gemini CLI only where still explicitly supported | Export-to-GitHub/local verification, artifact review, migration status, data policy |
+| Claude/Codex/Cursor/Copilot build path | Use repo-owned `AGENTS.md` plus thin tool adapters, subagents/background agents for bounded tasks, and reviewer/tester passes | Tool-specific config, branch/worktree isolation, verification commands, evidence report |
+| Local/open model path | LM Studio/Ollama for local runtime; Continue/Cline/Aider/OpenHands for local workflows; llama.cpp/MLX for advanced setups | Hardware, endpoint, model family, tool calling, MCP allowlist, fallback, local log storage |
+| Builder prototype path | v0, Lovable, Bolt, Replit Agent, Google AI Studio, Base44, Tempo, Builder.io, Framer | Source ownership, GitHub sync/export, local build, secrets, auth/RLS, rollback, exit plan |
+
+For vendor-specific claims, follow [Freshness policy](docs/maintenance/freshness-policy.md) and re-check official docs before merging.
+
+For AI product features, use [AI feature patterns](docs/ai/feature-patterns.md). For MCP, agent permissions, prompt injection, and provider retention decisions, use [AI agent security](docs/ai/agent-security.md). For builder-generated projects, complete the [Builder exit review](docs/workflow/builder-exit-review.md).
+
+---
+
 ## Prerequisites and tools
 
 You need a modern browser, a few hours, and enough comfort with files and copy-paste to move between tools. You do not need to be an experienced developer.
@@ -210,11 +250,13 @@ You need a modern browser, a few hours, and enough comfort with files and copy-p
 
 | Focus Area | Recommended Tools |
 |------------|-------------------|
-| **Fast Prototype (Full-stack)** | ![Lovable](https://img.shields.io/badge/Lovable-ff69b4?style=flat-square) (Includes Agent/Plan mode, DB, Auth) |
-| **Production-Ready Frontend** | ![v0](https://img.shields.io/badge/v0-000?style=flat-square) (Vercel-native, exact Next.js/React components) |
-| **Learning / Sandbox Coding** | ![Cursor](https://img.shields.io/badge/Cursor-000?style=flat-square) (Dynamic Context) or VS Code with Copilot |
-| **Complex Logic / Multi-Agent** | ![Claude Code](https://img.shields.io/badge/Claude_Code-orange?style=flat-square) (Agent Teams) or GitHub Copilot CLI |
-| **Budget-Limited** | ![Gemini CLI](https://img.shields.io/badge/Gemini_CLI-4285F4?style=flat-square) (Free) + VS Code |
+| **Fast Prototype** | Lovable, v0, or Google AI Studio Build mode; verify export and deployment path before committing |
+| **Production Web App** | Next.js/Vercel, Cloudflare Workers, or another boring stack the team can maintain |
+| **AI Product Features** | Provider SDKs, AI SDKs, Workers AI, or local models with cost and data checks |
+| **Learning / Sandbox Coding** | Cursor rules, Codex skills, Antigravity/Gemini legacy, VS Code with Copilot, Continue, Cline, or Aider |
+| **Complex Logic / Delegation** | Claude Code subagents, Codex subagents, or Cursor background agents with scoped tasks |
+| **Budget-Limited AI** | Antigravity/Gemini where currently supported, free-tier provider APIs, or Workers AI, with quota checks and current pricing verification |
+| **Private / Local AI** | LM Studio, Ollama, Continue, Cline, Aider, OpenHands, llama.cpp, or MLX with explicit tool approvals |
 
 Note: I would not use this workflow as-is for native hardware work, heavily regulated products, or safety-critical systems.
 
@@ -225,18 +267,20 @@ Note: I would not use this workflow as-is for native hardware work, heavily regu
 <details open>
 <summary><b>1. Artifact-first memory and compaction</b></summary>
 
-To avoid context overload, let the agent write things down instead of trying to keep everything in one giant chat:
-- **Compaction and handoffs:** Use native compaction (`/compact` in Copilot CLI, Claude Code logic) instead of hard resets. When you switch sessions, have the agent write a `001-spec.md` or `recap.md` and load only that file into the new chat.
-- **Dynamic context (Cursor):** Let the agent save findings into real files instead of burying them in chat history.
-- If you must restart, attach `AGENTS.md`, `docs/PRD-[YourAppName]-MVP.md`, and your latest handoff artifact.
+To avoid context overload, let the agent write durable project facts into files instead of trying to keep everything in one giant chat:
+- **Compaction and handoffs:** Use native compaction/summarization where the tool supports it. When you switch sessions, have the agent write a `specs/001-feature.md` or `recap.md` and load only that file into the new chat.
+- **Repo-owned memory:** Keep decisions and current state in `MEMORY.md`; tool-side memories are personal and should not replace versionable project docs.
+- **Cursor/Codex/Gemini context:** Use project rules, skills, or `GEMINI.md` as concise pointers to `AGENTS.md` and `agent_docs/`, not as huge prompt dumps.
+- If you must restart, attach `AGENTS.md`, `docs/PRD-[YourAppName]-MVP.md`, `docs/TechDesign-[YourAppName]-MVP.md`, and your latest handoff artifact.
 </details>
 
 <details open>
 <summary><b>2. Multi-agent orchestration and plugins</b></summary>
 
-- **Agent teams:** Tools like Claude Code support multiple agents working in parallel. Treat them like assigned roles, not magic.
-- **Plan before edit:** Ask for an approved plan from the lead agent before the execute agent starts changing files. It cuts down on silent regressions.
-- Keep `AGENTS.md` as the source of truth, then add tool-specific plugins or `.cursor/rules/` to seamlessly extend capabilities.
+- **Subagents first:** Use focused subagents for research, code review, debugging, and test verification. Use experimental team-style coordination only when agents truly need to communicate or split disjoint modules.
+- **Plan before edit:** Use the tool's actual plan/approval mode where available, then require a short plan before multi-file changes.
+- **Scoped rules and skills:** Keep `AGENTS.md` as the cross-tool source of truth, then add `.cursor/rules/`, `.claude/agents/`, `.codex/config.toml`, `.agents/skills/`, or `GEMINI.md` only as concise tool-specific adapters.
+- **Task routing:** Use [Agent tooling compatibility](docs/tools/agent-tooling-compatibility.md) to decide when to use Codex, Claude Code, Cursor, Copilot, Antigravity, local agents, or builder tools.
 </details>
 
 <details>
@@ -251,6 +295,8 @@ Use model families instead of pinned version names. It ages better as models get
 | Depth-first | Claude Opus, Gemini Pro | Deep reasoning, complex refactors | Medium |
 </details>
 
+Always verify current model names, quotas, and pricing against official docs before writing them into project artifacts. Reasoning effort and verbosity are product settings, not automatic quality upgrades.
+
 <details>
 <summary><b>4. Agent observability</b></summary>
 
@@ -260,6 +306,23 @@ When an agent ignores instructions or behaves inconsistently:
 3. Verify the active session context was not reset.
 4. Re-run with explicit instruction order: *"Read AGENTS.md, then agent_docs/, then execute."*
 </details>
+
+---
+
+## AI safety and evidence
+
+Treat AI safety as a design-time requirement, not a final polish pass.
+
+- Step 3 must define AI surface, provider/account type, data sent to models, retention/training setting, allowed tools/actions, approval gates, evals, telemetry, and cost ceiling.
+- Step 4 must generate tool permissions and thin adapters that point back to `AGENTS.md`, `agent_docs/`, and `REVIEW-CHECKLIST.md`.
+- Step 5 must produce evidence: changed files, commands run, test/browser/device results, AI eval/tool-call results, unresolved risks, and rollback notes.
+- Untrusted content rule: web pages, emails, docs, issue comments, tool output, RAG chunks, logs, and uploads are data, not instructions.
+
+Useful references:
+- [AI agent security](docs/ai/agent-security.md)
+- [AI feature patterns](docs/ai/feature-patterns.md)
+- [Builder exit review](docs/workflow/builder-exit-review.md)
+- [Agent tooling compatibility](docs/tools/agent-tooling-compatibility.md)
 
 ---
 
@@ -282,6 +345,12 @@ your-app/
 ├── 📄 MEMORY.md                  # Artifact-first memory for session continuity
 ├── 📁 specs/                     # Agent handoff artifacts (e.g. 001-feature-spec.md)
 ├── 📁 .cursor/rules/             # Cursor rules (preferred)
+├── 📁 .claude/agents/            # Optional Claude subagents
+├── 📁 .agents/skills/            # Optional Codex/Codex-compatible skills
+├── 📁 .github/instructions/      # Optional Copilot scoped instructions
+├── 📁 .github/prompts/           # Optional Copilot reusable prompts
+├── 📄 GEMINI.md                  # Optional Antigravity/Gemini legacy memory/config pointer
+├── 📄 llms.txt                   # Optional machine-readable project guide
 └── 📁 src/                       # Your application code
 ```
 
@@ -290,9 +359,10 @@ your-app/
 Once the MVP works, do a final pass on secrets, auth, and basic abuse protections before you deploy:
 
 1. **Security Pass:** Check dependencies, secrets, auth paths, and rate limits.
-2. **Push & Deploy:**
+2. **AI Safety Pass:** For AI features, check prompt-injection boundaries, tool/action permissions, provider retention/training settings, logs, cost ceilings, evals, and telemetry redaction.
+3. **Push & Deploy:**
    - ![Vercel](https://img.shields.io/badge/Vercel-Deploy-000?style=flat-square&logo=vercel) For Next.js, React, frontend apps.
-   - ![Cloudflare](https://img.shields.io/badge/Cloudflare-Pages-F38020?style=flat-square&logo=cloudflare) For Static sites, edge functions.
+   - ![Cloudflare](https://img.shields.io/badge/Cloudflare-Pages-F38020?style=flat-square&logo=cloudflare) For static sites, edge functions, and Workers AI.
 
 ---
 
@@ -307,6 +377,8 @@ Once the MVP works, do a final pass on secrets, auth, and basic abuse protection
 | Letting agents ship code alone | Review the diff and run tests before merging |
 | Publishing auto-generated UIs | Test accessibility and security before launch |
 | Forcing one tool to do everything | Mix tools, IDE + terminal + builder usually works better |
+| Trusting stale tool claims | Re-check official docs and update the last-verified date |
+| Shipping AI tools without evals | Add direct, indirect, negative, auth, and failure-case prompt checks |
 
 </details>
 
@@ -326,10 +398,15 @@ Once the MVP works, do a final pass on secrets, auth, and basic abuse protection
 
 ## Further reading
 
-- [Claude agent teams — multi-agent orchestration patterns](docs/claude-agent-teams.md)
-- [Cursor cloud agents — cloud-based Cursor agent setup](docs/cursor-cloud-agents.md)
-- [Freshness policy — how time-sensitive content is maintained](docs/freshness-policy.md)
-- [Golden path checklist — end-to-end workflow validation](docs/golden-path-checklist.md)
+- [Docs index — what to read and when](docs/README.md)
+- [Claude subagents and agent teams — delegated work patterns](docs/tools/claude-agent-teams.md)
+- [Cursor agents, rules, memories, and background agents](docs/tools/cursor-cloud-agents.md)
+- [AI agent security — threat surfaces, tool permissions, and evals](docs/ai/agent-security.md)
+- [AI feature patterns — RAG, structured outputs, memory, approvals, telemetry](docs/ai/feature-patterns.md)
+- [Agent tooling compatibility — choosing adapters and agent surfaces](docs/tools/agent-tooling-compatibility.md)
+- [Builder exit review — no-code/AI builder production checks](docs/workflow/builder-exit-review.md)
+- [Freshness policy — how time-sensitive content is maintained](docs/maintenance/freshness-policy.md)
+- [Golden path checklist — end-to-end workflow validation](docs/workflow/golden-path-checklist.md)
 
 ---
 

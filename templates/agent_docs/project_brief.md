@@ -9,4 +9,6 @@
 
 ## Key Principles
 - Ship the simplest possible solution that solves the user story.
-- If a simpler low-code integration exists (e.g. using pre-built Stripe Checkout instead of a custom form), use it.
+- Prefer boring, maintainable choices over novelty unless the Tech Design explicitly chooses a newer tool for a clear reason.
+- Use prebuilt services or low-code integrations only when they match the PRD, security needs, and ownership expectations.
+- For AI features, keep the user outcome narrow and verify behavior with eval prompts before expanding scope.

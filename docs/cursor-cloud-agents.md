@@ -1,30 +1,84 @@
-# Cursor Cloud Agents & Dynamic Context (2026 Guide)
+# Cursor Agents, Rules, Memories, and Background Agents
 
-As of early 2026, Cursor has shifted heavily toward **Cloud Agents** and **Dynamic Context Discovery**. If you are using Cursor for your MVP build (Step 5 of the vibe-coding workflow), use these patterns to prevent context bloat and silent breakages.
+Last verified: 2026-04
 
-## 1. File-Centric Memory (Dynamic Context)
+Cursor works best with this template when `AGENTS.md` stays the cross-tool contract and Cursor-specific behavior lives in scoped project rules.
 
-Instead of keeping everything in the chat window, Cursor agents now perform much better when they read and write to physical files. 
+## Recommended setup
 
-### Do This:
-- When starting a new feature, tell the Agent: *"Review my PRD and write a `specs/001-feature-name.md` file detailing your plan."* 
-- Have the agent save long terminal logs or error outputs into physical files (e.g., `logs/build-error.md`) and command it to read that file to debug, rather than pasting 1,000 lines of error codes into the chat.
+Use this shape for Cursor projects:
 
-## 2. Compaction & Hard Resets
+```text
+your-app/
+├── AGENTS.md
+├── MEMORY.md
+├── agent_docs/
+└── .cursor/
+    ├── rules/
+    │   ├── 00-project.mdc
+    │   ├── 10-architecture.mdc
+    │   └── 20-testing-review.mdc
+    └── environment.json.example
+```
 
-Because Cursor can now retrieve context so efficiently from your workspace, you do **not** need to keep a single Cursor chat open for days. 
+Use `AGENTS.md` alone for simple projects. Add `.cursor/rules/*.mdc` when you need scoped, composable behavior.
 
-- **The Pattern:** Build one logical feature. Once it works and is committed, tell Cursor: *"Summarize the current state of architecture and decisions made into `MEMORY.md`."*
-- Hit `Ctrl/Cmd + L` to start a completely fresh chat for the next feature. 
-- In the new chat, start with: *"Read `AGENTS.md` and `MEMORY.md`, then let's build the next feature."*
+## Rule patterns
 
-## 3. Rules & Instructions (`.cursor/rules/`)
+Use small MDC rules instead of one large `.cursorrules` file:
 
-Cursor has moved away from the monolithic `.cursorrules` file. 
+```mdc
+---
+alwaysApply: true
+---
 
-Create a `.cursor/rules/` directory and split your rules logically. For example:
-- `01-architecture.mdc`: Hexagonal or feature-folder rules.
-- `02-testing.mdc`: Instructions to always run `pnpm test` before concluding a task.
-- `03-libraries.mdc`: Instructions on which UI libraries (like shadcn/ui) to enforce.
+Read AGENTS.md first. Use agent_docs/ for implementation details. Propose a plan before multi-file edits.
+```
 
-This progressive disclosure ensures the agent only loads the rules relevant to the files it is actively touching.
+```mdc
+---
+globs:
+  - "src/**/*.tsx"
+description: React UI and accessibility expectations
+---
+
+Follow the component patterns in agent_docs/code_patterns.md. Verify user-visible changes in a real browser.
+```
+
+Keep large product details in `agent_docs/`; rules should point to them.
+
+## Memories and repo-owned context
+
+Cursor Memories are tool-side/project-scoped generated context. They can help the assistant remember preferences, but they do not replace repo-owned `MEMORY.md`.
+
+Use this split:
+
+- `MEMORY.md`: versionable architecture decisions, current phase, known issues
+- `.cursor/rules/*.mdc`: persistent Cursor behavior
+- Cursor Memories: personal/tool-side facts that may require review or approval
+
+## Background agents
+
+Use background agents for bounded, branch-friendly tasks:
+
+- “Audit these three files and propose fixes”
+- “Run the test suite and summarize failures”
+- “Implement this single approved spec on a new branch”
+
+Before using them, confirm GitHub is connected, branches are isolated, and any `.cursor/environment.json` commands are idempotent. Do not put secrets in setup commands, and keep generated logs or large artifacts out of always-loaded context.
+
+## Review and safety loop
+
+- Check the diff after each agent run.
+- Validate terminal logs and exit codes, not just prose summaries.
+- Use Bugbot or `cursor review` where available, but still run project tests.
+- Use `.cursorignore` or indexing ignores for generated files, build artifacts, local logs, and sensitive files.
+
+## Official references
+
+- [Cursor Rules](https://docs.cursor.com/en/context)
+- [Cursor Memories](https://docs.cursor.com/en/context/memories)
+- [Cursor Background Agents](https://docs.cursor.com/en/background-agents)
+- [Cursor Codebase Indexing](https://docs.cursor.com/context/codebase-indexing)
+- [Cursor Bugbot](https://docs.cursor.com/bugbot)
+- [Cursor changelog](https://cursor.com/changelog)

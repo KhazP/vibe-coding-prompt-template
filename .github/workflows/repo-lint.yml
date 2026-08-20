@@ -19,8 +19,15 @@ jobs:
           test -f templates/agent_docs/tech_stack.md
           test -f templates/agent_docs/testing.md
           test -f templates/AGENTS.md
+          test -f templates/CLAUDE.md
+          test -f templates/GEMINI.md
           test -f templates/MEMORY.md
           test -f templates/REVIEW-CHECKLIST.md
+          test -f templates/.cursor/rules/00-project.mdc
+          test -f templates/.claude/agents/researcher.md
+          test -f templates/.codex/config.toml
+          test -f templates/.agents/skills/vibe-build/SKILL.md
+          test -f templates/.gemini/settings.json
           test -f docs/freshness-policy.md
           test -f docs/golden-path-checklist.md
 
@@ -40,21 +47,21 @@ jobs:
 
       - name: Reject stale nonexistent skill references
         run: |
-          if grep -rn "frontend-design" .claude/settings.local.json .claude/README.md .claude/skills/ 2>/dev/null; then
+          if grep -rn "frontend-design" .claude/settings.local.json .claude/README.md .claude/skills/ .agents/skills/ 2>/dev/null; then
             echo "ERROR: Reference to nonexistent frontend-design skill found."
             exit 1
           fi
 
       - name: Reject broken canonical filename references
         run: |
-          if grep -rEn '`PRD\.md`|`TechDesign\.md`' README.md part*.md .claude/README.md .claude/skills/ 2>/dev/null; then
+          if grep -rEn '`PRD\.md`|`TechDesign\.md`' README.md part*.md .claude/README.md .claude/skills/ .agents/skills/ 2>/dev/null; then
             echo "ERROR: Stale PRD.md / TechDesign.md filename reference found. Use PRD-[AppName]-MVP.md and TechDesign-[AppName]-MVP.md."
             exit 1
           fi
 
       - name: Reject stale .txt-only research references in skill files
         run: |
-          if grep -rn 'research-.*\.txt' .claude/skills/ | grep -v '\.md.*\.txt\|or.*\.txt\|\.txt.*compat'; then
+          if grep -rn 'research-.*\.txt' .claude/skills/ .agents/skills/ | grep -v '\.md.*\.txt\|or.*\.txt\|\.txt.*compat'; then
             echo "ERROR: Skill files reference research-*.txt without .md. Update to .md (with optional .txt compat)."
             exit 1
           fi
@@ -62,6 +69,12 @@ jobs:
       - name: Reject orphaned skill directories
         run: |
           for dir in .claude/skills/*/; do
+            if [ ! -f "${dir}SKILL.md" ]; then
+              echo "ERROR: Orphaned skill directory found: $dir (no SKILL.md)"
+              exit 1
+            fi
+          done
+          for dir in .agents/skills/*/ templates/.agents/skills/*/; do
             if [ ! -f "${dir}SKILL.md" ]; then
               echo "ERROR: Orphaned skill directory found: $dir (no SKILL.md)"
               exit 1

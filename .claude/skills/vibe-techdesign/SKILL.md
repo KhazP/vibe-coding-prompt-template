@@ -20,7 +20,7 @@ Guide the user through deciding HOW to build their MVP using modern tools and be
 
 ## Naming Policy
 
-Prefer model family names in guidance unless the user explicitly requests pinned versions.
+Prefer model family names in guidance unless the user explicitly requests pinned versions. Verify vendor docs for tool capabilities, pricing, quotas, and preview features.
 
 ## Prerequisites
 
@@ -57,6 +57,7 @@ Ask:
 6. "Have you tried any tools yet? Name any and what you liked/disliked"
 7. "For your main feature, what's most important? Simple to build, works perfectly, looks amazing, or scales well?"
 8. "Do you want AI-powered features (chat, summarization)? If yes, list them and privacy constraints"
+9. "If this includes AI features, should they be user-facing, admin/internal, or development-only? Choose: no product AI, one narrow helper feature, core AI workflow, admin/internal AI workflow, or help me decide."
 
 ### Level B (Developer):
 
@@ -69,6 +70,7 @@ Ask:
 7. "Performance/scaling? Expected load, data volume, geographic distribution, real-time needs"
 8. "Security/compliance? Data sensitivity, compliance needs, auth method, API security"
 9. "AI/LLM features? Use cases, latency/cost constraints, data sensitivity"
+10. "AI architecture? Provider/local model strategy, data boundaries, fallback behavior, and read/write/destructive action classifications."
 
 ### Level C (In-Between):
 
@@ -80,6 +82,7 @@ Ask:
 6. "AI assistance preference? AI does everything, AI explains, AI helps when stuck, or Mix?"
 7. "Timeline reality: Hours/week available, launch date, beta test size?"
 8. "AI-powered features? List them and privacy constraints if yes"
+9. "Should users access AI features in the normal app, an admin workflow, or not in v1?"
 
 ## Step 4: Verification Echo
 
@@ -113,10 +116,12 @@ After confirmation, generate a document tailored to their level.
 5. **Design Implementation** - Templates, design system, responsiveness
 6. **Database & Storage** - Schema, setup, hosting
 7. **AI Assistance Strategy** - Which tool for what task
-8. **Deployment Plan** - Platform, steps, backup options
-9. **Cost Breakdown** - Development and production phases
-10. **Scaling Path** - What to do at 100, 1000, 10000 users
-11. **Limitations** - What this approach can't do
+8. **AI Product Strategy** - Provider, privacy, cost ceilings, fallback behavior, and eval prompts if applicable
+9. **AI Product Strategy** - Provider, data boundaries, auth, action permissions, fallback behavior, and eval plan if applicable
+10. **Deployment Plan** - Platform, steps, backup options
+11. **Cost Breakdown** - Development and production phases
+12. **Scaling Path** - What to do at 100, 1000, 10000 users
+13. **Limitations** - What this approach can't do
 
 Write to `docs/TechDesign-[AppName]-MVP.md`.
 

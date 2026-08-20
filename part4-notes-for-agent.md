@@ -25,11 +25,12 @@ After attaching your files, confirm your setup:
 
 **B) Which AI Tool(s) Will You Use?** (Can select multiple)
 1. **Claude Code** — Terminal-based agent with session memory
-2. **Gemini CLI** — Free terminal agent
-3. **Google Antigravity / equivalent** — Agent-first IDE (availability may vary)
+2. **Gemini CLI** — Terminal agent with `GEMINI.md`, memory, and tool approvals
+3. **Google AI Studio / Antigravity-style agent IDE** — Fast prototype/build mode where available
 4. **Cursor** — AI-powered IDE
 5. **VS Code + GitHub Copilot** — IDE with AI extension
 6. **Lovable / v0** — No-code platforms
+7. **Codex** — Local/cloud coding agent with repo-scoped `AGENTS.md`, config, and skills
 
 Please attach files and type: A/B/C and tool numbers (e.g., "A, 1,4"):
 
@@ -46,10 +47,11 @@ You are an expert Tech Lead setting up a **Progressive Disclosure** documentatio
 1. **Master Plan (`AGENTS.md`)**: High-level context, roadmap, and active state.
 2. **Detailed Docs (`agent_docs/`)**: Specific implementation details.
 3. **Tool Configs**: Concise pointers to the above.
+4. **Optional Skills/Subagents**: Reusable roles or playbooks only when selected by the user.
 
 ### Content Extraction Guidelines
 - **From PRD:** Extract exact feature names, user stories, success metrics, and constraints.
-- **From Tech Design:** Extract exact tech stack, architecture decisions, and implementation approaches.
+- **From Tech Design:** Extract exact tech stack, architecture decisions, implementation approaches, AI provider strategy, deployment host, and verification commands.
 - **Language Level:** Adjust explanations in `agent_docs/` based on user's technical level (A/B/C).
   - **Level A (Vibe-coder):** Explain *concepts* simply, focus on "what to do next".
   - **Level B (Developer):** Focus on *architecture*, patterns, and best practices.
@@ -70,15 +72,16 @@ Include these behavioral instructions in AGENTS.md to improve agent reasoning:
 
 ### Plan → Execute → Verify (Required)
 - **Plan:** Outline a brief approach and ask for approval before coding.
-- **Plan Mode:** If the tool supports Plan/Reflect mode, use it for this step.
+- **Plan Mode:** If the tool supports Plan/Reflect/permission mode, use the actual tool mode for this step.
 - **Execute:** Implement one feature at a time.
-- **Verify:** Run tests/linters or manual checks after each feature; fix before moving on.
+- **Verify:** Run tests/linters/builds, AI evals, or browser/manual checks after each feature; fix before moving on.
 
 ### Context & Memory Guidance
 - Treat `AGENTS.md` and `agent_docs/` as living docs.
-- Use tool config files (`CLAUDE.md`, `GEMINI.md`, `.cursor/rules/` or legacy `.cursorrules`, etc.) for persistent project rules.
+- Use tool config files (`CLAUDE.md`, `GEMINI.md`, `.cursor/rules/`, `.codex/config.toml`, `.agents/skills/`, etc.) as concise pointers to persistent project rules.
 - Update these files as the project scales (commands, conventions, constraints).
 - Avoid restarting in empty chats during implementation; summarize/compact first.
+- Keep `MEMORY.md` as repo-owned memory. Tool-side memories are helpful but personal and may not travel with the repository.
 
 ### Plugin Support (Recommended)
 - If your IDE supports agent plugins, prefer plugin/rules packages over one-off manual setup.
@@ -86,7 +89,9 @@ Include these behavioral instructions in AGENTS.md to improve agent reasoning:
 - If behavior seems wrong: confirm loaded prompts/skills/hooks first, then retry with "Read AGENTS.md first".
 
 ### Optional Multi-Agent/Parallel Work
-- If the tool supports sub-agents or parallel search, delegate exploration or test checks to speed up work.
+- If the tool supports subagents or parallel search, delegate bounded exploration, review, or verification tasks.
+- Prefer subagents first. Use experimental agent-team workflows only when workers need to coordinate across disjoint modules.
+- Give each delegated worker an ownership scope and forbid unrelated rewrites.
 
 ### Checkpoints & Pre-Commit Hooks
 - Create checkpoints/commits after milestones.
@@ -142,6 +147,11 @@ For developer-level projects, add these to enforce production quality:
 
 ### Model Naming Policy
 - Use model family names (Claude Sonnet, Claude Opus, Gemini Pro, Gemini Flash) in generated docs unless the user explicitly asks for pinned versions.
+- Add a last-verified date for vendor-specific claims, model names, pricing, quotas, and beta features.
+
+### AI Product Policy
+- If the Tech Design includes product AI, document provider strategy, cost ceiling, data retention, fallback behavior, and eval prompts.
+- If it includes AI-assisted actions, require one narrow user outcome, data boundaries, user confirmation rules, fallback behavior, and integration tests.
 
 </details>
 
@@ -165,6 +175,9 @@ After receiving the files, extract the following:
 - Deployment platform and steps
 - Budget constraints
 - AI tool recommendations
+- AI provider/API strategy, if the product includes AI
+- AI provider/API strategy, data boundaries, confirmation rules, and eval plan, if applicable
+- Exact verification commands for lint, typecheck, test, build, browser, and AI evals
 
 ---
 
@@ -186,11 +199,22 @@ Your task is to **copy** these templates to the project root and **fill in the b
 - Open `agent_docs/project_brief.md` and insert the vision and core conventions.
 - Open `agent_docs/product_requirements.md` and dump the complete feature list and user stories from the PRD.
 
+### 3. Tool-Specific Files
+Generate only the files for the tools the user selected:
+- **Claude Code:** `CLAUDE.md`, optional `.claude/agents/*.md`, optional `.claude/settings.json`
+- **Cursor:** `.cursor/rules/*.mdc`, optional `.cursor/environment.json.example`, legacy `.cursorrules` only if requested
+- **Gemini CLI:** `GEMINI.md`, optional `.gemini/settings.json`
+- **Codex:** `.codex/config.toml`, optional `.agents/skills/*/SKILL.md`
+- **VS Code + Copilot:** `.github/copilot-instructions.md`
+
+Each tool file should point to `AGENTS.md` and `agent_docs/`. Do not duplicate the whole PRD in tool configs.
+
 ---
 
-Once completed, you the Agent must stop and say: 
-> *"Templates instantiated! You can now start the coding loop. Shall we begin Phase 1?"*
-Create a folder named `agent_docs` and add these files. **Fill them with RICH DETAIL from the source documents.**
+Once completed, the Agent must stop and say:
+> *"Templates instantiated. You can now start the coding loop."*
+
+If you did not copy from `/templates/`, create a folder named `agent_docs` and add these files. **Fill them with rich detail from the source documents.**
 
 #### `agent_docs/tech_stack.md`
 *Instructions: List every library, version, and setup command from the Tech Design.*
@@ -211,7 +235,6 @@ Create a folder named `agent_docs` and add these files. **Fill them with RICH DE
 
 ## Naming Conventions
 - [List conventions]
-```
 
 #### `agent_docs/project_brief.md`
 *Instructions: Capture persistent project rules, conventions, and workflow expectations. Keep this updated as the project scales.*
@@ -248,7 +271,7 @@ Create a folder named `agent_docs` and add these files. **Fill them with RICH DE
 
 Based on the tools they selected, generate the appropriate configuration files below. Each file should reference the AGENTS.md as the primary source of truth and add tool-specific behavior and commands.
 
-### For Claude Code Users — CLAUDE.md:
+### For Claude Code Users — CLAUDE.md and optional `.claude/agents/`:
 
 ```markdown
 # CLAUDE.md — Claude Code Configuration for [App Name]
@@ -265,44 +288,35 @@ Based on the tools they selected, generate the appropriate configuration files b
 3. **Plan-First:** Propose a brief plan and wait for approval before coding.
 4. **Incremental Build:** Build one small feature at a time. Test frequently.
 5. **Pre-Commit:** If hooks exist, run them before commits; fix failures.
-6. **No Linting:** Do not act as a linter. Use `npm run lint` if needed.
+6. **Verification:** Use the exact commands in `agent_docs/testing.md`; do not assume npm scripts exist.
 7. **Communication:** Be concise. Ask clarifying questions when needed.
+8. **Subagents:** Use focused subagents for research, review, debugging, and tests. Agent teams are advanced/optional.
+9. **Privacy:** Do not read or print secrets without explicit user permission.
 
 ## Commands
-- `npm run dev` — Start server
-- `npm test` — Run tests
-- `npm run lint` — Check code style
+- Setup: `[from Tech Design]`
+- Dev: `[from Tech Design]`
+- Test: `[from Tech Design]`
+- Lint/format/typecheck/build: `[from Tech Design]`
 ```
 
-### For Cursor Users — .cursorrules:
+Also generate optional `.claude/agents/researcher.md`, `.claude/agents/code-reviewer.md`, and `.claude/agents/test-runner.md` when the user wants repeated delegated roles.
+
+### For Cursor Users — `.cursor/rules/*.mdc`:
 
 Prefer `.cursor/rules/` for modern Cursor setups. If needed, generate legacy `.cursorrules` as a compatibility fallback.
 
-```markdown
-# Cursor Rules for [App Name]
+```mdc
+---
+alwaysApply: true
+---
 
-## Project Context
-**App:** [App Name]
-**Stack:** [Tech Stack]
-**Stage:** MVP Development
-**User Level:** [Level]
-
-## Directives
-1. **Master Plan:** Always read `AGENTS.md` first. It contains the current phase and tasks.
-2. **Documentation:** Refer to `agent_docs/` for tech stack details, code patterns, and testing guides.
-3. **Plan-First:** Propose a brief plan and wait for approval before coding.
-4. **Incremental Build:** Build one small feature at a time. Test frequently.
-5. **Pre-Commit:** If hooks exist, run them before commits; fix failures.
-6. **No Linting:** Do not act as a linter. Use `npm run lint` if needed.
-7. **Communication:** Be concise. Ask clarifying questions when needed.
-
-## Commands
-- `npm run dev` — Start server
-- `npm test` — Run tests
-- `npm run lint` — Check code style
+Read AGENTS.md first. Use agent_docs/ for stack, code patterns, requirements, and testing. Propose a plan before multi-file edits. Use the commands in agent_docs/testing.md.
 ```
 
-### For Gemini CLI / Antigravity Users — GEMINI.md:
+Use scoped rules with `globs:` for UI, backend, tests, or infrastructure when the project needs them. Add `.cursor/environment.json.example` only if background agents need reproducible setup commands.
+
+### For Gemini CLI / Antigravity-Style Agent Users — GEMINI.md:
 
 ```markdown
 # GEMINI.md — Gemini CLI / Agent-First IDE Configuration for [App Name]
@@ -319,14 +333,28 @@ Prefer `.cursor/rules/` for modern Cursor setups. If needed, generate legacy `.c
 3. **Plan-First:** Propose a brief plan and wait for approval before coding.
 4. **Incremental Build:** Build one small feature at a time. Test frequently.
 5. **Pre-Commit:** If hooks exist, run them before commits; fix failures.
-6. **No Linting:** Do not act as a linter. Use `npm run lint` if needed.
+6. **Verification:** Use the exact commands in `agent_docs/testing.md`; do not assume npm scripts exist.
 7. **Communication:** Be concise. Ask clarifying questions when needed.
+8. **Gemini CLI Checks:** Use `/memory show`, `/memory refresh`, `/tools`, `/chat save <tag>`, and `/compress` where helpful.
+9. **Tool approvals:** Prefer project-scoped settings with conservative approval defaults.
 
 ## Commands
-- `npm run dev` — Start server
-- `npm test` — Run tests
-- `npm run lint` — Check code style
+- Setup: `[from Tech Design]`
+- Dev: `[from Tech Design]`
+- Test: `[from Tech Design]`
+- Lint/format/typecheck/build: `[from Tech Design]`
 ```
+
+Optionally generate `.gemini/settings.json` for sandbox/checkpointing and tool approval defaults. Do not enable broad always-allow/YOLO modes.
+
+### For Codex Users — `.codex/config.toml` and optional `.agents/skills/`:
+
+```toml
+# Keep environment-specific approval and sandbox settings conservative.
+# AGENTS.md remains the source of truth for project behavior.
+```
+
+Generate small skills only for reusable workflows such as `build`, `review`, or `release`. Each `SKILL.md` should point to `AGENTS.md` and the relevant `agent_docs/` file.
 
 ### For VS Code + GitHub Copilot Users:
 
@@ -348,9 +376,10 @@ Create a `.github/copilot-instructions.md` file:
 5. Keep changes incremental and focused.
 
 ## Commands
-- `npm run dev` — Start server
-- `npm test` — Run tests
-- `npm run lint` — Check code style
+- Setup: `[from Tech Design]`
+- Dev: `[from Tech Design]`
+- Test: `[from Tech Design]`
+- Lint/format/typecheck/build: `[from Tech Design]`
 ```
 
 ---
@@ -387,6 +416,11 @@ your-app/
 │   ├── project_brief.md
 │   ├── product_requirements.md
 │   └── testing.md
+├── .cursor/rules/               ← Cursor rules, if selected
+├── .claude/agents/              ← Claude subagents, if selected
+├── .agents/skills/              ← Codex skills, if selected
+├── .codex/config.toml           ← Codex config, if selected
+├── GEMINI.md                    ← Gemini CLI memory, if selected
 ├── [Tool-specific files]       ← Based on your selection
 └── (your code will go here)
 ```
@@ -407,7 +441,7 @@ claude
 
 #### If Cursor:
 1. Open your project folder in Cursor
-2. Ensure `.cursor/rules/` (or legacy `.cursorrules`) is detected
+2. Ensure `.cursor/rules/` is detected
 3. Start with: "Read AGENTS.md and begin implementing the MVP step by step"
 
 #### If Lovable/v0:
@@ -418,7 +452,13 @@ claude
 
 #### If Gemini CLI:
 ```bash
-gemini "Read GEMINI.md, then implement the MVP"
+gemini "Read GEMINI.md and AGENTS.md. Propose the Phase 1 plan before editing."
+```
+
+#### If Codex:
+```bash
+codex
+# Then say: "Read AGENTS.md and agent_docs/. Propose the Phase 1 plan before editing."
 ```
 
 #### If Antigravity / equivalent agent-first IDE:

@@ -1,35 +1,66 @@
-# Claude Code & Agent Teams (2026 Guide)
+# Claude Subagents and Agent Teams
 
-In February 2026, Anthropic significantly upgraded the Claude CLI to support **Agent Teams**. For vibe-coding MVPs, this represents a massive speed and safety upgrade. You no longer have to rely on a single agent trying to rewrite your entire stack at once.
+Last verified: 2026-04
 
-## 1. What are Agent Teams?
+Claude Code supports several layers of delegation. For this workflow, use the lowest-complexity layer that solves the problem:
 
-Claude Code can now spawn teammates that work in parallel, maintaining their own context windows. 
+1. Root `CLAUDE.md` for project memory and instructions
+2. Project subagents for focused research, review, debugging, or test work
+3. Plan Mode for permissioned planning before edits
+4. Experimental agent teams only when agents need to coordinate with each other
 
-Instead of typing: *"Build my authentication system"*, you should now establish a squad.
+## Subagents first
 
-### The "Team Lead" Pattern
-Open Claude Code and use this prompt:
-> *"Read `AGENTS.md`. You are the Team Lead. Please spawn a Researcher teammate to read my existing DB schema, and a Coder teammate to write the new auth routes. You must approve the Coder's plan before they write any code."*
+Use subagents for bounded work that benefits from separate context:
 
-This isolates tasks. The Researcher reads files, the Coder writes files, and the Lead manages the task list. 
+- Researcher: read docs, schemas, and source files; return findings and risks
+- Code reviewer: inspect a diff and report bugs before merge
+- Test runner: run the project verification commands and summarize failures
+- Debugger: isolate one failing feature or test file
 
-## 2. Using "Plan Mode"
+Good subagent prompts are concrete:
 
-To stop AI from randomly destroying working code, aggressively use the new Plan-First methodology.
+```text
+Read AGENTS.md and agent_docs/testing.md. Review the auth diff only.
+Return prioritized findings with file/line references. Do not edit files.
+```
 
-- **Rule:** Never let a teammate execute directly on a complex feature. 
-- Instruct the Lead Agent: *"Before any teammate modifies files in `src/`, they must present a markdown plan and wait for my 'go ahead'."*
-- This workflow dramatically reduces silent regressions. 
+Add reusable project subagents under `.claude/agents/*.md` only when the role will be used repeatedly. Keep each agent narrow and point it back to `AGENTS.md` and `agent_docs/`.
 
-## 3. Auto-Compaction vs Context Limits
+## Plan Mode
 
-Claude handles long context brilliantly, but over a 3-hour vibe-coding session, the agent will slow down. 
+For complex changes, use Claude Code Plan Mode or the equivalent permission mode before edits. The workflow prompt should say:
 
-- Use Claude's new **compaction** capability natively instead of wiping the chat.
-- Tell Claude: *"We are switching contexts from the Frontend to the Backend. Please trigger an auto-compaction of this session's history to focus only on backend state."*
-- Pair this with appending updates to your physical `MEMORY.md` file whenever a major module is completed.
+```text
+Read AGENTS.md and agent_docs/. Enter Plan Mode. Propose the smallest safe implementation plan, list the files you expect to touch, and wait before editing.
+```
 
-## 4. Voice Commands (Optional)
+The goal is not more ceremony. The goal is to prevent unreviewed multi-file rewrites and make the first implementation pass easy to verify.
 
-If you are using the latest Claude Code capabilities, you can interface via voice to dictate complex logic tweaks or PRD adjustments, which Claude will transcribe and inject straight into the Team Lead's task queue. This is incredibly helpful when you're reviewing a frontend visually and just want to "speak" your feedback.
+## Agent teams are advanced
+
+Agent teams are useful when multiple teammates must coordinate, challenge each other's findings, or own separate modules. Treat them as an advanced, opt-in workflow because they add token cost and coordination overhead.
+
+Use this only for large tasks:
+
+```text
+Read AGENTS.md. You are the lead. Assign a read-only researcher, a reviewer, and one implementation teammate with a disjoint file scope. The implementation teammate must present a plan before editing.
+```
+
+Do not make agent teams the default for beginner MVPs. Most projects should start with one lead agent plus focused subagents.
+
+## Memory, hooks, and privacy
+
+- Put durable project facts in `CLAUDE.md`, `AGENTS.md`, and `MEMORY.md`.
+- Put long procedures in skills, not in root config files.
+- Put repeated role definitions in `.claude/agents/`.
+- Use `.claude/settings.json` for shareable project permissions/hooks and `.claude/settings.local.json` for personal settings.
+- Avoid printing secrets into terminal output or transcripts. Deny reads of credential files unless the user explicitly authorizes the task.
+
+## Official references
+
+- [Claude Code subagents](https://code.claude.com/docs/en/sub-agents)
+- [Claude Code agent teams](https://code.claude.com/docs/en/agent-teams)
+- [Claude Code permission modes](https://code.claude.com/docs/en/permission-modes)
+- [Claude Code memory](https://code.claude.com/docs/en/memory)
+- [Claude Code hooks](https://code.claude.com/docs/en/hooks)

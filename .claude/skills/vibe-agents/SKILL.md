@@ -48,6 +48,7 @@ Extract from documents:
 - Implementation approach
 - Deployment platform
 - AI tool recommendations
+- AI provider strategy, product AI decisions, verification commands, and data/privacy constraints
 
 ## Step 2: Ask Configuration Questions
 
@@ -55,11 +56,12 @@ Ask the user:
 
 > **Which AI tools will you use?** (Select all that apply)
 > 1. Claude Code (terminal-based)
-> 2. Gemini CLI (free terminal agent)
-> 3. Google Antigravity / equivalent (agent-first IDE)
+> 2. Gemini CLI (terminal agent with GEMINI.md and memory)
+> 3. Google AI Studio / Antigravity-style agent IDE where available
 > 4. Cursor (AI-powered IDE)
 > 5. VS Code + GitHub Copilot
 > 6. Lovable / v0 (no-code)
+> 7. Codex
 
 Then ask:
 
@@ -75,6 +77,8 @@ Create the following structure:
 ```
 project/
 ├── AGENTS.md                    # Master plan
+├── MEMORY.md                    # Repo-owned session memory
+├── REVIEW-CHECKLIST.md          # Verification checklist
 ├── agent_docs/
 │   ├── tech_stack.md           # Tech details
 │   ├── code_patterns.md        # Code style
@@ -82,9 +86,12 @@ project/
 │   ├── product_requirements.md # PRD summary
 │   └── testing.md              # Test strategy
 ├── CLAUDE.md                   # If Claude Code selected
+├── .claude/agents/             # Optional Claude subagents
 ├── GEMINI.md                   # If Gemini/agent-first IDE selected
+├── .gemini/settings.json       # Optional Gemini project settings
 ├── .cursor/rules/              # If Cursor selected (preferred)
-├── .cursorrules                # Cursor legacy fallback
+├── .codex/config.toml          # If Codex selected
+├── .agents/skills/             # Optional Codex skills
 └── .github/copilot-instructions.md  # If Copilot selected
 ```
 
@@ -175,9 +182,10 @@ Load only when needed:
 5. **Concise:** Be brief, ask clarifying questions when needed
 
 ## Commands
-- `npm run dev` - Start server
-- `npm test` - Run tests
-- `npm run lint` - Check code style
+- Setup: [from Tech Design]
+- Dev: [from Tech Design]
+- Test: [from Tech Design]
+- Lint/typecheck/build: [from Tech Design]
 ```
 
 ### Cursor Rules (Cursor)
@@ -200,8 +208,10 @@ Prefer `.cursor/rules/` for modern Cursor setups. Use `.cursorrules` only as a f
 5. Test frequently
 
 ## Commands
-- `npm run dev` - Start server
-- `npm test` - Run tests
+- Setup: [from Tech Design]
+- Dev: [from Tech Design]
+- Test: [from Tech Design]
+- Lint/typecheck/build: [from Tech Design]
 ```
 
 ### GEMINI.md (Gemini CLI / Agent-First IDE)
@@ -229,6 +239,7 @@ Generate each file with content from PRD and Tech Design:
 - **project_brief.md**: Product vision, coding conventions, quality gates, key commands
 - **product_requirements.md**: Core requirements, user stories, success metrics
 - **testing.md**: Test strategy, tools, verification loop, pre-commit hooks
+- Include AI eval prompts, browser checks, and product-surface checks when applicable
 
 ## After Completion
 

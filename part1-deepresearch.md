@@ -16,22 +16,26 @@ Please type A, B, or C:
 <details>
 <summary><b>AI Platform Recommendations for Research</b></summary>
 
-### Best Platforms for Deep Research
-- **Claude** — Strong technical accuracy and reasoning capabilities
-- **Gemini** — Large context window for comprehensive research synthesis
-- **ChatGPT** — Good for iterative research with reasoning controls
+### Platform Guidance for Deep Research
+Choose based on current capabilities and the verification path, not old ranking tables:
+- **Claude / ChatGPT / Gemini:** good general options when they can cite sources and reason through trade-offs.
+- **Gemini Deep Research / comparable deep research tools:** useful for cited reports and background research when available; label preview/beta features clearly.
+- **Coding-agent research:** useful after a repo exists, but keep it read-only until the research questions are answered.
 
 ### Choosing the Right Platform
-| Need | Best Choice | Why |
-|------|-------------|-----|
-| Large context (whole codebases) | Gemini | Largest context window |
-| Technical accuracy | Claude | Strong code/architecture analysis |
-| Quick iterations | ChatGPT | Fast responses, good reasoning |
+| Need | Selection Criteria |
+|------|--------------------|
+| Market/current data | Web search or Google Search grounding with source URLs and access dates |
+| Large attachments | Current context-window support plus the ability to cite specific source sections |
+| Technical/API claims | Official docs, changelogs, release notes, and examples |
+| Automated downstream use | Structured Markdown plus optional JSON/JSON-schema export |
 
 ### Freshness & Grounding
 - If the platform supports web search or tool use, enable it for up-to-date stats and competitor info
+- If the platform supports URL context, attach official docs and competitor URLs instead of relying on memory
 - Cite source URLs with access dates for major claims and flag uncertain data
 - Distinguish sourced facts from model knowledge when needed
+- For pricing, quotas, model names, and beta features, say "verify current docs" instead of treating the answer as permanent
 
 ### Session Continuity
 - Keep this project in a single ongoing conversation where possible.
@@ -200,6 +204,7 @@ I'm a non-technical founder building [description]. I need beginner-friendly res
 3. **MVP Features** — Must-have vs nice-to-have prioritization
 4. **Development Roadmap** — With AI assistance strategy
 5. **Budget Breakdown** — Tools, services, deployment costs
+6. **AI/Automation Fit** — Whether this should include AI product features or automation
 </instructions>
 
 <output_format>
@@ -207,6 +212,7 @@ I'm a non-technical founder building [description]. I need beginner-friendly res
 - **Include source URLs with access dates** for each major recommendation
 - Use tables for comparisons
 - Highlight any conflicting information between sources
+- Add an optional `structured_summary` JSON block with project category, users, must-have features, risks, and recommended next step
 </output_format>
 ```
 
@@ -246,6 +252,7 @@ I need comprehensive technical research on [topic] for [context].
 - AI tool/API integration strategies (include sources and current pricing when available)
 - Cost optimization with current cloud pricing
 - Development velocity estimates with AI assistance
+- AI feature fit analysis, including provider options, data sensitivity, cost, and fallback behavior
 
 ### Premium UI/Design Research:
 - Design system generators and component libraries
@@ -255,9 +262,10 @@ I need comprehensive technical research on [topic] for [context].
 
 ### Agent Architecture Research:
 - Planner-Executor-Reviewer (PER) loop patterns
-- MCP (Model Context Protocol) integration options
+- Agent/tooling integration options for development workflow
 - Self-healing code and test strategies
 - Visual verification workflows
+- Prompt-injection, data-retention, and tool-permission risks for any AI feature
 </instructions>
 
 <output_format>
@@ -306,6 +314,7 @@ I'm building [description] with some technical knowledge. I need research that b
 4. **Roadmap** — Development with skill milestones
 5. **Resources** — Learning materials (prioritized)
 6. **Budget** — Forecast with tool subscriptions
+7. **AI/Automation Fit** — Whether AI product features or automation are worth adding
 </instructions>
 
 <output_format>
@@ -314,6 +323,7 @@ I'm building [description] with some technical knowledge. I need research that b
 - Use tables for comparisons
 - **Note any conflicting information** between sources
 - Provide pros/cons for major decisions
+- Add an optional `structured_summary` JSON block for reuse in Part 2
 </output_format>
 ```
 
@@ -327,13 +337,14 @@ After generating the appropriate research prompt, say:
 
 "I've created your research prompt above. Here's how to get the best results:
 
-### Recommended AI Platforms for Research:
+### Choosing an AI Platform for Research:
 
-| Platform | Best For |
-|----------|----------|
-| **Claude** | Technical accuracy, code analysis |
-| **Gemini** | Comprehensive research (large context) |
-| **ChatGPT** | Quick iterations, reasoning tasks |
+| Need | What to look for |
+|------|------------------|
+| Current market data | Web search, URL context, source grounding, citations |
+| Long source documents | Large context and reliable section-level references |
+| Technical claims | Official docs lookup and clear uncertainty notes |
+| Automation | Structured Markdown plus optional JSON summary |
 
 ### How to Use:
 1. Copy the research prompt above
@@ -343,9 +354,9 @@ After generating the appropriate research prompt, say:
 
 **Pro tip**: Run the same prompt on 2 different platforms and compare results. This catches blind spots and validates recommendations.
 
-**If available**: Enable web search or tool access so the research can pull current data and cite sources.
+**If available**: Enable web search, URL context, source grounding, or deep research mode so the research can pull current data and cite sources.
 
-**Important**: AI knowledge has cutoff dates. For rapidly-changing topics (pricing, latest tools), verify with official sources.
+**Important**: AI knowledge has cutoff dates. For rapidly-changing topics (pricing, quotas, latest tools, model names, beta features), verify with official sources.
 
 Would you like me to adjust anything in the prompt before you begin?"
 

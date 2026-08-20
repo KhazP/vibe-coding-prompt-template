@@ -31,6 +31,13 @@ Prefer these patterns over inventing new ones. Fill in each section from the Tec
 - Apply runtime validation at system boundaries; trust internal types inside those boundaries.
 - Keep validation rules co-located with the relevant contract (e.g., next to the API route or form schema).
 
+## AI Tool Patterns (If Applicable)
+- Keep AI action handlers small, idempotent where possible, and server-authorized.
+- Use tight input schemas with clear descriptions and safe defaults.
+- Keep sensitive data out of model-visible output, logs, and client payloads.
+- Classify actions as read-only, write, or destructive, and require explicit human confirmation for risky actions.
+- Add eval prompts whenever tool metadata, routing, or output shape changes.
+
 ## File and Naming Conventions
 - **Files:** [kebab-case / camelCase / framework default — match the existing project convention]
 - **Components / classes:** PascalCase

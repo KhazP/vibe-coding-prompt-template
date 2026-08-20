@@ -2,6 +2,8 @@
 
 This directory contains Claude Code skills and hooks for the Vibe-Coding workflow.
 
+Last verified: 2026-04
+
 ## Quick Setup
 
 ### Option A: Clone the Repository
@@ -128,7 +130,7 @@ Triggers on:
 Creates:
 - `AGENTS.md` - Master build plan
 - `agent_docs/` - Detailed specifications
-- Tool-specific configs (CLAUDE.md, GEMINI.md, `.cursor/rules/` or legacy `.cursorrules`, etc.)
+- Tool-specific configs, rules, skills, and subagents (`CLAUDE.md`, `.claude/agents/`, `GEMINI.md`, `.cursor/rules/`, `.codex/config.toml`, `.agents/skills/`, etc.)
 
 ### /vibe-build
 
@@ -171,7 +173,9 @@ This project includes hooks that run automatically:
 
 ## Hook Configuration
 
-Hooks are defined in `.claude/hooks/hooks.json`. To customize:
+This repo currently ships bundled hooks in `.claude/hooks/hooks.json`. For a generated project, prefer Claude Code project settings (`.claude/settings.json`) for shareable project hooks and `.claude/settings.local.json` for personal hooks. If you keep bundled hooks, document that they are part of this template's Claude integration rather than the generic project hook location.
+
+Bundled hook shape:
 
 ```json
 {
@@ -199,6 +203,7 @@ To disable specific hooks, edit `hooks.json` and remove the hook entry.
 ├── README.md              # This file
 ├── hooks/
 │   └── hooks.json         # Auto-hooks configuration
+├── agents/                # Optional project subagents
 └── skills/
     ├── vibe-research/
     │   └── SKILL.md
@@ -273,6 +278,10 @@ If using plugin-enabled IDE workflows:
 ### Model naming guidance
 
 Prefer model family names in docs and examples (Claude Sonnet, Claude Opus, Gemini Pro, Gemini Flash) to reduce churn from provider version rotations.
+
+### AI guidance
+
+If the project includes product AI or automation, make sure the PRD and Tech Design include data boundaries, action permissions, eval prompts, and verification commands before `/vibe-build` starts implementation.
 
 ## Contributing
 

@@ -29,17 +29,15 @@ Please attach your research file (or type "no file") and type A, B, or C:
 <details>
 <summary><b>Best AI Platforms for PRD Creation</b></summary>
 
-### Recommended Platforms
-- **Claude** — Excels at structured document planning and consistent formatting
-- **ChatGPT** — Good for rapid iteration and user story generation
-- **Gemini** — Handles large research attachments with extensive context window
+### Platform Guidance
+Use the assistant that best fits the available context and verification path. Claude, ChatGPT, Gemini, and similar tools can all work if they preserve structure, cite source material, and ask clarifying questions before generating the PRD.
 
-### Choosing the Right Platform
-| Need | Best Choice | Why |
-|------|-------------|-----|
-| Structured documents | Claude | Consistent formatting, follows templates well |
-| Quick iterations | ChatGPT | Fast responses, good at brainstorming |
-| Large context (research input) | Gemini | Largest context window |
+| Need | Selection Criteria |
+|------|--------------------|
+| Structured documents | Follows templates exactly and keeps acceptance criteria concrete |
+| Large research input | Handles attachments without dropping requirements |
+| Current tool claims | Can cite official docs or clearly mark uncertainty |
+| Downstream automation | Can emit clean Markdown plus optional structured summaries |
 
 ### Session Continuity
 - Continue from your Part 1 thread when possible to preserve context.
@@ -47,6 +45,7 @@ Please attach your research file (or type "no file") and type A, B, or C:
 
 ### Evergreen Naming
 - Prefer model family names in docs and examples (for example: Claude Sonnet, Claude Opus, Gemini Pro, Gemini Flash) instead of pinned version names.
+- Add a last-verified note for pricing, quotas, beta features, and vendor-specific capabilities.
 
 </details>
 
@@ -103,6 +102,12 @@ Reference these insights during the Q&A process.
 
 **Q10:** "Any constraints or non-functional requirements? Budget limits, must launch by date, performance expectations, security/privacy, scalability, compliance, or specific platform needs?"
 
+**Q11:** "Will the product include AI features or an AI-facing surface?
+- No AI features in v1
+- AI inside the app (chat, summarization, recommendations, image/audio, automation)
+- AI-assisted product feature
+- Not sure — help me decide"
+
 ### Path B — Developer Questions:
 
 **Q4:** "Define your target audience:
@@ -145,6 +150,12 @@ Primary: 'As a [user type], I want to [action] so that [benefit]'
 - Timeline requirements
 - Compliance/regulatory needs"
 
+**Q11:** "AI/automation scope:
+- Are there AI product features?
+- Should users access this through a web/mobile app, or is AI only an internal product feature?
+- What data can AI tools read, write, store, or expose?
+- What actions require explicit user confirmation?"
+
 ### Path C — In-Between Questions:
 
 **Q4:** "Who are your users and what do they need?
@@ -179,6 +190,12 @@ Primary: 'As a [user type], I want to [action] so that [benefit]'
 - Timeline: [launch date]
 - Non-functional requirements: [performance, security/privacy, scalability, compliance]
 - Any technical preferences from research?"
+
+**Q11:** "Does your MVP need AI?
+- In-app AI features
+- AI product feature
+- AI only for development assistance
+- No AI in the product yet"
 
 ---
 
@@ -357,6 +374,14 @@ After verification, create a PRD appropriate to their level:
 **Security/Privacy:** [Basic requirements, data sensitivity]
 **Scalability:** [Expected user growth or constraints]
 
+## AI / Automation Scope
+
+**Product AI:** [None / in-app AI / automation / assistant-assisted workflow]
+**User Outcome:** [If AI is included, the single outcome it should support]
+**Data Access:** [What AI can read, write, store, or expose]
+**Human Confirmation:** [Actions that require explicit user approval]
+**Evaluation:** [Direct, edge-case, and negative prompts or scenarios to verify]
+
 ## Quality Standards
 
 **What This App Will NOT Accept:**
@@ -509,16 +534,25 @@ After this PRD is approved:
 ## Non-Functional Requirements
 
 ### Performance
-- **Page Load:** < 2 seconds (p95)
-- **API Response:** < 200ms (p95)
-- **Concurrent Users:** Support 1,000
-- **Uptime:** 99.9% availability
+- **Page Load:** [Target from PRD or research, e.g. < 3 seconds]
+- **API Response:** [Target based on actual user flow]
+- **Concurrent Users:** [Expected MVP load]
+- **Uptime:** [MVP-appropriate reliability target]
 
 ### Security
 - **Authentication:** [Method]
 - **Authorization:** [RBAC/ACL approach]
 - **Data Protection:** [Encryption standards]
 - **Compliance:** [GDPR/CCPA/etc.]
+- **AI/Tool Permissions:** [What tools can read/write, destructive actions, prompt-injection boundaries]
+
+### AI / Automation Requirements
+- **AI Surface:** [None / in-app AI / automation / assistant-assisted workflow]
+- **Provider Strategy:** [Direct SDK / AI SDK / Agents SDK / local model / no product AI]
+- **Data Retention:** [What prompts, outputs, logs, and files may be stored]
+- **Cost Ceiling:** [Budget or usage limit]
+- **Fallback Behavior:** [What happens when AI calls fail or hit limits]
+- **Eval Set:** [Direct, indirect, negative, auth-required, and failure-case prompts]
 
 ### Usability
 - **Accessibility:** WCAG 2.1 AA
@@ -784,6 +818,13 @@ graph LR
 
 **Security/Privacy:** [Data sensitivity, auth requirements]
 **Scalability:** [Expected user growth or constraints]
+
+## AI / Automation Scope
+
+**AI Surface:** [None / in-app AI / automation / assistant-assisted workflow]
+**Allowed Data:** [What AI can read/write]
+**Confirmation Rules:** [Actions requiring user approval]
+**Verification Prompts:** [Direct, indirect, negative, and failure cases]
 
 **Browser/Device Support:**
 - Chrome, Safari, Firefox (latest)
