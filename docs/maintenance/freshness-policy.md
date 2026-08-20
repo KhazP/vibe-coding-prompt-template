@@ -13,7 +13,7 @@ Volatile claims need official sources and a `Last verified: YYYY-MM` date. Avoid
 - [ ] AI provider retention/training settings are not guessed.
 - [ ] MCP guidance reflects current auth and transport recommendations.
 - [ ] Builder guidance still matches export, GitHub sync, local build, and rollback reality.
-- [ ] `llms.txt`, README links, and repo-lint required paths still match the repo.
+- [ ] README links and repo-lint required paths still match the repo.
 - [ ] `repo-lint.yml` passes locally.
 
 ## Repo-Lint Catches

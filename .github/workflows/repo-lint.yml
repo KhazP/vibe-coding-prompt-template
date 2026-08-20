@@ -49,8 +49,7 @@ jobs:
           test -f docs/workflow/builder-exit-review.md
           test -f docs/workflow/golden-path-checklist.md
           test -f docs/maintenance/freshness-policy.md
-          test -f CHANGELOG.md
-          test -f llms.txt
+          test -f docs/maintenance/changelog.md
 
       - name: Reject placeholder security contact
         run: |
@@ -125,13 +124,6 @@ jobs:
             exit 1
           fi
 
-      - name: Validate llms.txt
-        run: |
-          grep -q 'vibe-coding-prompt-template' llms.txt
-          grep -q 'part1-deepresearch.md' llms.txt
-          grep -q 'docs/ai/agent-security.md' llms.txt
-          grep -q 'templates/AGENTS.md' llms.txt
-
       - name: Validate template JSON and TOML
         run: |
           node - <<'NODE'
@@ -180,7 +172,7 @@ jobs:
 
       - name: Reject unresolved generated placeholders
         run: |
-          if grep -rEn '\{\{|\}\}|<TODO|TBD_SOURCE_ANCHOR|TODO_AI_WORKFLOW_UPGRADE' docs templates llms.txt 2>/dev/null; then
+          if grep -rEn '\{\{|\}\}|<TODO|TBD_SOURCE_ANCHOR|TODO_AI_WORKFLOW_UPGRADE' docs templates 2>/dev/null; then
             echo "ERROR: Unresolved generated placeholder found."
             exit 1
           fi
