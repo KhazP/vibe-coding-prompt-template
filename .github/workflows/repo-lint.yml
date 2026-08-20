@@ -208,6 +208,8 @@ jobs:
           # explanations out here, and only real arguments below.
           # The github.com excludes are decorative badge targets (stargazers,
           # contributors); GitHub intermittently bot-blocks CI traffic on them.
+          # npmjs.com answers CI user-agents with 403 regardless of whether the
+          # package exists; verify the package manually with `npm view <pkg>`.
           args: >-
             --no-progress
             --max-retries 3
@@ -216,6 +218,7 @@ jobs:
             --exclude 'https?://([^/]*\.)?twitter\.com'
             --exclude 'https?://([^/]*\.)?linkedin\.com'
             --exclude 'https://github\.com/KhazP/vibe-coding-prompt-template/(stargazers|issues|network/members|graphs/contributors)'
+            --exclude 'https?://(www\.)?npmjs\.com'
             README.md
             docs/
             .claude/README.md
