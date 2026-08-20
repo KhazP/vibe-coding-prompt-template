@@ -30,68 +30,30 @@
 
 ---
 
-## Table of contents
-- [Built with this workflow](#built-with-this-workflow)
-- [Workflow overview](#workflow-overview)
-- [Quick start and the 5 steps](#quick-start-and-the-5-steps)
-- [Modern AI build paths](#modern-ai-build-paths)
-- [Prerequisites and tools](#prerequisites-and-tools)
-- [Advanced agent practices](#advanced-agent-practices)
-- [AI safety and evidence](#ai-safety-and-evidence)
-- [Project structure and deployment](#project-structure-and-deployment)
-- [Common pitfalls and troubleshooting](#common-pitfalls-and-troubleshooting)
-- [Further reading](#further-reading)
+## Start here
 
----
+**Using an AI coding agent?** Open Claude Code, Cursor, Codex, or Gemini CLI in your project and say:
 
-## Built with this workflow
+> Run `npx vibeworkflow` and follow its instructions.
 
-This repo documents the workflow behind a handful of shipped projects. The goal is simple: do the thinking upfront, hand clean context to your tools, and keep the build phase moving through reviewable plans, tests, and browser checks.
+It installs the planning skills, interviews you one question at a time, writes your PRD and Tech Design, and scaffolds the agent files — Steps 1-4, driven for you. You just answer questions.
 
-| Project | What it is |
-| :-- | :-- |
-| [vibeworkflow.app](https://vibeworkflow.app) | An interactive web app built around the same structured vibe-coding workflow documented here. |
-| [moneyvisualiser.com](https://moneyvisualiser.com) | A money visualization website that visualized money in a 3D environment. |
-| [caglacabaoglu.com](https://caglacabaoglu.com) | A production portfolio and gallery site built with the same PRD-to-agent execution approach. |
-| [alpyalay.org/realdex](https://alpyalay.org/realdex) | A mobile app built on React Native that lets you catch animals, and put them in a Pokemon-like collection. |
+**Prefer to drive it yourself?** Paste the prompts from this repo into any chat tool, in order:
 
-<p align="center">
-  <sub>Maintained by <a href="https://x.com/alpyalay">Alp Yalay</a>.</sub>
-</p>
+| Step | What happens | Where |
+| :-- | :-- | :-- |
+| 1. [Deep Research](#phase-1-thinking-through-the-product) | Validate the idea against real sources | Chat tool |
+| 2. [PRD](#phase-1-thinking-through-the-product) | Define what you're building, and for whom | Chat tool |
+| 3. [Tech Design](#phase-1-thinking-through-the-product) | Pick the surface, stack, and deployment | Chat tool |
+| 4. [Agent files](#phase-2-execution-in-your-ide) | Generate `AGENTS.md` and `agent_docs/` | `npx vibeworkflow` or paste |
+| 5. [Build](#phase-2-execution-in-your-ide) | Ship in small, verified passes | Your AI IDE |
 
----
-
-## Workflow overview
-
-The process moves through five stages, from idea validation to working code with agent-friendly documentation and verification:
+<details>
+<summary>See the flow as a diagram</summary>
 
 ```mermaid
 flowchart LR
-    subgraph Phase1[" "]
-        A[💡 Idea]
-    end
-
-    subgraph Phase2["Research"]
-        B[📊 Market Analysis]
-    end
-
-    subgraph Phase3["Define"]
-        C[📋 PRD]
-    end
-
-    subgraph Phase4["Design"]
-        D[🏗️ Tech Design]
-    end
-
-    subgraph Phase5["Generate"]
-        E[🤖 AGENTS.md]
-    end
-
-    subgraph Phase6["Build"]
-        F[🚀 MVP / AI App]
-    end
-
-    A --> B --> C --> D --> E --> F
+    A[💡 Idea] --> B[📊 Research] --> C[📋 PRD] --> D[🏗️ Tech Design] --> E[🤖 AGENTS.md] --> F[🚀 MVP / AI App]
 
     style A fill:#667eea,stroke:#667eea,color:#fff
     style B fill:#764ba2,stroke:#764ba2,color:#fff
@@ -100,6 +62,8 @@ flowchart LR
     style E fill:#00f2fe,stroke:#00f2fe,color:#000
     style F fill:#43e97b,stroke:#43e97b,color:#000
 ```
+
+</details>
 
 <p align="center">
   <a href=".claude/README.md">
@@ -112,9 +76,21 @@ flowchart LR
 
 ---
 
-## Quick start and the 5 steps
+## Table of contents
+- [Start here](#start-here)
+- [Quick start and the 5 steps](#quick-start-and-the-5-steps)
+- [Built with this workflow](#built-with-this-workflow)
+- [Modern AI build paths](#modern-ai-build-paths)
+- [Prerequisites and tools](#prerequisites-and-tools)
+- [Advanced agent practices](#advanced-agent-practices)
+- [AI safety and evidence](#ai-safety-and-evidence)
+- [Project structure and deployment](#project-structure-and-deployment)
+- [Common pitfalls and troubleshooting](#common-pitfalls-and-troubleshooting)
+- [Further reading](#further-reading)
 
-> TL;DR: run grounded research, turn it into a PRD, choose the product surface and stack, generate your agent files, then build in small verified passes.
+---
+
+## Quick start and the 5 steps
 
 ### Phase 1: thinking through the product
 Do the first three steps in ChatGPT, Claude.ai, Gemini, or any other chat tool. You do not need a repo yet.
@@ -218,6 +194,23 @@ Choose your development environment and start iterating:
        └───────────────────────────────────────────┘
 ```
 </details>
+
+---
+
+## Built with this workflow
+
+This repo documents the workflow behind a handful of shipped projects. The goal is simple: do the thinking upfront, hand clean context to your tools, and keep the build phase moving through reviewable plans, tests, and browser checks.
+
+| Project | What it is |
+| :-- | :-- |
+| [vibeworkflow.app](https://vibeworkflow.app) | An interactive web app built around the same structured vibe-coding workflow documented here. |
+| [moneyvisualiser.com](https://moneyvisualiser.com) | A money visualization website that visualized money in a 3D environment. |
+| [caglacabaoglu.com](https://caglacabaoglu.com) | A production portfolio and gallery site built with the same PRD-to-agent execution approach. |
+| [alpyalay.org/realdex](https://alpyalay.org/realdex) | A mobile app built on React Native that lets you catch animals, and put them in a Pokemon-like collection. |
+
+<p align="center">
+  <sub>Maintained by <a href="https://x.com/alpyalay">Alp Yalay</a>.</sub>
+</p>
 
 ---
 
