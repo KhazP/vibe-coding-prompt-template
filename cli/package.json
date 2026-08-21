@@ -3,6 +3,22 @@
   "version": "0.2.2",
   "description": "Agent-driven MVP scaffolding for the vibe-coding workflow. Tell your AI coding agent to run `npx vibeworkflow` — it installs the planning skills, interviews you via the agent, and scaffolds AGENTS.md, agent_docs/, and tool configs from your PRD and Tech Design. Zero dependencies.",
   "type": "module",
+  "keywords": [
+    "vibe-coding",
+    "agents-md",
+    "ai-workflow",
+    "prd",
+    "tech-design",
+    "scaffolding",
+    "claude-code",
+    "cursor",
+    "codex",
+    "gemini-cli",
+    "prompt-engineering",
+    "mvp",
+    "ai-agents",
+    "cli"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
