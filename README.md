@@ -30,8 +30,6 @@
 
 ---
 
-[Watch the real add → reload → remove demo](examples/reading-list/demo.webm). This demonstrates the example app, not a timed promise for building an MVP.
-
 ## Start here
 
 **Using an AI coding agent?** Open Claude Code, Cursor, Codex, or Gemini CLI in your project and say:
