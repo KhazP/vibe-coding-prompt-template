@@ -1,6 +1,7 @@
-import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { homedir } from 'node:os';
-import { join, resolve } from 'node:path';
+import { join, resolve, relative } from 'node:path';
+import { documentPaths, readManifest } from './core/project.js';
 import { doctor } from './core/doctor.js';
 import { parsePrdMeta, parseTechMeta, type Tool } from './core/meta.js';
 import { scaffold, ALL_TOOLS } from './core/scaffold.js';
@@ -23,6 +24,8 @@ init flags:
   --tools <list>       Comma-separated: claude,cursor,codex,gemini,copilot,local
                        (default: auto-detect installed AI tools)
   --ai                 Include agent-permissions.example.json (AI features in scope)
+  --skills-only        Install workflow skills without generating project setup
+  --dry-run            Preview affected files without writing
   --force              Overwrite files that already exist (default: keep them)
   --json               Emit machine-readable JSON
   --dir <path>         Target directory (default: current directory)
@@ -46,36 +49,38 @@ interface ParsedArgs {
   json?: boolean;
   dir?: string;
   strict?: boolean;
+  skillsOnly?: boolean;
   help?: boolean;
+  dryRun?: boolean;
 }
 
 function parseArgs(argv: string[]): ParsedArgs {
   const out: ParsedArgs = {};
-  const positional: string[] = [];
+  const booleans = new Set(['help', 'json', 'ai', 'force', 'strict', 'dry-run', 'skills-only']);
+  const strings = new Set(['prd', 'techdesign', 'tools', 'dir']);
   for (let i = 0; i < argv.length; i++) {
-    const a = argv[i];
-    if (a === '--help' || a === '-h') {
-      out.help = true;
-    } else if (a === '--json') {
-      out.json = true;
-    } else if (a === '--ai') {
-      out.ai = true;
-    } else if (a === '--force') {
-      out.force = true;
-    } else if (a === '--strict') {
-      out.strict = true;
-    } else if (a === '--prd' || a === '--techdesign' || a === '--tools' || a === '--dir') {
-      out[a.slice(2) as 'prd'] = argv[++i];
-    } else if (a.startsWith('--')) {
-      const eq = a.indexOf('=');
-      if (eq >= 0) {
-        out[a.slice(2, eq) as 'prd'] = a.slice(eq + 1);
-      }
-    } else {
-      positional.push(a);
+    const arg = argv[i] === '-h' ? '--help' : argv[i];
+    if (!arg.startsWith('-')) {
+      if (out.command || !['init', 'doctor'].includes(arg)) throw new Error(`Unexpected argument: ${arg}`);
+      out.command = arg;
+      continue;
     }
+    const match = /^--([^=]+)(?:=(.*))?$/.exec(arg);
+    if (!match) throw new Error(`Unknown option: ${arg}`);
+    const [, key, inline] = match;
+    if (booleans.has(key)) {
+      if (inline !== undefined && inline !== 'true' && inline !== 'false') throw new Error(`--${key} expects true or false`);
+      Object.assign(out, { [key === 'dry-run' ? 'dryRun' : key === 'skills-only' ? 'skillsOnly' : key]: inline !== 'false' });
+    } else if (strings.has(key)) {
+      const value = inline ?? argv[++i];
+      if (!value || value.startsWith('-')) throw new Error(`--${key} requires a value`);
+      Object.assign(out, { [key]: value });
+    } else throw new Error(`Unknown option: --${key}`);
   }
-  if (positional.length > 0) out.command = positional[0];
+  if (out.command === 'doctor' && ['prd', 'techdesign', 'tools', 'ai', 'force', 'dryRun', 'skillsOnly'].some(k => k in out)) {
+    throw new Error('doctor accepts only --dir, --strict, --json and --help');
+  }
+  if (out.command !== 'doctor' && out.strict !== undefined) throw new Error('--strict is only valid with doctor');
   return out;
 }
 
@@ -84,11 +89,9 @@ function isTty(): boolean {
 }
 
 function parseToolsFlag(raw: string): Tool[] {
-  return raw
-    .toLowerCase()
-    .split(',')
-    .map((t) => t.trim())
-    .filter((t) => ALL_TOOLS.includes(t as Tool)) as Tool[];
+  const values = raw.toLowerCase().split(',').map(t => t.trim());
+  if (values.some(t => !ALL_TOOLS.includes(t as Tool))) throw new Error(`Invalid tools: ${raw}`);
+  return [...new Set(values)] as Tool[];
 }
 
 // Detect which AI coding tools are in play. Directory presence (project, then
@@ -116,32 +119,17 @@ function resolveMeta(prdPath: string, techPath: string) {
   return { prd, tech };
 }
 
-function findDoc(dir: string, prefix: string): string | undefined {
-  const docsDir = join(dir, 'docs');
-  if (!existsSync(docsDir)) return undefined;
-  const entries = readdirSync(docsDir);
-  const match = entries.find((e) => e.startsWith(prefix) && e.endsWith('-MVP.md'));
-  return match ? join(docsDir, match) : undefined;
-}
-
 function kickoffPrompt(skillEntryPath: string): string {
-  return `IF YOU ARE AN AI AGENT READING THIS OUTPUT, drive the whole flow.
-The user should only answer your questions.
-
-1. Read ${skillEntryPath} and follow it. It orchestrates the full workflow
-   (research -> PRD -> tech design) using the other vibe skills in the same
-   folder. Cover every interview question those skills define.
-2. Ask questions with your native question tool (e.g. AskUserQuestion) if you
-   have one; otherwise ask in chat. One question at a time by default — but if
-   the user answers several at once, accept them and skip ahead rather than
-   re-asking. On "I don't know", propose a sensible default and confirm it.
-   Never invent an answer the user did not give.
-3. When docs/PRD-[App]-MVP.md and docs/TechDesign-[App]-MVP.md are both
-   written (each ending with its \`\`\`json meta block), run: npx vibeworkflow
-   It will scaffold AGENTS.md, agent_docs/, and tool configs.
-4. Fill any remaining [placeholders] it reports in AGENTS.md and agent_docs/.
-5. STOP. Summarize what was created and WAIT for the user to approve a plan
-   before proposing phases or writing any code.`;
+  return `Read ${skillEntryPath} and inspect the workspace before asking questions.
+Route by the user's situation: start something new, continue a project, or fix something broken.
+Existing files are evidence to inspect, not proof that planning or verification is complete.
+For a new project choose Quick, Guided, or Deep planning appropriate to its scope.
+Ask one question at a time by default; if the user answers several at once, accept those answers.
+Reuse Handoff Context. Ask only unresolved, relevant questions.
+For existing work use vibe-change; for failures use vibe-debug. Do not restart planning.
+After new-project documents exist, run npx vibeworkflow, fill placeholders, then run doctor.
+Doctor checks setup only: build and behavior remain Not checked until actually exercised.
+Build within the user's approved scope and report Changed, Checked, Not checked, Next decision, Recovery.`;
 }
 
 const HUMAN_BANNER = `┌─────────────────────────────────────────────────────────────────────┐
@@ -159,35 +147,40 @@ const HUMAN_BANNER = `┌──────────────────�
 
 async function runInit(args: ParsedArgs): Promise<void> {
   const dir = resolve(args.dir ?? '.');
-  const prdPath = args.prd ? resolve(args.prd) : findDoc(dir, 'PRD-');
-  const techPath = args.techdesign ? resolve(args.techdesign) : findDoc(dir, 'TechDesign-');
+  const found = args.skillsOnly || (args.prd && args.techdesign) ? {} : documentPaths(dir, { prd: !!args.prd, techdesign: !!args.techdesign });
+  const prdPath = args.prd ? resolve(dir, args.prd) : found.prd;
+  const techPath = args.techdesign ? resolve(dir, args.techdesign) : found.techdesign;
+  for (const path of [prdPath, techPath]) if (path && !existsSync(path)) throw new Error(`Document not found: ${path}`);
 
-  const tools: Tool[] = args.tools ? parseToolsFlag(args.tools) : detectTools(dir);
-  const toolsSource = args.tools ? 'flags' : 'detected';
+  const tools: Tool[] = args.tools ? parseToolsFlag(args.tools) : readManifest(dir)?.tools ?? detectTools(dir);
+  const toolsSource = args.tools ? 'flags' : readManifest(dir) ? 'manifest' : 'detected';
 
-  if (!prdPath || !techPath) {
+  if (args.skillsOnly || !prdPath || !techPath) {
     // Kickoff: docs are missing. Scaffold the skill files first so the agent
     // instructions below always point at files that exist.
     const result = scaffold({
       targetDir: dir,
       tools,
       skillsOnly: true,
-      overwrite: args.force,
+      overwrite: args.force === true,
+    dryRun: args.dryRun,
+    onPlan: plan => { if (args.force && !args.json) console.log(`Affected files (before writing):\n${plan.join("\n")}`); },
     });
 
     const skillEntry = '.agents/skills/vibe-workflow/SKILL.md';
-    const missing = [!prdPath ? 'PRD' : null, !techPath ? 'Tech Design' : null].filter(Boolean).join(' and ');
+    const missing = args.skillsOnly ? '' : [!prdPath ? 'PRD' : null, !techPath ? 'Tech Design' : null].filter(Boolean).join(' and ');
     const prompt = kickoffPrompt(skillEntry);
 
     if (args.json) {
       console.log(
         JSON.stringify(
           {
-            kind: 'vibeworkflow-kickoff',
+            kind: args.skillsOnly ? 'vibeworkflow-skills' : 'vibeworkflow-kickoff',
             dir,
             missing,
             tools,
             toolsSource,
+            dryRun: args.dryRun === true,
             files: result.files,
             skipped: result.skipped,
             prompt,
@@ -199,7 +192,8 @@ async function runInit(args: ParsedArgs): Promise<void> {
       return;
     }
 
-    console.log(`\nNo ${missing} found in ${dir}/docs/.`);
+    if (args.dryRun) { console.log(`Preview only; would write:\n${result.files.join('\n')}`); return; }
+    if (missing) console.log(`\nNo ${missing} found in ${dir}.`);
     console.log(`Installed ${result.files.length} skill files (${result.skipped.length} already existed).`);
     if (tools.length > 0) console.log(`Detected AI tools: ${tools.join(', ')}`);
     console.log('\n--- AGENT INSTRUCTIONS ---\n');
@@ -213,15 +207,26 @@ async function runInit(args: ParsedArgs): Promise<void> {
   }
 
   const { prd, tech } = resolveMeta(prdPath, techPath);
+  if (!prd || !tech) throw new Error('Both documents need valid metadata before setup can complete');
+  if (tech.appName && prd.appName !== tech.appName) throw new Error('PRD and Tech Design belong to different projects');
   const result = scaffold({
     targetDir: dir,
     prd,
     tech,
     tools,
     aiInScope: args.ai,
-    overwrite: args.force,
+    overwrite: args.force === true,
+    dryRun: args.dryRun,
+    onPlan: plan => { if (args.force && !args.json) console.log(`Affected files (before writing):\n${plan.join("\n")}`); },
   });
 
+  if (!existsSync(join(dir, 'vibe.project.json'))) {
+    const paths = { prd: relative(dir, prdPath).replace(/\\/g, '/'), techdesign: relative(dir, techPath).replace(/\\/g, '/') };
+    if (Object.values(paths).every(p => !p.startsWith('..') && !p.includes(':'))) {
+      if (!args.dryRun) writeFileSync(join(dir, 'vibe.project.json'), JSON.stringify({ schemaVersion: 1, templateVersion: '0.3.0', mode: 'guided', tools, documents: paths }, null, 2) + '\n', { flag: 'wx' });
+      result.files.push('vibe.project.json');
+    }
+  }
   if (args.json) {
     console.log(
       JSON.stringify(
@@ -230,6 +235,7 @@ async function runInit(args: ParsedArgs): Promise<void> {
           dir,
           tools,
           toolsSource,
+          dryRun: args.dryRun === true,
           files: result.files,
           skipped: result.skipped,
           remainingPlaceholders: result.remainingPlaceholders,
@@ -241,6 +247,7 @@ async function runInit(args: ParsedArgs): Promise<void> {
     return;
   }
 
+  if (args.dryRun) { console.log(`Preview only; would write:\n${result.files.join('\n')}`); return; }
   console.log(`\nScaffolded ${result.files.length} files into ${dir}`);
   if (result.skipped.length > 0) {
     console.log(`Kept ${result.skipped.length} existing files (use --force to overwrite).`);
@@ -263,7 +270,7 @@ async function runInit(args: ParsedArgs): Promise<void> {
   console.log('  1. Read AGENTS.md, then docs/PRD-*.md and docs/TechDesign-*.md.');
   console.log('  2. Fill the placeholders above from those docs.');
   console.log('  3. Verify with: npx vibeworkflow doctor');
-  console.log('  4. STOP and wait for the user to approve a Phase 1 plan before writing code.');
+  console.log('  4. Build the next agreed slice within the user’s authorization, then verify behavior.');
   if (isTty()) {
     console.log('');
     console.log(HUMAN_BANNER);
@@ -275,38 +282,27 @@ async function runDoctor(args: ParsedArgs): Promise<void> {
   const result = doctor({ projectDir: dir, strict: args.strict });
 
   if (args.json) {
-    console.log(JSON.stringify({ kind: 'vibeworkflow-doctor', ok: result.ok, findings: result.findings }, null, 2));
+    console.log(JSON.stringify({ kind: 'vibeworkflow-doctor', ...result }, null, 2));
   } else {
     for (const f of result.findings) {
       console.log(`[${f.severity.toUpperCase()}] ${f.message}`);
     }
     if (result.ok) {
-      console.log('\nProject looks good.');
+      console.log('\nSetup checked.');
     } else {
-      console.log('\nIssues found — fix them before building.');
+      console.log('\nSetup incomplete — resolve the findings above.');
     }
   }
+  if (!args.json) console.log('Build: Not checked.\nBehavior: Not checked.');
   process.exitCode = result.ok ? 0 : 1;
 }
 
 async function main(): Promise<void> {
-  const args = parseArgs(process.argv.slice(2));
-
-  if (args.help) {
-    console.log(USAGE);
-    return;
-  }
-
-  const command = args.command ?? 'init';
-
   try {
-    if (command === 'init') await runInit(args);
-    else if (command === 'doctor') await runDoctor(args);
-    else {
-      console.error(`unknown command: ${command}`);
-      console.log(USAGE);
-      process.exitCode = 2;
-    }
+    const args = parseArgs(process.argv.slice(2));
+    if (args.help) { console.log(USAGE); return; }
+    if (args.command === 'doctor') await runDoctor(args);
+    else await runInit(args);
   } catch (err) {
     console.error(err instanceof Error ? err.message : String(err));
     process.exitCode = 1;

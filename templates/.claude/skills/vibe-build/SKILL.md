@@ -1,19 +1,13 @@
 ---
 name: vibe-build
-description: Build an approved MVP task using AGENTS.md, agent_docs, tests, browser checks, AI evals, and evidence reporting.
+description: Implement an approved new-project slice and report actual checks. For changes to an existing app use vibe-change.
+allowed-tools: Read, Write, Edit, Glob, Grep, Bash, AskUserQuestion
 ---
 
 # Vibe Build
 
-Read `AGENTS.md`, `agent_docs/project_brief.md`, `agent_docs/tech_stack.md`, `agent_docs/code_patterns.md`, `agent_docs/testing.md`, and the active task/spec.
+Read AGENTS.md, MEMORY.md, the manifest's product documents, and relevant agent_docs. Establish acceptance criteria for one usable slice and implement within existing authorization. Preserve uncommitted work and record an actual recovery checkpoint before risky changes; never fabricate a commit or backup.
 
-Workflow:
-1. Summarize the current phase and acceptance criteria.
-2. Propose the smallest safe implementation plan.
-3. Build one feature at a time.
-4. Run the documented checks.
-5. For AI/MCP/tool changes, run the documented direct, indirect, negative, auth-required, failure, trajectory, approval, and data-boundary checks.
-6. Update `MEMORY.md` with major decisions or completed phases.
-7. Return evidence: changed files, commands, results, screenshots/browser notes if applicable, AI eval/tool-call evidence if applicable, unresolved risks, and rollback notes.
+Start with a functioning screen or equivalent observable output. Add authentication, a database, infrastructure, and AI only when requirements justify them. Run the project's applicable checks after reviewing commands; doctor is setup validation only. Use `../vibe-verify/SKILL.md` for the actual journey. For AI features also check failure behavior, data boundaries, and permission denial where relevant.
 
-Do not auto-approve untrusted MCP servers, shell/write/network tools, production actions, billing actions, or destructive changes.
+Update current progress and next steps in MEMORY.md; stable rules remain in AGENTS.md. Report Changed, Checked with commands/results, Not checked, Next decision, and Recovery. Do not treat a passing build as proof of working behavior.

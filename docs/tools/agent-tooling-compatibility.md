@@ -38,3 +38,9 @@ If the user says "Cursor and Copilot," generate `.cursor/rules/`, `.cursor/BUGBO
 - [Cursor changelog](https://cursor.com/changelog)
 - [GitHub Copilot cloud agent docs](https://docs.github.com/en/copilot/concepts/agents/cloud-agent/mcp-and-cloud-agent)
 - [Google Gemini CLI to Antigravity CLI transition](https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/)
+
+## September 2026 protocol update
+
+Documentation checked 2026-09-05: the [MCP 2026-07-28 release](https://blog.modelcontextprotocol.io/posts/2026-07-28/) introduces a stateless core, authorization changes, and a formal extensions framework. Tasks and MCP Apps are extensions; protocol support alone does not establish that a client supports either. [MCP Apps](https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/) enables assistant-hosted interactive UI.
+
+For every claimed combination record client/version, SDK/version, protocol revision, transport, required extensions, authentication flow, scenario, date, result, and evidence path. This repository has not run a live client/SDK interoperability matrix for the new revision. Earlier May entries remain historical guidance; verify the relevant combination before adopting it. See the [assistant-app recipe](../workflow/recipes.md) and [release evidence](../maintenance/reliability-release.md).

@@ -72,13 +72,6 @@ jobs:
             exit 1
           fi
 
-      - name: Reject broken canonical filename references
-        run: |
-          if grep -rEn '`PRD\.md`|`TechDesign\.md`' README.md part*.md .claude/README.md .claude/skills/ .agents/skills/ 2>/dev/null; then
-            echo "ERROR: Stale PRD.md / TechDesign.md filename reference found. Use PRD-[AppName]-MVP.md and TechDesign-[AppName]-MVP.md."
-            exit 1
-          fi
-
       - name: Reject stale .txt-only research references in skill files
         run: |
           if grep -rn 'research-.*\.txt' .claude/skills/ .agents/skills/ | grep -v '\.md.*\.txt\|or.*\.txt\|\.txt.*compat'; then
@@ -192,7 +185,9 @@ jobs:
       - name: Run contract checks
         # Single source of truth for the structural contract — contributors
         # run the same script locally via `python scripts/validate.py`.
-        run: python scripts/validate.py --ci
+        run: |
+          python scripts/validate.py --ci
+          python scripts/sync-skills.py --check
 
       - name: Check external links
         uses: lycheeverse/lychee-action@v2.8.0

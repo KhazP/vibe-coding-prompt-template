@@ -2,10 +2,10 @@
   <img src="https://img.shields.io/badge/Vibe--Coding-Workflow-blueviolet?style=for-the-badge&logo=rocket&logoColor=white" alt="Vibe-Coding Workflow" height="40"/>
 </p>
 
-<h3 align="center">A practical AI workflow for shipping MVPs</h3>
+<h3 align="center">Vibe Workflow — plan, build, check, and recover</h3>
 
 <p align="center">
-  <strong>Turn an idea into an MVP with structured prompts, agent docs, and AI-assisted coding workflows.</strong>
+  <strong>Your AI can write code. This workflow helps you decide what to build, check what works, and recover when it breaks.</strong>
 </p>
 
 <p align="center">
@@ -30,19 +30,25 @@
 
 ---
 
+![Reading List example](examples/reading-list/screenshot.png)
+
+[Watch the real add → reload → remove demo](examples/reading-list/demo.webm). This demonstrates the example app, not a timed promise for building an MVP.
+
 ## Start here
 
 **Using an AI coding agent?** Open Claude Code, Cursor, Codex, or Gemini CLI in your project and say:
 
 > Run `npx vibeworkflow` and follow its instructions.
 
-It installs the planning skills, interviews you one question at a time, writes your PRD and Tech Design, and scaffolds the agent files — Steps 1-4, driven for you. You just answer questions.
+Start in a clean project folder or your existing app. The workflow inspects what exists, then routes to **start something new**, **continue my project**, or **something broke**. Quick, Guided, and Deep planning keep the questions proportional to your project.
+
+Try the [runnable reading-list example](examples/reading-list/README.md), or use `/vibe-change`, `/vibe-debug`, and `/vibe-verify` in an existing app. Available in `vibeworkflow` 0.3.0.
 
 **Prefer to drive it yourself?** Paste the prompts from this repo into any chat tool, in order:
 
 | Step | What happens | Where |
 | :-- | :-- | :-- |
-| 1. [Deep Research](#phase-1-thinking-through-the-product) | Validate the idea against real sources | Chat tool |
+| 1. [Deep Research](#phase-1-thinking-through-the-product) | Research with sources when browsing is available; otherwise produce a research prompt | Chat tool |
 | 2. [PRD](#phase-1-thinking-through-the-product) | Define what you're building, and for whom | Chat tool |
 | 3. [Tech Design](#phase-1-thinking-through-the-product) | Pick the surface, stack, and deployment | Chat tool |
 | 4. [Agent files](#phase-2-execution-in-your-ide) | Generate `AGENTS.md` and `agent_docs/` | `npx vibeworkflow` or paste |
@@ -147,15 +153,15 @@ Move into Codex, Cursor, VS Code with Copilot, Claude Code, Antigravity/Gemini-c
 
 This step fills out `AGENTS.md` and the supporting docs from your PRD and tech design.
 
-1. Click **"Use this template"** in GitHub (or clone this repository locally).
-2. Open this cloned repository folder in your **AI IDE** (like Cursor or VS Code).
+1. Create a clean folder for your app. Run `npx vibeworkflow` through your agent. Clone this repository only to develop the workflow itself.
+2. Open your app folder in your **AI IDE** (like Cursor or VS Code).
 3. Create a `docs/` folder in your project root if it does not already exist.
 4. Move your saved documents into `docs/` using these names:
    - `docs/PRD-[YourAppName]-MVP.md`
    - `docs/TechDesign-[YourAppName]-MVP.md`
    - optional: `docs/research-[YourAppName].md` (or `.txt` for backward compatibility)
 5. Open the AI Chat inside your IDE, type: *"Read [`part4-notes-for-agent.md`](part4-notes-for-agent.md), follow its instructions, and set up my workspace."*
-6. The agent should copy the boilerplates from `/templates/`, generate selected tool configs (`CLAUDE.md`, `.cursor/rules/`, `GEMINI.md`, `.codex/config.toml`, `.agents/skills/`, etc.), and fill placeholders using the files in `docs/`.
+6. The agent should fill the CLI-installed boilerplates (or use the [chat context pack](docs/context-pack.md)), generate selected tool configs (`CLAUDE.md`, `.cursor/rules/`, `GEMINI.md`, `.codex/config.toml`, `.agents/skills/`, etc.), and fill placeholders using the files in `docs/`.
 
 Default generated files:
 - `AGENTS.md`
@@ -174,7 +180,7 @@ Optional generated files:
 
 ### ![Step 5](https://img.shields.io/badge/Step_5-Build_MVP-43e97b?style=flat-square) Build with AI Agent
 <details open>
-<summary><b>Build the MVP in small, reviewable chunks</b> - 1-3 hrs</summary>
+<summary><b>Build the MVP in small, reviewable chunks</b></summary>
 
 Choose your development environment and start iterating:
 
@@ -419,3 +425,11 @@ Released under the [MIT License](LICENSE).
     <img src="https://img.shields.io/badge/↑_Back_to_Top-blueviolet?style=for-the-badge" alt="Back to Top"/>
   </a>
 </p>
+
+## Reliable setup and project recovery
+
+Preview writes with `npx vibeworkflow --dry-run --json`. Existing files are kept unless `--force` is explicitly true. `doctor` checks setup only; build and behavior remain **Not checked** until actually exercised. See the [document contract](docs/workflow/document-contract.md), [worked recipes](docs/workflow/recipes.md), and [compatibility evidence](docs/maintenance/reliability-release.md).
+
+For chat-only setup, download the [single context pack](docs/context-pack.md) and provide it with your product documents. Browser-exported document paths can be recorded in `vibe.project.json`.
+
+Found this useful? [Star the workflow repository](https://github.com/KhazP/vibe-coding-prompt-template) to help others discover it.

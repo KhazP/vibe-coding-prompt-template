@@ -1389,6 +1389,8 @@ Append this fenced JSON block to the very end of the document (after the `---`).
 
 ```json
 {
+  "schemaVersion": 1,
+  "documentType": "techdesign",
   "appName": "[App Name]",
   "stack": {
     "frontend": "[framework]",

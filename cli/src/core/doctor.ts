@@ -1,5 +1,6 @@
-import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { documentPaths } from './project.js';
 import { parsePrdMeta, parseTechMeta } from './meta.js';
 
 export type Severity = 'error' | 'warn';
@@ -12,6 +13,7 @@ export interface Finding {
 export interface DoctorResult {
   ok: boolean;
   findings: Finding[];
+  checks: { setup: "checked" | "incomplete"; build: "not-checked"; behavior: "not-checked" };
 }
 
 export interface DoctorOptions {
@@ -40,16 +42,6 @@ function realPlaceholders(content: string): string[] {
   return [...seen];
 }
 
-function findDoc(projectDir: string, prefix: string, suffix: string): string | undefined {
-  const docsDir = join(projectDir, 'docs');
-  if (!existsSync(docsDir)) return undefined;
-  const entries = readdirSync(docsDir);
-  const match = entries.find(
-    (e) => e.startsWith(prefix) && e.endsWith(suffix) && e !== 'research.md',
-  );
-  return match ? join(docsDir, match) : undefined;
-}
-
 export function doctor(opts: DoctorOptions): DoctorResult {
   const findings: Finding[] = [];
   const push = (severity: Severity, message: string) => findings.push({ severity, message });
@@ -62,15 +54,22 @@ export function doctor(opts: DoctorOptions): DoctorResult {
     if (!has(f)) push('error', `missing ${f}`);
   }
 
-  const prdPath = findDoc(opts.projectDir, 'PRD-', '-MVP.md');
-  const techPath = findDoc(opts.projectDir, 'TechDesign-', '-MVP.md');
+  let paths: { prd?: string; techdesign?: string } = {};
+  try { paths = documentPaths(opts.projectDir); } catch (err) { push('error', String(err)); }
+  const prdPath = paths.prd && existsSync(paths.prd) ? paths.prd : undefined;
+  const techPath = paths.techdesign && existsSync(paths.techdesign) ? paths.techdesign : undefined;
+  if (prdPath && techPath) {
+    const prd = parsePrdMeta(readFileSync(prdPath, 'utf8'));
+    const tech = parseTechMeta(readFileSync(techPath, 'utf8'));
+    if (prd && tech?.appName && prd.appName !== tech.appName) push('error', 'PRD and Tech Design belong to different projects');
+  }
 
   if (!prdPath) {
     push('error', 'missing docs/PRD-[AppName]-MVP.md');
   } else {
     const prd = parsePrdMeta(readFileSync(prdPath, 'utf8'));
     if (!prd) {
-      push('warn', 'PRD has no parseable meta block; add the ```json block from part2');
+      push('error', 'PRD has no parseable meta block; add the ```json block from part2');
     }
   }
 
@@ -79,7 +78,7 @@ export function doctor(opts: DoctorOptions): DoctorResult {
   } else {
     const tech = parseTechMeta(readFileSync(techPath, 'utf8'));
     if (!tech) {
-      push('warn', 'Tech Design has no parseable meta block; add the ```json block from part3');
+      push('error', 'Tech Design has no parseable meta block; add the ```json block from part3');
     }
   }
 
@@ -94,10 +93,19 @@ export function doctor(opts: DoctorOptions): DoctorResult {
     if (!has(rel)) continue;
     const placeholders = realPlaceholders(readFileSync(join(opts.projectDir, rel), 'utf8'));
     if (placeholders.length > 0) {
-      push('warn', `${rel} has unfilled placeholders: ${placeholders.join(', ')}`);
+      push('error', `${rel} has unfilled placeholders: ${placeholders.join(', ')}`);
     }
   }
 
+  if (has('.claude/settings.json')) {
+    try {
+      const config = JSON.parse(readFileSync(join(opts.projectDir, '.claude/settings.json'), 'utf8'));
+      const mode = config.permissions?.defaultMode;
+      if (mode !== undefined && !['default', 'acceptEdits', 'plan', 'auto', 'dontAsk', 'bypassPermissions'].includes(mode)) {
+        push('error', `unsupported Claude permissions.defaultMode: ${mode}`);
+      }
+    } catch { push('error', 'invalid .claude/settings.json'); }
+  }
   const ok = !findings.some((f) => f.severity === 'error' || (opts.strict && f.severity === 'warn'));
-  return { ok, findings };
+  return { ok, findings, checks: { setup: ok ? "checked" : "incomplete", build: "not-checked", behavior: "not-checked" } };
 }

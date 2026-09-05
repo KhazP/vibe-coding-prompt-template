@@ -59,7 +59,7 @@ test('doctor strict mode promotes warnings to failures', () => {
     write(join(dir, 'agent_docs/project_brief.md'), '# Brief');
     write(join(dir, 'agent_docs/tech_stack.md'), '# Stack');
     write(join(dir, 'agent_docs/testing.md'), '# Testing');
-    write(join(dir, 'docs/PRD-Todo-MVP.md'), 'no meta block here');
+    write(join(dir, 'docs/PRD-Todo-MVP.md'), '```json\n{"appName":"Todo"}\n```');
     write(join(dir, 'docs/TechDesign-Todo-MVP.md'), '```json\n{"stack":{}}\n```');
 
     const lenient = doctor({ projectDir: dir });

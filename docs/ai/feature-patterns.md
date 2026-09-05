@@ -48,3 +48,7 @@ For an AI support assistant, start with read-only RAG over help docs, cite sourc
 - [OpenAI tools](https://developers.openai.com/api/docs/guides/tools)
 - [OpenAI Realtime API](https://developers.openai.com/api/docs/guides/realtime)
 - [OpenTelemetry GenAI semantic conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/)
+
+## Worked outcomes and protocol evidence
+
+For small existing-app, internal-automation, assistant-interface, and creative-code outcomes, use the [worked recipes](../workflow/recipes.md). They keep integration questions behind the relevant project route. Record actual client/SDK/protocol combinations using the [compatibility evidence policy](../tools/agent-tooling-compatibility.md#september-2026-protocol-update); a documented extension is not proof that the user's client implements it.

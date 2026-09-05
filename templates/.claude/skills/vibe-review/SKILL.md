@@ -1,10 +1,11 @@
 ---
 name: vibe-review
-description: Review an AI-generated diff against AGENTS.md, agent_docs, and REVIEW-CHECKLIST.md.
+description: Review a proposed change against requirements, regressions, verification evidence, and relevant security risks.
+allowed-tools: Read, Glob, Grep, Bash
 ---
 
 # Vibe Review
 
-Read `AGENTS.md`, `agent_docs/`, and `REVIEW-CHECKLIST.md`. Review the current diff. Return findings first, ordered by severity, with file and line references. Focus on correctness, security, AI/tool permissions, missing tests, data leaks, and maintainability. Do not edit files.
+Read the actual diff, applicable instructions, acceptance criteria, and check results. Trace changed behavior into its callers and tests. Look for concrete regressions, missing error handling, incorrect assumptions, and relevant authorization or data exposure issues.
 
-Also call out provider retention/training, telemetry, data-boundary, permission, and builder exit-review gaps when applicable.
+Report actionable findings with file/line, trigger, impact, and suggested correction. Distinguish demonstrated defects from missing evidence. Prioritize correctness and scope over cosmetic preferences. Do not claim independent checks unless you ran them. If there are no findings, say so and disclose remaining verification gaps. Review does not authorize unrelated edits or publication.

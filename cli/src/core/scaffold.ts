@@ -18,6 +18,8 @@ export interface InitOptions {
   skillsOnly?: boolean;
   /** Overwrite files that already exist in the target (default: keep them). */
   overwrite?: boolean;
+  dryRun?: boolean;
+  onPlan?: (files: string[]) => void;
 }
 
 export interface ScaffoldResult {
@@ -136,7 +138,7 @@ function listFiles(dir: string, base: string, out: string[]): string[] {
   for (const entry of readdirSync(dir)) {
     if (entry === '.DS_Store') continue;
     const full = join(dir, entry);
-    const rel = relative(base, full);
+    const rel = normalizePath(relative(base, full));
     if (statSync(full).isDirectory()) {
       listFiles(full, base, out);
     } else {
@@ -157,22 +159,24 @@ export function scaffold(opts: InitOptions): ScaffoldResult {
   const skipped: string[] = [];
   const remaining: ScaffoldResult['remainingPlaceholders'] = [];
 
-  for (const rel of allFiles) {
-    const included = opts.skillsOnly ? isSkillFile(rel, tools) : shouldInclude(rel, tools, opts.aiInScope);
-    if (!included) continue;
+  const selected = allFiles.filter(rel => opts.skillsOnly ? isSkillFile(rel, tools) : shouldInclude(rel, tools, opts.aiInScope));
+  opts.onPlan?.(selected.filter(rel => opts.overwrite === true || !existsSync(join(opts.targetDir, rel))));
+  for (const rel of selected) {
     const src = join(templatesDir, rel);
     const dest = join(opts.targetDir, rel);
 
     let content: string;
-    if (existsSync(dest) && !opts.overwrite) {
+    if (existsSync(dest) && opts.overwrite !== true) {
       // Never clobber a file the user or their agent may have edited; report
       // the placeholders still present on disk instead.
       skipped.push(rel);
       content = readFileSync(dest, 'utf8');
     } else {
       content = fillTemplate(readFileSync(src, 'utf8'), fill, opts.tech?.commands);
-      mkdirSync(dirname(dest), { recursive: true });
-      writeFileSync(dest, content);
+      if (!opts.dryRun) {
+        mkdirSync(dirname(dest), { recursive: true });
+        writeFileSync(dest, content);
+      }
       files.push(rel);
     }
 
@@ -183,6 +187,10 @@ export function scaffold(opts: InitOptions): ScaffoldResult {
   }
 
   return { files, skipped, remainingPlaceholders: remaining };
+}
+
+export function normalizePath(path: string): string {
+  return path.replace(/\\/g, '/');
 }
 
 // The canonical skills live in .agents/skills/ and are always installed; the

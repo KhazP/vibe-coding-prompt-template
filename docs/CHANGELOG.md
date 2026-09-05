@@ -115,3 +115,12 @@ The "contracts" release: one canonical AGENTS.md, documents that chain themselve
 
 ### Added
 - Initial public release: the four-part vibe-coding prompt workflow (deep research → PRD → tech design → notes for the agent), README, and November 2025 model/tooling references.
+
+## CLI 0.3.0 — reliability and project recovery (2026-09-05)
+
+- Strict CLI flags, explicit boolean overwrite, dry-run preview, skills-only installation, Windows path normalization, and native OS package-test matrix.
+- Setup-only doctor with required metadata/placeholder failures and Claude permission-mode validation; build and behavior remain Not checked.
+- Safe formatter argument handling and corrected hook timeout units.
+- Canonical workflow skills generated into repository and template distributions; new change, debug, verify, and handoff skills, with situation routing and proportional planning.
+- Versioned metadata, project manifest paths, compatible browser-style document discovery, chat context pack, runnable reading-list example with browser evidence, and worked recipes.
+- Behavior evaluation scenarios and release evidence report distinguish automated checks from unperformed assistant/client validation and distribution experiments.

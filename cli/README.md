@@ -45,3 +45,22 @@ AI tools are auto-detected from agent environment variables and existing
 `.claude` / `.cursor` / `.codex` / `.gemini` directories (project or home).
 
 Zero dependencies. Node 18+.
+
+## Reliability and recovery (0.3.0)
+
+From source, run `npm ci`, `npm run build`, then `node bin/vibeworkflow.js --help`.
+Use `--skills-only` for a clean skills installation, `--dry-run --json` for a
+write-free preview, and `--force` only for intended replacements. Boolean flags
+accept `=true` or `=false`; unknown flags, missing values, and invalid tool names
+fail before writing. `--force=false` keeps existing work.
+
+Full setup writes a missing `vibe.project.json` with document paths, tools,
+planning mode, and template version. Existing manifests are preserved. See the
+[document contract](../docs/workflow/document-contract.md) for browser-export
+names and versioned metadata. `doctor` validates setup only and explicitly
+reports build and behavior as Not checked. Required missing metadata or
+placeholders fail setup even without `--strict`.
+
+Skill maintainers edit `workflow/skills/` at repository root and regenerate with
+`python3 scripts/sync-skills.py`. Run `npm run test:package` to install the actual
+tarball into a temporary consumer and test preservation and preview behavior.

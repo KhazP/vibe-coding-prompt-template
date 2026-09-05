@@ -57,7 +57,7 @@ function findJsonBlocks(content: string): unknown[] {
 }
 
 function isRecord(v: unknown): v is Record<string, unknown> {
-  return typeof v === 'object' && v !== null;
+  return typeof v === 'object' && v !== null && !Array.isArray(v);
 }
 
 function strArray(v: unknown): string[] | undefined {
@@ -73,9 +73,23 @@ function rec(v: unknown): Record<string, unknown> | undefined {
   return isRecord(v) ? v : undefined;
 }
 
+function metadataBlocks(content: string): unknown[] {
+  const blocks = findJsonBlocks(content);
+  const identified = blocks.filter(b => isRecord(b) && (b.schemaVersion !== undefined || b.documentType !== undefined));
+  return identified.length ? identified : blocks;
+}
+
+function contract(block: Record<string, unknown>, type: string): boolean {
+  if (block.schemaVersion === undefined && block.documentType === undefined) return true; // legacy
+  if (block.schemaVersion !== 1 || block.documentType !== type || !str(block.appName)) return false;
+  if (type === 'prd') return !!str(block.oneLiner) && !!str(block.targetUsers) && Array.isArray(block.mustHave) && block.mustHave.length > 0 && block.mustHave.every(v => !!str(v));
+  return isRecord(block.stack) && Object.values(block.stack).some(v => !!str(v)) && isRecord(block.commands) && Object.values(block.commands).some(v => !!str(v));
+}
+
 export function parsePrdMeta(content: string): PrdMeta | undefined {
-  for (const block of findJsonBlocks(content)) {
+  for (const block of metadataBlocks(content)) {
     if (!isRecord(block)) continue;
+    if (!contract(block, 'prd')) return undefined;
     const appName = str(block.appName);
     if (!appName) continue;
     return {
@@ -93,8 +107,9 @@ export function parsePrdMeta(content: string): PrdMeta | undefined {
 }
 
 export function parseTechMeta(content: string): TechMeta | undefined {
-  for (const block of findJsonBlocks(content)) {
+  for (const block of metadataBlocks(content)) {
     if (!isRecord(block)) continue;
+    if (!contract(block, 'techdesign')) return undefined;
     const hasStack = isRecord(block.stack);
     const hasCommands = isRecord(block.commands);
     if (!hasStack && !hasCommands) continue;

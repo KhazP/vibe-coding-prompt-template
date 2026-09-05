@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reading List</title>
+<style>
+body{font:18px/1.6 system-ui,sans-serif;background:#f5f1e8;color:#243b32;max-width:640px;margin:8vh auto;padding:24px}h1{font:48px Georgia,serif}form{display:flex;gap:12px;flex-wrap:wrap}input{flex:1;min-width:160px}input,button{font:inherit;padding:10px;border:1px solid #537763;border-radius:6px}button{background:#243b32;color:white;cursor:pointer}li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid #c5cfc6}ul{padding:0;list-style:none}small{color:#53675c}
+</style>
+<main>
+<small>A little room for your next good read</small>
+<h1>Reading List</h1>
+<form id="add-book"><label for="title">Book title</label><input id="title" maxlength="120" required><button>Add book</button></form>
+<p id="status" role="status"></p>
+<ul id="books" aria-label="Books to read"></ul>
+<p><small>Saved in this browser. No account or network service.</small></p>
+</main>
+<script>
+const key = 'vibe-reading-list';
+let books = [];
+let storageWarning = '';
+try {
+  const saved = JSON.parse(localStorage.getItem(key) || '[]');
+  if (Array.isArray(saved) && saved.every(item => typeof item === 'string')) books = saved;
+  else storageWarning = 'Saved data could not be loaded.';
+} catch { storageWarning = 'Storage unavailable or unreadable. Changes may not survive a reload.'; }
+const list = document.querySelector('#books');
+const status = document.querySelector('#status');
+function render() {
+  list.replaceChildren();
+  books.forEach((title, index) => {
+    const row = document.createElement('li');
+    const text = document.createElement('span');
+    text.textContent = title;
+    const remove = document.createElement('button');
+    remove.textContent = 'Remove';
+    remove.setAttribute('aria-label', `Remove ${title}`);
+    remove.onclick = () => { books.splice(index, 1); save(); render(); };
+    row.append(text, remove); list.append(row);
+  });
+  status.textContent = storageWarning || (books.length ? `${books.length} book${books.length === 1 ? '' : 's'} saved` : 'Your list is empty. Add your first book.');
+}
+function save() {
+  try { localStorage.setItem(key, JSON.stringify(books)); storageWarning = ''; }
+  catch { storageWarning = 'Could not save in this browser. Your list is available for this session.'; }
+}
+document.querySelector('#add-book').onsubmit = event => {
+  event.preventDefault();
+  const input = document.querySelector('#title');
+  const title = input.value.trim();
+  if (!title) { status.textContent = 'Enter a book title.'; return; }
+  books.push(title); save(); render(); input.value = ''; input.focus();
+};
+render();
+</script>
+</html>

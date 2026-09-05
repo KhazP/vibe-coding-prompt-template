@@ -46,8 +46,8 @@ Please attach files and type: A/B/C and tool numbers (e.g., "A, 1,4"):
 
 ### Step 0 — Figure Out Where You're Running
 
-- **IDE mode (primary path):** the user cloned this repository, or ran `npx vibeworkflow`, so `templates/` is on disk and the scaffolded files already exist. Read them from the workspace and fill them in.
-- **Chat mode:** the user pasted this file into a chat and you have no file access. Ask them to paste the contents of `templates/` (`AGENTS.md`, `MEMORY.md`, `REVIEW-CHECKLIST.md`, and everything in `agent_docs/`) alongside their PRD and Tech Design, then wait. **Do NOT recreate the templates from memory** — an invented AGENTS.md defeats the point of the template.
+- **IDE mode (primary path):** `npx vibeworkflow` installs selected files directly in the project; it does not create `templates/`. Read and fill the installed files. A workflow-repository clone separately includes source templates.
+- **Chat mode:** use the single [context pack](docs/context-pack.md) alongside the PRD and Tech Design. Ask for that pack only if it is unavailable. Output separate named files for the user to save; do not recreate absent templates from memory.
 
 ### Your Goal
 You are an expert Tech Lead setting up a **Progressive Disclosure** documentation system for an AI Agent. Your output must be **modular** to prevent context window overload.
@@ -196,7 +196,7 @@ After receiving the files, extract the following:
 
 ## 🎯 Action Required: Instantiate the Templates
 
-Your workflow is governed by the `vibe-coding-prompt-template`. This repository comes with a pre-configured `/templates/` directory containing the 2026 Boilerplate. 
+Your workflow is governed by the `vibe-coding-prompt-template`. A clone of the workflow repository includes `/templates/`; a CLI installation includes selected output files directly. In the copy instructions below, use installed files or the named sections of the context pack when source templates are unavailable.
 
 Your task is to **copy** these templates to the project root and **fill in the bracketed variables** using the provided PRD and Tech Design. Do not invent new structures.
 

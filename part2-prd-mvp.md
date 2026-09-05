@@ -978,6 +978,8 @@ Append this fenced JSON block to the very end of the document (after the `---`).
 
 ```json
 {
+  "schemaVersion": 1,
+  "documentType": "prd",
   "appName": "[App Name]",
   "oneLiner": "[one-sentence description]",
   "targetUsers": "[who this is for]",
