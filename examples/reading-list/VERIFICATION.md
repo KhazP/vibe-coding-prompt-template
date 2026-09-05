@@ -11,6 +11,6 @@
 | Submit spaces | “Enter a book title”; no row added |
 | HTML-looking title | Literal text displayed as a title |
 
-Evidence: [screenshot](screenshot.png) and [actual browser recording](demo.webm). No compilation or dependency installation applies to this static example. These checks exercise app behavior, not the full planning skill workflow.
+Evidence: [actual browser recording](demo.webm). No compilation or dependency installation applies to this static example. These checks exercise app behavior, not the full planning skill workflow.
 
 Not checked: Safari/Firefox, native mobile devices, keyboard/screen-reader audit, full/blocked storage, corrupted saved data, multiple tabs. The code handles storage errors, but those branches were not exercised in this browser run. Browser storage is not a backup.

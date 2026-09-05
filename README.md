@@ -30,8 +30,6 @@
 
 ---
 
-![Reading List example](examples/reading-list/screenshot.png)
-
 [Watch the real add → reload → remove demo](examples/reading-list/demo.webm). This demonstrates the example app, not a timed promise for building an MVP.
 
 ## Start here

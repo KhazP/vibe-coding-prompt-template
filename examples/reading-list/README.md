@@ -4,8 +4,6 @@ A dependency-free example of Quick planning: add and remove books in one browser
 
 From this folder run `python3 -m http.server 8000`, then open http://localhost:8000. Stop the server with Ctrl+C.
 
-![Reading List](screenshot.png)
-
 [Recorded browser walkthrough](demo.webm).
 
 ## Acceptance journey
