@@ -4,7 +4,7 @@ Choose the outcome first. Load integration details only when the project needs t
 
 ## Improve an existing app
 
-Request: “Add a title filter to my reading list.” Run the [reading-list example](../../examples/reading-list/README.md), capture its add/remove baseline, then use vibe-change to add a filter without changing storage or adding accounts. Acceptance: matching titles appear, unmatched titles disappear, clearing restores the list, and add/remove still work. For an actual failure use vibe-debug with the exact reproduction. Keep the baseline and a recovery checkpoint.
+Request: “Add a title filter to my reading list.” In the existing app, capture the add/remove baseline, then use vibe-change to add a filter without changing storage or adding accounts. Acceptance: matching titles appear, unmatched titles disappear, clearing restores the list, and add/remove still work. For an actual failure use vibe-debug with the exact reproduction. Keep the baseline and a recovery checkpoint.
 
 ## Internal automation
 

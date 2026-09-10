@@ -27,7 +27,7 @@ Use workflow/evals/scenarios.json in a disposable project. Run each request with
 - Run the behavior scenarios in supported assistant clients, including negative controls and untrusted content.
 - Run an actual website export through the manifest/CLI handoff. Synthetic browser-style filenames are covered locally; the live ZIP is not.
 - Record tested MCP protocol/SDK/client/extension combinations before claiming support. Existing May guidance is historical context, not current compatibility certification. A worked assistant-app recipe is provided; a live MCP Apps example is not yet certified.
-- The reading-list example supplies runnable source and acceptance instructions. Its evidence file distinguishes actual browser checks from unperformed cases. Record an end-to-end idea-to-plan-to-code session before presenting a full workflow demo.
+- Record an end-to-end idea-to-plan-to-code session before presenting a full workflow demo.
 - Publish a release only after CI and supported-client checks pass. Review native plugin or skills.sh packaging separately; avoid duplicated name discovery and unreviewed third-party packs.
 - Community case studies, public announcements, and website changes require their actual sources/assets; none have been published by this change.
 

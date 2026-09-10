@@ -16,6 +16,9 @@ All notable changes to the Vibe-Coding Prompt Template are documented here, in [
 ### Fixed
 - **npm provenance:** `cli/package.json` had no `repository` field, so trusted publishing signed a provenance statement npm then rejected with a 422. Declared it (with `directory: "cli"`), plus `homepage` and `bugs`.
 
+### Removed
+- **Reading-list demo:** removed the runnable browser example and its active documentation links.
+
 ## [3.1.0] - 2026-08-20
 
 The "agent-first" release: `npx vibeworkflow` now drives the whole workflow through your AI agent, and the planning skills interview you one question at a time instead of dumping a wall of text.

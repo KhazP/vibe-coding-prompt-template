@@ -38,7 +38,7 @@
 
 Start in a clean project folder or your existing app. The workflow inspects what exists, then routes to **start something new**, **continue my project**, or **something broke**. Quick, Guided, and Deep planning keep the questions proportional to your project.
 
-Try the [runnable reading-list example](examples/reading-list/README.md), or use `/vibe-change`, `/vibe-debug`, and `/vibe-verify` in an existing app. Available in `vibeworkflow` 0.3.0.
+Use `/vibe-change`, `/vibe-debug`, and `/vibe-verify` in an existing app. Available in `vibeworkflow` 0.3.0.
 
 **Prefer to drive it yourself?** Paste the prompts from this repo into any chat tool, in order:
 
