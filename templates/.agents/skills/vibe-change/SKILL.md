@@ -6,8 +6,8 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, AskUserQuestion
 
 # Vibe Change
 
-Inspect source, repository instructions, current diff, product documents, and existing checks before asking questions. Confirm only missing acceptance criteria, constraints, and scope. An absent PRD or AGENTS.md does not require starting research again.
+Inspect the affected source, applicable repository instructions, current diff, and relevant checks. Consult product documents when scope or acceptance criteria are unclear. Confirm only missing acceptance criteria, constraints, and scope. An absent PRD or AGENTS.md does not require starting research again.
 
-Establish the baseline with appropriate approved commands and one existing user journey. Preserve current work; record a real recovery checkpoint for risky changes. Identify the smallest affected area and implement one feature without unrelated rewrites. Add regression checks where they demonstrate behavior, and rerun the affected checks.
+Establish the relevant baseline with checks appropriate to the change; use an existing user journey when behavior is affected. Preserve current work; record a real recovery checkpoint for risky changes. Identify the smallest affected area and implement one feature without unrelated rewrites. Add regression checks where they demonstrate behavior, and rerun the affected checks.
 
 Use `../vibe-verify/SKILL.md` for the changed journey and relevant existing behavior. Update product decisions only where requirements changed, and progress in MEMORY.md. Report Changed, Checked, Not checked, Next decision, Recovery. Escalate to deeper planning only for an actual architecture, security, cost, or data-migration decision.

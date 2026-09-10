@@ -1,15 +1,31 @@
 ---
 name: vibe-agents
-description: Generate project agent instructions from agreed requirements and technical decisions. Not for ordinary incremental feature changes.
+description: "Create project agent instructions and tool configuration from agreed product and technical decisions."
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, AskUserQuestion
 ---
 
-# Vibe Agents
+# Project agent instructions
 
-Read the agreed PRD and Tech Design using vibe.project.json paths when available; otherwise inspect docs/PRD-*-MVP.md and docs/TechDesign-*-MVP.md. Reconcile conflicts and reuse Handoff Context before asking anything.
+Use agreed requirements, technical decisions, and the existing repository to
+write only stable, non-obvious guidance. For a targeted AGENTS.md edit, update
+the affected instructions directly; do not require an installer, new PRD, or
+full interview. Keep progress in the project's memory/handoff file rather than
+the always-loaded rules.
 
-Run `npx vibeworkflow --dry-run --json` to inspect setup changes, then initialize within existing authorization. Existing files are preserved by default. Use --force only for explicitly intended replacement after showing affected files. The CLI installs selected files directly; it does not create a templates/ directory.
+For initial Vibe Workflow setup, use the configured manifest paths. If the
+vibeworkflow CLI is available, inspect `npx vibeworkflow --dry-run --json` and
+initialize within the user's authorization. Preserve existing files; replacement
+flags are for intentional replacements whose affected files have been reviewed.
+The CLI installs files directly, not into a new templates/ directory.
 
-Fill required placeholders from decisions. AGENTS.md contains stable rules; MEMORY.md contains current progress; agent_docs contains concise build context. Run `npx vibeworkflow doctor` and resolve required setup errors. Build and behavior remain Not checked.
+Fill relevant placeholders from known decisions. Keep task-specific procedures
+in skills or references and load them only when relevant. Distinguish local
+implementation from external sends, production changes, and new access. Do not
+enable broad tool permissions just to make setup convenient.
 
-For a chat without filesystem access, use the repository's downloadable docs/context-pack.md plus the user's product documents; output clearly separated files to save. Do not invent absent template content. Tool configurations follow the installed client's supported settings; do not enable broad permissions automatically.
+Use `npx vibeworkflow doctor` for CLI-generated setup when available; it checks
+configuration, not a working build or user journey. In a chat without filesystem
+access, use the repository's docs/context-pack.md and supplied product decisions
+to produce separated files to save. State absent template/context limitations
+instead of inventing them. Continue into implementation only when that is part
+of the user's request.

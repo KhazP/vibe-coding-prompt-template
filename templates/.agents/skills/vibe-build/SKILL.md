@@ -1,13 +1,27 @@
 ---
 name: vibe-build
-description: Implement an approved new-project slice and report actual checks. For changes to an existing app use vibe-change.
+description: "Implement a new-project slice through the relevant checks and working user journey."
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, AskUserQuestion
 ---
 
-# Vibe Build
+# Build a new-project slice
 
-Read AGENTS.md, MEMORY.md, the manifest's product documents, and relevant agent_docs. Establish acceptance criteria for one usable slice and implement within existing authorization. Preserve uncommitted work and record an actual recovery checkpoint before risky changes; never fabricate a commit or backup.
+Establish the requested outcome and acceptance criteria from the user's brief
+and relevant project decisions. Read applicable repository instructions and
+only the documents needed for this slice. An absent or stale MEMORY.md does
+not require rebuilding the whole planning workflow.
 
-Start with a functioning screen or equivalent observable output. Add authentication, a database, infrastructure, and AI only when requirements justify them. Run the project's applicable checks after reviewing commands; doctor is setup validation only. Use `../vibe-verify/SKILL.md` for the actual journey. For AI features also check failure behavior, data boundaries, and permission denial where relevant.
+Implement the intended behavior using the chosen stack. Preserve unrelated
+work and make a recovery checkpoint when the change warrants it. Add accounts,
+databases, infrastructure, paid services, and AI only when requirements justify
+them. Continue until the requested slice works, not merely until files exist.
 
-Update current progress and next steps in MEMORY.md; stable rules remain in AGENTS.md. Report Changed, Checked with commands/results, Not checked, Next decision, and Recovery. Do not treat a passing build as proof of working behavior.
+Use the project's affected checks and exercise the relevant user journey when
+runtime access permits it. Fix failures caused by the change, distinguish
+pre-existing failures, and reuse results that remain valid. A setup validator
+or passing build alone is not evidence of interactive behavior.
+
+Update project progress when the repository maintains it. Report the outcome,
+actual checks, unverified behavior, and any concrete blocker or recovery note.
+External sends, production changes, store submission, and deployment remain
+subject to authorization for their specific effect and target.

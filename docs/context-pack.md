@@ -21,7 +21,6 @@ These are templates to fill, not evidence that setup or behavior has been checke
 
 - **What this is:** [one sentence]
 - **Who it is for:** [target users]
-- **Current phase:** [Discovery / Foundation / Core MVP / Polish / Launch]
 
 ## Commands
 
@@ -31,16 +30,18 @@ is genuinely all there is.
 
 - [command] — [why it isn't obvious]
 
-## Read first
+## Read first — when relevant
 
-1. `docs/PRD-*.md` (what we're building — the source of truth)
-2. `docs/TechDesign-*.md` (how we're building it)
-3. `agent_docs/project_brief.md`
-4. `agent_docs/tech_stack.md`
-5. `agent_docs/testing.md`
+- Product scope or acceptance criteria: `docs/PRD-*.md`.
+- Architecture or integration choices: `docs/TechDesign-*.md`.
+- Non-obvious product constraints: `agent_docs/project_brief.md`.
+- Stack-specific setup: `agent_docs/tech_stack.md`.
+- Choosing or troubleshooting checks: `agent_docs/testing.md`.
 
-If this file or `agent_docs/` still has `[bracketed]` placeholders, fill them from
-the two docs above before planning. Load anything else only when it becomes relevant.
+Read only the documents needed for the task. During initial setup, fill relevant
+placeholders from agreed decisions; do not invent missing facts or block an
+unrelated small fix on completing every document. Current progress belongs in
+`MEMORY.md`.
 
 ## Gotchas
 
@@ -51,17 +52,22 @@ would teach the wrong pattern; failures that took real time to diagnose.
 - [e.g. "All types live in one monolithic `types.ts` — do not co-locate them."]
 - [e.g. "The pre-commit hook reverts the working tree on failure."]
 
-## Protected areas — ask before changing
+## Protected areas
 
-- `.env*`, secrets, credentials, private logs
-- `.github/workflows/`, deployment, infrastructure
-- existing database migrations
-- auth, payments, billing, production email/send flows
-- AI provider credentials, MCP servers, tool permissions
+Keep secrets, credentials, private logs, and production data out of commits and
+unapproved transmissions. Preserve unrelated working-tree changes.
 
-**Never print, commit, or transmit secrets, tokens, private logs, or production
-data.** Never delete files, rewrite large areas, or change
-infrastructure/auth/billing/migrations without approval.
+Within the requested scope, continue through local implementation, affected
+checks, and fixes without repeated approval. Changing auth, billing,
+infrastructure, or migration source is distinct from applying it to a live
+system. Before an external send, deployment, charge, production migration,
+destructive data operation, or access change, confirm that the action and target
+are covered by the user's authorization. Ask only for missing authorization or a
+consequential decision; a multi-file edit alone is not an approval boundary.
+
+Record any project-specific exceptions here, including which test fixtures are
+disposable and which commands can reach production. Do not assume tests are
+isolated until their configuration establishes it.
 
 ## AI features
 
@@ -76,8 +82,14 @@ Delete this section unless the product itself uses AI.
 
 ## Done means
 
-Report: files changed · commands run · test/build/device results · AI eval
-evidence if applicable · remaining risks · rollback notes if relevant.
+Complete the requested behavior, run checks appropriate to the changed area,
+and fix failures caused by the change. For runtime work, exercise the relevant
+user journey when the environment permits it. Reuse still-valid results; repeat
+checks when code changes or new evidence justifies it.
+
+Report the outcome, actual checks and limitations, and rollback notes when
+relevant. If completion is blocked, identify the concrete blocker and remaining
+work rather than presenting an unchecked implementation as finished.
 
 ---
 
@@ -85,8 +97,8 @@ evidence if applicable · remaining risks · rollback notes if relevant.
 procedures (deploy steps, release checklists, API references) into
 `.claude/skills/<name>/SKILL.md`, where only the one-line description stays in
 context and the body loads when it is actually needed. Move
-directory-specific conventions into `<subdir>/CLAUDE.md`, which loads only when
-work touches that directory. Keep universal constraints and safety prohibitions
+directory-specific conventions into `<subdir>/AGENTS.md` (or the selected
+client’s supported equivalent), scoped to work in that directory. Keep universal constraints and safety prohibitions
 here — never move a "never do X" rule somewhere it might not be loaded.
 
 
