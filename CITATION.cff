@@ -13,6 +13,6 @@ preferred-citation:
   authors:
     - name: "Alp Yalay"
   url: "https://github.com/KhazP/vibe-coding-prompt-template"
-  year: 2025
-  version: "3.0.0"
-  date-released: "2026-07-19"
+  year: 2026
+  version: "3.2.0"
+  date-released: "2026-10-04"

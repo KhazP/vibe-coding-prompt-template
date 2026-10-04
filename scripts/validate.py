@@ -46,6 +46,7 @@ import shutil
 import subprocess
 import sys
 from pathlib import Path
+from typing import NamedTuple
 
 # --------------------------------------------------------------------------
 # Repo root is resolved from this file's location (repo_root/scripts/),
@@ -468,6 +469,124 @@ def check_skills_allowed_tools():
 
 
 # --------------------------------------------------------------------------
+# Contract check 11 — copyable Markdown examples keep their intended bounds.
+# --------------------------------------------------------------------------
+class FencedBlock(NamedTuple):
+    start_line: int
+    end_line: int | None
+    marker: str
+    info: str
+
+
+FENCE_LINE = re.compile(r"^ {0,3}(`{3,}|~{3,})(.*)$")
+PROMPT_TEMPLATE_HEADING = re.compile(
+    r"^### For (?:Vibe-Coders|Developers|In-Between Users)(?:,| —)"
+)
+
+
+def scan_fences(markdown: str) -> tuple[list[FencedBlock], list[str]]:
+    """Scan the top-level fenced blocks used by this repository.
+
+    Follows CommonMark's fence rules: the closing marker uses the same
+    character, is at least as long as the opener, and has only spaces/tabs
+    after it. Shorter markers and language-tagged lines inside a block are
+    literal content. Backtick info strings cannot contain backticks.
+    https://spec.commonmark.org/0.31.2/#fenced-code-blocks
+
+    This is a focused check, not a complete Markdown parser: blockquote/list
+    containers and HTML blocks are not parsed. Four-space-indented and
+    blockquote-prefixed fence examples are outside its scope. CommonMark
+    allows an unclosed fence at EOF; this repo requires explicit closures.
+    """
+    blocks: list[FencedBlock] = []
+    problems: list[str] = []
+    active: FencedBlock | None = None
+    for number, line in enumerate(markdown.splitlines(), start=1):
+        match = FENCE_LINE.match(line.expandtabs(4))
+        if match is None:
+            continue
+        marker, info = match.groups()
+        if active is not None:
+            if (
+                marker[0] == active.marker[0]
+                and len(marker) >= len(active.marker)
+                and not info.strip(" \t")
+            ):
+                blocks.append(active._replace(end_line=number))
+                active = None
+        elif marker[0] != "`" or "`" not in info:
+            active = FencedBlock(number, None, marker, info.strip(" \t"))
+    if active is not None:
+        blocks.append(active)
+        problems.append(
+            f"line {active.start_line}: unclosed {active.marker} fence; "
+            "close it with the same character and at least the same length"
+        )
+    return blocks, problems
+
+
+def prompt_template_problems(markdown: str) -> list[str]:
+    """Keep each persona's output template in one copyable Markdown block.
+
+    An even number of fences can still split a template prematurely. Compare
+    the actual closing line with the end of each explicit output section,
+    rather than guessing that every fence-looking line is another opener.
+    """
+    lines = markdown.splitlines()
+    starts = [i for i, line in enumerate(lines) if PROMPT_TEMPLATE_HEADING.match(line)]
+    blocks, _ = scan_fences(markdown)
+    by_start = {block.start_line: block for block in blocks}
+    problems = []
+    if len(starts) != 3:
+        problems.append(f"expected 3 persona output templates, found {len(starts)}")
+    for index, start in enumerate(starts):
+        boundary = starts[index + 1] if index + 1 < len(starts) else next(
+            (i for i in range(start + 1, len(lines)) if lines[i] == "## Final Instructions"),
+            len(lines),
+        )
+        first = start + 1
+        while first < boundary and not lines[first].strip():
+            first += 1
+        last = boundary - 1
+        while last > first and lines[last].strip() in ("", "---"):
+            last -= 1
+        block = by_start.get(first + 1)
+        if block is None or block.info.split()[:1] not in (["markdown"], ["md"]):
+            problems.append(f"line {start + 1}: persona output must start with a Markdown fence")
+        elif block.end_line != last + 1:
+            actual = f"line {block.end_line}" if block.end_line is not None else "EOF"
+            problems.append(
+                f"line {first + 1}: persona output fence ends at {actual}, "
+                f"not its section end (line {last + 1}); use an outer fence "
+                "longer than any matching fence inside the template"
+            )
+    return problems
+
+
+def check_markdown_fences():
+    roots = [
+        "README.md", *PART_FILES, "part4-notes-for-agent.md",
+        "docs", "templates", ".claude", ".agents", "examples", "workflow/skills",
+        "cli/README.md",
+    ]
+    paths: set[Path] = set()
+    for name in roots:
+        path = REPO_ROOT / name
+        candidates = path.rglob("*") if path.is_dir() else [path]
+        paths.update(p for p in candidates if p.is_file() and p.suffix in (".md", ".mdc"))
+    problems = []
+    for path in sorted(paths):
+        text = read_text(path)
+        _, file_problems = scan_fences(text)
+        if path.parent == REPO_ROOT and path.name in PART_FILES:
+            file_problems.extend(prompt_template_problems(text))
+        problems.extend(f"{path.relative_to(REPO_ROOT)}: {problem}" for problem in file_problems)
+    if problems:
+        return False, "\n       ".join(problems)
+    return True, f"fence boundaries checked in {len(paths)} files; all 9 persona templates stay in one block"
+
+
+# --------------------------------------------------------------------------
 # Runner
 # --------------------------------------------------------------------------
 def main() -> int:
@@ -496,6 +615,7 @@ def main() -> int:
         ("8.  skill question-bank anchors exist in part1/part2/part3", check_skill_anchors),
         ("9.  workflow skills mention 'Handoff Context'", check_workflow_skills_handoff_context),
         ("10. all skills declare 'allowed-tools' in frontmatter", check_skills_allowed_tools),
+        ("11. Markdown fences close correctly and persona outputs stay intact", check_markdown_fences),
     ]
 
     print(f"Repo contract checks — {REPO_ROOT}")

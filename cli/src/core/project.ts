@@ -42,10 +42,21 @@ export function documentPaths(dir: string, skip: { prd?: boolean; techdesign?: b
   const manifest = readManifest(dir);
   if (manifest) return { prd: projectPath(dir, manifest.documents.prd), techdesign: projectPath(dir, manifest.documents.techdesign) };
   const find = (prefix: string, standard: string) => {
-    const candidates = [join(dir, standard), join(dir, 'docs', standard)].filter(existsSync);
-    const docs = join(dir, 'docs');
-    if (existsSync(docs)) candidates.push(...readdirSync(docs).filter(n => n.startsWith(prefix) && n.endsWith('-MVP.md')).map(n => join(docs, n)));
-    if (candidates.length > 1) throw new Error(`Multiple ${standard} candidates; set document paths in vibe.project.json`);
+    const candidates: string[] = [];
+    for (const base of [dir, join(dir, 'docs')]) {
+      if (!existsSync(base)) continue;
+      for (const entry of readdirSync(base, { withFileTypes: true })) {
+        if (!entry.isFile() && !entry.isSymbolicLink()) continue;
+        if (entry.name === standard || (entry.name.startsWith(prefix) && entry.name.endsWith('-MVP.md'))) {
+          candidates.push(join(base, entry.name));
+        }
+      }
+    }
+    if (candidates.length > 1) {
+      const names = candidates.map(path => relative(dir, path).replace(/\\/g, '/')).sort();
+      const flag = prefix === 'PRD-' ? '--prd' : '--techdesign';
+      throw new Error(`Multiple ${standard} candidates: ${names.join(', ')}; use ${flag} <path> or set document paths in vibe.project.json`);
+    }
     return candidates[0];
   };
   return { prd: skip.prd ? undefined : find('PRD-', 'PRD.md'), techdesign: skip.techdesign ? undefined : find('TechDesign-', 'TECH_DESIGN.md') };

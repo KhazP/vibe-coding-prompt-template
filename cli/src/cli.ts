@@ -19,8 +19,8 @@ Usage:
   vibeworkflow doctor [flags]    Validate a project against the golden-path checklist
 
 init flags:
-  --prd <path>         Path to docs/PRD-*.md (default: auto-detect in <dir>/docs)
-  --techdesign <path>  Path to docs/TechDesign-*.md (default: auto-detect)
+  --prd <path>         PRD path (default: auto-detect in <dir> or <dir>/docs)
+  --techdesign <path>  Tech Design path (default: auto-detect in those folders)
   --tools <list>       Comma-separated: claude,cursor,codex,gemini,copilot,local
                        (default: auto-detect installed AI tools)
   --ai                 Include agent-permissions.example.json (AI features in scope)
@@ -207,12 +207,18 @@ async function runInit(args: ParsedArgs): Promise<void> {
   }
 
   const { prd, tech } = resolveMeta(prdPath, techPath);
-  if (!prd || !tech) throw new Error('Both documents need valid metadata before setup can complete');
+  if (!prd) throw new Error(`${relative(dir, prdPath)} has missing or invalid PRD metadata; use the JSON contract from Part 2 before setup`);
+  if (!tech) throw new Error(`${relative(dir, techPath)} has missing or invalid Tech Design metadata; use the JSON contract from Part 3 before setup`);
   if (tech.appName && prd.appName !== tech.appName) throw new Error('PRD and Tech Design belong to different projects');
+  const documents = {
+    prd: relative(dir, prdPath).replace(/\\/g, '/'),
+    techdesign: relative(dir, techPath).replace(/\\/g, '/'),
+  };
   const result = scaffold({
     targetDir: dir,
     prd,
     tech,
+    documents,
     tools,
     aiInScope: args.ai,
     overwrite: args.force === true,
@@ -221,9 +227,8 @@ async function runInit(args: ParsedArgs): Promise<void> {
   });
 
   if (!existsSync(join(dir, 'vibe.project.json'))) {
-    const paths = { prd: relative(dir, prdPath).replace(/\\/g, '/'), techdesign: relative(dir, techPath).replace(/\\/g, '/') };
-    if (Object.values(paths).every(p => !p.startsWith('..') && !p.includes(':'))) {
-      if (!args.dryRun) writeFileSync(join(dir, 'vibe.project.json'), JSON.stringify({ schemaVersion: 1, templateVersion: '0.3.0', mode: 'guided', tools, documents: paths }, null, 2) + '\n', { flag: 'wx' });
+    if (Object.values(documents).every(p => !p.startsWith('..') && !p.includes(':'))) {
+      if (!args.dryRun) writeFileSync(join(dir, 'vibe.project.json'), JSON.stringify({ schemaVersion: 1, templateVersion: '0.3.0', mode: 'guided', tools, documents }, null, 2) + '\n', { flag: 'wx' });
       result.files.push('vibe.project.json');
     }
   }
@@ -235,6 +240,7 @@ async function runInit(args: ParsedArgs): Promise<void> {
           dir,
           tools,
           toolsSource,
+          documents,
           dryRun: args.dryRun === true,
           files: result.files,
           skipped: result.skipped,
@@ -267,7 +273,7 @@ async function runInit(args: ParsedArgs): Promise<void> {
   }
 
   console.log('\nNext steps (for the agent):');
-  console.log('  1. Read AGENTS.md, then docs/PRD-*.md and docs/TechDesign-*.md.');
+  console.log(`  1. Read AGENTS.md, then ${documents.prd} and ${documents.techdesign}.`);
   console.log('  2. Fill the placeholders above from those docs.');
   console.log('  3. Verify with: npx vibeworkflow doctor');
   console.log('  4. Build the next agreed slice within the user’s authorization, then verify behavior.');

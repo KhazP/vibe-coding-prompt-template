@@ -2,10 +2,10 @@
   <img src="https://img.shields.io/badge/Vibe--Coding-Workflow-blueviolet?style=for-the-badge&logo=rocket&logoColor=white" alt="Vibe-Coding Workflow" height="40"/>
 </p>
 
-<h3 align="center">Vibe Workflow — plan, build, check, and recover</h3>
+<h3 align="center">Vibe Workflow — start a project with AI</h3>
 
 <p align="center">
-  <strong>Your AI can write code. This workflow helps you decide what to build, check what works, and recover when it breaks.</strong>
+  <strong>Four complete prompts to turn your idea into a plan, then build it with your AI coding assistant.</strong>
 </p>
 
 <p align="center">
@@ -30,402 +30,113 @@
 
 ---
 
-## Start here
+## Start a project
 
-**Using an AI coding agent?** Open Claude Code, Cursor, Codex, or Gemini CLI in your project and say:
+**Copy a prompt, answer its questions, save the result, and move to the next step.** You can use a fresh chat for every prompt; attach the saved documents listed below.
 
-> Run `npx vibeworkflow` and follow its instructions.
+The prompts are deliberately detailed and self-contained. Use ChatGPT, Claude, Gemini, or another chat tool for planning, then your preferred AI coding assistant for building. No CLI or skill installation is required.
 
-Start in a clean project folder or your existing app. The workflow inspects what exists, then routes to **start something new**, **continue my project**, or **something broke**. Quick, Guided, and Deep planning keep the questions proportional to your project.
+Create a folder for your app with a `docs/` folder inside. Choose a short filename for your app, such as `ReadingList`, and use it consistently below.
 
-Use `/vibe-change`, `/vibe-debug`, and `/vibe-verify` in an existing app. Available in `vibeworkflow` 0.3.0.
+| Step | Copy the full prompt | Attach | Save in your app folder |
+|---|---|---|---|
+| 1. Research | [Part 1](part1-deepresearch.md) | Your idea; existing notes if useful | Run the generated research request, then save its findings as `docs/research-AppName.md` |
+| 2. Define the MVP | [Part 2](part2-prd-mvp.md) | Completed research findings | `docs/PRD-AppName-MVP.md` |
+| 3. Choose the technical approach | [Part 3](part3-tech-design-mvp.md) | PRD; research optional | `docs/TechDesign-AppName-MVP.md` |
+| 4. Set up your coding assistant | [Part 4](part4-notes-for-agent.md) | PRD and Tech Design | The named instruction files in your app folder |
+| 5. Build | Use the first build prompt below | Open your app folder in your coding assistant | Working code, checked against your PRD |
 
-**Prefer to drive it yourself?** Paste the prompts from this repo into any chat tool, in order:
+On GitHub, open a prompt, select **Raw**, and copy the entire file. If attachments are unavailable, paste each input document with its filename above it.
 
-| Step | What happens | Where |
-| :-- | :-- | :-- |
-| 1. [Deep Research](#phase-1-thinking-through-the-product) | Research with sources when browsing is available; otherwise produce a research prompt | Chat tool |
-| 2. [PRD](#phase-1-thinking-through-the-product) | Define what you're building, and for whom | Chat tool |
-| 3. [Tech Design](#phase-1-thinking-through-the-product) | Pick the surface, stack, and deployment | Chat tool |
-| 4. [Agent files](#phase-2-execution-in-your-ide) | Generate `AGENTS.md` and `agent_docs/` | `npx vibeworkflow` or paste |
-| 5. [Build](#phase-2-execution-in-your-ide) | Ship in small, verified passes | Your AI IDE |
+### 1. Research your idea
 
-<details>
-<summary>See the flow as a diagram</summary>
+Paste Part 1 and answer the questions. It produces a **research request** tailored to your idea. Save that as `research-request-AppName.md` if you want to keep it.
 
-```mermaid
-flowchart LR
-    A[💡 Idea] --> B[📊 Research] --> C[📋 PRD] --> D[🏗️ Tech Design] --> E[🤖 AGENTS.md] --> F[🚀 MVP / AI App]
+**Run that request** in a chat tool with browsing or deep research. Save the resulting findings as `docs/research-AppName.md`. The request itself is not the research report. If browsing is unavailable, keep the findings labeled unverified and carry those uncertainties into your PRD.
 
-    style A fill:#667eea,stroke:#667eea,color:#fff
-    style B fill:#764ba2,stroke:#764ba2,color:#fff
-    style C fill:#f093fb,stroke:#f093fb,color:#fff
-    style D fill:#4facfe,stroke:#4facfe,color:#fff
-    style E fill:#00f2fe,stroke:#00f2fe,color:#000
-    style F fill:#43e97b,stroke:#43e97b,color:#000
-```
+### 2. Define the MVP
 
-</details>
+Paste Part 2 and attach your research findings. Answer any missing questions, then review the must-have features and what stays outside the MVP.
 
-<p align="center">
-  <a href=".claude/README.md">
-    <img src="https://img.shields.io/badge/Using_Claude_Code%3F-Click_here_for_built--in_skills-667eea?style=for-the-badge&logo=anthropic&logoColor=white" alt="Claude Code Skills"/>
-  </a>
-  <a href="https://vibeworkflow.app/#/vibe-coding">
-    <img src="https://img.shields.io/badge/Try_the_Website-Open_Vibe--Coding_Webapp-43e97b?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Vibe-Coding Website"/>
-  </a>
-</p>
+Save the complete PRD as `docs/PRD-AppName-MVP.md`, including its **Handoff Context** and final JSON metadata block. These let the next chat reuse your decisions.
 
----
+### 3. Choose the technical approach
 
-## Table of contents
-- [Start here](#start-here)
-- [Quick start and the 5 steps](#quick-start-and-the-5-steps)
-- [Built with this workflow](#built-with-this-workflow)
-- [Modern AI build paths](#modern-ai-build-paths)
-- [Prerequisites and tools](#prerequisites-and-tools)
-- [Advanced agent practices](#advanced-agent-practices)
-- [AI safety and evidence](#ai-safety-and-evidence)
-- [Project structure and deployment](#project-structure-and-deployment)
-- [Common pitfalls and troubleshooting](#common-pitfalls-and-troubleshooting)
-- [Further reading](#further-reading)
+Paste Part 3 and attach the PRD. The prompt helps you choose a suitable stack, project structure, implementation steps, and checks. Attach the research too if it contains useful constraints.
 
----
+Save the complete result as `docs/TechDesign-AppName-MVP.md`, including its Handoff Context and JSON metadata. Keep the same app name as the PRD.
 
-## Quick start and the 5 steps
+### 4. Set up your coding assistant
 
-### Phase 1: thinking through the product
-Do the first three steps in ChatGPT, Claude.ai, Gemini, or any other chat tool. You do not need a repo yet.
+Paste the **whole Part 4 prompt** and attach both documents. Tell it which coding assistant you plan to use if that is not already recorded. Part 4 includes the core templates, so it works in a fresh chat without a copy of this repository.
 
-### ![Step 1](https://img.shields.io/badge/Step_1-Deep_Research-764ba2?style=flat-square) Deep Research
-<details open>
-<summary><b>Check whether the idea is worth building</b> - 20-30 min</summary>
+Save each returned file at its named path:
 
-This step gives you a quick read on demand, competitors, and whether the scope looks realistic.
+- `AGENTS.md` — lasting project instructions and links to your documents.
+- `MEMORY.md` — current progress, decisions, and next step.
+- `REVIEW-CHECKLIST.md` — checks to use during implementation.
+- `agent_docs/project_brief.md`, `agent_docs/tech_stack.md`, and `agent_docs/testing.md` — practical project details.
+- Any files for your selected coding assistant, such as `CLAUDE.md` or `.cursor/rules/00-project.mdc`.
 
-1. Open [`part1-deepresearch.md`](part1-deepresearch.md) and **copy all of its contents**.
-2. **Paste it** into your preferred AI platform Chat (like Claude.ai, ChatGPT, or Gemini) and press **Enter**.
-3. The AI will ask you a few questions about your idea. Answer them truthfully in the chat.
-4. The AI will generate a comprehensive research document based on your answers.
-5. **Save the output** into a local file named `research-[YourAppName].md` (or `.txt`) or simply **keep this chat open** for Step 2.
+If you run Part 4 inside your coding assistant, it can create the files directly. Review the file list and any unresolved decisions before building.
 
-Tip: if your chat tool supports web search, source grounding, URL context, or deep research mode, turn it on and require cited claims with access dates.
-</details>
+### 5. Build one useful piece
 
-### ![Step 2](https://img.shields.io/badge/Step_2-Product_Requirements-f093fb?style=flat-square) Product Requirements (PRD)
-<details open>
-<summary><b>Write down what the MVP actually needs to do</b> - 15-20 min</summary>
+Open your app folder in your coding assistant and send:
 
-This turns the rough idea into a scope you can build against.
+> Read AGENTS.md, MEMORY.md, and the linked PRD and Tech Design. Propose the smallest useful first feature and how we will check it. Wait for my approval of that plan, then implement it and fix any failures in the agreed scope. Report what changed and what you actually checked.
 
-1. Copy the contents of [`part2-prd-mvp.md`](part2-prd-mvp.md).
-2. **Option A (Same Chat):** If you kept your chat open, paste the prompt right below the Deep Research output.
-3. **Option B (New Chat):** Start a fresh chat, paste your saved `research-[YourAppName].md` content, and then paste the Part 2 prompt below it.
-4. Press Enter, answer any clarifying questions the AI asks, and let it generate your requirements.
-5. **Save the final output** as `PRD-[YourAppName]-MVP.md`.
-</details>
+Approve the plan, try the result, and repeat for the next feature. Once a plan is approved, the assistant should continue through its implementation and checks without asking again for each file edit. Keep current progress in `MEMORY.md` so another chat can pick up where you left off.
 
-### ![Step 3](https://img.shields.io/badge/Step_3-Technical_Design-4facfe?style=flat-square) Technical Design
-<details open>
-<summary><b>Pick a stack you can actually ship with</b> - 15-20 min</summary>
+**See a small example:** [Reading List](examples/first-project/) includes a short walkthrough, sample PRD and Tech Design, and a runnable one-file app.
 
-This step helps you choose the stack, deployment target, AI provider strategy if the product needs AI, and the verification path.
+## Optional skills and CLI
 
-1. Copy the contents of [`part3-tech-design-mvp.md`](part3-tech-design-mvp.md).
-2. Paste it into your **ongoing conversation** (or into a new one, making sure to attach the `PRD-[YourAppName]-MVP.md` from Step 2 as context).
-3. The AI will ask questions regarding your budget, timeline, and complexity tolerance.
-4. Discuss the trade-offs it presents, including no-code/full-code, Vercel vs. Cloudflare, and whether AI evals are required.
-5. Once a stack is decided, **save the output** as `TechDesign-[YourAppName]-MVP.md`.
-</details>
+If you prefer running this workflow inside a coding assistant, this repository also includes reusable skills and a CLI:
 
-### Phase 2: execution in your IDE
-Move into Codex, Cursor, VS Code with Copilot, Claude Code, Antigravity/Gemini-compatible agents, or your preferred coding setup. This is where the project becomes code and verified artifacts.
+- [Skills and tool setup](templates/tool-adapters/README.md) — install only the files your assistant uses.
+- [Claude Code guide](.claude/README.md) — the bundled workflow skills.
+- [CLI guide](cli/README.md) — scaffold from saved project documents, preview changes, and check setup.
 
-### ![Step 4](https://img.shields.io/badge/Step_4-Instantiate_Templates-00f2fe?style=flat-square) Set up the agent files
-<details open>
-<summary><b>Create the docs and instructions your coding agent will rely on</b> - 1-2 min</summary>
+For the CLI route, ask your agent to run `npx vibeworkflow` in your app folder and follow its instructions. Existing files are preserved by default. `doctor` checks **setup**; build and behavior remain **Not checked** until they are exercised.
 
-> **CLI shortcut:** tell your AI agent to run `npx vibeworkflow` from your project folder — the CLI is agent-driven, not meant to be run by hand. If you already have `docs/PRD-*.md` + `docs/TechDesign-*.md` (with the JSON meta block), it scaffolds the files below (skipping anything you've already edited) and verifies with `npx vibeworkflow doctor`. If the docs are missing, it installs the planning skills, auto-detects your AI tools, and prints agent instructions that drive the research → PRD → Tech Design interviews for you — your agent asks the questions one at a time; you just answer. The paste flow below still works everywhere.
+## When you need more detail
 
-This step fills out `AGENTS.md` and the supporting docs from your PRD and tech design.
+| Need | Read |
+|---|---|
+| Understand the output files or fix document discovery | [Document contract](docs/workflow/document-contract.md) |
+| Choose tools, native skills, or adapters | [Agent tooling compatibility](docs/tools/agent-tooling-compatibility.md) |
+| Add AI features or choose an AI build path | [AI feature patterns](docs/ai/feature-patterns.md) · [Build paths](docs/ai/build-paths.md) |
+| Handle AI tools, permissions, and sensitive data | [AI agent security](docs/ai/agent-security.md) |
+| Take a builder prototype into your own codebase | [Builder exit review](docs/workflow/builder-exit-review.md) |
+| Check the workflow output | [Golden path checklist](docs/workflow/golden-path-checklist.md) |
+| Find advanced guides and maintenance notes | [Docs index](docs/README.md) |
 
-1. Create a clean folder for your app. Run `npx vibeworkflow` through your agent. Clone this repository only to develop the workflow itself.
-2. Open your app folder in your **AI IDE** (like Cursor or VS Code).
-3. Create a `docs/` folder in your project root if it does not already exist.
-4. Move your saved documents into `docs/` using these names:
-   - `docs/PRD-[YourAppName]-MVP.md`
-   - `docs/TechDesign-[YourAppName]-MVP.md`
-   - optional: `docs/research-[YourAppName].md` (or `.txt` for backward compatibility)
-5. Open the AI Chat inside your IDE, type: *"Read [`part4-notes-for-agent.md`](part4-notes-for-agent.md), follow its instructions, and set up my workspace."*
-6. The agent should fill the CLI-installed boilerplates (or use the [chat context pack](docs/context-pack.md)), generate selected tool configs (`CLAUDE.md`, `.cursor/rules/`, `GEMINI.md`, `.codex/config.toml`, `.agents/skills/`, etc.), and fill placeholders using the files in `docs/`.
+## Common questions
 
-Default generated files:
-- `AGENTS.md`
-- `MEMORY.md`
-- `REVIEW-CHECKLIST.md`
-- `agent_docs/project_brief.md`
-- `agent_docs/tech_stack.md`
-- `agent_docs/testing.md`
+**Can I change chats or AI tools between steps?** Yes. Copy the full next prompt and attach its required documents. The Handoff Context carries your decisions forward.
 
-Optional generated files:
-- `agent_docs/code_patterns.md` when the codebase has real conventions to preserve.
-- `agent_docs/product_requirements.md` when the PRD is long enough to need a build-facing summary.
-- `.claude/`, `.cursor/`, `.github/`, `.codex/`, `.gemini/`, and local-agent files only for tools the user selected.
-- `agent-permissions.example.json` only when AI tools, MCP servers, or product actions are in scope.
-</details>
+**Do I clone this repository into my app?** No. Start with your own app folder. Clone this repository when you want to develop the workflow itself.
 
-### ![Step 5](https://img.shields.io/badge/Step_5-Build_MVP-43e97b?style=flat-square) Build with AI Agent
-<details open>
-<summary><b>Build the MVP in small, reviewable chunks</b></summary>
+**The assistant asks something I already answered.** Point it to the Handoff Context in the attached document and ask it to confirm only missing or conflicting decisions.
 
-Choose your development environment and start iterating:
-
-1. Ensure your newly generated `AGENTS.md`, `agent_docs/`, and tool configuration files are physically in the project folder.
-2. Give your agent its **first command:** 
-   > *"Read AGENTS.md, propose a Phase 1 plan, wait for my approval, and then build it step by step."*
-3. Treat the agent like a junior developer. Ask it to stop after each major feature, explain the diff, run the project-specific verification commands, and use browser/mobile checks for user-visible flows.
-4. **Repeat the loop** until your MVP is complete:
-
-**Recommended Loop:**
-```text
-╭──────────────╮      ╭──────────────╮      ╭──────────────╮
-│   📝 Plan    │ ───>│  ⚡ Execute │ ───>│  🔍 Verify  │
-│  (Approve)   │      │  (One Feat)  │      │    (Test)    │
-╰──────────────╯      ╰──────────────╯      ╰──────────────╯
-       ▲                                           │
-       └───────────────────────────────────────────┘
-```
-</details>
-
----
+**The assistant says it cannot find a prompt.** Paste the prompt's full contents. A link to this repository does not automatically put the file in your app or chat.
 
 ## Built with this workflow
 
-This repo documents the workflow behind a handful of shipped projects. The goal is simple: do the thinking upfront, hand clean context to your tools, and keep the build phase moving through reviewable plans, tests, and browser checks.
-
 | Project | What it is |
-| :-- | :-- |
-| [vibeworkflow.app](https://vibeworkflow.app) | An interactive web app built around the same structured vibe-coding workflow documented here. |
-| [moneyvisualiser.com](https://moneyvisualiser.com) | A money visualization website that visualized money in a 3D environment. |
-| [caglacabaoglu.com](https://caglacabaoglu.com) | A production portfolio and gallery site built with the same PRD-to-agent execution approach. |
-| [alpyalay.org/realdex](https://alpyalay.org/realdex) | A mobile app built on React Native that lets you catch animals, and put them in a Pokemon-like collection. |
+|---|---|
+| [vibeworkflow.app](https://vibeworkflow.app) | An interactive app for this workflow. |
+| [moneyvisualiser.com](https://moneyvisualiser.com) | A 3D money visualization website. |
+| [caglacabaoglu.com](https://caglacabaoglu.com) | A portfolio and gallery site. |
+| [RealDex App](https://alpyalay.org/realdex) | A React Native animal collection app. |
 
-<p align="center">
-  <sub>Maintained by <a href="https://x.com/alpyalay">Alp Yalay</a>.</sub>
-</p>
-
----
-
-## Modern AI build paths
-
-The five-step workflow stays the same whether you're building a standard web MVP, an AI product on OpenAI/Vercel/Cloudflare/Google, a local-model setup, or a builder prototype — you just make the target surface explicit in Step 3. See [Modern AI build paths](docs/ai/build-paths.md) for the per-path defaults and the exact items to add to your Tech Design, kept current under the [Freshness policy](docs/maintenance/freshness-policy.md).
-
-For AI product features, use [AI feature patterns](docs/ai/feature-patterns.md). For MCP, agent permissions, prompt injection, and provider retention decisions, use [AI agent security](docs/ai/agent-security.md). For builder-generated projects, complete the [Builder exit review](docs/workflow/builder-exit-review.md).
-
----
-
-## Prerequisites and tools
-
-You need a modern browser, a few hours, and enough comfort with files and copy-paste to move between tools. You do not need to be an experienced developer.
-
-### Platform selection guide
-
-| Focus Area | Recommended Tools |
-|------------|-------------------|
-| **Fast Prototype** | Lovable, v0, or Google AI Studio Build mode; verify export and deployment path before committing |
-| **Production Web App** | Next.js/Vercel, Cloudflare Workers, or another boring stack the team can maintain |
-| **AI Product Features** | Provider SDKs, AI SDKs, Workers AI, or local models with cost and data checks |
-| **Learning / Sandbox Coding** | Cursor rules, Codex skills, Antigravity/Gemini legacy, VS Code with Copilot, Continue, Cline, or Aider |
-| **Complex Logic / Delegation** | Claude Code subagents, Codex subagents, or Cursor background agents with scoped tasks |
-| **Budget-Limited AI** | Antigravity/Gemini where currently supported, free-tier provider APIs, or Workers AI, with quota checks and current pricing verification |
-| **Private / Local AI** | LM Studio, Ollama, Continue, Cline, Aider, OpenHands, llama.cpp, or MLX with explicit tool approvals |
-
-Note: I would not use this workflow as-is for native hardware work, heavily regulated products, or safety-critical systems.
-
----
-
-## Advanced agent practices
-
-<details open>
-<summary><b>1. Artifact-first memory and compaction</b></summary>
-
-To avoid context overload, let the agent write durable project facts into files instead of trying to keep everything in one giant chat:
-- **Compaction and handoffs:** Use native compaction/summarization where the tool supports it. When you switch sessions, have the agent write a `specs/001-feature.md` or `recap.md` and load only that file into the new chat.
-- **Repo-owned memory:** Keep decisions and current state in `MEMORY.md`; tool-side memories are personal and should not replace versionable project docs.
-- **Cursor/Codex/Gemini context:** Use project rules, skills, or `GEMINI.md` as concise pointers to `AGENTS.md` and `agent_docs/`, not as huge prompt dumps.
-- If you must restart, attach `AGENTS.md`, `docs/PRD-[YourAppName]-MVP.md`, `docs/TechDesign-[YourAppName]-MVP.md`, and your latest handoff artifact.
-</details>
-
-<details open>
-<summary><b>2. Multi-agent orchestration and plugins</b></summary>
-
-- **Subagents first:** Use focused subagents for research, code review, debugging, and test verification. Use experimental team-style coordination only when agents truly need to communicate or split disjoint modules.
-- **Plan before edit:** Use the tool's actual plan/approval mode where available, then require a short plan before multi-file changes.
-- **Scoped rules and skills:** Keep `AGENTS.md` as the cross-tool source of truth, then add `.cursor/rules/`, `.claude/agents/`, `.codex/config.toml`, `.agents/skills/`, or `GEMINI.md` only as concise tool-specific adapters.
-- **Task routing:** Use [Agent tooling compatibility](docs/tools/agent-tooling-compatibility.md) to decide when to use Codex, Claude Code, Cursor, Copilot, Antigravity, local agents, or builder tools.
-</details>
-
-<details>
-<summary><b>3. Model strategy matrix</b></summary>
-
-Use model families instead of pinned version names. It ages better as models get swapped underneath you.
-
-| Strategy | Primary Families | Best For | Speed |
-|----------|------------------|----------|:-----:|
-| Speed-first | Gemini Flash, Claude Sonnet | Fast prototyping, broad iteration | High |
-| Balanced | Claude Sonnet, Gemini Pro | Daily coding, debugging, planning | Med-High |
-| Depth-first | Claude Opus, Gemini Pro | Deep reasoning, complex refactors | Medium |
-</details>
-
-Always verify current model names, quotas, and pricing against official docs before writing them into project artifacts. Reasoning effort and verbosity are product settings, not automatic quality upgrades.
-
-<details>
-<summary><b>4. Agent observability</b></summary>
-
-When an agent ignores instructions or behaves inconsistently:
-1. Check which instructions/rules/hooks were loaded.
-2. Confirm tool permissions and blocked actions.
-3. Verify the active session context was not reset.
-4. Re-run with explicit instruction order: *"Read AGENTS.md, then agent_docs/, then execute."*
-</details>
-
----
-
-## AI safety and evidence
-
-Treat AI safety as a design-time requirement, not a final polish pass: Step 3 defines the AI surface, data boundaries, approval gates, evals, and cost ceiling; Step 4 generates the matching tool permissions; Step 5 produces evidence (changed files, commands, test/browser results, unresolved risks). Untrusted content — web pages, emails, tool output, RAG chunks, uploads — is data, not instructions.
-
-Full guidance: [AI agent security](docs/ai/agent-security.md) and [AI feature patterns](docs/ai/feature-patterns.md).
-
----
-
-## Project structure and deployment
-
-### Recommended project skeleton
-```
-your-app/
-├── 📁 docs/
-│   ├── research-YourApp.md
-│   ├── PRD-YourApp-MVP.md
-│   └── TechDesign-YourApp-MVP.md
-├── 📁 agent_docs/
-│   ├── tech_stack.md
-│   ├── code_patterns.md
-│   ├── project_brief.md
-│   ├── product_requirements.md
-│   └── testing.md
-├── 📄 AGENTS.md                  # Universal AI instructions (The Master Contract)
-├── 📄 MEMORY.md                  # Artifact-first memory for session continuity
-├── 📁 specs/                     # Agent handoff artifacts (e.g. 001-feature-spec.md)
-├── 📁 .cursor/rules/             # Cursor rules (preferred)
-├── 📁 .claude/agents/            # Optional Claude subagents
-├── 📁 .agents/skills/            # Optional Codex/Codex-compatible skills
-├── 📁 .github/instructions/      # Optional Copilot scoped instructions
-├── 📁 .github/prompts/           # Optional Copilot reusable prompts
-├── 📄 GEMINI.md                  # Optional Antigravity/Gemini legacy memory/config pointer
-├── 📄 llms.txt                   # Optional machine-readable project guide
-└── 📁 src/                       # Your application code
-```
-
-### Deployment and security
-
-Once the MVP works, do a final pass on secrets, auth, and basic abuse protections before you deploy:
-
-1. **Security Pass:** Check dependencies, secrets, auth paths, and rate limits.
-2. **AI Safety Pass:** For AI features, check prompt-injection boundaries, tool/action permissions, provider retention/training settings, logs, cost ceilings, evals, and telemetry redaction.
-3. **Push & Deploy:**
-   - ![Vercel](https://img.shields.io/badge/Vercel-Deploy-000?style=flat-square&logo=vercel) For Next.js, React, frontend apps.
-   - ![Cloudflare](https://img.shields.io/badge/Cloudflare-Pages-F38020?style=flat-square&logo=cloudflare) For static sites, edge functions, and Workers AI.
-
----
-
-## Common pitfalls and troubleshooting
-
-<details>
-<summary><b>Avoid these mistakes</b></summary>
-
-| Pitfall | Solution |
-|---------|----------|
-| Skipping discovery work | Run the Part 1 research prompt first |
-| Letting agents ship code alone | Review the diff and run tests before merging |
-| Publishing auto-generated UIs | Test accessibility and security before launch |
-| Forcing one tool to do everything | Mix tools, IDE + terminal + builder usually works better |
-| Trusting stale tool claims | Re-check official docs and update the last-verified date |
-| Shipping AI tools without evals | Add direct, indirect, negative, auth, and failure-case prompt checks |
-
-</details>
-
-<details>
-<summary><b>Agent troubleshooting</b></summary>
-
-| Problem | Solution |
-|---------|----------|
-| **"AI ignores my docs"** | Say: *"First read AGENTS.md, PRD, and TechDesign. Summarize key requirements before coding."* |
-| **"Code doesn't match PRD"** | Say: *"Re-read the PRD section on [feature], list acceptance criteria, then refactor."* |
-| **"AI is overcomplicating"** | Add to config: *"Prioritize MVP scope. Offer the simplest working implementation."* |
-| **"Deployment failing"** | Request: *"Walk through deployment checklist, verify env vars, then run health check."* |
-
-</details>
-
----
-
-## Further reading
-
-- [Worked example — what the workflow produces end to end](examples/reddit-to-ai/)
-- [Docs index — what to read and when](docs/README.md)
-- [Claude subagents and agent teams — delegated work patterns](docs/tools/claude-agent-teams.md)
-- [Cursor agents, rules, memories, and background agents](docs/tools/cursor-cloud-agents.md)
-- [AI agent security — threat surfaces, tool permissions, and evals](docs/ai/agent-security.md)
-- [AI feature patterns — RAG, structured outputs, memory, approvals, telemetry](docs/ai/feature-patterns.md)
-- [Agent tooling compatibility — choosing adapters and agent surfaces](docs/tools/agent-tooling-compatibility.md)
-- [Builder exit review — no-code/AI builder production checks](docs/workflow/builder-exit-review.md)
-- [Freshness policy — how time-sensitive content is maintained](docs/maintenance/freshness-policy.md)
-- [Golden path checklist — end-to-end workflow validation, partially automated via `scripts/validate.py`](docs/workflow/golden-path-checklist.md)
-
----
-
-## Monthly update cadence
-This template is maintained monthly. Review tool deprecations, refresh model-family references, and update agent capability notes when the ecosystem shifts.
+The [Reddit to AI example](examples/reddit-to-ai/) shows a larger set of project documents, reconstructed from a shipped project.
 
 ## Contributing
 
-<p align="center">
-  <a href="https://github.com/KhazP/vibe-coding-prompt-template/graphs/contributors">
-    <img src="https://img.shields.io/github/contributors/KhazP/vibe-coding-prompt-template?style=for-the-badge&color=blue" alt="Contributors"/>
-  </a>
-  <a href="https://github.com/KhazP/vibe-coding-prompt-template/network/members">
-    <img src="https://img.shields.io/github/forks/KhazP/vibe-coding-prompt-template?style=for-the-badge&color=blue" alt="Forks"/>
-  </a>
-</p>
-
-PRs and issues are welcome. If you adapt this workflow, add a new tool setup, or ship something interesting with it, that is useful context for everyone else too. For community Q&A and roadmap ideas, use [Discussions](https://github.com/KhazP/vibe-coding-prompt-template/discussions). See [.github/CONTRIBUTING.md](.github/CONTRIBUTING.md) for guidelines.
-
----
+Issues, pull requests, and examples are welcome. See the [contribution guide](.github/CONTRIBUTING.md), [Discussions](https://github.com/KhazP/vibe-coding-prompt-template/discussions), and [changelog](docs/CHANGELOG.md). Time-sensitive tool guidance follows the [freshness policy](docs/maintenance/freshness-policy.md).
 
 ## License
 
-Released under the [MIT License](LICENSE).
-
----
-
-<p align="center">
-  <strong>If this workflow helps you ship something real, open an issue or PR and show what changed.</strong>
-</p>
-
-<p align="center">
-  <sub>Created by <a href="https://x.com/alpyalay">@alpyalay</a> and improved through community contributions.</sub>
-</p>
-
-<p align="center">
-  <a href="#workflow-overview">
-    <img src="https://img.shields.io/badge/↑_Back_to_Top-blueviolet?style=for-the-badge" alt="Back to Top"/>
-  </a>
-</p>
-
-## Reliable setup and project recovery
-
-Preview writes with `npx vibeworkflow --dry-run --json`. Existing files are kept unless `--force` is explicitly true. `doctor` checks setup only; build and behavior remain **Not checked** until actually exercised. See the [document contract](docs/workflow/document-contract.md), [worked recipes](docs/workflow/recipes.md), and [compatibility evidence](docs/maintenance/reliability-release.md).
-
-For chat-only setup, download the [single context pack](docs/context-pack.md) and provide it with your product documents. Browser-exported document paths can be recorded in `vibe.project.json`.
-
-Found this useful? [Star the workflow repository](https://github.com/KhazP/vibe-coding-prompt-template) to help others discover it.
+[MIT](LICENSE). Created by [Alp Yalay](https://x.com/alpyalay) and improved through community contributions.

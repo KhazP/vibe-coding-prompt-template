@@ -7,7 +7,7 @@ Do not mark work complete until the relevant checks pass.
 - [ ] Diff is focused on the requested task.
 - [ ] No unrelated files were rewritten.
 - [ ] No secrets, tokens, private logs, or production exports were exposed.
-- [ ] Protected areas were not changed without approval.
+- [ ] Protected actions, if taken, were covered by the user's authorization as defined in AGENTS.md.
 - [ ] Tests/typecheck/build passed or failures are explained.
 - [ ] UI changes were checked in a browser/device when applicable.
 
@@ -24,7 +24,7 @@ Use only if AI, MCP, tool calls, RAG, local models, or builders are involved.
 
 - [ ] Model-visible data is documented.
 - [ ] Retrieved docs/web/issues/uploads/tool output are treated as untrusted data.
-- [ ] Risky actions require approval.
+- [ ] Risky actions follow the authorization boundaries recorded in AGENTS.md.
 - [ ] Direct, bad/indirect, auth-required, failure, and tool/action checks passed.
 - [ ] Logs/traces do not expose secrets or customer data.
 - [ ] Provider retention/training settings were checked before launch.

@@ -1,56 +1,90 @@
-# Tool Adapters — thin pointers, not prompt dumps
+# Optional tool setup
 
-**AGENTS.md is the universal contract.** The instantiated `AGENTS.md` at the
-project root is the source of truth; Codex reads it natively, and most modern
-agents (Claude Code, Cursor, Antigravity) do too. This folder holds the tiny
-per-tool adapter files that point each tool at it. Every adapter is a pointer —
-never a copy of AGENTS.md content.
+Start with the [main workflow](../../README.md). Its full manual prompts can be
+pasted into a fresh chat with the previous stage's output and Handoff Context.
+The setup below is an optional way to use the bundled skills in a coding tool.
 
-## Where each file goes
+Last verified: 2026-10-04 (official documentation only). Skill discovery and
+workflow behavior have **not been checked in live clients for this repository**.
 
-| File in this folder | Copy to (in the user's project) | Tool |
+## Install the bundled skills
+
+In your app folder, ask your coding agent to run:
+
+```text
+npx vibeworkflow --skills-only --tools <tool>
+```
+
+Replace `<tool>` with `codex`, `claude`, `cursor`, `copilot`, or `gemini`.
+The CLI currently uses `gemini` as its selector for Google tooling, including
+Antigravity. This installs `.agents/skills/` and adds the `.claude/skills/`
+mirror when `claude` is selected. It preserves existing files and does not
+generate the project documents in skills-only mode.
+
+For a manual installation, copy this repository's complete `.agents/skills/`
+folder into your app's `.agents/skills/`. For Claude Code, copy the complete
+`.claude/skills/` folder instead. Keep the reference subfolders and the bundled
+collection together: some skills refer to a sibling skill. Use one installation
+route and review existing copies before adding another.
+
+The canonical source is `workflow/skills/`; generated bundles include the
+instructions they need. The workflow repository itself does not need to be
+cloned into your app.
+
+## Invoke the stage you want
+
+| Coding tool | Project skill folder | Example: invoke the PRD stage |
 |---|---|---|
-| `CLAUDE.md` | `CLAUDE.md` (project root) | Claude Code |
-| `cursor/rules/vibe.mdc` | `.cursor/rules/vibe.mdc` | Cursor |
-| `antigravity/rules/vibe.md` | `.agent/rules/vibe.md` | Google Antigravity |
-| `codex/README.md` | — nothing to copy — | Codex (reads `AGENTS.md` natively) |
-| `cursor/commands/vibe-workflow.md` | `.cursor/commands/vibe-workflow.md` | Cursor |
-| `cursor/commands/vibe-research.md` | `.cursor/commands/vibe-research.md` | Cursor |
-| `cursor/commands/vibe-prd.md` | `.cursor/commands/vibe-prd.md` | Cursor |
-| `cursor/commands/vibe-techdesign.md` | `.cursor/commands/vibe-techdesign.md` | Cursor |
-| `cursor/commands/vibe-agents.md` | `.cursor/commands/vibe-agents.md` | Cursor |
-| `cursor/commands/vibe-build.md` | `.cursor/commands/vibe-build.md` | Cursor |
-| `antigravity/workflows/vibe-workflow.md` | `.agent/workflows/vibe-workflow.md` | Google Antigravity |
-| `antigravity/workflows/vibe-research.md` | `.agent/workflows/vibe-research.md` | Google Antigravity |
-| `antigravity/workflows/vibe-prd.md` | `.agent/workflows/vibe-prd.md` | Google Antigravity |
-| `antigravity/workflows/vibe-techdesign.md` | `.agent/workflows/vibe-techdesign.md` | Google Antigravity |
-| `antigravity/workflows/vibe-agents.md` | `.agent/workflows/vibe-agents.md` | Google Antigravity |
-| `antigravity/workflows/vibe-build.md` | `.agent/workflows/vibe-build.md` | Google Antigravity |
-| `codex/prompts/vibe-workflow.md` | `~/.codex/prompts/vibe-workflow.md` (user-level) | Codex |
-| `codex/prompts/vibe-research.md` | `~/.codex/prompts/vibe-research.md` (user-level) | Codex |
-| `codex/prompts/vibe-prd.md` | `~/.codex/prompts/vibe-prd.md` (user-level) | Codex |
-| `codex/prompts/vibe-techdesign.md` | `~/.codex/prompts/vibe-techdesign.md` (user-level) | Codex |
-| `codex/prompts/vibe-agents.md` | `~/.codex/prompts/vibe-agents.md` (user-level) | Codex |
-| `codex/prompts/vibe-build.md` | `~/.codex/prompts/vibe-build.md` (user-level) | Codex |
+| [Codex CLI or IDE extension](https://learn.chatgpt.com/docs/build-skills) | `.agents/skills/` | Choose it with `/skills`, or type `$vibe-prd` |
+| [Claude Code](https://code.claude.com/docs/en/skills) | `.claude/skills/` | `/vibe-prd` |
+| [Cursor](https://cursor.com/docs/skills) | `.agents/skills/` | `/vibe-prd` |
+| [Antigravity](https://antigravity.google/docs/skills) | `.agents/skills/` | `/vibe-prd` |
+| [Copilot in VS Code](https://code.visualstudio.com/docs/agent-customization/agent-skills) | `.agents/skills/` | `/vibe-prd`; use `/skills` to inspect configured skills |
 
-The 18 `vibe-*` files above are optional slash-command shortcuts — one per
-workflow stage (research → build), mirroring the Claude Code skills in
-`.claude/skills/`. Each is a thin wrapper that defers to the root `part*.md`
-files as the single source of truth. Invoke with `/vibe-research` etc. in
-Cursor and Antigravity, or `/prompts:vibe-research` in Codex (restart Codex
-after copying so it picks the prompts up; Codex prompts are user-level only,
-so they work in every project but can't live inside one).
+[Copilot also documents skills for other surfaces](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills).
+The slash-command example above applies to VS Code; check your client's own
+invocation controls elsewhere.
 
-## Notes
+Supply the previous stage's saved output and say which stage to complete.
+For example, after selecting the PRD skill:
 
-- **Cursor:** the `.mdc` frontmatter (`description`, `alwaysApply: true`) makes
-  the rule load in every chat. Legacy `.cursorrules` still works but is
-  deprecated — delete it if one exists.
-- **Antigravity:** current versions read `AGENTS.md` natively; the
-  `.agent/rules/` file is an always-on workspace rule that reinforces it.
-  Global (all-project) rules live in `~/.gemini/GEMINI.md`.
-- **Codex:** see `codex/README.md`. Optional: personal reusable prompts in
-  `~/.codex/prompts/`.
-- **Any other tool** (Gemini CLI, Copilot, Windsurf, Lovable…): open its
-  custom-instructions feature and paste: "Read AGENTS.md — it is the source of
-  truth for this project. Details in `agent_docs/`."
+```text
+Complete the PRD stage only using my research and Handoff Context. Return the
+finished PRD and a handoff explaining what to attach and paste for technical
+design. Wait for me to start that next stage.
+```
+
+Confirm that your client recognizes the intended skill before relying on it.
+If it is unavailable, use the full manual prompt from the main workflow.
+
+## Project instructions and handoffs
+
+`AGENTS.md` holds shared project rules; `agent_docs/` holds implementation
+details, and the repository's `MEMORY.md` holds current progress and handoffs.
+Only add adapter files for the tools you use:
+
+- **Claude Code:** use the `CLAUDE.md` in this folder at your app root, or the
+  fuller generated template. Both use an actual `@AGENTS.md` import. With a
+  project `CLAUDE.md` present, a prose instruction to read `AGENTS.md` does not
+  guarantee that it loads. See [Claude's import guidance](https://code.claude.com/docs/en/memory#share-one-file-with-other-coding-tools).
+- **Codex:** reads `AGENTS.md` natively; see the [Codex setup note](codex/README.md).
+- **Cursor or Copilot:** retain the generated instruction adapter if you use
+  one, pointing to the shared files rather than duplicating their contents.
+- **Antigravity:** use the current [rules guidance](https://antigravity.google/docs/rules)
+  when extra workspace instructions are needed.
+
+Preserve client permission settings and the user's existing authorization for
+routine local work. Shared handoff state is separate from a client's private
+automatic memory.
+
+## Legacy wrappers
+
+The `cursor/commands/`, `antigravity/workflows/`, and `codex/prompts/` files remain
+in this repository for existing setups. They are legacy wrappers, not the
+recommended installation route. New setups use the bundled skills above.
+
+[Codex custom prompts are deprecated in favor of skills](https://learn.chatgpt.com/docs/custom-prompts).
+[Antigravity workflows retire on November 1, 2026](https://antigravity.google/docs/migration/workflows-to-skills/).
+When migrating, review existing wrappers and confirm that the client invokes
+the intended skill. Runtime compatibility remains unverified until that check
+is performed in the installed client.

@@ -1,6 +1,6 @@
 # Memory
 
-Update this after major decisions, completed phases, or bugs that future agents need to know about. Keep it short.
+Update this after major decisions, completed phases, or bugs that future agents need to know about. Keep it short. This shared project handoff is separate from a coding tool's private automatic memory.
 
 ## Current State
 
@@ -26,6 +26,6 @@ Update this after major decisions, completed phases, or bugs that future agents 
 
 - [ ] Initial scaffold
 - [ ] Core data model
-- [ ] Auth
+- [ ] Auth (only if included in the PRD)
 - [ ] Core MVP flow
 - [ ] Launch checks

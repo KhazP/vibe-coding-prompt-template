@@ -72,3 +72,33 @@ test('doctor strict mode promotes warnings to failures', () => {
     rmSync(dir, { recursive: true, force: true });
   }
 });
+
+test('doctor preserves literal code and links while finding declared project and source placeholders', () => {
+  const dir = tmpDir();
+  const fence = (value: unknown) => '```json\n' + JSON.stringify(value) + '\n```';
+  const prd = { schemaVersion: 1, documentType: 'prd', appName: 'Books', oneLiner: 'Keep books', targetUsers: 'Readers', mustHave: ['Add a book'] };
+  try {
+    write(join(dir, 'AGENTS.md'), '# Agents\nRead agent_docs/ first.');
+    write(join(dir, 'MEMORY.md'), '# Memory');
+    write(join(dir, 'REVIEW-CHECKLIST.md'), '# Review');
+    write(join(dir, 'agent_docs/project_brief.md'), '# Brief');
+    write(join(dir, 'agent_docs/tech_stack.md'), '# Stack');
+    const literalExamples = '# Testing\nUse `[data-testid="save"]` and `[aria-label]`.\nJSON: `["feature"]`, `[1, 2]`.\nRead [command](https://example.com), [command][guide] and [guide][command].\n[command]: https://example.com\n- [ ] Browser check\n- [x] Reviewed';
+    write(join(dir, 'agent_docs/testing.md'), literalExamples);
+    write(join(dir, 'PRD.md'), fence(prd));
+    write(join(dir, 'TECH_DESIGN.md'), fence({ schemaVersion: 1, documentType: 'techdesign', appName: 'Books', stack: { frontend: 'HTML' }, commands: { dev: 'python3 -m http.server 8000' } }));
+    assert.equal(doctor({ projectDir: dir }).ok, true);
+
+    write(join(dir, 'agent_docs/testing.md'), literalExamples + '\n- Build: `[command]`');
+    const incompleteSetup = doctor({ projectDir: dir });
+    assert.equal(incompleteSetup.ok, false);
+    assert(incompleteSetup.findings.some(f => f.message === 'agent_docs/testing.md has unfilled placeholders: [command]'));
+
+    write(join(dir, 'agent_docs/testing.md'), literalExamples);
+    write(join(dir, 'PRD.md'), fence({ ...prd, oneLiner: '[one-sentence description]', mustHave: ['[feature]'] }));
+    const incompleteSource = doctor({ projectDir: dir });
+    assert.equal(incompleteSource.ok, false);
+    assert(incompleteSource.findings.some(f => f.message.includes('PRD.md has unfilled placeholders: [one-sentence description], [feature]')));
+    assert.deepEqual(incompleteSource.checks, { setup: 'incomplete', build: 'not-checked', behavior: 'not-checked' });
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});

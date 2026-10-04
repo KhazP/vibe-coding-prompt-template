@@ -2,6 +2,8 @@
 
 I'll help you create a Product Requirements Document (PRD) for your MVP. This document will define WHAT you're building, WHO it's for, and WHY it matters.
 
+**Fresh chat is fine:** paste this entire prompt and attach your saved research findings, `research-[AppName].md`, if you have them. No earlier chat, installed skills, or repository access is required. Part 1's `research-request-[AppName].md` is a request to run research, not the findings.
+
 <details>
 <summary><b>Before We Begin — File Upload Instructions</b></summary>
 
@@ -15,13 +17,12 @@ No problem! We can still create a great PRD. Just let me know and we'll proceed.
 
 </details>
 
-Once you've attached the file (or indicated you don't have one), please tell me about yourself:
+If your attached file or message does not already give your technical level, please tell me about yourself:
 - A) **Vibe-coder** — Great ideas, limited coding experience, using AI to build
 - B) **Developer** — Experienced programmer
 - C) **Somewhere in between** — Some coding knowledge, still learning
 
-Please attach your research file (or type "no file") and type A, B, or C:
-(If your research document ends with a **Handoff Context** block, I'll read these answers from it — just confirm.)
+Please attach your research findings (or type "no file"). Give A, B, or C only if your message or attached Handoff Context does not already include your technical level.
 
 ---
 
@@ -40,9 +41,10 @@ Use the assistant that best fits the available context and verification path. Cl
 | Current tool claims | Can cite official docs or clearly mark uncertainty |
 | Downstream automation | Can emit clean Markdown plus optional structured summaries |
 
-### Session Continuity
-- Continue from your Part 1 thread when possible to preserve context.
-- If a reset is unavoidable, paste a compact handoff summary before asking PRD questions.
+### Fresh-Chat Intake & Session Continuity
+- This prompt works in a new chat using the files and answers provided here. Continuing in the same chat is also fine.
+- Read the supplied research and Handoff Context before asking questions. Never assume access to previous chats, files that were only mentioned, or installed workflow skills.
+- If a needed file is unavailable, ask the user to attach it or paste its contents. Carry decisions and unresolved questions into the output so Part 3 can start independently.
 
 ### Evergreen Naming
 - Prefer model family names in docs and examples (for example: Claude Sonnet, Claude Opus, Gemini Pro, Gemini Flash) instead of pinned version names.
@@ -50,13 +52,13 @@ Use the assistant that best fits the available context and verification path. Cl
 
 </details>
 
-Wait for the user to either:
-1. Attach their research findings file, OR
-2. Indicate they don't have one
+Use research findings already attached or pasted in this chat. If none are available, ask whether the user will attach them or wants to proceed without research; do not require an upload when they choose to proceed.
 
-If they attach a file, do this **required extraction step before asking any questions**:
+**Check what was supplied:** a document titled Deep Research Request or named `research-request-[AppName].md` is not completed research. Ask for its findings or an explicit choice to continue without them. Read the research-status label when present; carry forward partial research and unverified hypotheses without upgrading them to sourced facts.
 
-**Handoff Context block? Read it first.** If the research document ends with a `## Handoff Context` block, pre-fill the user's level, app name, platform, budget, and timeline from it, confirm them in one line ("Got it — level B, web app, ~$50/mo, 4 weeks — right?"), and DON'T re-ask anything it already answers (including the A/B/C classification — go straight to the matching question path). No Handoff Context block? Just ask — this block is new, older documents won't have it.
+When findings are provided, do this **required extraction step before asking unanswered questions**:
+
+**Handoff Context block? Read it first.** Pre-fill the user's level, app name, platform, budget, timeline, constraints, decisions, and open questions. DON'T re-ask anything it already answers, including the A/B/C classification. If there is no Handoff Context, extract what you can from the supplied document or message, then use the complete question paths below for anything still missing. If sources contradict the user's current instructions, show the conflict and ask only when the choice would change the product.
 
 **Extract and restate from the research:**
 - **Project name** — [what the research calls it]
@@ -66,7 +68,7 @@ If they attach a file, do this **required extraction step before asking any ques
 - **Competitor insights** — [similar solutions and gaps found]
 - **Budget/timeline** — [cost and timeframe constraints]
 
-Show this extraction to the user and ask: "Did I get this right? Anything missing?" If any item is missing from the research, ask for it during the Q&A.
+Show the known facts together in a short summary and invite corrections while asking the next unanswered question. If an essential item is missing, ask for it during the Q&A. Use the Verification Echo below to confirm the completed understanding rather than requiring separate confirmations of every previously answered field.
 
 > **Slot-Filling Approach**: The Q&A below gathers all required context before PRD generation. Do NOT generate the PRD until all essential slots are filled. If any critical information is missing, ask follow-up questions.
 
@@ -247,13 +249,14 @@ Wait for user confirmation. If they correct anything, update your understanding 
 > - Replace EVERY [bracketed placeholder] with real content from the interview — no leftover placeholders in the final PRD.
 > - If something is genuinely unknown, write TBD and list it in the Open Questions section.
 > - Never invent market sizes, user numbers, or competitor claims. If a fact isn't from the research or the user, label it as an assumption.
-> - End the PRD with the filled **Handoff Context** block shown at the bottom of the template, carrying values forward from the research and interview. The block always goes last — after the document footer; the canonical `## Out of Scope (Not in MVP)` heading stays where the template places it.
+> - Use this order in the saved file: **PRD body and footer → Handoff Context → final fenced JSON metadata**. Carry the agreed values forward from the research and interview. The canonical `## Out of Scope (Not in MVP)` heading stays where the template places it. Keep save/attach/next instructions outside the saved document.
+> - Keep this prompt comprehensive, but tailor the generated document to the agreed product. Accounts, databases, payments, analytics, AI, web/mobile support, and hosted deployment are conditional requirements, not defaults to add because a template mentions them. Omit inapplicable details or mark them Not applicable with a short reason; preserve relevant requirements and open questions.
 
 After verification, create a PRD appropriate to their level:
 
 ### For Vibe-Coders — PRD-[AppName]-MVP.md:
 
-```markdown
+````markdown
 # Product Requirements Document: [App Name] MVP
 
 ## Product Overview
@@ -261,7 +264,7 @@ After verification, create a PRD appropriate to their level:
 **App Name:** [Name]
 **Tagline:** [Their one-liner in catchier form]
 **Launch Goal:** [What success looks like]
-**Target Launch:** [Date if provided, otherwise "6-8 weeks"]
+**Target Launch:** [Agreed date or TBD; do not invent a launch deadline]
 
 ## Who It's For
 
@@ -414,7 +417,7 @@ After verification, create a PRD appropriate to their level:
 **What This App Will NOT Accept:**
 - Placeholder content in production ("Lorem ipsum", sample images)
 - Broken features — everything listed works or isn't included
-- Skipping mobile testing before launch
+- Skipping testing on the agreed platforms before launch
 - Ignoring accessibility basics
 
 *These standards will be enforced by the AI coding assistant.*
@@ -442,12 +445,12 @@ After verification, create a PRD appropriate to their level:
 The MVP is ready to launch when:
 - [ ] All P0 features are functional
 - [ ] Basic error handling works
-- [ ] It works on mobile and desktop
+- [ ] It works on the platforms and devices agreed above
 - [ ] One complete user journey works end-to-end
-- [ ] Basic analytics are tracking
+- [ ] Analytics are tracking if analytics are in the agreed scope
 - [ ] AI evals, data-boundary checks, and approval gates pass if AI is in scope
 - [ ] Friends/family test is complete
-- [ ] Deployment is automated
+- [ ] The agreed distribution or deployment path works; automate it only if required
 
 ## Next Steps
 
@@ -471,13 +474,18 @@ After this PRD is approved:
 - Target platform: [platform]
 - Budget: [budget]
 - Timeline: [timeline]
-- Source files: research-[AppName].md → PRD-[AppName]-MVP.md
+- AI in product scope: [yes / no / undecided]
+- Research status: [status of supplied research, or not provided]
+- Constraints: [agreed constraints]
+- Decisions: [agreed product and technical decisions]
+- Open questions: [unresolved questions or none]
+- Source files: [actual research filename, or none] → docs/PRD-[AppName]-MVP.md
 ---
-```
+````
 
 ### For Developers — PRD-[AppName]-MVP.md:
 
-```markdown
+````markdown
 # Product Requirements Document: [App Name] MVP
 
 ## Executive Summary
@@ -619,6 +627,7 @@ After this PRD is approved:
 3. [Principle with explanation]
 
 ### Information Architecture
+Adapt this example to the agreed screens. Include authentication, dashboards, and profiles only when required by the MVP.
 ```
 ├── Landing Page
 ├── Authentication
@@ -745,13 +754,18 @@ After this PRD is approved:
 - Target platform: [platform]
 - Budget: [budget]
 - Timeline: [timeline]
-- Source files: research-[AppName].md → PRD-[AppName]-MVP.md
+- AI in product scope: [yes / no / undecided]
+- Research status: [status of supplied research, or not provided]
+- Constraints: [agreed constraints]
+- Decisions: [agreed product and technical decisions]
+- Open questions: [unresolved questions or none]
+- Source files: [actual research filename, or none] → docs/PRD-[AppName]-MVP.md
 ---
-```
+````
 
 ### For In-Between Users — PRD-[AppName]-MVP.md:
 
-```markdown
+````markdown
 # Product Requirements Document: [App Name] MVP
 
 ## Overview
@@ -896,19 +910,19 @@ After this PRD is approved:
 ## Quality Standards
 
 **Code Quality:**
-- Use TypeScript when possible — it catches errors early
+- Use the chosen language's type-checking tools where appropriate
 - Handle errors explicitly — don't hide them
 - Test the important paths before launch
 
 **Design Quality:**
 - Use consistent colors and spacing (design tokens)
-- Test on mobile before desktop
+- Test on the primary target device first, then the other agreed platforms
 - Check accessibility basics (contrast, labels)
 
 **What This Project Will NOT Accept:**
 - Placeholder content ("Lorem ipsum") at launch
 - Features that half-work — complete or cut
-- Skipping mobile testing
+- Skipping testing on the agreed target devices
 
 ## Risk Mitigation
 
@@ -922,14 +936,14 @@ After this PRD is approved:
 ### Development Complete
 - [ ] All core features working
 - [ ] Basic error handling
-- [ ] Mobile responsive
-- [ ] Cross-browser tested
+- [ ] Responsive on the agreed devices, when applicable
+- [ ] Tested on the agreed browsers or product platform
 
 ### Launch Ready
-- [ ] Analytics configured
-- [ ] Basic SEO setup
-- [ ] Contact/support method
-- [ ] Privacy policy & terms
+- [ ] Analytics configured if in scope
+- [ ] Basic SEO setup if public web discovery matters
+- [ ] An appropriate contact/support method is available
+- [ ] Privacy policy and terms provided where applicable to the product
 
 ### Quality Checks
 - [ ] Friends & family tested
@@ -960,21 +974,33 @@ After this PRD is approved:
 - Target platform: [platform]
 - Budget: [budget]
 - Timeline: [timeline]
-- Source files: research-[AppName].md → PRD-[AppName]-MVP.md
+- AI in product scope: [yes / no / undecided]
+- Research status: [status of supplied research, or not provided]
+- Constraints: [agreed constraints]
+- Decisions: [agreed product and technical decisions]
+- Open questions: [unresolved questions or none]
+- Source files: [actual research filename, or none] → docs/PRD-[AppName]-MVP.md
 ---
-```
+````
 
 ---
 
 ## Final Instructions
 
-After generating the appropriate PRD document based on their level, say:
+### Document Output and Order
 
-"I've created your Product Requirements Document (PRD) above. This document defines WHAT you're building and WHY.
+Create **`PRD-[AppName]-MVP.md`** using the same app-name filename stem as Part 1. The final project destination is `docs/PRD-[AppName]-MVP.md`; the user may save it anywhere until they create their app folder in Part 4.
+
+The saved artifact contains, in order:
+1. The completed PRD body and footer.
+2. The filled **Handoff Context** from the selected template.
+3. The fenced JSON metadata below as the final block.
+
+Provide a named downloadable file if file creation is available. Otherwise, present one clearly delimited copyable document; use a longer outer fence if the content contains code fences. Do not include the save/attach instructions or your follow-up question inside that file.
 
 ### Machine-Readable Summary
 
-Append this fenced JSON block to the very end of the document (after the `---`). It powers the `vibe-coding` CLI and downstream automation, so keep field values short and match the PRD exactly:
+Append this fenced JSON block after Handoff Context. It keeps the document compatible with the optional `vibeworkflow` CLI; the manual workflow requires no CLI installation. Match the PRD exactly and use empty arrays where a category has no agreed items:
 
 ```json
 {
@@ -993,28 +1019,36 @@ Append this fenced JSON block to the very end of the document (after the `---`).
 
 ### Self-Verification Checklist
 
-Before proceeding, let's verify the PRD is complete:
+Before presenting the completed PRD, verify it against the supplied answers:
 
 | Required Section | Present? |
 |-----------------|----------|
 | Core problem clearly defined | Yes / No |
 | Target user well described | Yes / No |
-| 3-5 must-have features listed | Yes / No |
-| Each feature has user story | Yes / No |
+| Agreed must-have features listed | Yes / No |
+| Each feature has a user story and observable success criteria | Yes / No |
 | Success metrics defined | Yes / No |
 | Constraints acknowledged | Yes / No |
 | NOT-in-MVP features listed | Yes / No |
+| Handoff Context and JSON agree with the document | Yes / No |
+| Unverified claims and open questions remain clearly labeled | Yes / No |
 
-*If any items are missing, I'll add them now.*
+Fix omissions before handing over the file. These checks validate the document's contents; they are not evidence that the product has been built or tested.
 
-### Next Steps:
+### Save → Attach → Part 3
 
-1. **Review the PRD** — Make sure it captures your vision accurately
-2. **Save the document** as `PRD-[AppName]-MVP.md` in your project folder — keep the `## Handoff Context` block at the end intact; Part 3 reads it
-3. **Proceed to Part 3** to create your Technical Design Document
+After the artifact, tell the user:
 
-The PRD is a living document — update it as you learn from users.
+1. **Review the PRD:** check its scope, must-have features, and out-of-scope list. The PRD is a living document; update it as you learn from users.
+2. **Save** `PRD-[AppName]-MVP.md`, including its Handoff Context and final JSON block. Its eventual location is `docs/PRD-[AppName]-MVP.md`.
+3. **Start Part 3 in your chosen chat:** paste the complete `part3-tech-design-mvp.md` prompt and attach this PRD. You may attach `research-[AppName].md` for additional detail. A fresh chat is fine; no previous conversation or repository access is assumed.
 
-Would you like me to adjust anything in the PRD before moving on to technical design?"
+**Copy this with the full Part 3 prompt and your PRD attached:**
+
+```text
+Use the attached PRD and its Handoff Context to create my technical design with the full Part 3 prompt I have supplied. Reuse my existing answers and preserve the agreed scope, budget, timeline, and constraints. Ask for missing technical decisions. Do not assume access to my previous chat or project files that I have not provided.
+```
+
+End by asking whether the user wants any corrections before they move to technical design. Do not start Part 3 automatically; the user chooses when to continue.
 
 ---

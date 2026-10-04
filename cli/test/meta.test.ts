@@ -44,3 +44,42 @@ test('parseTechMeta extracts stack and commands', () => {
 test('parseTechMeta requires stack or commands', () => {
   assert.equal(parseTechMeta('```json\n{"appName": "x"}\n```'), undefined);
 });
+
+const fence = (value: unknown) => '```json\n' + JSON.stringify(value) + '\n```';
+const versionedPrd = { schemaVersion: 1, documentType: 'prd', appName: 'Books', oneLiner: 'Save books', targetUsers: 'Readers', mustHave: ['Add'] };
+const versionedTech = { schemaVersion: 1, documentType: 'techdesign', appName: 'Books', stack: { frontend: 'HTML' }, commands: { dev: 'python3 -m http.server 8000' } };
+
+test('unrelated schemaVersion examples do not hide the final document metadata', () => {
+  const example = fence({ schemaVersion: 1, theme: 'dark' });
+  assert.equal(parsePrdMeta(example + '\n' + fence(versionedPrd))?.appName, 'Books');
+  assert.equal(parseTechMeta(example + '\n' + fence(versionedTech))?.commands?.dev, versionedTech.commands.dev);
+  const namedConfig = fence({ schemaVersion: 1, appName: 'Config example', theme: 'dark' });
+  assert.equal(parsePrdMeta(namedConfig + '\n' + fence(versionedPrd))?.appName, 'Books');
+  assert.equal(parseTechMeta(namedConfig + '\n' + fence(versionedTech))?.appName, 'Books');
+  assert.equal(parsePrdMeta(example + '\n' + fence({ appName: 'Legacy' }))?.appName, 'Legacy');
+});
+
+test('unrelated examples and legacy fallbacks cannot rescue an invalid document contract', () => {
+  const example = fence({ schemaVersion: 1, theme: 'dark' });
+  for (const invalid of [
+    { ...versionedPrd, schemaVersion: 2 },
+    { ...versionedPrd, documentType: 'techdesign' },
+    { ...versionedPrd, documentType: undefined },
+    { ...versionedPrd, mustHave: [] },
+  ]) {
+    assert.equal(parsePrdMeta(example + '\n' + fence(invalid) + '\n' + fence({ appName: 'Legacy' })), undefined);
+  }
+  for (const invalid of [
+    { ...versionedTech, schemaVersion: 2 },
+    { ...versionedTech, documentType: 'prd' },
+  ]) {
+    assert.equal(parseTechMeta(example + '\n' + fence(invalid)), undefined);
+  }
+});
+
+test('technical metadata cannot silently discard all stack or command choices', () => {
+  assert.equal(parseTechMeta(fence({ ...versionedTech, stack: { framework: 'HTML' } })), undefined);
+  assert.equal(parseTechMeta(fence({ ...versionedTech, commands: { serve: 'python3 -m http.server 8000' } })), undefined);
+  assert.equal(parseTechMeta(fence({ appName: 'Books', stack: { framework: 'HTML' }, commands: { serve: 'serve' } })), undefined);
+  assert.equal(parseTechMeta(fence(versionedTech))?.stack?.frontend, 'HTML');
+});

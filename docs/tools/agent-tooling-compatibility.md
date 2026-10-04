@@ -1,46 +1,98 @@
 # Agent Tooling Compatibility
 
-Last verified: 2026-05
+Last verified: 2026-10-04 (skill and invocation documentation only).
 
-Use this when: you need to choose which AI coding tool or adapter files a generated project should include.
+Use this when choosing optional coding-tool setup after the
+[main Start a project workflow](../../README.md). Full manual prompts remain
+available for fresh chats; install only the tools you intend to use.
 
-## Quick Answer
+## Documented native skills support
 
-Do not generate every adapter. Pick the tools the user will actually use, keep the root instructions short, and point each tool back to `AGENTS.md` and `agent_docs/`.
+The table describes current official documentation. **Live skill discovery and
+workflow behavior for this repository remain Not checked.** A successful file
+installation alone does not establish either.
 
-## Tool Picker
+| Tool | Shared project instructions | Bundled skills | Invoke a stage |
+|---|---|---|---|
+| [Codex CLI / IDE extension](https://learn.chatgpt.com/docs/build-skills) | `AGENTS.md` | `.agents/skills/` | `/skills` picker or `$vibe-prd` |
+| [Claude Code](https://code.claude.com/docs/en/skills) | `CLAUDE.md` with `@AGENTS.md` | `.claude/skills/` | `/vibe-prd` |
+| [Cursor](https://cursor.com/docs/skills) | `AGENTS.md`; optional `.cursor/rules/` adapter | `.agents/skills/` | `/vibe-prd` |
+| [Antigravity](https://antigravity.google/docs/skills) | `AGENTS.md`; extra rules only when needed | `.agents/skills/` | `/vibe-prd` |
+| [Copilot in VS Code](https://code.visualstudio.com/docs/agent-customization/agent-skills) | `.github/copilot-instructions.md` pointing to `AGENTS.md` | `.agents/skills/` | `/vibe-prd`; `/skills` opens configuration |
 
-| Need | Good default | Files |
-|------|--------------|-------|
-| Local agent coding and verification | Codex | `AGENTS.md`, `.codex/config.toml`, `.agents/skills/` |
-| Planning, skills, hooks, subagents | Claude Code | `CLAUDE.md`, `.claude/skills/`, `.claude/agents/`, `.claude/settings.json` |
-| IDE workflow and background agents | Cursor | `.cursor/rules/`, `.cursor/BUGBOT.md`, `.cursor/environment.json.example` |
-| VS Code and GitHub PR workflow | Copilot | `.github/copilot-instructions.md`, `.github/instructions/`, `.github/prompts/` |
-| Google agent-first workflow | Antigravity/Gemini legacy | `GEMINI.md`, `.gemini/settings.json` where supported |
-| Local/private coding | Continue, Cline, Aider, OpenHands | Tool prompt plus local endpoint and approval rules |
-| Prototype/front door | v0, Lovable, Bolt, Replit, other builders | Builder exit review before production |
+Follow the [bundled installation guide](../../templates/tool-adapters/README.md)
+and preserve reference folders and sibling skills. The CLI's Google-tool
+selector is currently `gemini`; it installs the shared `.agents/skills/` bundle
+for Antigravity too.
 
-## Checklist
+[Copilot's other clients also document skills](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills),
+but skill controls differ by surface. Do not assume VS Code's slash commands
+work in every client. For other coding tools, use the full manual prompts or
+verify their documented skill locations and invocation controls first.
 
-- [ ] Only selected tools get adapter files.
-- [ ] Each adapter points to `AGENTS.md`, `agent_docs/`, and `REVIEW-CHECKLIST.md`.
-- [ ] Tool permissions are ask-first for shell, write, network, MCP, production, billing, and destructive actions.
-- [ ] Background agents use isolated branches/worktrees.
-- [ ] Reviews and tests still run after agent output.
+## Instructions, scope, and handoffs
 
-## Example
+- Keep stable shared rules in `AGENTS.md` and details in `agent_docs/`. Generate
+  only the selected tool adapters.
+- Use a real `@AGENTS.md` import when supplying a project `CLAUDE.md`.
+  [Claude's native AGENTS.md loading](https://code.claude.com/docs/en/memory#agentsmd)
+  requires a supported version and, by default, an absent project `CLAUDE.md`.
+  The import also supports sessions where native loading is unavailable.
+- Complete the stage the user selected and return its output and Handoff
+  Context. Begin another stage when the user requests it.
+- Keep the repository's `MEMORY.md` as compact, portable progress for later
+  sessions and other tools. A client's private automatic memory supplements
+  this shared handoff; it does not replace it.
+- Reuse existing authorization for routine local edits and checks. Preserve
+  client permission controls and ask about new external, paid, production, or
+  destructive effects when they are outside the authorized scope.
+- Treat skill permissions as client-specific configuration. For example,
+  [Claude's `allowed-tools`](https://code.claude.com/docs/en/skills#pre-approve-tools-for-a-skill)
+  pre-approves listed tools; it is not a restrictive sandbox. The
+  [open skill specification](https://agentskills.io/specification#allowed-tools-field)
+  marks support for this field as experimental and variable between clients.
 
-If the user says "Cursor and Copilot," generate `.cursor/rules/`, `.cursor/BUGBOT.md`, `.github/copilot-instructions.md`, optional `.github/instructions/`, optional `.github/prompts/`, and skip Claude/Codex/Gemini files.
+One coding session is sufficient for the main workflow. Add subagents,
+background execution, hooks, or MCP only for an actual project requirement.
 
-## Links
+## Legacy routes
 
-- [Claude Code changelog](https://code.claude.com/docs/en/changelog)
-- [Cursor changelog](https://cursor.com/changelog)
-- [GitHub Copilot cloud agent docs](https://docs.github.com/en/copilot/concepts/agents/cloud-agent/mcp-and-cloud-agent)
-- [Google Gemini CLI to Antigravity CLI transition](https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/)
+- [Codex custom prompts](https://learn.chatgpt.com/docs/custom-prompts) are
+  deprecated in favor of skills. Existing wrappers are retained in this repo,
+  but are not a new-install recommendation.
+- [Antigravity workflows](https://antigravity.google/docs/migration/workflows-to-skills/)
+  retire on **November 1, 2026**. Use native skills for new setup and review old
+  wrappers when migrating.
+- Cursor's old command wrappers are retained for existing users; new setup
+  uses the native skill bundle.
+- [Google's Gemini CLI transition](https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/)
+  ended consumer free/Pro/Ultra access to Gemini CLI on June 18, 2026. Antigravity
+  is the consumer route. Gemini CLI remains available through supported
+  enterprise licenses and paid API access; do not treat those as identical setups.
 
-## September 2026 protocol update
+## What to verify in an installed client
 
-Documentation checked 2026-09-05: the [MCP 2026-07-28 release](https://blog.modelcontextprotocol.io/posts/2026-07-28/) introduces a stateless core, authorization changes, and a formal extensions framework. Tasks and MCP Apps are extensions; protocol support alone does not establish that a client supports either. [MCP Apps](https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/) enables assistant-hosted interactive UI.
+1. **Installed:** the complete skill bundle exists in a documented location.
+2. **Recognized:** the client lists or explicitly invokes the intended skill.
+3. **Stage completed:** one real request produces the expected artifact and
+   handoff while respecting the selected scope.
 
-For every claimed combination record client/version, SDK/version, protocol revision, transport, required extensions, authentication flow, scenario, date, result, and evidence path. This repository has not run a live client/SDK interoperability matrix for the new revision. Earlier May entries remain historical guidance; verify the relevant combination before adopting it. See the [assistant-app recipe](../workflow/recipes.md) and [release evidence](../maintenance/reliability-release.md).
+Record client/version, date, request, result, and an evidence path. Keep setup,
+build, and product behavior results separate. See the
+[release evidence and remaining checks](../maintenance/reliability-release.md).
+Native plugin and marketplace distribution are not verified installation
+routes for this package.
+
+## Optional MCP compatibility
+
+Documentation checked 2026-09-05: the
+[MCP 2026-07-28 release](https://blog.modelcontextprotocol.io/posts/2026-07-28/)
+introduces a stateless core, authorization changes, and a formal extensions
+framework. Tasks and [MCP Apps](https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/)
+are extensions; protocol support alone does not establish client support for them.
+
+For a project that needs MCP, record client/version, SDK/version, protocol
+revision, transport, required extensions, authentication flow, scenario, date,
+result, and evidence path. This repository has not run a live client/SDK
+interoperability matrix for that revision. See the
+[assistant-app recipe](../workflow/recipes.md) before choosing an integration.

@@ -23,12 +23,13 @@ is genuinely all there is.
 
 ## Read first — when relevant
 
-- Product scope or acceptance criteria: `docs/PRD-*.md`.
-- Architecture or integration choices: `docs/TechDesign-*.md`.
+- Product scope or acceptance criteria: `[PRD path]`.
+- Architecture or integration choices: `[Tech Design path]`.
 - Non-obvious product constraints: `agent_docs/project_brief.md`.
 - Stack-specific setup: `agent_docs/tech_stack.md`.
 - Choosing or troubleshooting checks: `agent_docs/testing.md`.
 
+Use the actual document paths, as recorded in `vibe.project.json` when present.
 Read only the documents needed for the task. During initial setup, fill relevant
 placeholders from agreed decisions; do not invent missing facts or block an
 unrelated small fix on completing every document. Current progress belongs in

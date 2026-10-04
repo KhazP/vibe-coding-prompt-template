@@ -137,34 +137,6 @@ jobs:
           tomllib.loads(pathlib.Path('templates/.codex/config.toml').read_text())
           PY
 
-      - name: Validate markdown fences
-        run: |
-          node - <<'NODE'
-          const fs = require('fs');
-          const path = require('path');
-          const roots = ['README.md', 'part1-deepresearch.md', 'part2-prd-mvp.md', 'part3-tech-design-mvp.md', 'part4-notes-for-agent.md', 'docs', 'templates', '.claude', '.agents'];
-          const files = [];
-          function walk(target) {
-            if (!fs.existsSync(target)) return;
-            const stat = fs.statSync(target);
-            if (stat.isDirectory()) {
-              for (const entry of fs.readdirSync(target)) walk(path.join(target, entry));
-            } else if (target.endsWith('.md') || target.endsWith('.mdc')) {
-              files.push(target);
-            }
-          }
-          roots.forEach(walk);
-          const bad = [];
-          for (const file of files) {
-            const count = fs.readFileSync(file, 'utf8').split(/\r?\n/).filter((line) => line.trim().startsWith('```')).length;
-            if (count % 2 !== 0) bad.push(file);
-          }
-          if (bad.length) {
-            console.error(`ERROR: Unbalanced markdown fences in:\n${bad.join('\n')}`);
-            process.exit(1);
-          }
-          NODE
-
       - name: Reject unresolved generated placeholders
         run: |
           if grep -rEn '\{\{|\}\}|<TODO|TBD_SOURCE_ANCHOR|TODO_AI_WORKFLOW_UPGRADE' docs templates 2>/dev/null; then
@@ -186,6 +158,7 @@ jobs:
         # Single source of truth for the structural contract — contributors
         # run the same script locally via `python scripts/validate.py`.
         run: |
+          python -m unittest discover -s scripts -p 'test_validate.py'
           python scripts/validate.py --ci
           python scripts/sync-skills.py --check
 

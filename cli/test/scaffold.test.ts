@@ -61,7 +61,8 @@ test('scaffold fills app name and commands deterministically', () => {
     assert.ok(agents.includes('Todo App'), 'AGENTS.md should include app name');
     assert.ok(agents.includes('Track tasks fast'), 'AGENTS.md should include one-liner');
     assert.ok(agents.includes('freelancers'), 'AGENTS.md should include target users');
-    assert.ok(agents.includes('Foundation'), 'AGENTS.md should include phase');
+    assert.ok(!agents.includes('Foundation'), 'mutable phase should stay out of AGENTS.md');
+    assert.ok(readFileSync(join(dir, 'MEMORY.md'), 'utf8').includes('Current phase: Foundation'));
     assert.ok(!agents.includes('[target users]'), '[target users] should be filled');
 
     const claude = readFileSync(join(dir, 'CLAUDE.md'), 'utf8');

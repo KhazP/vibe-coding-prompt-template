@@ -1,7 +1,9 @@
 import { existsSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, relative } from 'node:path';
 import { documentPaths } from './project.js';
 import { parsePrdMeta, parseTechMeta } from './meta.js';
+import { remainingPlaceholders } from './placeholders.js';
+import { resolveTemplatesDir } from './scaffold.js';
 
 export type Severity = 'error' | 'warn';
 
@@ -28,20 +30,6 @@ const REQUIRED_AGENT_DOCS = [
   'agent_docs/testing.md',
 ];
 
-const PLACEHOLDER_RE = /\[([^\]\n]+)\](?!\()/g;
-
-function realPlaceholders(content: string): string[] {
-  const seen = new Set<string>();
-  const matches = content.match(PLACEHOLDER_RE);
-  if (!matches) return [];
-  for (const m of matches) {
-    const inner = m.replace(/^\[|\]$/g, '').trim();
-    if (inner === '' || inner === 'x' || inner === 'X') continue;
-    if (!seen.has(m)) seen.add(m);
-  }
-  return [...seen];
-}
-
 export function doctor(opts: DoctorOptions): DoctorResult {
   const findings: Finding[] = [];
   const push = (severity: Severity, message: string) => findings.push({ severity, message });
@@ -58,27 +46,26 @@ export function doctor(opts: DoctorOptions): DoctorResult {
   try { paths = documentPaths(opts.projectDir); } catch (err) { push('error', String(err)); }
   const prdPath = paths.prd && existsSync(paths.prd) ? paths.prd : undefined;
   const techPath = paths.techdesign && existsSync(paths.techdesign) ? paths.techdesign : undefined;
-  if (prdPath && techPath) {
-    const prd = parsePrdMeta(readFileSync(prdPath, 'utf8'));
-    const tech = parseTechMeta(readFileSync(techPath, 'utf8'));
-    if (prd && tech?.appName && prd.appName !== tech.appName) push('error', 'PRD and Tech Design belong to different projects');
-  }
+  const prdContent = prdPath ? readFileSync(prdPath, 'utf8') : '';
+  const techContent = techPath ? readFileSync(techPath, 'utf8') : '';
+  const prd = parsePrdMeta(prdContent);
+  const tech = parseTechMeta(techContent);
+  const display = (path: string) => relative(opts.projectDir, path).replace(/\\/g, '/');
+  if (prd && tech?.appName && prd.appName !== tech.appName) push('error', 'PRD and Tech Design belong to different projects');
 
   if (!prdPath) {
-    push('error', 'missing docs/PRD-[AppName]-MVP.md');
+    push('error', paths.prd ? `missing ${display(paths.prd)}` : 'missing PRD.md or PRD-*-MVP.md at project root or in docs/; custom paths can be set in vibe.project.json');
   } else {
-    const prd = parsePrdMeta(readFileSync(prdPath, 'utf8'));
     if (!prd) {
-      push('error', 'PRD has no parseable meta block; add the ```json block from part2');
+      push('error', `${display(prdPath)} has missing or invalid PRD metadata; use the JSON contract from Part 2`);
     }
   }
 
   if (!techPath) {
-    push('error', 'missing docs/TechDesign-[AppName]-MVP.md');
+    push('error', paths.techdesign ? `missing ${display(paths.techdesign)}` : 'missing TECH_DESIGN.md or TechDesign-*-MVP.md at project root or in docs/; custom paths can be set in vibe.project.json');
   } else {
-    const tech = parseTechMeta(readFileSync(techPath, 'utf8'));
     if (!tech) {
-      push('error', 'Tech Design has no parseable meta block; add the ```json block from part3');
+      push('error', `${display(techPath)} has missing or invalid Tech Design metadata; use the JSON contract from Part 3`);
     }
   }
 
@@ -89,12 +76,30 @@ export function doctor(opts: DoctorOptions): DoctorResult {
     }
   }
 
-  for (const rel of [...REQUIRED_AGENT_DOCS, 'AGENTS.md']) {
+  let templatesDir: string | undefined;
+  try { templatesDir = resolveTemplatesDir(); } catch (err) { push('error', `Cannot check template placeholders: ${String(err)}`); }
+  const template = (rel: string): string => {
+    const path = templatesDir && join(templatesDir, rel);
+    return path && existsSync(path) ? readFileSync(path, 'utf8') : '';
+  };
+  const requiredTemplates = [...REQUIRED_AGENT_DOCS, 'AGENTS.md'];
+  for (const rel of requiredTemplates) {
     if (!has(rel)) continue;
-    const placeholders = realPlaceholders(readFileSync(join(opts.projectDir, rel), 'utf8'));
+    const source = template(rel);
+    if (templatesDir && !source) push('error', `Cannot check placeholders: missing template ${rel}`);
+    const placeholders = remainingPlaceholders(readFileSync(join(opts.projectDir, rel), 'utf8'), source);
     if (placeholders.length > 0) {
       push('error', `${rel} has unfilled placeholders: ${placeholders.join(', ')}`);
     }
+  }
+  const projectDeclarations = requiredTemplates.map(template).join('\n');
+  for (const [path, content, reference] of [
+    [prdPath, prdContent, '.agents/skills/vibe-prd/references/cli-output.md'],
+    [techPath, techContent, '.agents/skills/vibe-techdesign/references/cli-output.md'],
+  ] as const) {
+    if (!path) continue;
+    const placeholders = remainingPlaceholders(content, projectDeclarations + '\n' + template(reference));
+    if (placeholders.length) push('error', `${display(path)} has unfilled placeholders: ${placeholders.join(', ')}`);
   }
 
   if (has('.claude/settings.json')) {

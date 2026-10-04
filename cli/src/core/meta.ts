@@ -75,15 +75,27 @@ function rec(v: unknown): Record<string, unknown> | undefined {
 
 function metadataBlocks(content: string): unknown[] {
   const blocks = findJsonBlocks(content);
-  const identified = blocks.filter(b => isRecord(b) && (b.schemaVersion !== undefined || b.documentType !== undefined));
-  return identified.length ? identified : blocks;
+  const typed = blocks.filter(b => isRecord(b) && b.documentType !== undefined);
+  if (typed.length) return typed;
+  // A schemaVersion in an ordinary configuration example is not a document
+  // contract. Keep malformed document-shaped contracts so they still fail.
+  const identified = blocks.filter(b => isRecord(b) && b.schemaVersion !== undefined &&
+    ['appName', 'oneLiner', 'targetUsers', 'mustHave', 'stack', 'commands'].some(key => key in b));
+  return identified.length ? identified : blocks.filter(b => !isRecord(b) || b.schemaVersion === undefined);
+}
+
+const STACK_KEYS = ['frontend', 'backend', 'database', 'auth', 'styling', 'deployment'];
+const COMMAND_KEYS = ['setup', 'dev', 'test', 'typecheck', 'lint', 'build'];
+
+function hasKnownValue(value: unknown, keys: string[]): boolean {
+  return isRecord(value) && keys.some(key => !!str(value[key]));
 }
 
 function contract(block: Record<string, unknown>, type: string): boolean {
   if (block.schemaVersion === undefined && block.documentType === undefined) return true; // legacy
   if (block.schemaVersion !== 1 || block.documentType !== type || !str(block.appName)) return false;
   if (type === 'prd') return !!str(block.oneLiner) && !!str(block.targetUsers) && Array.isArray(block.mustHave) && block.mustHave.length > 0 && block.mustHave.every(v => !!str(v));
-  return isRecord(block.stack) && Object.values(block.stack).some(v => !!str(v)) && isRecord(block.commands) && Object.values(block.commands).some(v => !!str(v));
+  return hasKnownValue(block.stack, STACK_KEYS) && hasKnownValue(block.commands, COMMAND_KEYS);
 }
 
 export function parsePrdMeta(content: string): PrdMeta | undefined {
@@ -113,6 +125,9 @@ export function parseTechMeta(content: string): TechMeta | undefined {
     const hasStack = isRecord(block.stack);
     const hasCommands = isRecord(block.commands);
     if (!hasStack && !hasCommands) continue;
+    if (((hasStack && Object.keys(block.stack as object).length > 0) ||
+        (hasCommands && Object.keys(block.commands as object).length > 0)) &&
+        !hasKnownValue(block.stack, STACK_KEYS) && !hasKnownValue(block.commands, COMMAND_KEYS)) return undefined;
 
     const stackSrc = rec(block.stack);
     const stack = hasStack && stackSrc

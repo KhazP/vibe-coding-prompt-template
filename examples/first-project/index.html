@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reading List</title>
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        padding: 2rem 1rem;
+        background: #f7f5ee;
+        color: #202b25;
+        font: 1rem/1.5 system-ui, sans-serif;
+      }
+      main { max-width: 38rem; margin: auto; }
+      h1 { margin-bottom: 0.25rem; }
+      header p { margin-top: 0; }
+      form { margin-top: 2rem; }
+      label { display: block; font-weight: 650; margin-bottom: 0.5rem; }
+      .entry { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+      input, button {
+        font: inherit;
+        padding: 0.7rem 0.9rem;
+        border: 1px solid #717c73;
+        border-radius: 0.4rem;
+      }
+      input { flex: 1 1 14rem; min-width: 0; }
+      button { background: #234c36; color: white; cursor: pointer; }
+      button:disabled { opacity: 0.6; cursor: not-allowed; }
+      :focus-visible { outline: 3px solid #956000; outline-offset: 3px; }
+      #status { min-height: 1.5em; }
+      ul { list-style: none; padding: 0; }
+      li {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.85rem 0;
+        border-bottom: 1px solid #cdd2c9;
+      }
+      li span { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+      li button { background: transparent; color: #234c36; }
+      footer { margin-top: 2rem; font-size: 0.9rem; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Reading List</h1>
+        <p>A small place for your next books.</p>
+      </header>
+
+      <form id="book-form">
+        <label for="book-title">Book title</label>
+        <div class="entry">
+          <input id="book-title" name="title" maxlength="200" required
+            autocomplete="off" placeholder="For example, Dune">
+          <button id="add-book" type="submit">Add book</button>
+        </div>
+      </form>
+      <p id="status" role="status"></p>
+
+      <section aria-labelledby="list-heading">
+        <h2 id="list-heading">Your books</h2>
+        <p id="empty">Your list is empty.</p>
+        <ul id="books"></ul>
+      </section>
+
+      <footer>Saved in this browser. Clearing browser data removes this list.</footer>
+      <noscript><p>Enable JavaScript to add and save books.</p></noscript>
+    </main>
+
+    <script>
+      const storageKey = "reading-list-example:v1";
+      const form = document.querySelector("#book-form");
+      const titleInput = document.querySelector("#book-title");
+      const addButton = document.querySelector("#add-book");
+      const list = document.querySelector("#books");
+      const empty = document.querySelector("#empty");
+      const status = document.querySelector("#status");
+      let books = [];
+      let storageReady = true;
+
+      try {
+        const saved = localStorage.getItem(storageKey);
+        if (saved !== null) {
+          const parsed = JSON.parse(saved);
+          if (!Array.isArray(parsed) || !parsed.every(title => typeof title === "string")) {
+            throw new Error("Unexpected saved format");
+          }
+          books = parsed;
+        }
+      } catch {
+        storageReady = false;
+        titleInput.disabled = true;
+        addButton.disabled = true;
+        status.textContent = "Saved books could not be read. Reload or check browser storage before editing. Your saved data has not been changed.";
+      }
+
+      function save(nextBooks) {
+        if (!storageReady) return false;
+        try {
+          localStorage.setItem(storageKey, JSON.stringify(nextBooks));
+          books = nextBooks;
+          render();
+          return true;
+        } catch {
+          status.textContent = "Could not save this change. Your list has not changed. Check browser storage and try again.";
+          return false;
+        }
+      }
+
+      function render() {
+        list.replaceChildren();
+        empty.hidden = books.length > 0 || !storageReady;
+        books.forEach((title, index) => {
+          const item = document.createElement("li");
+          const label = document.createElement("span");
+          label.textContent = title;
+          const remove = document.createElement("button");
+          remove.type = "button";
+          remove.textContent = "Remove";
+          remove.setAttribute("aria-label", "Remove " + title);
+          remove.addEventListener("click", () => {
+            if (save(books.filter((_, position) => position !== index))) {
+              status.textContent = "Removed " + title + ".";
+              titleInput.focus();
+            }
+          });
+          item.append(label, remove);
+          list.append(item);
+        });
+      }
+
+      titleInput.addEventListener("input", () => titleInput.setCustomValidity(""));
+      form.addEventListener("submit", event => {
+        event.preventDefault();
+        const title = titleInput.value.trim();
+        if (!title) {
+          titleInput.setCustomValidity("Enter a book title.");
+          titleInput.reportValidity();
+          return;
+        }
+        if (save([...books, title])) {
+          titleInput.value = "";
+          status.textContent = "Added " + title + ".";
+          titleInput.focus();
+        }
+      });
+
+      render();
+    </script>
+  </body>
+</html>

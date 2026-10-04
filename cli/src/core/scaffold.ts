@@ -2,6 +2,7 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSy
 import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { CommandsMeta, PrdMeta, TechMeta, Tool } from './meta.js';
+import { remainingPlaceholders } from './placeholders.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -12,6 +13,8 @@ export interface InitOptions {
   templatesDir?: string;
   prd?: PrdMeta;
   tech?: TechMeta;
+  /** Resolved document references, relative to the project directory. */
+  documents?: { prd: string; techdesign: string };
   tools?: Tool[];
   aiInScope?: boolean;
   /** Only write skill files (.agents/skills/, plus per-tool skill dirs). */
@@ -28,13 +31,6 @@ export interface ScaffoldResult {
   remainingPlaceholders: Array<{ file: string; placeholders: string[] }>;
 }
 
-interface FillEntry {
-  search: string;
-  value?: string;
-}
-
-const PLACEHOLDER_RE = /\[([^\]\n]+)\](?!\()/g;
-
 function appName(prd?: PrdMeta, tech?: TechMeta): string | undefined {
   return prd?.appName ?? tech?.appName;
 }
@@ -46,6 +42,7 @@ export function resolveTemplatesDir(explicit?: string): string {
   const candidates = [
     join(__dirname, '..', 'templates'), // dist/templates (published)
     join(__dirname, '..', '..', '..', 'templates'), // repo root (dev)
+    join(__dirname, '..', '..', '..', '..', 'templates'), // compiled source tests
   ];
   for (const c of candidates) {
     if (existsSync(join(c, 'AGENTS.md'))) return c;
@@ -53,7 +50,7 @@ export function resolveTemplatesDir(explicit?: string): string {
   throw new Error('templates directory not found; set VIBE_TEMPLATES_DIR');
 }
 
-function buildFillMap(prd?: PrdMeta, tech?: TechMeta): Map<string, string> {
+function buildFillMap(prd?: PrdMeta, tech?: TechMeta, documents?: InitOptions['documents']): Map<string, string> {
   const map = new Map<string, string>();
   const name = appName(prd, tech);
 
@@ -63,7 +60,14 @@ function buildFillMap(prd?: PrdMeta, tech?: TechMeta): Map<string, string> {
   }
   if (prd?.oneLiner) map.set('[one sentence]', prd.oneLiner);
   if (prd?.targetUsers) map.set('[target users]', prd.targetUsers);
-  if (prd?.phase) map.set('[Discovery / Foundation / Core MVP / Polish / Launch]', prd.phase);
+  if (prd?.phase) {
+    map.set('[Discovery / Foundation / Core MVP / Polish / Launch]', prd.phase);
+    map.set('[phase]', prd.phase);
+  }
+  if (documents) {
+    map.set('[PRD path]', documents.prd);
+    map.set('[Tech Design path]', documents.techdesign);
+  }
   if (tech?.stack) {
     const s = tech.stack;
     if (s.frontend) map.set('[framework/version]', s.frontend);
@@ -121,19 +125,6 @@ function fillTemplate(content: string, fill: Map<string, string>, commands?: Com
   return fillCommands(out, commands);
 }
 
-function remainingPlaceholders(content: string): string[] {
-  const seen = new Set<string>();
-  const matches = content.match(PLACEHOLDER_RE);
-  if (!matches) return [];
-  for (const m of matches) {
-    const key = m.trim();
-    const inner = key.replace(/^\[|\]$/g, '').trim();
-    if (inner === '' || inner === 'x' || inner === 'X') continue;
-    if (!seen.has(key)) seen.add(key);
-  }
-  return [...seen];
-}
-
 function listFiles(dir: string, base: string, out: string[]): string[] {
   for (const entry of readdirSync(dir)) {
     if (entry === '.DS_Store') continue;
@@ -151,7 +142,7 @@ function listFiles(dir: string, base: string, out: string[]): string[] {
 export function scaffold(opts: InitOptions): ScaffoldResult {
   const templatesDir = resolveTemplatesDir(opts.templatesDir);
   const tools = new Set<Tool>(opts.tools ?? []);
-  const fill = buildFillMap(opts.prd, opts.tech);
+  const fill = buildFillMap(opts.prd, opts.tech, opts.documents);
 
   const allFiles = listFiles(templatesDir, templatesDir, []);
 
@@ -164,6 +155,8 @@ export function scaffold(opts: InitOptions): ScaffoldResult {
   for (const rel of selected) {
     const src = join(templatesDir, rel);
     const dest = join(opts.targetDir, rel);
+    const template = readFileSync(src, 'utf8');
+    const reusableSkill = isSkillFile(rel, tools);
 
     let content: string;
     if (existsSync(dest) && opts.overwrite !== true) {
@@ -172,7 +165,7 @@ export function scaffold(opts: InitOptions): ScaffoldResult {
       skipped.push(rel);
       content = readFileSync(dest, 'utf8');
     } else {
-      content = fillTemplate(readFileSync(src, 'utf8'), fill, opts.tech?.commands);
+      content = reusableSkill ? template : fillTemplate(template, fill, opts.tech?.commands);
       if (!opts.dryRun) {
         mkdirSync(dirname(dest), { recursive: true });
         writeFileSync(dest, content);
@@ -180,7 +173,8 @@ export function scaffold(opts: InitOptions): ScaffoldResult {
       files.push(rel);
     }
 
-    const placeholders = remainingPlaceholders(content);
+    if (reusableSkill) continue;
+    const placeholders = remainingPlaceholders(content, template);
     if (placeholders.length > 0) {
       remaining.push({ file: rel, placeholders });
     }

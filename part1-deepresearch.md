@@ -1,13 +1,15 @@
 # Part 1 — Deep Research Prompt Builder
 
-I'm going to help you create a research prompt for your project. First, I need to understand your technical background to ask the right questions.
+I'm going to help you create a research prompt for your project. **Part 1 produces a research request, not completed research.** You will run that request in your chosen research tool, save the findings, and attach those findings to Part 2.
+
+You can start in a fresh chat. If you already have project notes or a Handoff Context, attach them with this prompt; otherwise, the questions below gather everything needed.
 
 **Are you a:**
 - A) **Vibe-coder** — You have great ideas but limited coding experience
 - B) **Developer** — You have programming experience
 - C) **Somewhere in between** — You know some basics but still learning
 
-Please type A, B, or C:
+Please type A, B, or C if your attached notes or message do not already give your technical level:
 
 ---
 
@@ -37,16 +39,18 @@ Choose based on current capabilities and the verification path, not old ranking 
 - Distinguish sourced facts from model knowledge when needed
 - For pricing, quotas, model names, and beta features, say "verify current docs" instead of treating the answer as permanent
 
-### Session Continuity
-- Keep this project in a single ongoing conversation where possible.
-- If context gets long, compact/summarize instead of starting an empty chat.
-- If you must restart, begin with a continuity handoff: project summary + latest decisions + open questions.
+### Fresh-Chat Intake & Session Continuity
+- This prompt is self-contained and works in a fresh chat; do not assume access to another conversation, a repository, installed skills, or files that were only mentioned.
+- Read the project description and any files actually attached here. If a Handoff Context is present, reuse the technical level, project name, platform, budget, timeline, decisions, and constraints it supplies.
+- Briefly state what is already known, then use the complete question path below only for missing information. Do not ask the user to repeat an answer already supplied.
+- If a referenced file is unavailable, ask the user to attach it or paste the relevant content.
+- Continuing in the same conversation is also fine. If context gets long, save a compact summary of decisions and open questions for the next chat.
 
 </details>
 
-Based on the user's response, follow the appropriate question path below. Ask questions **one at a time** and wait for responses before proceeding.
+Based on the user's response and available notes, follow the appropriate question path below. Ask unanswered questions **one at a time** by default; if the user prefers a batch or answers several at once, accept those answers and skip the completed questions. Explain unfamiliar terms and offer a suggested default when the user is unsure.
 
-> **Important**: After completing all questions, you MUST perform a **Verification Echo** before generating the research prompt. This confirms your understanding is correct.
+> **Important**: After resolving the relevant questions, you MUST perform a **Verification Echo** before generating the research prompt. This confirms your understanding is correct.
 
 ### If User Selects A (Vibe-coder):
 
@@ -131,7 +135,7 @@ Based on the user's response, follow the appropriate question path below. Ask qu
 
 ## Step 1: Verification Echo (Required)
 
-After completing ALL questions, summarize your understanding back to the user:
+After gathering the required context from the supplied notes and unanswered questions, summarize your understanding back to the user:
 
 **Template:**
 > "Let me confirm I understand your project correctly:
@@ -178,10 +182,12 @@ For simpler Vibe-coder projects, you may skip this step and proceed directly to 
 
 ## Step 3: Generating the Research Prompt
 
-After verification (and optional planning), generate a research prompt tailored to their level:
+After verification (and optional planning), generate one self-contained research request tailored to their level. Include the agreed project context, constraints, decisions, and unanswered research questions in the request itself, so the next tool needs no access to this chat. Use one consistent `[AppName]` filename stem across the workflow.
+
+Name the request **`research-request-[AppName].md`**. Its execution will produce a separate findings file, **`research-[AppName].md`**. The final project destination for the findings is `docs/research-[AppName].md`; the user can save both files anywhere until they create their project folder.
 
 ### For Vibe-Coders, create:
-```markdown
+````markdown
 ## Deep Research Request: [App Name]
 
 <context>
@@ -221,7 +227,13 @@ I'm a non-technical founder building [description]. I need beginner-friendly res
 - Use tables for comparisons
 - Highlight any conflicting information between sources
 - Separate official-doc facts from community/anecdotal signal
-- End the document with this exact block, so the next workflow step can pre-fill instead of re-asking:
+- Produce findings as `research-[AppName].md` (final project path: `docs/research-[AppName].md`), separate from this research request.
+- Begin the findings with **Research status: Researched with sources / Partial research / Not researched — unverified hypotheses**, choosing the status that reflects work actually performed.
+- If browsing is unavailable, say so. Offer clearly labeled hypotheses and unanswered questions; do not invent citations, access dates, current prices, or research results. Record any decisions still requiring sourced research.
+- End the findings with this filled Handoff Context so Part 2 works in a fresh chat. Preserve user-provided constraints and distinguish agreed decisions from research recommendations.
+- After the saved findings, outside the document, tell the user: "Save research-[AppName].md. Next, paste the complete part2-prd-mvp.md prompt into a chat and attach these findings. You may use a new chat; no earlier conversation is required."
+
+Use this Handoff Context at the end of the findings:
 
 ```
 ## Handoff Context
@@ -233,13 +245,17 @@ I'm a non-technical founder building [description]. I need beginner-friendly res
 - Budget: [budget]
 - Timeline: [timeline]
 - AI in product scope: [yes / no / undecided]
-- Source files: research-[AppName].md
+- Research status: [actual research status and limitations]
+- Constraints: [agreed constraints]
+- Decisions: [agreed decisions; label recommendations separately]
+- Open questions: [unresolved questions or none]
+- Source files: research-request-[AppName].md → docs/research-[AppName].md
 ```
 </output_format>
-```
+````
 
 ### For Developers, create:
-```markdown
+````markdown
 ## Deep Research Request: [Project Name]
 
 <context>
@@ -300,7 +316,13 @@ I need comprehensive technical research on [topic] for [context].
 - **Explicitly note where sources disagree** or data is uncertain
 - Include pros/cons for each major recommendation
 - Include an AI architecture section only when relevant: provider, data sent, retention/training setting to verify, tools/actions, output schema, eval set, telemetry, fallback, and cost ceiling
-- End the document with this exact block, so the next workflow step can pre-fill instead of re-asking:
+- Produce findings as `research-[AppName].md` (final project path: `docs/research-[AppName].md`), separate from this research request.
+- Begin the findings with **Research status: Researched with sources / Partial research / Not researched — unverified hypotheses**, choosing the status that reflects work actually performed.
+- If browsing is unavailable, say so. Offer clearly labeled hypotheses and unanswered questions; do not invent citations, access dates, current prices, or research results. Record any decisions still requiring sourced research.
+- End the findings with this filled Handoff Context so Part 2 works in a fresh chat. Preserve user-provided constraints and distinguish agreed decisions from research recommendations.
+- After the saved findings, outside the document, tell the user: "Save research-[AppName].md. Next, paste the complete part2-prd-mvp.md prompt into a chat and attach these findings. You may use a new chat; no earlier conversation is required."
+
+Use this Handoff Context at the end of the findings:
 
 ```
 ## Handoff Context
@@ -312,13 +334,17 @@ I need comprehensive technical research on [topic] for [context].
 - Budget: [budget]
 - Timeline: [timeline]
 - AI in product scope: [yes / no / undecided]
-- Source files: research-[AppName].md
+- Research status: [actual research status and limitations]
+- Constraints: [agreed constraints]
+- Decisions: [agreed decisions; label recommendations separately]
+- Open questions: [unresolved questions or none]
+- Source files: research-request-[AppName].md → docs/research-[AppName].md
 ```
 </output_format>
-```
+````
 
 ### For In-Between Users, create:
-```markdown
+````markdown
 ## Deep Research Request: [Project Name]
 
 <context>
@@ -364,7 +390,13 @@ I'm building [description] with some technical knowledge. I need research that b
 - Use tables for comparisons
 - **Note any conflicting information** between sources
 - Provide pros/cons for major decisions
-- End the document with this exact block, so the next workflow step can pre-fill instead of re-asking:
+- Produce findings as `research-[AppName].md` (final project path: `docs/research-[AppName].md`), separate from this research request.
+- Begin the findings with **Research status: Researched with sources / Partial research / Not researched — unverified hypotheses**, choosing the status that reflects work actually performed.
+- If browsing is unavailable, say so. Offer clearly labeled hypotheses and unanswered questions; do not invent citations, access dates, current prices, or research results. Record any decisions still requiring sourced research.
+- End the findings with this filled Handoff Context so Part 2 works in a fresh chat. Preserve user-provided constraints and distinguish agreed decisions from research recommendations.
+- After the saved findings, outside the document, tell the user: "Save research-[AppName].md. Next, paste the complete part2-prd-mvp.md prompt into a chat and attach these findings. You may use a new chat; no earlier conversation is required."
+
+Use this Handoff Context at the end of the findings:
 
 ```
 ## Handoff Context
@@ -376,20 +408,24 @@ I'm building [description] with some technical knowledge. I need research that b
 - Budget: [budget]
 - Timeline: [timeline]
 - AI in product scope: [yes / no / undecided]
-- Source files: research-[AppName].md
+- Research status: [actual research status and limitations]
+- Constraints: [agreed constraints]
+- Decisions: [agreed decisions; label recommendations separately]
+- Open questions: [unresolved questions or none]
+- Source files: research-request-[AppName].md → docs/research-[AppName].md
 ```
 </output_format>
-```
+````
 
 ---
 
 ## Final Instructions
 
-After generating the appropriate research prompt, say:
+Provide the generated request as a named downloadable file when file creation is available; otherwise, present one clearly delimited copyable block. Keep the instructions below **outside the saved request**. Do not say that research has been completed when you have only prepared its request.
 
-"Session continuity reminder: save a short summary of this research and reuse it in Part 2 instead of restarting from scratch."
+After generating the request, say:
 
-"I've created your research prompt above. Here's how to get the best results:
+"Your research request is ready as **research-request-[AppName].md**. The next action is to run it in a research-capable AI tool. That tool will produce the separate findings file for Part 2.
 
 ### Choosing an AI Platform for Research:
 
@@ -400,11 +436,18 @@ After generating the appropriate research prompt, say:
 | Technical claims | Official docs lookup and clear uncertainty notes |
 | Automation | Structured Markdown plus optional JSON summary |
 
-### How to Use:
-1. Copy the research prompt above
-2. Paste it into your chosen AI platform
-3. Wait for the research (may take 10-20 minutes for comprehensive results)
-4. Review the sources cited — verify critical recommendations
+### Save → Run Research → Save Findings → Part 2
+1. **Save the request** as `research-request-[AppName].md` wherever you keep this project's files.
+2. **Run it:** open your chosen research tool, enable browsing or deep research if available, and paste the full request. A fresh chat is fine.
+3. **Review the result:** check its research-status label, cited sources, important recommendations, and remaining uncertainties. Research duration depends on the tool and scope. A request or unverified hypotheses must not be presented as completed sourced research.
+4. **Save the findings** as `research-[AppName].md`, keeping the Handoff Context. When you create your app folder in Part 4, put this file at `docs/research-[AppName].md`.
+5. **Start Part 2:** paste the complete `part2-prd-mvp.md` prompt into your chosen chat and attach `research-[AppName].md`. Attach the findings, not `research-request-[AppName].md`.
+
+**Copy this with the Part 2 prompt and your findings attached:**
+
+```text
+Use the attached research findings and their Handoff Context to create my PRD with the full Part 2 prompt I have supplied. Reuse the answers already present; ask for missing details. Check the research-status label and keep unverified claims labeled. Do not assume access to my previous chat.
+```
 
 **Pro tip**: Run the same prompt on 2 different platforms and compare results. This catches blind spots and validates recommendations.
 

@@ -4,20 +4,27 @@ All notable changes to the Vibe-Coding Prompt Template are documented here, in [
 
 ## [Unreleased]
 
+## [3.2.0] - 2026-10-04
+
 ### Changed
+- **Manual start:** the README leads with one five-step project path; skills and the CLI remain optional.
+- **Fresh-chat prompts:** Parts 1–3 retain all question sets and A/B/C templates, reuse attached decisions, and end with exact save/attach/next instructions. Part 4 bundles its core templates and separates stable rules from shared progress.
+- **Tool instructions:** Claude imports AGENTS.md, shared memory and authorization rules agree, and optional setup guides point to native skills with dated official sources.
 - **Interviews accept batched answers:** the skills (and the CLI's kickoff prompt) no longer insist on one question at a time no matter what. Answer several questions in one go and the agent takes them and moves on instead of re-asking; say "I don't know" and it proposes a default for you to confirm. Shipped as `vibeworkflow` 0.2.1.
 - **part3 is prompt-sized again:** v3.0.0 deliberately stripped the prefab Terraform, SQL schemas, CI workflows, and framework snippets out of the tech design prompt, and the 3.1.0 merge put them back. Removed again — each is now a one-line instruction to generate that artifact for *your* stack, with v3.0.0's generation guardrails restored. 1,627 lines down to 1,448.
 - **`tool-adapters/` no longer ships in the npm package:** the CLI never scaffolded it, so 23 files were dead weight in every install — the tarball drops from 74 files to 53. Still in the repo for manual copying, as the README and part4 describe. Shipped as `vibeworkflow` 0.2.2.
 
 ### Added
+- **Small first-project example:** Reading List includes concise sample documents and a dependency-free app; verification status is stated explicitly.
+- **Copyable-template checks:** local validation and CI now catch premature closing of nested Markdown fences; generated Part 4 templates are checked for drift.
 - **Security section in `REVIEW-CHECKLIST.md`:** dependency audit, input validated and sanitized at the boundary, auth-protected routes tested while logged out, and rate limiting considered for public endpoints — restored from v3.0.0, which the 3.1.0 merge had dropped.
 - **part4 Step 0 — know where you're running:** read `templates/` from disk in an IDE, or ask the user to paste them in a chat, and never recreate the templates from memory.
 
 ### Fixed
+- **Research handoff:** Part 1's research request is clearly distinct from the findings needed by Part 2.
+- **CLI setup:** discover root-level app-specific document names, preserve resolved paths, leave reusable skills unchanged, and check only declared placeholders. Metadata diagnostics distinguish document contracts from unrelated JSON examples.
+- **Regression coverage:** CLI phase tests check MEMORY.md, with additional path, placeholder, and metadata cases.
 - **npm provenance:** `cli/package.json` had no `repository` field, so trusted publishing signed a provenance statement npm then rejected with a 422. Declared it (with `directory: "cli"`), plus `homepage` and `bugs`.
-
-### Removed
-- **Reading-list demo:** removed the runnable browser example and its active documentation links.
 
 ## [3.1.0] - 2026-08-20
 

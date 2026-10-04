@@ -2,6 +2,8 @@
 
 I'll help you create a Technical Design Document for your MVP. This document will define HOW to build what you outlined in your PRD using modern tools and best practices.
 
+**Fresh chat is fine:** paste this entire prompt and attach `PRD-[AppName]-MVP.md`. You may also attach `research-[AppName].md`. Everything needed to conduct the technical-design interview is included here; no previous conversation, installed skills, or repository access is assumed.
+
 <details>
 <summary><b>Before We Start — Required Documents</b></summary>
 
@@ -17,12 +19,12 @@ These documents ensure the technical design perfectly aligns with your product r
 
 </details>
 
-Once you've attached the file(s), please confirm your technical level:
+If your message or attached PRD does not already give your technical level, choose:
 - A) **Vibe-coder** — Limited coding, using AI to build everything
 - B) **Developer** — Experienced programmer
 - C) **Somewhere in between** — Some basics, still learning
 
-Please attach your PRD (and optionally your research) and type A, B, or C:
+Please attach your PRD (and optionally your research). Type A, B, or C only if that answer is not already available.
 
 ---
 
@@ -44,11 +46,15 @@ Use the assistant that can reason through trade-offs, cite current official docs
 
 **Stability note:** Prefer stacks and tools the team can realistically maintain. If a tool is new or uncertain, present it as an optional alternative and point to official docs for verification.
 
-**Continuity note:** Keep technical design in the same project conversation where possible. If the session gets too long, summarize/compact instead of opening an empty thread.
+**Continuity note:** You may use the same conversation or a fresh chat. Read the actual PRD and Handoff Context supplied here; never assume access to another chat or files that were only mentioned. The resulting technical design must carry enough context for Part 4 to start independently.
 
 </details>
 
-Wait for the user to attach their PRD document. Read it thoroughly to understand:
+Use the PRD already attached or pasted here. If it is unavailable, ask the user to attach it or paste its contents before producing a design.
+
+**Handoff Context first:** read it before interviewing. Reuse the user level, app name, platform, budget, timeline, AI scope, constraints, agreed decisions, and open questions. Read the rest of the PRD to check those details; use its JSON metadata as a summary, not a replacement for the requirements. If a consequential conflict remains, explain it and ask for a decision. Do not re-ask known answers or require the user to upload a file already available in this chat.
+
+Read the PRD thoroughly to understand:
 - Product name and core purpose
 - Must-have features
 - Target users and their technical level
@@ -62,7 +68,7 @@ If research is also provided, scan for:
 - Cost considerations
 - Technical complexity insights
 
-Then ask these questions ONE AT A TIME based on their technical level:
+Briefly summarize the known requirements and ask only the remaining questions from the complete path below. Ask ONE AT A TIME by default, or batch them if the user prefers. Accept multi-answer replies and skip answered questions. For an unfamiliar choice, explain the options and suggest a default for confirmation. Skip AI and builder follow-ups when those are explicitly out of scope.
 
 ### Path A — Vibe-Coder Questions:
 
@@ -245,7 +251,7 @@ Then ask these questions ONE AT A TIME based on their technical level:
 
 ## Step 1: Verification Echo (Required)
 
-After completing ALL questions, summarize your understanding back to the user:
+After gathering the required context from the PRD, supplied notes, and unanswered questions, summarize your understanding back to the user:
 
 **Template:**
 > "Let me confirm I understand your technical requirements:
@@ -269,7 +275,7 @@ Wait for user confirmation. If they correct anything, update your understanding.
 
 ## Step 2: Generate Technical Design Document
 
-After verification, create a Tech Design Doc appropriate to their level.
+After verification, create `TechDesign-[AppName]-MVP.md` appropriate to their level, using the same app-name filename stem as the PRD. Its final project destination is `docs/TechDesign-[AppName]-MVP.md`; the user can save it anywhere until they create their app folder in Part 4.
 
 > **Important**: For each major technical decision, you MUST:
 > 1. **Provide alternatives** — Show 2-3 options with pros/cons
@@ -277,7 +283,9 @@ After verification, create a Tech Design Doc appropriate to their level.
 > 3. **Acknowledge trade-offs** — Be honest about limitations
 
 > **Generation guardrails:**
-> - No ready-made implementations appear in the templates below on purpose. Generate schemas, configs, CI pipelines, and tests fresh for the user's actual stack, or defer them to their coding agent at build time. A prefab example from a different stack is worse than none.
+> - The code, schemas, folder trees, and deployment sequences below are illustrative. Generate the final design for the user's actual stack, or defer implementation details to the coding agent at build time. Do not copy an example from a different stack into the final design.
+> - Keep the prompt comprehensive, but include accounts, databases, auth, payments, analytics, product AI, hosted deployment, and scaling infrastructure only when the PRD requires them. Preserve the agreed scope; beginner explanations do not imply a particular stack or extra services.
+> - Write a self-contained design: carry the product goal, constraints, decisions, and unresolved questions into Handoff Context. Use the order **design body and footer → Handoff Context → final fenced JSON metadata**. Keep save/attach/next instructions outside the saved artifact.
 > - Leave no unfilled `[brackets]`. Anything genuinely unknown goes into an **Open Questions** section marked TBD, phrased as the question the user still needs to answer.
 > - Never invent prices, benchmarks, or performance figures — label estimates as estimates and point at the vendor's current pricing page.
 
@@ -296,7 +304,7 @@ Do not present any row as mandatory. Pick the simplest option that satisfies the
 
 ### For Vibe-Coders — TechDesign-[AppName]-MVP.md:
 
-```markdown
+````markdown
 # Technical Design Document: [App Name] MVP
 
 ## How We'll Build It
@@ -321,7 +329,8 @@ Based on your requirements, timeline, and experience level, here's the optimal p
 
 ## Project Setup Checklist
 
-### Step 1: Create Accounts (Day 1)
+### Step 1: Create Accounts (Example: Day 1)
+Create only the accounts needed for the agreed approach; a local-only app may need no hosting or database account.
 - [ ] [Primary tool] account — [URL]
 - [ ] [Hosting service] account — [URL]
 - [ ] [Database/Backend] account — [URL]
@@ -330,7 +339,7 @@ Based on your requirements, timeline, and experience level, here's the optimal p
 ### Step 2: AI Assistant Setup (Day 1)
 - [ ] Install [Cursor/VS Code/other]
 - [ ] Add AI extension/assistant
-- [ ] Configure with API key
+- [ ] Sign in using the selected tool's supported account/subscription; configure an API key only if that chosen integration requires one
 - [ ] Test with "Hello World"
 
 ### Step 3: Project Initialization (Day 2)
@@ -556,8 +565,10 @@ Please fix and explain the issue.
 
 ### When You Hit These Milestones:
 
+These are example review checkpoints, not capacity guarantees. Base upgrades on actual load, measured performance, and provider limits rather than user count alone.
+
 **100 Users:**
-- Current setup handles fine
+- Check whether the current setup meets the measured workload
 - Monitor performance
 - Gather feedback
 
@@ -567,9 +578,9 @@ Please fix and explain the issue.
 - Optimize database queries
 
 **10,000 Users:**
-- Move to dedicated infrastructure
-- Add caching layer
-- Consider hiring help
+- Compare current capacity with managed upgrades or dedicated infrastructure if measurements justify a change
+- Add caching only for a demonstrated bottleneck
+- Consider hiring help if maintenance needs exceed the team's capacity
 
 ## Maintenance & Updates
 - Prefer stable dependencies and avoid unnecessary churn
@@ -623,9 +634,9 @@ Please fix and explain the issue.
 
 ### Before Launch
 - [ ] All PRD features working
-- [ ] Tested on mobile
+- [ ] Tested on the agreed browsers or devices
 - [ ] Basic error handling
-- [ ] Analytics connected
+- [ ] Analytics connected if included in the PRD
 - [ ] Backup plan ready
 
 ## Definition of Technical Success
@@ -633,7 +644,7 @@ Please fix and explain the issue.
 Your technical implementation is successful when:
 - It runs without crashing
 - Core features from PRD work
-- It's deployed and accessible
+- It runs on the agreed platform and intended users can access it
 - You can update it yourself
 - Monthly costs are under budget
 - You understand how to maintain it
@@ -643,11 +654,11 @@ Your technical implementation is successful when:
 *Approach: [Chosen approach]*
 *Estimated Time to MVP: [Weeks]*
 *Estimated Cost: $[Amount]/month*
-```
+````
 
 ### For Developers — TechDesign-[AppName]-MVP.md:
 
-```markdown
+````markdown
 # Technical Design Document: [App Name] MVP
 
 ## Executive Summary
@@ -937,16 +948,18 @@ Consider agent-facing tooling only when it improves implementation or verificati
 *Last Updated: [Date]*
 *Next Review: [Date + 1 month]*
 *Technical Lead: [Name]*
-```
+````
 
 ### For In-Between Users — TechDesign-[AppName]-MVP.md:
 
-```markdown
+````markdown
 # Technical Design Document: [App Name] MVP
 
 ## Overview
 
 This document explains how we'll build [App Name] using an approach that balances simplicity with learning opportunities.
+
+> Adapt the examples below to the chosen stack. React, Supabase, and Vercel illustrate one web-app route; they do not require adding accounts, a database, or hosting to a project that does not need them. Replace irrelevant examples with the actual PRD feature and implementation approach.
 
 ## Recommended Approach
 
@@ -1011,9 +1024,11 @@ Based on your skills and goals, here's the optimal strategy:
 
 Based on your PRD, here's the implementation plan:
 
-### Feature 1: [User Authentication]
+### Feature 1: [First Core Feature from PRD]
 
-**Complexity:** Easy with Supabase
+The following authentication example applies only if the PRD requires accounts and Supabase was chosen. Otherwise, replace it with implementation steps for the actual first feature.
+
+**Complexity:** [Assess for the chosen feature and stack]
 
 #### Implementation Steps
 
@@ -1201,14 +1216,16 @@ If your MVP includes AI features, define:
 
 ## Step-by-Step Implementation
 
+The week labels below illustrate the sequence. Adjust the schedule to the agreed timeline; do not invent a deadline or add services to fill a phase.
+
 ### Week 1: Foundation
 - [ ] Set up development environment
 - [ ] Create project structure
-- [ ] Deploy "Hello World" to Vercel
-- [ ] Connect Supabase backend
+- [ ] Run "Hello World" on the agreed local or hosted target
+- [ ] Connect the chosen backend only if the PRD needs one
 
 ### Week 2-3: Core Features
-- [ ] Implement authentication
+- [ ] Implement authentication only if included in the PRD
 - [ ] Build [Feature 1 from PRD]
 - [ ] Build [Feature 2 from PRD]
 - [ ] Add basic styling
@@ -1216,7 +1233,7 @@ If your MVP includes AI features, define:
 ### Week 4: Polish & Launch
 - [ ] Improve UI/UX
 - [ ] Add error handling
-- [ ] Test on mobile
+- [ ] Test on the agreed browsers or devices
 - [ ] Deploy to production
 
 ## Common Challenges & Solutions
@@ -1242,7 +1259,7 @@ If your MVP includes AI features, define:
 
 ## Deployment Guide
 
-### Deploy to Vercel (Recommended)
+### Example: Deploy to Vercel (Only If Selected)
 
 1. **Connect GitHub**
    - Push code to GitHub
@@ -1292,6 +1309,8 @@ If your MVP includes AI features, define:
 ## Learning Resources
 
 ### Your Learning Path
+
+Use these topics only for a React/Supabase/Vercel project. For another stack, provide equivalent resources for the actual choices; do not introduce services just to follow this example.
 
 #### This Week: React Basics
 - **Video:** [YouTube — React in 100 Seconds]
@@ -1351,41 +1370,46 @@ Your technical implementation succeeds when:
 ---
 *Created for: [App Name]*
 *Your Path: Balanced Learning Approach*
-*Estimated Time: 4-6 weeks*
+*Estimated Time: [Agreed estimate, or TBD]*
 *Support: Available through AI + communities*
-```
+````
 
 ---
 
 ## Final Instructions
 
-After generating the appropriate Technical Design Document based on their level, say:
+### Document Output and Order
 
-"I've created your Technical Design Document above. This document defines HOW to build what's described in your PRD.
+Create **`TechDesign-[AppName]-MVP.md`** as one named downloadable file when possible, or as one clearly delimited copyable document. If that document contains code fences, use a longer outer fence. The saved file contains the completed design body and footer, then Handoff Context, then the final JSON block. Keep the save/attach instructions and follow-up question outside it.
 
+The final project destination is `docs/TechDesign-[AppName]-MVP.md`. Use the same `[AppName]` filename stem as the approved PRD and retain its constraints even when another tool will handle Part 4.
 
-### Handoff Context (required)
+### Handoff Context (Required)
 
-End the document with this exact block. The next workflow step reads it to pre-fill
-answers instead of re-asking; `vibeworkflow` reads the JSON block below it.
+Place this filled block after the document footer and before the JSON metadata. Part 4 can read it in a fresh chat without repeating the interview. List only source files actually provided, and preserve unknowns instead of inventing decisions.
 
-```
+```markdown
 ## Handoff Context
-<!-- Machine-readable summary for the next workflow step. Do not delete; the next prompt in the workflow reads this block. -->
+<!-- Summary for the next workflow step. Keep this block with the saved document. -->
 - Stage: techdesign
 - App name: [App Name]
 - User level: [A | B | C]  (A = vibe coder, B = developer, C = in-between)
 - Target platform: [platform]
 - Budget: [budget]
 - Timeline: [timeline]
-- Chosen stack: [frontend + backend + database + hosting, one line]
-- AI coding tool: [tool(s) chosen, if decided]
-- Source files: research-[AppName].md → PRD-[AppName]-MVP.md → TechDesign-[AppName]-MVP.md
+- AI in product scope: [yes / no / undecided]
+- Chosen stack: [chosen components and deployment/distribution target; note absent components]
+- AI coding tool: [tool(s) chosen, or undecided]
+- Constraints: [agreed product, technical, cost, and privacy constraints]
+- Decisions: [agreed choices and key trade-offs]
+- Open questions: [unresolved questions or none]
+- Research status: [status of supplied research, or not provided]
+- Source files: [actual supplied filenames] → docs/TechDesign-[AppName]-MVP.md
 ```
 
 ### Machine-Readable Summary
 
-Append this fenced JSON block to the very end of the document (after the `---`). It powers the `vibe-coding` CLI and downstream automation, so use the exact stack and commands you chose:
+Append this fenced JSON block as the **last block in the saved document**. It keeps the design compatible with the optional `vibeworkflow` CLI; using the manual workflow requires no CLI installation. Match the actual chosen stack and documented commands. Omit component keys that do not apply, and leave unknown or inapplicable commands empty rather than inventing them. Explain missing commands in Open Questions; optional CLI setup may need them finalized first. Commands here are planning data, not evidence that they have been executed.
 
 ```json
 {
@@ -1398,15 +1422,15 @@ Append this fenced JSON block to the very end of the document (after the `---`).
     "database": "[database/ORM]",
     "auth": "[provider]",
     "styling": "[library/system]",
-    "deployment": "[host]"
+    "deployment": "[host or distribution target]"
   },
   "commands": {
-    "setup": "[exact command]",
-    "dev": "[exact command]",
-    "test": "[exact command]",
-    "typecheck": "[exact command]",
-    "lint": "[exact command]",
-    "build": "[exact command]"
+    "setup": "[exact command, or empty if not applicable/unknown]",
+    "dev": "[exact command, or empty if not applicable/unknown]",
+    "test": "[exact command, or empty if not applicable/unknown]",
+    "typecheck": "[exact command, or empty if not applicable/unknown]",
+    "lint": "[exact command, or empty if not applicable/unknown]",
+    "build": "[exact command, or empty if not applicable/unknown]"
   },
   "aiScope": "[none / in-app AI / automation / agent]"
 }
@@ -1414,37 +1438,43 @@ Append this fenced JSON block to the very end of the document (after the `---`).
 
 ### Self-Verification Checklist
 
-Let's verify the Technical Design is complete:
+Before presenting the completed design, verify it against the PRD and supplied answers:
 
 | Required Section | Present? |
 |-----------------|----------|
 | Platform/approach clearly chosen | Yes / No |
-| Alternatives compared with pros/cons | Yes / No |
-| Tech stack fully specified | Yes / No |
+| Meaningful alternatives compared with pros/cons | Yes / No |
+| Required stack components specified; unnecessary services excluded | Yes / No |
 | Trade-offs honestly acknowledged | Yes / No |
-| Cost breakdown included | Yes / No |
-| Timeline realistic | Yes / No |
+| Cost breakdown included, with estimates and unverified items labeled | Yes / No |
+| Timeline reflects the user's constraints or is explicitly unresolved | Yes / No |
 | AI assistance strategy defined | Yes / No |
+| Handoff Context and JSON agree with the design and PRD | Yes / No |
+| Verification commands or manual checks described honestly | Yes / No |
 
-*If any items are missing, I'll add them now.*
+Fix omissions before handing over the file. This is a review of the design, not proof that the app has been built or tested.
 
 ### Critical Review Questions
 
-Before proceeding, let's sanity-check:
-1. **Does this tech stack match the budget?** (Free tiers vs paid)
-2. **Does the timeline match the complexity?** (Realistic expectations)
-3. **Are there any security concerns?** (User data, payments)
+Before proceeding, sanity-check:
+1. **Does this tech stack match the budget?** Account for free-tier limits and any paid services.
+2. **Does the timeline match the complexity?** Label estimates and unresolved constraints.
+3. **Are there relevant security concerns?** Capture data access, permissions, and payments only where applicable.
 
-**Save this as** `TechDesign-[AppName]-MVP.md` in your project folder.
+### Save → Attach → Part 4
 
-### Your Documents So Far:
-1. Research findings (Part 1)
-2. PRD — what to build (Part 2)
-3. Technical Design — how to build it (Part 3)
+After the artifact, give the user these instructions:
 
-### Next Step:
-Proceed to **Part 4** to generate the AGENTS.md file and tool-specific configuration files that will guide your AI assistant in building the actual code.
+1. **Review and save** `TechDesign-[AppName]-MVP.md`, including its Handoff Context and final JSON block. Its eventual location is `docs/TechDesign-[AppName]-MVP.md`.
+2. **Gather the next step's inputs:** the approved `PRD-[AppName]-MVP.md`, this technical design, and the complete `part4-notes-for-agent.md` prompt. Research findings are optional additional context. Part 4 includes its setup templates; no separate skill installation or context-pack attachment is required.
+3. **Start Part 4 in your chosen chat or coding tool:** paste the entire Part 4 prompt and attach the PRD and technical design. A fresh chat is fine. In a coding workspace, the agent can instead read files you have actually saved under `docs/`; provide the Part 4 prompt itself rather than assuming it is already in the project.
 
-Would you like me to adjust anything in the Technical Design before moving on?"
+**Copy this with the full Part 4 prompt and both documents attached:**
+
+```text
+Use the attached PRD and technical design, including their Handoff Context, to prepare my agent files with the full Part 4 prompt I have supplied. Preserve the agreed scope, stack, budget, and constraints. Reuse my selected coding tool if recorded; ask if it is still undecided. If you cannot write project files here, provide clearly named files for me to save. Do not assume access to earlier chats or files that I have not supplied.
+```
+
+End by asking whether the user wants corrections before they move to setup. Do not start setup or coding automatically; the user chooses when to continue.
 
 ---

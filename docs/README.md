@@ -1,10 +1,13 @@
 # Docs
 
-Most users only need the main README and the golden path checklist. The rest of these files are reference cards for specific decisions.
+Start with [Start a project](../README.md#start-a-project). Copy the full prompts in order and attach the previous documents; a fresh chat works at every step. These pages are optional references for particular decisions.
 
 ## Read This First
 
+- [Reading List example](../examples/first-project/) - a short manual walkthrough with a runnable one-file app.
 - [Golden path checklist](workflow/golden-path-checklist.md) - verify the five-step workflow produced the right files.
+- [Document contract](workflow/document-contract.md) - filenames, metadata, and optional CLI setup checks.
+- [Chat context pack](context-pack.md) - optional separate copy of the core templates already included in Part 4.
 - [Freshness policy](maintenance/freshness-policy.md) - maintainer-only rules for keeping AI/tooling claims current.
 - [Changelog](CHANGELOG.md) - notable changes to this template and the `vibeworkflow` CLI.
 

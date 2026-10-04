@@ -1,4 +1,8 @@
-# Worked Example: Reddit to AI
+# Worked examples
+
+**Start small:** [Reading List](first-project/) is a concise manual walkthrough with sample documents and a runnable one-file app.
+
+## Larger example: Reddit to AI
 
 *Reconstructed example — this project shipped before the workflow existed; these docs show what following the workflow produces.*
 
