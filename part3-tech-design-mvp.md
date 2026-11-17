@@ -275,7 +275,7 @@ Wait for user confirmation. If they correct anything, update your understanding.
 
 ## Step 2: Generate Technical Design Document
 
-After verification, create `TechDesign-[AppName]-MVP.md` appropriate to their level, using the same app-name filename stem as the PRD. Its final project destination is `docs/TechDesign-[AppName]-MVP.md`; the user can save it anywhere until they create their app folder in Part 4.
+After verification, create `TechDesign-[AppName]-MVP.md` appropriate to their level, using the same app-name filename stem as the PRD. Its final project destination is `docs/TechDesign-[AppName]-MVP.md`; save it in the app's `docs/` folder, or anywhere for now if the user has not created the app folder yet.
 
 > **Important**: For each major technical decision, you MUST:
 > 1. **Provide alternatives** — Show 2-3 options with pros/cons

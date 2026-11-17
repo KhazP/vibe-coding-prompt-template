@@ -26,15 +26,22 @@ Perform the PRD's acceptance steps in a browser. There is no install, compilatio
 
 ## Handoff Context
 
-- App: Reading List.
-- Level: Beginner; assistant implements, owner reviews and checks.
-- Platform: Local browser page, served by Python 3.
+<!-- Summary for the next workflow step. Keep this block with the saved document. -->
+- Stage: techdesign
+- App name: Reading List
+- User level: A (vibe coder); the assistant implements, the owner reviews and checks.
+- Target platform: Local browser page, served by Python 3.
 - Budget: No paid services.
 - Timeline: One small example; no delivery deadline.
-- Mode: Manual workflow; fresh chats are supported.
+- AI in product scope: no
+- Chosen stack: One HTML file with inline JavaScript and `localStorage`, served locally by Python 3; no backend, database, auth, or deployment.
+- AI coding tool: undecided; selected during Part 4.
+- Mode: Quick; manual workflow, fresh chats are supported.
 - Constraints: No dependencies, backend, accounts, AI, or deployment.
 - Decisions: One HTML file; `localStorage`; explicit storage-error messages.
-- Open questions: Select the coding assistant during Part 4; browser checks remain pending.
+- Open questions: Browser checks remain pending.
+- Research status: Not provided.
+- Source files: docs/PRD-ReadingList-MVP.md → docs/TechDesign-ReadingList-MVP.md
 
 ## Metadata
 

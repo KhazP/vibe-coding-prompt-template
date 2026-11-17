@@ -184,7 +184,7 @@ For simpler Vibe-coder projects, you may skip this step and proceed directly to 
 
 After verification (and optional planning), generate one self-contained research request tailored to their level. Include the agreed project context, constraints, decisions, and unanswered research questions in the request itself, so the next tool needs no access to this chat. Use one consistent `[AppName]` filename stem across the workflow.
 
-Name the request **`research-request-[AppName].md`**. Its execution will produce a separate findings file, **`research-[AppName].md`**. The final project destination for the findings is `docs/research-[AppName].md`; the user can save both files anywhere until they create their project folder.
+Name the request **`research-request-[AppName].md`**. Its execution will produce a separate findings file, **`research-[AppName].md`**. The final project destination for the findings is `docs/research-[AppName].md`; save both files in the app's `docs/` folder, or anywhere for now if the user has not created the app folder yet.
 
 ### For Vibe-Coders, create:
 ````markdown
@@ -440,7 +440,7 @@ After generating the request, say:
 1. **Save the request** as `research-request-[AppName].md` wherever you keep this project's files.
 2. **Run it:** open your chosen research tool, enable browsing or deep research if available, and paste the full request. A fresh chat is fine.
 3. **Review the result:** check its research-status label, cited sources, important recommendations, and remaining uncertainties. Research duration depends on the tool and scope. A request or unverified hypotheses must not be presented as completed sourced research.
-4. **Save the findings** as `research-[AppName].md`, keeping the Handoff Context. When you create your app folder in Part 4, put this file at `docs/research-[AppName].md`.
+4. **Save the findings** as `research-[AppName].md`, keeping the Handoff Context. Put it at `docs/research-[AppName].md` in your app folder (create the folder first if you have not yet).
 5. **Start Part 2:** paste the complete `part2-prd-mvp.md` prompt into your chosen chat and attach `research-[AppName].md`. Attach the findings, not `research-request-[AppName].md`.
 
 **Copy this with the Part 2 prompt and your findings attached:**

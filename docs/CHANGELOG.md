@@ -20,7 +20,7 @@ Ships with `vibeworkflow` 0.4.0.
 - **`tool-adapters/` no longer ships in the npm package:** the CLI never scaffolded it, so 23 files were dead weight in every install — the tarball drops from 74 files to 53. Still in the repo for manual copying, as the README and part4 describe. Shipped as `vibeworkflow` 0.2.2.
 
 ### Added
-- **Small first-project example:** `examples/first-project/` is a Reading List app with concise sample documents and a dependency-free page; browser verification is stated as pending.
+- **Small first-project example:** `examples/first-project/` is a Reading List app with concise sample documents and a dependency-free page; its seven acceptance steps were checked in a Chromium browser on release day.
 - **Copyable-template checks:** local validation and CI now catch premature closing of nested Markdown fences; generated Part 4 templates are checked for drift.
 - **Security section in `REVIEW-CHECKLIST.md`:** dependency audit, input validated and sanitized at the boundary, auth-protected routes tested while logged out, and rate limiting considered for public endpoints — restored from v3.0.0, which the 3.1.0 merge had dropped.
 - **Part 4 is self-contained:** it bundles the AGENTS.md, MEMORY.md, REVIEW-CHECKLIST.md, and agent_docs templates (generated from `templates/` and drift-checked), so it works in a fresh chat.
@@ -35,6 +35,8 @@ Ships with `vibeworkflow` 0.4.0.
 - **Windows maintenance:** `scripts/sync-skills.py` reads UTF-8, writes POSIX paths, and ignores CRLF checkouts when checking.
 - **Regression coverage:** CLI phase tests check MEMORY.md, with additional path, placeholder, and metadata cases.
 - **Links and dates:** a stale compatibility anchor, future-tense wording for the November 1, 2026 Antigravity workflow retirement, and the golden-path checklist's command and MEMORY.md items.
+- **Examples and prompts agree:** the first-project Handoff Context blocks use the Part 2/3 keys, Parts 1–3 save instructions match the README's app-folder step, the legacy Cursor and Antigravity rule files defer to AGENTS.md and MEMORY.md, and the `existing-bug` eval fixture points at `examples/first-project`.
+- **Repo check 8 tests something again:** `validate.py` now verifies that every link and sibling-skill path inside `workflow/skills/` resolves, replacing a part-file heading check the slimmed skills no longer relied on.
 - **npm provenance:** `cli/package.json` had no `repository` field, so trusted publishing signed a provenance statement npm then rejected with a 422. Declared it (with `directory: "cli"`), plus `homepage` and `bugs`.
 
 ## CLI 0.3.0 — reliability and project recovery (2026-09-05)

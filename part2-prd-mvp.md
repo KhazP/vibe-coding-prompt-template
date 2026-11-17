@@ -989,7 +989,7 @@ Adapt this example to the agreed screens. Include authentication, dashboards, an
 
 ### Document Output and Order
 
-Create **`PRD-[AppName]-MVP.md`** using the same app-name filename stem as Part 1. The final project destination is `docs/PRD-[AppName]-MVP.md`; the user may save it anywhere until they create their app folder in Part 4.
+Create **`PRD-[AppName]-MVP.md`** using the same app-name filename stem as Part 1. The final project destination is `docs/PRD-[AppName]-MVP.md`; save it in the app's `docs/` folder, or anywhere for now if the user has not created the app folder yet.
 
 The saved artifact contains, in order:
 1. The completed PRD body and footer.
