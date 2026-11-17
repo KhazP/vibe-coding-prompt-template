@@ -1422,15 +1422,15 @@ Append this fenced JSON block as the **last block in the saved document**. It ke
     "database": "[database/ORM]",
     "auth": "[provider]",
     "styling": "[library/system]",
-    "deployment": "[host or distribution target]"
+    "deployment": "[host]"
   },
   "commands": {
-    "setup": "[exact command, or empty if not applicable/unknown]",
-    "dev": "[exact command, or empty if not applicable/unknown]",
-    "test": "[exact command, or empty if not applicable/unknown]",
-    "typecheck": "[exact command, or empty if not applicable/unknown]",
-    "lint": "[exact command, or empty if not applicable/unknown]",
-    "build": "[exact command, or empty if not applicable/unknown]"
+    "setup": "[exact command]",
+    "dev": "[exact command]",
+    "test": "[exact command]",
+    "typecheck": "[exact command]",
+    "lint": "[exact command]",
+    "build": "[exact command]"
   },
   "aiScope": "[none / in-app AI / automation / agent]"
 }

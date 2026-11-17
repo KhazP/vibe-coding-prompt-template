@@ -4,6 +4,14 @@ Choose only questions whose answers affect the current decision. Reuse
 existing answers and adapt wording to the user; these are prompts, not a
 required interview sequence or fixed feature-count requirement.
 
+Ask only if the user's technical level is unknown (Handoff Context usually
+carries it). The level changes vocabulary and depth, not the route:
+
+> **What's your technical background?**
+> - **A) Vibe-coder** — Limited coding, using AI to build everything
+> - **B) Developer** — Experienced programmer
+> - **C) Somewhere in between** — Some basics, still learning
+
 ### Level A (Vibe-coder):
 
 - "Based on your PRD, where should people use it? Web, Mobile app, Desktop, or Not sure?"

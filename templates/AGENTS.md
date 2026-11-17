@@ -87,7 +87,7 @@ work rather than presenting an unchecked implementation as finished.
 
 **When this file gets long, that is the signal to split it.** Move task-specific
 procedures (deploy steps, release checklists, API references) into
-`.claude/skills/<name>/SKILL.md`, where only the one-line description stays in
+`.agents/skills/<name>/SKILL.md` (`.claude/skills/` for Claude Code), where only the one-line description stays in
 context and the body loads when it is actually needed. Move
 directory-specific conventions into `<subdir>/AGENTS.md` (or the selected
 client’s supported equivalent), scoped to work in that directory. Keep universal constraints and safety prohibitions

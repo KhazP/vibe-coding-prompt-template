@@ -4,6 +4,14 @@ Choose only questions whose answers affect the current decision. Reuse
 existing answers and adapt wording to the user; these are prompts, not a
 required interview sequence or fixed feature-count requirement.
 
+Ask only if the user's technical level is unknown (Handoff Context usually
+carries it). The level changes vocabulary and depth, not the route:
+
+> **What's your technical background?**
+> - **A) Vibe-coder** — Great ideas, limited coding experience
+> - **B) Developer** — Experienced programmer
+> - **C) Somewhere in between** — Some coding knowledge, still learning
+
 - "What's the name of your product/app? (If undecided, we can brainstorm!)"
 
 - "In one sentence, what problem does it solve?"

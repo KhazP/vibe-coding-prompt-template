@@ -4,7 +4,9 @@ All notable changes to the Vibe-Coding Prompt Template are documented here, in [
 
 ## [Unreleased]
 
-## [3.2.0] - 2026-10-04
+## [3.2.0] - 2026-11-17
+
+Ships with `vibeworkflow` 0.4.0.
 
 ### Changed
 - **Manual start:** the README leads with one five-step project path; skills and the CLI remain optional.
@@ -12,19 +14,37 @@ All notable changes to the Vibe-Coding Prompt Template are documented here, in [
 - **Tool instructions:** Claude imports AGENTS.md, shared memory and authorization rules agree, and optional setup guides point to native skills with dated official sources.
 - **Interviews accept batched answers:** the skills (and the CLI's kickoff prompt) no longer insist on one question at a time no matter what. Answer several questions in one go and the agent takes them and moves on instead of re-asking; say "I don't know" and it proposes a default for you to confirm. Shipped as `vibeworkflow` 0.2.1.
 - **part3 is prompt-sized again:** v3.0.0 deliberately stripped the prefab Terraform, SQL schemas, CI workflows, and framework snippets out of the tech design prompt, and the 3.1.0 merge put them back. Removed again — each is now a one-line instruction to generate that artifact for *your* stack, with v3.0.0's generation guardrails restored. 1,627 lines down to 1,448.
+- **Planning skills slimmed:** `vibe-research`, `vibe-prd`, and `vibe-techdesign` keep a short procedure and move their question banks and CLI output contracts into `references/`. The router again defines Quick, Guided, and Deep planning and names `vibe-change`, `vibe-debug`, and `vibe-verify`; the skills name `vibe.project.json`, require the CLI metadata block, reconcile conflicting documents, and use one report format (Changed, Checked, Not checked, Next decision, Recovery).
+- **vibe-verify:** projects that use e2e (`e2e.config.ts`) can record `npx e2e run` results as behavior evidence ([#34](https://github.com/KhazP/vibe-coding-prompt-template/pull/34)).
+- **Tool templates follow AGENTS.md authorization:** the Copilot, Cursor, and backend instruction templates no longer require approval for ordinary auth, billing, infrastructure, or migration source edits; applying them to a live system still needs authorization.
 - **`tool-adapters/` no longer ships in the npm package:** the CLI never scaffolded it, so 23 files were dead weight in every install — the tarball drops from 74 files to 53. Still in the repo for manual copying, as the README and part4 describe. Shipped as `vibeworkflow` 0.2.2.
 
 ### Added
-- **Small first-project example:** Reading List includes concise sample documents and a dependency-free app; verification status is stated explicitly.
+- **Small first-project example:** `examples/first-project/` is a Reading List app with concise sample documents and a dependency-free page; browser verification is stated as pending.
 - **Copyable-template checks:** local validation and CI now catch premature closing of nested Markdown fences; generated Part 4 templates are checked for drift.
 - **Security section in `REVIEW-CHECKLIST.md`:** dependency audit, input validated and sanitized at the boundary, auth-protected routes tested while logged out, and rate limiting considered for public endpoints — restored from v3.0.0, which the 3.1.0 merge had dropped.
-- **part4 Step 0 — know where you're running:** read `templates/` from disk in an IDE, or ask the user to paste them in a chat, and never recreate the templates from memory.
+- **Part 4 is self-contained:** it bundles the AGENTS.md, MEMORY.md, REVIEW-CHECKLIST.md, and agent_docs templates (generated from `templates/` and drift-checked), so it works in a fresh chat.
+
+### Removed
+- **`examples/reading-list/`** (demo recording, screenshot, and verification notes), replaced by `examples/first-project/`.
+- **`CHANGES.md`**, superseded by this changelog.
 
 ### Fixed
 - **Research handoff:** Part 1's research request is clearly distinct from the findings needed by Part 2.
-- **CLI setup:** discover root-level app-specific document names, preserve resolved paths, leave reusable skills unchanged, and check only declared placeholders. Metadata diagnostics distinguish document contracts from unrelated JSON examples.
+- **CLI setup (0.4.0):** discover root-level app-specific document names (case-insensitively), preserve resolved paths, leave reusable skills unchanged, and check only declared placeholders. Metadata diagnostics distinguish document contracts from unrelated JSON examples and find metadata inside a longer outer fence. Setup rejects metadata that still holds template labels, doctor checks only the documents' metadata (not bracketed prose or code samples), and new manifests record the installed package version.
+- **Windows maintenance:** `scripts/sync-skills.py` reads UTF-8, writes POSIX paths, and ignores CRLF checkouts when checking.
 - **Regression coverage:** CLI phase tests check MEMORY.md, with additional path, placeholder, and metadata cases.
+- **Links and dates:** a stale compatibility anchor, "retire on" for a past date, and the golden-path checklist's command and MEMORY.md items.
 - **npm provenance:** `cli/package.json` had no `repository` field, so trusted publishing signed a provenance statement npm then rejected with a 422. Declared it (with `directory: "cli"`), plus `homepage` and `bugs`.
+
+## CLI 0.3.0 — reliability and project recovery (2026-09-05)
+
+- Strict CLI flags, explicit boolean overwrite, dry-run preview, skills-only installation, Windows path normalization, and native OS package-test matrix.
+- Setup-only doctor with required metadata/placeholder failures and Claude permission-mode validation; build and behavior remain Not checked.
+- Safe formatter argument handling and corrected hook timeout units.
+- Canonical workflow skills generated into repository and template distributions; new change, debug, verify, and handoff skills, with situation routing and proportional planning.
+- Versioned metadata, project manifest paths, compatible browser-style document discovery, chat context pack, runnable reading-list example with browser evidence, and worked recipes.
+- Behavior evaluation scenarios and release evidence report distinguish automated checks from unperformed assistant/client validation and distribution experiments.
 
 ## [3.1.0] - 2026-08-20
 
@@ -125,12 +145,3 @@ The "contracts" release: one canonical AGENTS.md, documents that chain themselve
 
 ### Added
 - Initial public release: the four-part vibe-coding prompt workflow (deep research → PRD → tech design → notes for the agent), README, and November 2025 model/tooling references.
-
-## CLI 0.3.0 — reliability and project recovery (2026-09-05)
-
-- Strict CLI flags, explicit boolean overwrite, dry-run preview, skills-only installation, Windows path normalization, and native OS package-test matrix.
-- Setup-only doctor with required metadata/placeholder failures and Claude permission-mode validation; build and behavior remain Not checked.
-- Safe formatter argument handling and corrected hook timeout units.
-- Canonical workflow skills generated into repository and template distributions; new change, debug, verify, and handoff skills, with situation routing and proportional planning.
-- Versioned metadata, project manifest paths, compatible browser-style document discovery, chat context pack, runnable reading-list example with browser evidence, and worked recipes.
-- Behavior evaluation scenarios and release evidence report distinguish automated checks from unperformed assistant/client validation and distribution experiments.

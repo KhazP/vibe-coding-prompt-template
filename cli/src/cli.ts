@@ -2,9 +2,22 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join, resolve, relative } from 'node:path';
 import { documentPaths, readManifest } from './core/project.js';
-import { doctor } from './core/doctor.js';
-import { parsePrdMeta, parseTechMeta, type Tool } from './core/meta.js';
-import { scaffold, ALL_TOOLS } from './core/scaffold.js';
+import { doctor, METADATA_REFERENCES } from './core/doctor.js';
+import { metadataSource, parsePrdMeta, parseTechMeta, type Tool } from './core/meta.js';
+import { remainingPlaceholders } from './core/placeholders.js';
+import { scaffold, resolveTemplatesDir, ALL_TOOLS } from './core/scaffold.js';
+
+/** The installed package version, recorded as templateVersion in new manifests. */
+function packageVersion(): string {
+  return JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')).version;
+}
+
+/** Template labels (e.g. "[framework]") still present in a document's JSON metadata. */
+function unfilledMetadata(path: string, reference: string): string[] {
+  const declared = join(resolveTemplatesDir(), reference);
+  if (!existsSync(declared)) return [];
+  return remainingPlaceholders(metadataSource(readFileSync(path, 'utf8')), readFileSync(declared, 'utf8'));
+}
 
 const USAGE = `vibeworkflow — agent-driven Step 4 automation for the vibe-coding workflow
 
@@ -207,9 +220,14 @@ async function runInit(args: ParsedArgs): Promise<void> {
   }
 
   const { prd, tech } = resolveMeta(prdPath, techPath);
-  if (!prd) throw new Error(`${relative(dir, prdPath)} has missing or invalid PRD metadata; use the JSON contract from Part 2 before setup`);
-  if (!tech) throw new Error(`${relative(dir, techPath)} has missing or invalid Tech Design metadata; use the JSON contract from Part 3 before setup`);
+  const shown = (path: string) => relative(dir, path).replace(/\\/g, '/');
+  if (!prd) throw new Error(`${shown(prdPath)} has missing or invalid PRD metadata; use the JSON contract from Part 2 or ${METADATA_REFERENCES.prd} before setup`);
+  if (!tech) throw new Error(`${shown(techPath)} has missing or invalid Tech Design metadata; use the JSON contract from Part 3 or ${METADATA_REFERENCES.techdesign} before setup`);
   if (tech.appName && prd.appName !== tech.appName) throw new Error('PRD and Tech Design belong to different projects');
+  for (const [path, reference] of [[prdPath, METADATA_REFERENCES.prd], [techPath, METADATA_REFERENCES.techdesign]] as const) {
+    const unfilled = unfilledMetadata(path, reference);
+    if (unfilled.length) throw new Error(`${shown(path)} metadata still has template placeholders: ${unfilled.join(', ')}; fill them in before setup`);
+  }
   const documents = {
     prd: relative(dir, prdPath).replace(/\\/g, '/'),
     techdesign: relative(dir, techPath).replace(/\\/g, '/'),
@@ -228,7 +246,7 @@ async function runInit(args: ParsedArgs): Promise<void> {
 
   if (!existsSync(join(dir, 'vibe.project.json'))) {
     if (Object.values(documents).every(p => !p.startsWith('..') && !p.includes(':'))) {
-      if (!args.dryRun) writeFileSync(join(dir, 'vibe.project.json'), JSON.stringify({ schemaVersion: 1, templateVersion: '0.3.0', mode: 'guided', tools, documents }, null, 2) + '\n', { flag: 'wx' });
+      if (!args.dryRun) writeFileSync(join(dir, 'vibe.project.json'), JSON.stringify({ schemaVersion: 1, templateVersion: packageVersion(), mode: 'guided', tools, documents }, null, 2) + '\n', { flag: 'wx' });
       result.files.push('vibe.project.json');
     }
   }

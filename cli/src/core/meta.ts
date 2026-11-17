@@ -38,15 +38,43 @@ export interface TechMeta {
 
 export type Tool = 'claude' | 'cursor' | 'codex' | 'gemini' | 'copilot' | 'local';
 
-const FENCE = /```(?:json)?\s*([\s\S]*?)```/gi;
+const OPEN_FENCE = /^[ \t]*(`{3,}|~{3,})[ \t]*([^`\s]*)[^`]*$/;
+const CLOSE_FENCE = /^[ \t]*(`{3,}|~{3,})[ \t]*$/;
+
+// Bodies of ```json and untagged fenced blocks, paired line by line as in
+// CommonMark (a closing fence uses the same character and is at least as long).
+// Blocks inside a markdown or untagged outer fence (````markdown, as Parts 2
+// and 3 recommend for copyable output) are searched too; other code blocks such
+// as ```text or ```bash are skipped whole.
+function fencedBodies(content: string): string[] {
+  const lines = content.split(/\r?\n/);
+  const bodies: string[] = [];
+  const scan = (from: number, to: number) => {
+    for (let i = from; i < to; i++) {
+      const open = OPEN_FENCE.exec(lines[i]);
+      if (!open) continue;
+      const [, marker, info] = open;
+      let end = i + 1;
+      for (; end < to; end++) {
+        const close = CLOSE_FENCE.exec(lines[end]);
+        if (close && close[1][0] === marker[0] && close[1].length >= marker.length) break;
+      }
+      const lang = info.toLowerCase();
+      if (lang === 'json' || lang === '') {
+        const body = lines.slice(i + 1, end).join('\n').trim();
+        if (body) bodies.push(body);
+      }
+      if (lang === 'markdown' || lang === 'md' || lang === '') scan(i + 1, end);
+      i = end;
+    }
+  };
+  scan(0, lines.length);
+  return bodies;
+}
 
 function findJsonBlocks(content: string): unknown[] {
   const blocks: unknown[] = [];
-  let m: RegExpExecArray | null;
-  FENCE.lastIndex = 0;
-  while ((m = FENCE.exec(content)) !== null) {
-    const body = m[1].trim();
-    if (!body) continue;
+  for (const body of fencedBodies(content)) {
     try {
       blocks.push(JSON.parse(body));
     } catch {
@@ -54,6 +82,20 @@ function findJsonBlocks(content: string): unknown[] {
     }
   }
   return blocks;
+}
+
+const METADATA_KEYS = ['documentType', 'schemaVersion', 'appName', 'oneLiner', 'targetUsers', 'mustHave', 'stack', 'commands'];
+
+/** Raw text of the fenced JSON blocks that look like document metadata. */
+export function metadataSource(content: string): string {
+  return fencedBodies(content).filter(body => {
+    try {
+      const value = JSON.parse(body);
+      return isRecord(value) && METADATA_KEYS.some(key => key in value);
+    } catch {
+      return false;
+    }
+  }).join('\n');
 }
 
 function isRecord(v: unknown): v is Record<string, unknown> {

@@ -51,4 +51,4 @@ For an AI support assistant, start with read-only RAG over help docs, cite sourc
 
 ## Worked outcomes and protocol evidence
 
-For small existing-app, internal-automation, assistant-interface, and creative-code outcomes, use the [worked recipes](../workflow/recipes.md). They keep integration questions behind the relevant project route. Record actual client/SDK/protocol combinations using the [compatibility evidence policy](../tools/agent-tooling-compatibility.md#september-2026-protocol-update); a documented extension is not proof that the user's client implements it.
+For small existing-app, internal-automation, assistant-interface, and creative-code outcomes, use the [worked recipes](../workflow/recipes.md). They keep integration questions behind the relevant project route. Record actual client/SDK/protocol combinations using the [compatibility evidence policy](../tools/agent-tooling-compatibility.md#optional-mcp-compatibility); a documented extension is not proof that the user's client implements it.

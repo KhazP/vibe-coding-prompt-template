@@ -5,7 +5,7 @@
 ```json
 {
   "schemaVersion": 1,
-  "templateVersion": "0.3.0",
+  "templateVersion": "0.4.0",
   "mode": "quick",
   "tools": ["claude"],
   "documents": { "prd": "PRD.md", "techdesign": "TECH_DESIGN.md" }

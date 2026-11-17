@@ -83,3 +83,10 @@ test('technical metadata cannot silently discard all stack or command choices', 
   assert.equal(parseTechMeta(fence({ appName: 'Books', stack: { framework: 'HTML' }, commands: { serve: 'serve' } })), undefined);
   assert.equal(parseTechMeta(fence(versionedTech))?.stack?.frontend, 'HTML');
 });
+
+test('metadata nested inside a longer outer fence is still found', () => {
+  const block = '```json\n{"schemaVersion":1,"documentType":"prd","appName":"Books","oneLiner":"Keep books","targetUsers":"Readers","mustHave":["Add a book"]}\n```';
+  const wrapped = '# PRD\n\n````markdown\n## Notes\n\n' + block + '\n````\n';
+  assert.equal(parsePrdMeta(wrapped)?.appName, 'Books');
+  assert.equal(parsePrdMeta(wrapped.replace(/\n/g, '\r\n'))?.appName, 'Books');
+});

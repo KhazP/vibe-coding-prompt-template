@@ -37,3 +37,6 @@ effect of local verification.
 - `agent_docs/testing.md` — checks and extension testing.
 - `agent_docs/reconstructed-progress.md` — historical example roadmap.
 - `MEMORY.md` — session progress, if present.
+
+This example ships only `agent_docs/reconstructed-progress.md`; the other
+`agent_docs/` files show what a real project would link here.
