@@ -5,14 +5,14 @@
 ```json
 {
   "schemaVersion": 1,
-  "templateVersion": "0.3.0",
+  "templateVersion": "0.4.0",
   "mode": "quick",
   "tools": ["claude"],
   "documents": { "prd": "PRD.md", "techdesign": "TECH_DESIGN.md" }
 }
 ```
 
-`templateVersion` records the template package used, not proof of checks. Full CLI setup creates a missing manifest with Guided mode; preserve or set the agreed mode when planning. Existing manifests are preserved. The CLI validates mode and tools; manifest paths must stay inside the project. Explicit CLI document flags resolve against `--dir` and override discovery. Without a manifest it accepts `PRD.md` / `TECH_DESIGN.md` and app-specific `PRD-*-MVP.md` / `TechDesign-*-MVP.md` names at the project root or in `docs/`. Multiple candidates are listed in the error and require explicit paths or a manifest. Generated `AGENTS.md`, the CLI's next steps, and its JSON `documents` field use the resolved document paths.
+`templateVersion` records the template package used, not proof of checks. Full CLI setup creates a missing manifest with Guided mode; preserve or set the agreed mode when planning. Existing manifests are preserved. The CLI validates mode and tools; manifest paths must stay inside the project. Explicit CLI document flags resolve against `--dir` and override discovery. Without a manifest it accepts `PRD.md` / `TECH_DESIGN.md` and app-specific `PRD-*-MVP.md` / `TechDesign-*-MVP.md` names at the project root or in `docs/`, matched case-insensitively. Metadata may sit inside a longer outer fence (for example, four backticks around a copied Markdown document). Multiple candidates are listed in the error and require explicit paths or a manifest. Generated `AGENTS.md`, the CLI's next steps, and its JSON `documents` field use the resolved document paths.
 
 New PRD metadata uses this fenced JSON contract:
 
@@ -45,6 +45,6 @@ Legacy unversioned metadata remains readable. Versioned documents reject unsuppo
 
 Every planning output carries a Handoff Context with app, level, platform, budget, timeline, mode, constraints, decisions, and open questions. Preserve unknowns and reconcile contradictions. AGENTS.md contains stable rules; MEMORY.md contains current state.
 
-Doctor validates setup files, metadata, unresolved declared placeholders, paths, and the Claude default-mode allowlist. A square-bracket label is treated as unfinished only when the corresponding shipped project template declares it. Source PRD and technical documents are also checked against the declared metadata and project-template labels. Literal CSS selectors, JSON arrays, checkboxes, and Markdown links are not placeholders. Reusable skill files and references are copied unchanged and excluded from the project punch-list.
+Doctor validates setup files, metadata, unresolved declared placeholders, paths, and the Claude default-mode allowlist. A square-bracket label is treated as unfinished only when the corresponding shipped project template declares it. In source PRD and technical documents, only the JSON metadata is checked against the declared metadata and project-template labels; bracketed prose and code samples elsewhere in a design are not placeholders. Full setup refuses metadata that still holds a declared label. Literal CSS selectors, JSON arrays, checkboxes, and Markdown links are not placeholders. Reusable skill files and references are copied unchanged and excluded from the project punch-list.
 
 These structural checks do not judge the completeness of a plan or exhaustively validate every provider's configuration. The JSON `checks` separates setup from build and behavior; the latter two are always `not-checked` because doctor does not launch the app.

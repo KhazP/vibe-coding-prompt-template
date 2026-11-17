@@ -102,3 +102,25 @@ test('doctor preserves literal code and links while finding declared project and
     assert.deepEqual(incompleteSource.checks, { setup: 'incomplete', build: 'not-checked', behavior: 'not-checked' });
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
+
+test('doctor ignores bracketed prose and code in source documents outside their metadata', () => {
+  const dir = tmpDir();
+  const fence = (value: unknown) => '```json\n' + JSON.stringify(value) + '\n```';
+  try {
+    write(join(dir, 'AGENTS.md'), '# Agents\nRead agent_docs/ first.');
+    write(join(dir, 'MEMORY.md'), '# Memory');
+    write(join(dir, 'REVIEW-CHECKLIST.md'), '# Review');
+    write(join(dir, 'agent_docs/project_brief.md'), '# Brief');
+    write(join(dir, 'agent_docs/tech_stack.md'), '# Stack');
+    write(join(dir, 'agent_docs/testing.md'), '# Testing');
+    write(join(dir, 'PRD.md'), fence({ schemaVersion: 1, documentType: 'prd', appName: 'Notes', oneLiner: 'Keep notes', targetUsers: 'Writers', mustHave: ['Add a note'] }));
+    const tech = { schemaVersion: 1, documentType: 'techdesign', appName: 'Notes', stack: { frontend: 'HTML' }, commands: { dev: 'npm run dev' } };
+    const prose = '# Design\nUsage: `notes [command] [options]`\n\n```text\nGET /auth/callback/[provider]\n```\n\n';
+    write(join(dir, 'TECH_DESIGN.md'), prose + fence(tech));
+    const result = doctor({ projectDir: dir });
+    assert.equal(result.ok, true, JSON.stringify(result.findings));
+
+    write(join(dir, 'TECH_DESIGN.md'), prose + fence({ ...tech, stack: { frontend: '[framework]' } }));
+    assert(doctor({ projectDir: dir }).findings.some(f => f.message === 'TECH_DESIGN.md has unfilled placeholders: [framework]'));
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});

@@ -25,7 +25,7 @@ This is the **Level A (vibe coder)** path — the route most visitors take: plai
 | [`research-reddit-to-ai.md`](reddit-to-ai/research-reddit-to-ai.md) | Part 1 | Deep-research output: concept, users, competitors, budget |
 | [`PRD-reddit-to-ai-MVP.md`](reddit-to-ai/PRD-reddit-to-ai-MVP.md) | Part 2 | What the MVP does — and deliberately doesn't do |
 | [`TechDesign-reddit-to-ai-MVP.md`](reddit-to-ai/TechDesign-reddit-to-ai-MVP.md) | Part 3 | How to build it: stack choice with trade-offs, structure, costs |
-| [`AGENTS.md`](reddit-to-ai/AGENTS.md) | Part 4 (from `templates/AGENTS.md`) | The filled-in master plan, captured mid-build |
+| [`AGENTS.md`](reddit-to-ai/AGENTS.md) | Part 4 (from `templates/AGENTS.md`) | The filled-in project rules, captured mid-build; its progress lives in [`agent_docs/reconstructed-progress.md`](reddit-to-ai/agent_docs/reconstructed-progress.md) |
 | [`MEMORY.md`](reddit-to-ai/MEMORY.md) | Part 4 (from `templates/MEMORY.md`) | What a living memory file looks like a few weeks in |
 
 Each document ends with a **Handoff Context** block — the baton in the relay. Part 2 reads it from the research, Part 3 from the PRD, and Part 4 from the tech design, so you never re-answer the same questions. Watch the `Source files` line grow one arrow per stage, and the `Chosen stack` / `AI coding tool` lines appear once the tech design locks them in.

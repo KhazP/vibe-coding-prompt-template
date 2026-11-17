@@ -61,7 +61,7 @@ background execution, hooks, or MCP only for an actual project requirement.
   deprecated in favor of skills. Existing wrappers are retained in this repo,
   but are not a new-install recommendation.
 - [Antigravity workflows](https://antigravity.google/docs/migration/workflows-to-skills/)
-  retire on **November 1, 2026**. Use native skills for new setup and review old
+  were scheduled to retire on **November 1, 2026**. Use native skills for new setup and review old
   wrappers when migrating.
 - Cursor's old command wrappers are retained for existing users; new setup
   uses the native skill bundle.

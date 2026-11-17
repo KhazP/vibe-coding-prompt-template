@@ -9,7 +9,7 @@ Read `AGENTS.md` first, then use `agent_docs/` for details. Use this file for An
 ## Operating Rules
 
 - Propose a plan before editing.
-- Keep changes scoped to the current phase.
+- Keep changes scoped to the current task and the phase recorded in `MEMORY.md`.
 - Use the exact verification commands in `agent_docs/testing.md`.
 - Use `/memory show`, `/memory refresh`, `/tools`, `/chat save <tag>`, and `/compress` when useful.
 - Keep tool approvals conservative.

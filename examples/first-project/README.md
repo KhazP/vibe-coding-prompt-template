@@ -11,7 +11,7 @@ Each stage can start in a **fresh chat** with its listed inputs.
 3. **PRD:** Paste [Part 2](../../part2-prd-mvp.md), the idea, and any actual findings. [PRD.md](PRD.md) shows the sample output.
 4. **Technical design:** Paste [Part 3](../../part3-tech-design-mvp.md) and attach the PRD. [TECH_DESIGN.md](TECH_DESIGN.md) shows the sample output.
 5. **Agent files:** Paste the full [Part 4](../../part4-notes-for-agent.md), which includes the templates; attach the PRD and technical design. Name your coding assistant. In a new `reading-list/` folder, save them as `docs/PRD-ReadingList-MVP.md` and `docs/TechDesign-ReadingList-MVP.md`. Save the returned agent files with their specified paths.
-6. **Build:** Open that folder in your coding assistant: “Read AGENTS.md and build the PRD’s reading list. Check its acceptance steps.” [index.html](index.html) is the reference implementation.
+6. **Build:** Open that folder in your coding assistant and send the [build prompt](../../README.md#5-build-one-useful-piece) from the main README. Approve its plan, then check the PRD’s acceptance steps. [index.html](index.html) is the reference implementation.
 
 ## Run and check
 

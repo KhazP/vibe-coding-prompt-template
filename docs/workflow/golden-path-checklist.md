@@ -10,6 +10,7 @@ A project is ready for the build step when it has:
 - `docs/PRD-[AppName]-MVP.md`
 - `docs/TechDesign-[AppName]-MVP.md`
 - `AGENTS.md`
+- `MEMORY.md`
 - `agent_docs/`
 - `REVIEW-CHECKLIST.md`
 - Tool-specific files only for the tools the user selected
@@ -21,7 +22,7 @@ A project is ready for the build step when it has:
 - [ ] Tech Design lists stack, commands, data model, deployment, and verification steps.
 - [ ] AI scope is explicit: none, simple AI feature, internal agent, MCP/tool use, local model, or builder-assisted.
 - [ ] `AGENTS.md` is short and points to `agent_docs/` instead of duplicating everything.
-- [ ] `agent_docs/tech_stack.md` has exact setup, dev, test, typecheck, and build commands.
+- [ ] `agent_docs/tech_stack.md` lists the exact commands that apply and marks the others Not applicable; no command is invented.
 - [ ] `agent_docs/testing.md` says what evidence is required before work is complete.
 - [ ] Tool adapters exist only for selected tools: Claude, Cursor, Copilot, Codex, Antigravity/Gemini legacy, or local agents.
 

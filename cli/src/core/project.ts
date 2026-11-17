@@ -47,7 +47,9 @@ export function documentPaths(dir: string, skip: { prd?: boolean; techdesign?: b
       if (!existsSync(base)) continue;
       for (const entry of readdirSync(base, { withFileTypes: true })) {
         if (!entry.isFile() && !entry.isSymbolicLink()) continue;
-        if (entry.name === standard || (entry.name.startsWith(prefix) && entry.name.endsWith('-MVP.md'))) {
+        // Case-insensitive, as existsSync() was on Windows and macOS before 0.4.0.
+        const name = entry.name.toLowerCase();
+        if (name === standard.toLowerCase() || (name.startsWith(prefix.toLowerCase()) && name.endsWith('-mvp.md'))) {
           candidates.push(join(base, entry.name));
         }
       }

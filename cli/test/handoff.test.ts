@@ -87,3 +87,20 @@ test('full setup copies reusable skill assets verbatim and leaves them out of th
   assert(!result.remainingPlaceholders.some(item => item.file.includes('/skills/')));
   assert(result.remainingPlaceholders.some(item => item.file === 'agent_docs/testing.md'));
 }));
+
+test('setup records the package version, finds lower-case exports, and rejects unfilled metadata labels', () => fixture(dir => {
+  write(dir, 'prd.md', fence(prd));
+  write(dir, 'tech_design.md', fence({ ...tech, stack: { frontend: '[framework]' } }));
+  const rejected = run(dir);
+  assert.notEqual(rejected.status, 0);
+  assert.match(rejected.stderr, /tech_design\.md metadata still has template placeholders: \[framework\]/);
+  assert(!existsSync(join(dir, 'AGENTS.md')));
+
+  write(dir, 'tech_design.md', fence(tech));
+  const result = run(dir);
+  assert.equal(result.status, 0, result.stderr);
+  const manifest = JSON.parse(readFileSync(join(dir, 'vibe.project.json'), 'utf8'));
+  const pkg = JSON.parse(readFileSync(join(process.cwd(), 'package.json'), 'utf8'));
+  assert.equal(manifest.templateVersion, pkg.version);
+  assert.deepEqual(manifest.documents, { prd: 'prd.md', techdesign: 'tech_design.md' });
+}));

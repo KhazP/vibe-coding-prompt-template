@@ -1,6 +1,6 @@
 ---
 name: vibe-agents
-description: "Create project agent instructions and tool configuration from agreed product and technical decisions."
+description: "Create project agent instructions and tool configuration from agreed product and technical decisions. Not for ordinary incremental feature changes."
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, AskUserQuestion
 ---
 
@@ -12,7 +12,11 @@ the affected instructions directly; do not require an installer, new PRD, or
 full interview. Keep progress in the project's memory/handoff file rather than
 the always-loaded rules.
 
-For initial Vibe Workflow setup, use the configured manifest paths. If the
+For initial Vibe Workflow setup, read the PRD and Tech Design from
+`vibe.project.json` `documents` paths when present, otherwise
+`docs/PRD-*-MVP.md` and `docs/TechDesign-*-MVP.md`. If the PRD, Tech Design,
+and Handoff Context disagree (app, stack, or scope), show the conflict and ask
+which is correct before generating files; never silently pick one. If the
 vibeworkflow CLI is available, inspect `npx vibeworkflow --dry-run --json` and
 initialize within the user's authorization. Preserve existing files; replacement
 flags are for intentional replacements whose affected files have been reviewed.

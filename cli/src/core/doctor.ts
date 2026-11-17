@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { documentPaths } from './project.js';
-import { parsePrdMeta, parseTechMeta } from './meta.js';
+import { metadataSource, parsePrdMeta, parseTechMeta } from './meta.js';
 import { remainingPlaceholders } from './placeholders.js';
 import { resolveTemplatesDir } from './scaffold.js';
 
@@ -24,6 +24,12 @@ export interface DoctorOptions {
 }
 
 const REQUIRED_ROOT = ['AGENTS.md', 'MEMORY.md', 'REVIEW-CHECKLIST.md'];
+/** Shipped references that declare the metadata placeholder labels. */
+export const METADATA_REFERENCES = {
+  prd: '.agents/skills/vibe-prd/references/cli-output.md',
+  techdesign: '.agents/skills/vibe-techdesign/references/cli-output.md',
+} as const;
+
 const REQUIRED_AGENT_DOCS = [
   'agent_docs/project_brief.md',
   'agent_docs/tech_stack.md',
@@ -57,7 +63,7 @@ export function doctor(opts: DoctorOptions): DoctorResult {
     push('error', paths.prd ? `missing ${display(paths.prd)}` : 'missing PRD.md or PRD-*-MVP.md at project root or in docs/; custom paths can be set in vibe.project.json');
   } else {
     if (!prd) {
-      push('error', `${display(prdPath)} has missing or invalid PRD metadata; use the JSON contract from Part 2`);
+      push('error', `${display(prdPath)} has missing or invalid PRD metadata; use the JSON contract from Part 2 or ${METADATA_REFERENCES.prd}`);
     }
   }
 
@@ -65,7 +71,7 @@ export function doctor(opts: DoctorOptions): DoctorResult {
     push('error', paths.techdesign ? `missing ${display(paths.techdesign)}` : 'missing TECH_DESIGN.md or TechDesign-*-MVP.md at project root or in docs/; custom paths can be set in vibe.project.json');
   } else {
     if (!tech) {
-      push('error', `${display(techPath)} has missing or invalid Tech Design metadata; use the JSON contract from Part 3`);
+      push('error', `${display(techPath)} has missing or invalid Tech Design metadata; use the JSON contract from Part 3 or ${METADATA_REFERENCES.techdesign}`);
     }
   }
 
@@ -92,13 +98,15 @@ export function doctor(opts: DoctorOptions): DoctorResult {
       push('error', `${rel} has unfilled placeholders: ${placeholders.join(', ')}`);
     }
   }
+  // Scan only the documents' JSON metadata: prose and code samples in a design
+  // legitimately contain bracketed text such as `cli [command]` or `/auth/[provider]`.
   const projectDeclarations = requiredTemplates.map(template).join('\n');
   for (const [path, content, reference] of [
-    [prdPath, prdContent, '.agents/skills/vibe-prd/references/cli-output.md'],
-    [techPath, techContent, '.agents/skills/vibe-techdesign/references/cli-output.md'],
+    [prdPath, prdContent, METADATA_REFERENCES.prd],
+    [techPath, techContent, METADATA_REFERENCES.techdesign],
   ] as const) {
     if (!path) continue;
-    const placeholders = remainingPlaceholders(content, projectDeclarations + '\n' + template(reference));
+    const placeholders = remainingPlaceholders(metadataSource(content), projectDeclarations + '\n' + template(reference));
     if (placeholders.length) push('error', `${display(path)} has unfilled placeholders: ${placeholders.join(', ')}`);
   }
 
