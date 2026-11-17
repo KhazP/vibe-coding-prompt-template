@@ -366,55 +366,45 @@ def check_settings_local_not_committed(ci_mode: bool):
 
 
 # --------------------------------------------------------------------------
-# Contract check 8 — skill question-bank anchors exist in the part files.
+# Contract check 8 — relative links inside the workflow skills resolve.
 #
-# The workflow skills tell the agent to follow *quoted section names*
-# (anchors) inside the part1/part2/part3 question banks, e.g. vibe-prd
-# says: Level A → "Path A — Vibe-Coder Questions". If someone renames one
-# of those sections in a part file, the skills silently break — this
-# check makes CI catch that.
-#
-# HOW TO EXTEND: when a skill quotes a new part-file section, add a
-# (skill, part file, anchor) row to SKILL_ANCHORS below. The anchor must
-# be the exact quoted string from the SKILL.md. Matching is a substring
-# check against the part file, so trailing colons in the actual headings
-# (e.g. "### Path A — Vibe-Coder Questions:") do not matter.
-# Keep this table in sync when editing the quoted strings in the skills.
+# Skills point the agent at their own references (references/question-bank.md,
+# references/cli-output.md) and at sibling skills (../vibe-verify/SKILL.md).
+# The CLI copies each skill folder verbatim into user projects, so a renamed or
+# missing target silently breaks the skill there. Links are checked inside
+# workflow/skills/ (the source the distributions are generated from); external
+# URLs and pure #anchors are skipped.
 # --------------------------------------------------------------------------
-def check_skill_anchors():
-    SKILL_ANCHORS = [
-        # vibe-research → part1-deepresearch.md (one row per level path)
-        ("vibe-research", "part1-deepresearch.md", "If User Selects A (Vibe-coder)"),
-        ("vibe-research", "part1-deepresearch.md", "If User Selects B (Developer)"),
-        ("vibe-research", "part1-deepresearch.md", "If User Selects C (In Between)"),
-        # vibe-prd → part2-prd-mvp.md (shared initial questions + 3 paths)
-        ("vibe-prd", "part2-prd-mvp.md", "Initial Questions for ALL Users"),
-        ("vibe-prd", "part2-prd-mvp.md", "Path A — Vibe-Coder Questions"),
-        ("vibe-prd", "part2-prd-mvp.md", "Path B — Developer Questions"),
-        ("vibe-prd", "part2-prd-mvp.md", "Path C — In-Between Questions"),
-        # vibe-techdesign → part3-tech-design-mvp.md (3 level paths)
-        ("vibe-techdesign", "part3-tech-design-mvp.md", "Path A — Vibe-Coder Questions"),
-        ("vibe-techdesign", "part3-tech-design-mvp.md", "Path B — Developer Questions"),
-        ("vibe-techdesign", "part3-tech-design-mvp.md", "Path C — In-Between Questions"),
-    ]
+SKILL_LINK = re.compile(r"\]\(([^)\s]+)\)")
+# Skills also name sibling skills and references as code spans, e.g. `../vibe-verify/SKILL.md`.
+SKILL_PATH = re.compile(r"`(\.\./[\w-]+/SKILL\.md|references/[\w./-]+\.md)`")
+
+
+def check_skill_links():
+    skills_root = REPO_ROOT / "workflow" / "skills"
+    if not skills_root.is_dir():
+        return False, "workflow/skills/ not found"
     problems = []
-    part_cache: dict = {}
-    for skill, part_name, anchor in SKILL_ANCHORS:
-        part_path = REPO_ROOT / part_name
-        if not part_path.exists():
-            problems.append(f"{part_name} not found (needed by {skill})")
-            continue
-        if part_name not in part_cache:
-            part_cache[part_name] = read_text(part_path)
-        if anchor not in part_cache[part_name]:
-            problems.append(
-                f'{skill} expects "{anchor}" in {part_name}, but it is not there — '
-                "was the section renamed? Restore the heading or update the skill "
-                "quote and this table"
-            )
+    checked = 0
+    for md in sorted(skills_root.rglob("*.md")):
+        text = read_text(md)
+        for target in SKILL_LINK.findall(text) + SKILL_PATH.findall(text):
+            if re.match(r"^[a-z][a-z0-9+.-]*:", target, re.I) or target.startswith("#"):
+                continue
+            checked += 1
+            resolved = (md.parent / target.split("#", 1)[0]).resolve()
+            if not resolved.exists():
+                problems.append(f"{md.relative_to(REPO_ROOT).as_posix()} links to missing {target}")
+            elif skills_root.resolve() not in resolved.parents:
+                problems.append(
+                    f"{md.relative_to(REPO_ROOT).as_posix()} links outside workflow/skills ({target}); "
+                    "that file is not installed into user projects"
+                )
     if problems:
         return False, "; ".join(problems)
-    return True, f"all {len(SKILL_ANCHORS)} skill anchors found in part1/part2/part3"
+    if checked == 0:
+        return False, "no relative links found in workflow/skills — expected references/ links"
+    return True, f"all {checked} relative skill link(s) resolve inside workflow/skills"
 
 
 # --------------------------------------------------------------------------
@@ -612,7 +602,7 @@ def main() -> int:
         ("6b. CITATION.cff is valid with required keys", check_citation_cff),
         ("7a. .claude/hooks/hooks.json does not exist", check_no_legacy_hooks_file),
         ("7b. .claude/settings.local.json is not committed", lambda: check_settings_local_not_committed(args.ci)),
-        ("8.  skill question-bank anchors exist in part1/part2/part3", check_skill_anchors),
+        ("8.  skill reference links resolve inside workflow/skills", check_skill_links),
         ("9.  workflow skills mention 'Handoff Context'", check_workflow_skills_handoff_context),
         ("10. all skills declare 'allowed-tools' in frontmatter", check_skills_allowed_tools),
         ("11. Markdown fences close correctly and persona outputs stay intact", check_markdown_fences),

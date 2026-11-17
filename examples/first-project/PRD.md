@@ -29,15 +29,20 @@ No accounts, sync, backend, external services, AI, or deployment. Data belongs t
 
 ## Handoff Context
 
-- App: Reading List.
-- Level: Beginner; assistant implements, owner reviews and checks.
-- Platform: Local browser page.
+<!-- Machine-readable summary for the next workflow step. Do not delete; the next prompt in the workflow reads this block. -->
+- Stage: prd
+- App name: Reading List
+- User level: A (vibe coder); the assistant implements, the owner reviews and checks.
+- Target platform: Local browser page.
 - Budget: No paid services.
 - Timeline: One small example; no delivery deadline.
-- Mode: Manual workflow; fresh chats are supported.
+- AI in product scope: no
+- Research status: Not provided; research is optional for this personal exercise.
+- Mode: Quick; manual workflow, fresh chats are supported.
 - Constraints: One browser, titles only, preserve add/remove/reload behavior.
 - Decisions: Sample scope above; implementation uses browser storage.
 - Open questions: Select the coding assistant when generating agent files.
+- Source files: none → docs/PRD-ReadingList-MVP.md
 
 ## Metadata
 

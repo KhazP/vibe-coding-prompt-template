@@ -21,7 +21,9 @@ With Python 3 installed, run inside the folder containing `index.html`:
 python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
-Open http://127.0.0.1:8000. Add “Dune” using Enter, reload, remove it, and reload again. Try a whitespace-only title. Expected results are in the PRD. **Browser verification: pending.**
+Open http://127.0.0.1:8000. Add “Dune” using Enter, reload, remove it, and reload again. Try a whitespace-only title. Expected results are in the PRD.
+
+**Browser verification (2026-11-17):** all seven PRD acceptance steps passed in Chromium 156 (Claude desktop app built-in browser) against this `index.html` served by `python -m http.server`: empty state, add with Enter (input cleared), reload keeps “Dune”, duplicate add then remove leaves one, remove and reload restores the empty state, whitespace-only titles are rejected with “Enter a book title.”, and the input and buttons show a visible focus outline. No console errors. Other browsers were not checked.
 
 Tiny follow-up: “Change the Add book button to Save book. Recheck adding, removing, and reloading.”
 

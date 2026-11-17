@@ -82,6 +82,8 @@ automatic memory.
 The `cursor/commands/`, `antigravity/workflows/`, and `codex/prompts/` files remain
 in this repository for existing setups. They are legacy wrappers, not the
 recommended installation route. New setups use the bundled skills above.
+`cursor/rules/vibe.mdc` and `antigravity/rules/vibe.md` are minimal always-on
+rule files for those clients; they defer to AGENTS.md and MEMORY.md.
 
 [Codex custom prompts are deprecated in favor of skills](https://learn.chatgpt.com/docs/custom-prompts).
 [Antigravity workflows were scheduled to retire on November 1, 2026](https://antigravity.google/docs/migration/workflows-to-skills/).
