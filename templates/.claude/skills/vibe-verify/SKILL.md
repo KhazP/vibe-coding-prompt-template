@@ -15,4 +15,6 @@ Report three separate statuses:
 
 Use available native launch/browser/device capabilities, including Claude /run or /verify only if the installed client exposes them. Reuse existing project commands and test runners. Exercise the normal journey, meaningful empty/error cases, and relevant regressions. A screenshot alone cannot prove an interactive flow works.
 
+If the project uses [e2e](https://e2e.com/docs/quickstart) (it has an `e2e.config.ts`), exercise the journey with `npx e2e run`. If it does not and the user agrees, `npx e2e init` sets it up for web or iOS/Android. The run reports pass/fail per step, which counts as behavior evidence; record the command and result.
+
 If browser/device/runtime access is unavailable, give precise manual steps and expected results and label them **Not checked**. Do not claim completion based on planned tests, documentation, or generated screenshots. Record product/tool versions, date, and limitations with evidence. Do not publish, send messages, or run paid/production actions merely to verify a feature.
