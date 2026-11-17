@@ -90,8 +90,8 @@ and fix failures caused by the change. For runtime work, exercise the relevant
 user journey when the environment permits it. Reuse still-valid results; repeat
 checks when code changes or new evidence justifies it.
 
-Report the outcome, actual checks and limitations, and rollback notes when
-relevant. If completion is blocked, identify the concrete blocker and remaining
+Report **Changed**, **Checked** (actual evidence), **Not checked**, **Next
+decision**, and **Recovery** (rollback notes, or none recorded). If completion is blocked, identify the concrete blocker and remaining
 work rather than presenting an unchecked implementation as finished.
 
 ---

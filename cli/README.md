@@ -65,7 +65,9 @@ planning mode, and template version. Existing manifests are preserved. See the
 [document contract](../docs/workflow/document-contract.md) for browser-export
 names and versioned metadata. `doctor` validates setup only and explicitly
 reports build and behavior as Not checked. Required missing metadata or
-declared placeholders fail setup even without `--strict`. Literal CSS selectors,
+declared placeholders fail setup even without `--strict`; in the PRD and Tech
+Design only the JSON metadata is checked, and full setup refuses metadata that
+still holds a template label. Literal CSS selectors,
 JSON arrays, checkboxes, and Markdown links are not unfinished template fields.
 If multiple documents match, the error lists them; select the intended file with
 `--prd` / `--techdesign` or record both paths in the manifest.

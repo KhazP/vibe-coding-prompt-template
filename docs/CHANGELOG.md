@@ -34,7 +34,7 @@ Ships with `vibeworkflow` 0.4.0.
 - **CLI setup (0.4.0):** discover root-level app-specific document names (case-insensitively), preserve resolved paths, leave reusable skills unchanged, and check only declared placeholders. Metadata diagnostics distinguish document contracts from unrelated JSON examples and find metadata inside a longer outer fence. Setup rejects metadata that still holds template labels, doctor checks only the documents' metadata (not bracketed prose or code samples), and new manifests record the installed package version.
 - **Windows maintenance:** `scripts/sync-skills.py` reads UTF-8, writes POSIX paths, and ignores CRLF checkouts when checking.
 - **Regression coverage:** CLI phase tests check MEMORY.md, with additional path, placeholder, and metadata cases.
-- **Links and dates:** a stale compatibility anchor, "retire on" for a past date, and the golden-path checklist's command and MEMORY.md items.
+- **Links and dates:** a stale compatibility anchor, future-tense wording for the November 1, 2026 Antigravity workflow retirement, and the golden-path checklist's command and MEMORY.md items.
 - **npm provenance:** `cli/package.json` had no `repository` field, so trusted publishing signed a provenance statement npm then rejected with a 422. Declared it (with `directory: "cli"`), plus `homepage` and `bugs`.
 
 ## CLI 0.3.0 — reliability and project recovery (2026-09-05)

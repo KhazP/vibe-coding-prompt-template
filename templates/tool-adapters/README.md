@@ -84,7 +84,7 @@ in this repository for existing setups. They are legacy wrappers, not the
 recommended installation route. New setups use the bundled skills above.
 
 [Codex custom prompts are deprecated in favor of skills](https://learn.chatgpt.com/docs/custom-prompts).
-[Antigravity workflows retired on November 1, 2026](https://antigravity.google/docs/migration/workflows-to-skills/).
+[Antigravity workflows were scheduled to retire on November 1, 2026](https://antigravity.google/docs/migration/workflows-to-skills/).
 When migrating, review existing wrappers and confirm that the client invokes
 the intended skill. Runtime compatibility remains unverified until that check
 is performed in the installed client.
